@@ -1,0 +1,279 @@
+{
+  "moduleId": "sd",
+  "track": "syntax",
+  "lessons": [
+    {
+      "id": "basic",
+      "difficulty": "basic",
+      "title": "Cú pháp ABAP cơ bản với dữ liệu SD (structure & SELECT JOIN)",
+      "questions": [
+        {
+          "id": "sd-syntax-basic-01",
+          "type": "multiple-choice",
+          "difficulty": "basic",
+          "question": "Trong đoạn khai báo thực tế `TYPES: BEGIN OF st_sostock, matnr TYPE mara-matnr, ..., werks TYPE mska-werks, lgort TYPE mska-lgort, sobkz TYPE mska-sobkz, kalab TYPE mska-kalab, ... END OF st_sostock.`, cú pháp `TYPE mska-werks` có nghĩa là gì?",
+          "options": [
+            "Trường werks trong structure mới sẽ có cùng kiểu dữ liệu với trường WERKS của bảng MSKA",
+            "Trường werks được tự động gán giá trị lấy từ bảng MSKA",
+            "Trường werks bắt buộc phải trùng tên với trường trong MSKA",
+            "Trường werks là khóa ngoại tham chiếu đến bảng MSKA"
+          ],
+          "answerIndex": 0,
+          "explanation": "TYPE table-field chỉ tham chiếu kiểu dữ liệu (data type/length) của trường trong bảng, không tự gán giá trị hay tạo khóa ngoại. Đây là cách khai báo structure phổ biến để đảm bảo cấu trúc dữ liệu ABAP khớp với định nghĩa Data Dictionary."
+        },
+        {
+          "id": "sd-syntax-basic-02",
+          "type": "true-false",
+          "difficulty": "basic",
+          "statement": "Đoạn code form get_sales_orders dùng `SELECT ... FROM mska INNER JOIN mara ON mska~matnr = mara~matnr INNER JOIN makt ON mara~matnr = makt~matnr AND makt~spras = @sy-langu ... INTO TABLE @lt_sale_orders.` nghĩa là dòng dữ liệu chỉ được trả về khi tồn tại bản ghi khớp ở cả 3 bảng MSKA, MARA và MAKT.",
+          "answer": true,
+          "explanation": "INNER JOIN chỉ trả về các dòng có bản ghi khớp điều kiện ON ở tất cả các bảng tham gia join; nếu 1 vật tư trong MSKA không có mô tả trong MAKT theo đúng ngôn ngữ sy-langu, dòng đó sẽ bị loại khỏi kết quả."
+        },
+        {
+          "id": "sd-syntax-basic-03",
+          "type": "fill-blank",
+          "difficulty": "basic",
+          "prompt": "Trong ABAP, để đóng một khai báo structure bắt đầu bằng `TYPES: BEGIN OF st_sostock,` ta phải kết thúc bằng dòng `___ st_sostock.`",
+          "acceptableAnswers": ["END OF st_sostock", "END OF st_sostock.", "end of st_sostock", "end of st_sostock."],
+          "explanation": "Cặp từ khóa BEGIN OF ... END OF luôn đi kèm nhau khi khai báo một structure (kiểu dữ liệu cấu trúc) trong ABAP."
+        },
+        {
+          "id": "sd-syntax-basic-04",
+          "type": "matching",
+          "difficulty": "basic",
+          "explanation": "Đây là các thành phần cú pháp cốt lõi xuất hiện trong form get_sales_orders khi truy vấn dữ liệu tồn kho gắn với đơn hàng bán (MSKA).",
+          "pairs": [
+            { "left": "TYPES: BEGIN OF ... END OF", "right": "Khai báo một structure (kiểu dữ liệu cấu trúc) mới" },
+            { "left": "INNER JOIN", "right": "Chỉ lấy dòng có bản ghi khớp ở cả hai bảng tham gia join" },
+            { "left": "INTO TABLE @lt_sale_orders", "right": "Đổ kết quả SELECT vào một internal table, dùng cú pháp inline @ (host variable)" },
+            { "left": "mska~kalab > 0", "right": "Điều kiện lọc chỉ lấy tồn kho khả dụng lớn hơn 0" }
+          ]
+        },
+        {
+          "id": "sd-syntax-basic-05",
+          "type": "multiple-choice",
+          "difficulty": "basic",
+          "question": "Ký tự `@` đứng trước tên biến trong `INTO TABLE @lt_sale_orders` hoặc `WHERE mara~matnr IN @s_matnr` dùng để làm gì trong Open SQL ABAP hiện đại?",
+          "options": [
+            "Đánh dấu đây là host variable/host expression của chương trình ABAP, phân biệt rõ với tên trường cột trong câu SQL",
+            "Bắt buộc khai báo biến là kiểu string",
+            "Chỉ định biến này là tham số import của FORM",
+            "Yêu cầu hệ thống mã hóa (encrypt) giá trị biến"
+          ],
+          "answerIndex": 0,
+          "explanation": "Trong Open SQL từ ABAP 7.40 SP08 trở lên, ký tự @ trước tên biến ABAP (host variable) giúp phân biệt rõ ràng với tên cột/bảng SQL, tránh nhầm lẫn cú pháp."
+        },
+        {
+          "id": "sd-syntax-basic-06",
+          "type": "true-false",
+          "difficulty": "basic",
+          "statement": "Trong form get_sales_orders, điều kiện `mska~kalab > 0` trong mệnh đề WHERE nhằm loại bỏ các dòng có số lượng tồn kho khả dụng gắn với đơn hàng bán bằng 0 (hoặc âm) ra khỏi kết quả.",
+          "answer": true,
+          "explanation": "KALAB là số lượng tồn kho khả dụng (valuated unrestricted-use stock) trong MSKA; lọc > 0 giúp báo cáo chỉ hiển thị các dòng thực sự còn tồn kho, tránh dữ liệu rác."
+        },
+        {
+          "id": "sd-syntax-basic-07",
+          "type": "fill-blank",
+          "difficulty": "basic",
+          "prompt": "Hoàn thiện cú pháp SELECT nối 3 bảng trong ABAP: `SELECT mara~matnr, mska~kalab, makt~maktx INTO TABLE @lt_sale_orders FROM mska INNER JOIN mara ON mska~matnr = mara~matnr ___ makt ON mara~matnr = makt~matnr AND makt~spras = @sy-langu.`",
+          "acceptableAnswers": ["INNER JOIN", "inner join"],
+          "explanation": "Muốn nối thêm bảng thứ 3, ta lặp lại cú pháp INNER JOIN <bảng> ON <điều kiện>, giống như form get_sales_orders nối MSKA -> MARA -> MAKT."
+        },
+        {
+          "id": "sd-syntax-basic-08",
+          "type": "matching",
+          "difficulty": "basic",
+          "explanation": "Alias bảng (mska, mara, makt) giúp câu SELECT ngắn gọn và rõ ràng khi tham chiếu tới trường của từng bảng trong mệnh đề JOIN.",
+          "pairs": [
+            { "left": "mska", "right": "Bảng MSKA (Sales Order Stock)" },
+            { "left": "mara", "right": "Bảng MARA (General Material Data)" },
+            { "left": "makt", "right": "Bảng MAKT (Material Descriptions)" },
+            { "left": "makt~spras = @sy-langu", "right": "Điều kiện lọc mô tả vật tư theo đúng ngôn ngữ đăng nhập" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "intermediate",
+      "difficulty": "intermediate",
+      "title": "SELECT JOIN nhiều bảng, FOR ALL ENTRIES và thao tác internal table cho dữ liệu SD",
+      "questions": [
+        {
+          "id": "sd-syntax-intermediate-01",
+          "type": "multiple-choice",
+          "difficulty": "intermediate",
+          "question": "Áp dụng cùng cách viết JOIN như trong form get_sales_orders (nối MSKA-MARA-MAKT), nếu muốn lấy đơn hàng bán kèm dòng item và chứng từ giao hàng tương ứng, cú pháp SELECT nối 3 bảng VBAK, VBAP, LIPS nào sau đây đúng chuẩn Open SQL ABAP hiện đại?",
+          "options": [
+            "SELECT a~vbeln, b~posnr, c~lfimg INTO TABLE @lt_result FROM vbak AS a INNER JOIN vbap AS b ON a~vbeln = b~vbeln INNER JOIN lips AS c ON b~vbeln = c~vgbel AND b~posnr = c~vgpos WHERE a~vbeln IN @s_vbeln.",
+            "SELECT a-vbeln, b-posnr FROM vbak a, vbap b WHERE a-vbeln = b-vbeln.",
+            "JOIN SELECT vbak, vbap, lips INTO lt_result.",
+            "SELECT * FROM vbak WITH vbap AND lips."
+          ],
+          "answerIndex": 0,
+          "explanation": "Cú pháp Open SQL ABAP hiện đại dùng AS để đặt alias, INNER JOIN ... ON để nối bảng, và INTO TABLE @host_variable để đổ kết quả; các phương án còn lại dùng cú pháp sai hoặc đã lỗi thời."
+        },
+        {
+          "id": "sd-syntax-intermediate-02",
+          "type": "true-false",
+          "difficulty": "intermediate",
+          "statement": "Giống như form get_material_valuation (`IF lt_matnr_all IS NOT INITIAL. SELECT ... FOR ALL ENTRIES IN @lt_matnr_all ...`), khi dùng FOR ALL ENTRIES trong ABAP bắt buộc phải kiểm tra internal table điều khiển (driving table) không rỗng trước khi SELECT, vì nếu bảng đó rỗng, SELECT FOR ALL ENTRIES sẽ trả về TOÀN BỘ dòng của bảng database thay vì không dòng nào.",
+          "answer": true,
+          "explanation": "Đây là một trong những lỗi kinh điển của ABAP: FOR ALL ENTRIES với bảng driving rỗng sẽ bỏ qua điều kiện liên quan và trả về toàn bộ bảng, nên luôn phải IF ... IS NOT INITIAL trước khi SELECT."
+        },
+        {
+          "id": "sd-syntax-intermediate-03",
+          "type": "fill-blank",
+          "difficulty": "intermediate",
+          "prompt": "Cú pháp ABAP để lấy dữ liệu từ bảng LIPS ứng với danh sách nhiều số đơn hàng đã có trong internal table lt_vbeln: `SELECT vbeln, posnr, lfimg FROM lips INTO TABLE @lt_lips ___ IN @lt_vbeln WHERE vbeln = @lt_vbeln-table_line.`",
+          "acceptableAnswers": ["FOR ALL ENTRIES", "for all entries"],
+          "explanation": "FOR ALL ENTRIES IN <internal table> cho phép SELECT dựa trên danh sách giá trị có sẵn trong 1 internal table, tương tự cách form get_material_valuation dùng FOR ALL ENTRIES IN @lt_matnr_all."
+        },
+        {
+          "id": "sd-syntax-intermediate-04",
+          "type": "matching",
+          "difficulty": "intermediate",
+          "explanation": "Đây là các thao tác internal table cơ bản thường gặp khi xử lý dữ liệu đơn hàng/giao hàng trong SD.",
+          "pairs": [
+            { "left": "APPEND ls_line TO lt_table", "right": "Thêm một dòng vào cuối internal table" },
+            { "left": "LOOP AT lt_table INTO DATA(ls_line)", "right": "Duyệt qua từng dòng của internal table, khai báo biến làm việc inline" },
+            { "left": "READ TABLE lt_table INTO DATA(ls_line) WITH KEY vbeln = lv_vbeln", "right": "Tìm 1 dòng cụ thể theo khóa, trả về sy-subrc = 0 nếu tìm thấy" },
+            { "left": "SORT lt_table. DELETE ADJACENT DUPLICATES FROM lt_table.", "right": "Sắp xếp rồi loại bỏ các dòng trùng lặp liền kề" }
+          ]
+        },
+        {
+          "id": "sd-syntax-intermediate-05",
+          "type": "multiple-choice",
+          "difficulty": "intermediate",
+          "question": "Sau câu lệnh `READ TABLE lt_vbak INTO DATA(ls_vbak) WITH KEY vbeln = lv_vbeln.`, làm thế nào để biết có tìm thấy dòng khớp hay không?",
+          "options": [
+            "Kiểm tra sy-subrc = 0 (bằng 0 là tìm thấy, khác 0 là không tìm thấy)",
+            "Kiểm tra ls_vbak IS INITIAL",
+            "Không cần kiểm tra gì, ls_vbak tự động rỗng nếu không tìm thấy nên luôn dùng được an toàn",
+            "Kiểm tra sy-tabix = 0"
+          ],
+          "answerIndex": 0,
+          "explanation": "Sau mọi câu lệnh READ TABLE, hệ thống set sy-subrc: 0 nghĩa là tìm thấy dòng khớp, khác 0 nghĩa là không tìm thấy. Đây là cách kiểm tra chuẩn trong ABAP."
+        },
+        {
+          "id": "sd-syntax-intermediate-06",
+          "type": "true-false",
+          "difficulty": "intermediate",
+          "statement": "Muốn dùng `DELETE ADJACENT DUPLICATES FROM lt_table` để loại bỏ đúng các dòng trùng lặp theo 1 trường (ví dụ VBELN), bắt buộc phải SORT internal table đó theo đúng trường ấy trước, vì DELETE ADJACENT DUPLICATES chỉ so sánh các dòng liền kề nhau.",
+          "answer": true,
+          "explanation": "DELETE ADJACENT DUPLICATES chỉ xóa các dòng trùng lặp đứng cạnh nhau trong bảng, nên nếu không SORT trước theo đúng khóa, các dòng trùng nằm rải rác sẽ không bị loại bỏ hết."
+        },
+        {
+          "id": "sd-syntax-intermediate-07",
+          "type": "fill-blank",
+          "difficulty": "intermediate",
+          "prompt": "Hoàn thiện dòng lệnh tìm 1 dòng LIPS khớp với đơn hàng bán và dòng item cụ thể: `READ TABLE lt_lips INTO DATA(ls_lips) ___ vgbel = lv_vbeln vgpos = lv_posnr.`",
+          "acceptableAnswers": ["WITH KEY", "with key"],
+          "explanation": "WITH KEY cho phép chỉ định nhiều điều kiện (nhiều trường) cùng lúc khi tìm kiếm 1 dòng cụ thể trong internal table."
+        },
+        {
+          "id": "sd-syntax-intermediate-08",
+          "type": "matching",
+          "difficulty": "intermediate",
+          "explanation": "Các cặp bảng header-item trong SD luôn liên kết với nhau qua một trường khóa chung, hoặc qua cặp trường tham chiếu ngược (VGBEL/VGPOS).",
+          "pairs": [
+            { "left": "VBAK - VBAP", "right": "Liên kết qua VBELN (Sales Document Number)" },
+            { "left": "LIKP - LIPS", "right": "Liên kết qua VBELN (Delivery Number)" },
+            { "left": "VBRK - VBRP", "right": "Liên kết qua VBELN (Billing Document Number)" },
+            { "left": "LIPS - VBAP", "right": "Liên kết qua VGBEL/VGPOS (tham chiếu ngược về đơn hàng gốc) với VBELN/POSNR" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "difficulty": "advanced",
+      "title": "LOOP...GROUP BY, RANGE động và xử lý số lượng/tồn kho nâng cao",
+      "questions": [
+        {
+          "id": "sd-syntax-advanced-01",
+          "type": "multiple-choice",
+          "difficulty": "advanced",
+          "question": "Cú pháp `LOOP AT lt_lips INTO DATA(ls_line) GROUP BY ( vbeln = ls_line-vbeln ) INTO DATA(ls_group). LOOP AT GROUP ls_group INTO DATA(ls_member). ... ENDLOOP. ENDLOOP.` dùng để làm gì khi xử lý dữ liệu giao hàng (LIPS)?",
+          "options": [
+            "Gom nhóm các dòng LIPS theo số chứng từ giao hàng (VBELN), sau đó với mỗi nhóm dùng LOOP AT GROUP để cộng dồn số lượng của các dòng item con trong cùng 1 delivery",
+            "Xóa toàn bộ dòng trùng lặp trong LIPS",
+            "Sắp xếp lại LIPS theo thứ tự ngẫu nhiên",
+            "Chuyển đổi kiểu dữ liệu của trường VBELN"
+          ],
+          "answerIndex": 0,
+          "explanation": "Đây là cách viết tương tự form group_calt trong code thực tế, nơi lt_output được gom nhóm theo nhiều trường rồi dùng LOOP AT GROUP để cộng dồn (+=) các trường số lượng/giá trị của từng dòng thành viên vào 1 dòng tổng."
+        },
+        {
+          "id": "sd-syntax-advanced-02",
+          "type": "true-false",
+          "difficulty": "advanced",
+          "statement": "Trước khi dùng LOOP AT ... GROUP BY (...) để gom nhóm hiệu quả, nên SORT internal table theo đúng các trường dùng làm khóa nhóm (giống form group_calt: SORT lt_output BY ersda matnr bukrs werks lgort sobkz ... trước khi LOOP ... GROUP BY), để đảm bảo các dòng cùng nhóm được xử lý đúng và liền mạch.",
+          "answer": true,
+          "explanation": "Mặc dù GROUP BY tự gom nhóm theo giá trị khóa dù bảng chưa sort, việc SORT trước giúp các dòng cùng nhóm liền kề nhau, tối ưu hiệu năng và khớp với cách viết chuẩn trong code thực tế (form group_calt)."
+        },
+        {
+          "id": "sd-syntax-advanced-03",
+          "type": "fill-blank",
+          "difficulty": "advanced",
+          "prompt": "Trong cú pháp `LOOP AT lt_output INTO DATA(ls_line) GROUP BY ( ... ) INTO DATA(ls_group). ___ GROUP ls_group INTO DATA(ls_member). ls_sum-labst += ls_member-labst. ENDLOOP.`, điền từ khóa để duyệt qua các dòng thành viên bên trong một nhóm.",
+          "acceptableAnswers": ["LOOP AT", "loop at"],
+          "explanation": "Cú pháp đầy đủ là LOOP AT GROUP ls_group INTO DATA(ls_member), cho phép duyệt qua từng dòng gốc thuộc về nhóm ls_group vừa được tạo ra từ GROUP BY."
+        },
+        {
+          "id": "sd-syntax-advanced-04",
+          "type": "matching",
+          "difficulty": "advanced",
+          "explanation": "Các cấu trúc ABAP nâng cao này thường xuất hiện cùng nhau khi xây dựng điều kiện lọc động (RANGE) hoặc gom nhóm/tính tổng dữ liệu (VALUE, LOOP AT GROUP).",
+          "pairs": [
+            { "left": "DATA: lr_vkorg TYPE RANGE OF vbak-vkorg.", "right": "Khai báo động một bảng RANGE (chứa SIGN/OPTION/LOW/HIGH) để dùng trong mệnh đề WHERE ... IN" },
+            { "left": "ls_range-sign = 'I'. ls_range-option = 'EQ'. ls_range-low = ... APPEND ls_range TO lr_vkorg.", "right": "Xây dựng từng dòng điều kiện Include/Equal rồi thêm vào bảng RANGE" },
+            { "left": "ls_sum-labst += ls_member-labst.", "right": "Cộng dồn số lượng tồn kho/giao hàng của từng dòng thành viên vào tổng của nhóm" },
+            { "left": "VALUE st_output( ersda = ls_group-ersda ... )", "right": "Khởi tạo 1 structure mới bằng constructor VALUE, gán giá trị các trường từ kết quả GROUP BY" }
+          ]
+        },
+        {
+          "id": "sd-syntax-advanced-05",
+          "type": "multiple-choice",
+          "difficulty": "advanced",
+          "question": "Trong form get_product_costing của code thực tế, biến RANGE lr_kokrs được xây dựng động bằng vòng LOOP thay vì khai báo cố định (WHERE kokrs = 'X'). Vì sao?",
+          "options": [
+            "Vì danh sách controlling area (kokrs) hợp lệ chỉ biết được sau khi SELECT ra từ lt_ctrl_area lúc runtime, nên phải xây dựng RANGE động rồi dùng kokrs IN @lr_kokrs",
+            "Vì ABAP không cho phép so sánh trực tiếp với chuỗi ký tự trong WHERE",
+            "Vì RANGE table luôn nhanh hơn điều kiện WHERE cố định trong mọi trường hợp",
+            "Vì kokrs là trường kiểu số nên bắt buộc phải dùng RANGE"
+          ],
+          "answerIndex": 0,
+          "explanation": "Khi giá trị lọc không cố định mà phụ thuộc vào dữ liệu đã truy vấn trước đó (ở đây là danh sách kokrs lấy từ lt_ctrl_area), ta phải xây dựng RANGE động lúc runtime rồi dùng trong mệnh đề IN, thay vì hard-code giá trị cố định."
+        },
+        {
+          "id": "sd-syntax-advanced-06",
+          "type": "true-false",
+          "difficulty": "advanced",
+          "statement": "Khi khai báo `DATA: lr_kokrs TYPE RANGE OF tka02-kokrs, ls_kokrs LIKE LINE OF lr_kokrs.`, các trường mặc định có trong mỗi dòng của bảng RANGE là SIGN, OPTION, LOW, HIGH.",
+          "answer": true,
+          "explanation": "Mọi bảng kiểu RANGE OF <type> trong ABAP đều tự động có cấu trúc gồm 4 trường: SIGN (Include/Exclude), OPTION (EQ/BT/CP...), LOW và HIGH, dùng để mô tả điều kiện lọc cho mệnh đề WHERE ... IN."
+        },
+        {
+          "id": "sd-syntax-advanced-07",
+          "type": "fill-blank",
+          "difficulty": "advanced",
+          "prompt": "Hoàn thiện dòng gán điều kiện Include/Equal khi xây dựng RANGE động: `ls_kokrs-___ = 'I'. ls_kokrs-option = 'EQ'. ls_kokrs-low = wa_ctrl_area-kokrs.`",
+          "acceptableAnswers": ["sign", "SIGN"],
+          "explanation": "Trường SIGN xác định điều kiện là Include ('I') hay Exclude ('E'); kết hợp với OPTION (vd 'EQ') và LOW/HIGH để tạo thành 1 dòng điều kiện lọc trong bảng RANGE."
+        },
+        {
+          "id": "sd-syntax-advanced-08",
+          "type": "matching",
+          "difficulty": "advanced",
+          "explanation": "Tổ hợp SIGN + OPTION quyết định ý nghĩa của từng dòng điều kiện trong bảng RANGE khi dùng trong mệnh đề WHERE field IN range_table.",
+          "pairs": [
+            { "left": "SIGN = 'I', OPTION = 'EQ'", "right": "Bao gồm (Include) các dòng bằng chính xác giá trị LOW" },
+            { "left": "SIGN = 'E', OPTION = 'EQ'", "right": "Loại trừ (Exclude) các dòng bằng giá trị LOW" },
+            { "left": "SIGN = 'I', OPTION = 'BT'", "right": "Bao gồm các dòng nằm trong khoảng từ LOW đến HIGH (Between)" },
+            { "left": "SIGN = 'I', OPTION = 'CP'", "right": "Bao gồm các dòng khớp mẫu ký tự đại diện (Contains Pattern, dùng dấu *)" }
+          ]
+        }
+      ]
+    }
+  ]
+}

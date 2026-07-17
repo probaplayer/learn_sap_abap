@@ -1,0 +1,16 @@
+{
+  "id": "zday9-exe-01-1",
+  "title": "ALV hãng bay + chuyến bay với field catalog khai tay",
+  "category": "alv",
+  "difficulty": "basic",
+  "relatedExerciseIds": ["zday9-exe-01-2"],
+  "sourceFiles": ["zday9_exe_01_1_anhbhn.abap"],
+  "problemStatement": "JOIN 2 bảng demo kinh điển của SAP (SCARR - hãng bay, SPFLI - chuyến bay) để hiển thị danh sách mã hãng, tên hãng, số hiệu chuyến, thành phố đi/đến bằng ALV Grid, với field catalog được khai báo thủ công từng cột (không dùng hàm tự sinh).",
+  "concepts": [
+    "SELECT ... JOIN ... INTO TABLE @itab",
+    "Khai field catalog thủ công (slis_fieldcat_alv) từng cột: fieldname, seltext_l, tabname, col_pos"
+  ],
+  "tablesUsed": ["SCARR", "SPFLI"],
+  "walkthrough": "Bài mở đầu cho chuỗi bài ALV, dùng đúng 2 bảng demo bay kinh điển mà ai học ABAP cũng gặp đầu tiên: SCARR (hãng bay) và SPFLI (đường bay/chuyến bay), JOIN qua `carrid`. Điểm học chính là cách khai field catalog 'thủ công' — với MỖI cột muốn hiển thị, code tự gán từng thuộc tính (`fieldname`, `seltext_l` - tiêu đề cột, `tabname`, `col_pos` - thứ tự cột) rồi APPEND vào bảng field catalog, thay vì để hệ thống tự sinh. Cách này tốn công hơn nhưng kiểm soát chính xác 100% những gì hiển thị — nên so sánh với bài zday9-exe-01-2 (dùng field catalog tự sinh) để thấy rõ sự khác biệt.",
+  "sampleOutput": "**⚠️ Kết quả minh họa, không phải chạy trên hệ thống SAP thật.**\n\n```\nAirline Code   Airline           No    Depart City   Arrival City\nLH             Lufthansa         0400  Frankfurt     New York\nAA             American Airlines 0017  New York      San Francisco\n```"
+}

@@ -1,0 +1,63 @@
+[
+  {
+    "id": "SKA1",
+    "name": "SKA1 - G/L Account Master (Chart of Accounts)",
+    "module": "fi-gl",
+    "purpose": "Lưu dữ liệu tài khoản GL ở cấp chart of accounts (KTOPL) - phần dữ liệu dùng chung cho mọi company code sử dụng cùng chart of accounts, ví dụ account group (KTOKS) và loại tài khoản (balance sheet hay P&L).",
+    "whereUsed": "Transaction FS00 (tạo/hiển thị/thay đổi tài khoản GL trung tâm), FSP0 (chỉ dữ liệu chart of accounts); là bảng nền tảng khi tạo mới một tài khoản GL trước khi extend sang company code.",
+    "keyFields": [
+      { "field": "SAKNR", "description": "Số tài khoản GL (G/L account number)" },
+      { "field": "KTOPL", "description": "Chart of accounts (bảng hệ thống tài khoản)" },
+      { "field": "KTOKS", "description": "Account group - nhóm tài khoản, kiểm soát dải số và field status" },
+      { "field": "XBILK", "description": "Cờ đánh dấu tài khoản thuộc bảng cân đối kế toán (balance sheet account)" },
+      { "field": "GVTYP", "description": "Loại P&L statement account type (nếu không phải balance sheet account)" }
+    ],
+    "relatedTables": ["SKB1", "SKAT", "T001"]
+  },
+  {
+    "id": "SKB1",
+    "name": "SKB1 - G/L Account Master (Company Code)",
+    "module": "fi-gl",
+    "purpose": "Lưu dữ liệu tài khoản GL ở cấp company code (BUKRS) - phần dữ liệu riêng cho từng công ty sử dụng tài khoản đó, gồm tiền tệ, field status group, và các thiết lập kiểm soát bút toán.",
+    "whereUsed": "Transaction FS00/FS01 khi extend một tài khoản GL từ chart of accounts sang một company code cụ thể; kiểm tra bởi các bút toán FB50, FB60 khi ghi sổ.",
+    "keyFields": [
+      { "field": "SAKNR", "description": "Số tài khoản GL (khóa ngoại tới SKA1)" },
+      { "field": "BUKRS", "description": "Mã company code (khóa ngoại tới T001)" },
+      { "field": "WAERS", "description": "Loại tiền tệ của tài khoản trong company code này" },
+      { "field": "FSTAG", "description": "Field status group - quy định field nào bắt buộc/tùy chọn/ẩn khi ghi bút toán" },
+      { "field": "XLOEV", "description": "Cờ đánh dấu tài khoản đã bị đánh dấu xóa (deletion flag)" },
+      { "field": "MITKZ", "description": "Chỉ báo tài khoản quản lý theo reconciliation account (sổ phụ)" }
+    ],
+    "relatedTables": ["SKA1", "SKAT", "T001"]
+  },
+  {
+    "id": "SKAT",
+    "name": "SKAT - G/L Account Descriptions",
+    "module": "fi-gl",
+    "purpose": "Lưu mô tả (tên gọi) của tài khoản GL theo từng ngôn ngữ, gồm mô tả ngắn (20 ký tự) và mô tả dài (50 ký tự), cho phép hiển thị đa ngôn ngữ khi tra cứu tài khoản.",
+    "whereUsed": "Transaction FS00 (tab mô tả tài khoản), các báo cáo hiển thị tên tài khoản GL theo ngôn ngữ đăng nhập của người dùng.",
+    "keyFields": [
+      { "field": "SPRAS", "description": "Mã ngôn ngữ (language key) của mô tả" },
+      { "field": "KTOPL", "description": "Chart of accounts tương ứng" },
+      { "field": "SAKNR", "description": "Số tài khoản GL" },
+      { "field": "TXT20", "description": "Mô tả ngắn của tài khoản (short text, 20 ký tự)" },
+      { "field": "TXT50", "description": "Mô tả dài của tài khoản (long text, 50 ký tự)" }
+    ],
+    "relatedTables": ["SKA1", "SKB1"]
+  },
+  {
+    "id": "T001",
+    "name": "T001 - Company Codes",
+    "module": "fi-gl",
+    "purpose": "Bảng master data lưu thông tin company code - đơn vị pháp nhân hạch toán độc lập trong SAP, gồm tên công ty, địa chỉ, chart of accounts sử dụng, tiền tệ hạch toán.",
+    "whereUsed": "Transaction OX02 (định nghĩa company code), là điều kiện tiên quyết để extend tài khoản GL (SKB1) hoặc thực hiện bất kỳ bút toán tài chính nào trong FI.",
+    "keyFields": [
+      { "field": "BUKRS", "description": "Mã company code (4 ký tự)" },
+      { "field": "BUTXT", "description": "Tên công ty (company name)" },
+      { "field": "KTOPL", "description": "Chart of accounts được gán cho company code này" },
+      { "field": "WAERS", "description": "Đồng tiền hạch toán (company code currency)" },
+      { "field": "LAND1", "description": "Mã quốc gia của công ty" }
+    ],
+    "relatedTables": ["SKB1", "SKA1"]
+  }
+]

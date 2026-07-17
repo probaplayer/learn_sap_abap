@@ -1,0 +1,18 @@
+{
+  "id": "zday5-exe-03",
+  "title": "Tìm kiếm nhân viên trong bộ nhớ (SELECT trên internal table) + ALV OO",
+  "category": "alv",
+  "difficulty": "intermediate",
+  "relatedExerciseIds": ["zday9-exe-01-1", "zday9-exe-01-2"],
+  "sourceFiles": ["zday5_exe_03_anhbhn.abap"],
+  "problemStatement": "Tạo sẵn dữ liệu nhân viên mẫu trong bộ nhớ (không đọc từ bảng SAP nào). Cho phép tìm kiếm theo nhiều tiêu chí kết hợp: khoảng mã nhân viên, tên, địa chỉ, email theo mẫu (LIKE/CONTAINS), khoảng phòng ban. Hiển thị kết quả bằng ALV hướng đối tượng (cl_salv_table).",
+  "concepts": [
+    "SELECT ... FROM @internal_table AS alias (SELECT ngay trên biến ABAP thay vì bảng DB)",
+    "cl_salv_table=>factory (ALV OO)",
+    "get_columns / set_short_text (tùy chỉnh tiêu đề cột)",
+    "Xử lý exception cx_salv_*"
+  ],
+  "tablesUsed": [],
+  "walkthrough": "Điểm đặc biệt của bài này là dùng cú pháp `SELECT ... FROM @lt_employee AS e` — SELECT chạy trực tiếp trên 1 internal table trong bộ nhớ (ABAP cho phép coi 1 internal table như 1 'bảng ảo' để dùng WHERE/JOIN y hệt SQL), thay vì phải tự viết LOOP AT với nhiều điều kiện IF lồng nhau. Điều kiện tìm kiếm được ráp động (chỉ thêm WHERE clause cho field nào người dùng có nhập). Kết quả cuối cùng hiển thị bằng ALV hướng đối tượng: `cl_salv_table=>factory` tạo instance ALV, `get_columns( )-&gt;get_column( 'X' )-&gt;set_short_text( 'Y' )` đổi tên cột hiển thị, bọc trong `TRY...CATCH cx_salv_msg`/`cx_salv_not_found` để xử lý lỗi runtime của class ALV OO.",
+  "sampleOutput": "**⚠️ Kết quả minh họa, không phải chạy trên hệ thống SAP thật.**\n\n```\nMã NV   Tên              Phòng ban   Email\n001     Nguyễn Văn A      IT          a.nguyen@company.com\n003     Trần Thị B        IT          b.tran@company.com\n```\n(Tìm theo email chứa \"company.com\" và phòng ban trong khoảng IT-IT)"
+}

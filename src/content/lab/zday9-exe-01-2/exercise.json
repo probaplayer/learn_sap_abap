@@ -1,0 +1,16 @@
+{
+  "id": "zday9-exe-01-2",
+  "title": "ALV toàn bộ SFLIGHT với field catalog tự sinh",
+  "category": "alv",
+  "difficulty": "basic",
+  "relatedExerciseIds": ["zday9-exe-01-1"],
+  "sourceFiles": ["zday9_exe_01_2_anhbhn.abap"],
+  "problemStatement": "Hiển thị toàn bộ dữ liệu bảng SFLIGHT bằng ALV, nhưng lần này để hệ thống TỰ SINH field catalog từ cấu trúc dữ liệu, sau đó chỉnh sửa lại field catalog đã sinh (ẩn bớt cột, đổi thứ tự cột) thay vì khai từ đầu.",
+  "concepts": [
+    "FIELDCATALOG_MERGE (tự sinh field catalog từ cấu trúc)",
+    "Chỉnh sửa field catalog sau khi merge (ẩn cột, đổi col_pos)"
+  ],
+  "tablesUsed": ["SFLIGHT"],
+  "walkthrough": "Bài này nên học nối tiếp ngay sau zday9-exe-01-1 để đối chiếu 2 cách tiếp cận field catalog: thay vì khai tay từng cột, code gọi hàm merge field catalog để hệ thống tự động sinh ra đầy đủ field catalog dựa trên cấu trúc của internal table SFLIGHT (đọc DDIC để lấy tên cột, độ dài, kiểu dữ liệu...). Sau khi có field catalog tự sinh, code LOOP qua nó để chỉnh lại: đặt cờ ẩn cho vài cột không cần thiết, đổi số thứ tự cột (`col_pos`) cho vài cột muốn ưu tiên hiển thị trước. Cách này nhanh hơn khai tay nhưng phải hiểu rõ cấu trúc field catalog để chỉnh đúng chỗ.",
+  "sampleOutput": "**⚠️ Kết quả minh họa, không phải chạy trên hệ thống SAP thật.**\n\n```\nCarrier  Connection  Date         Price      Seats Free\nLH       0400        15.08.2026   450.00 EUR   12\nAA       0017        16.08.2026   380.00 USD    5\n```\n(Cột kỹ thuật như MANDT, PLANETYPE đã bị ẩn khỏi field catalog sau khi merge)"
+}

@@ -1,0 +1,94 @@
+[
+  {
+    "id": "MARA",
+    "name": "MARA - General Material Data",
+    "module": "mm",
+    "purpose": "Lưu dữ liệu chung của vật tư (material master), không phân biệt theo nhà máy (plant) hay công ty. Mỗi vật tư (MATNR) chỉ có đúng 1 dòng trong MARA, chứa các thuộc tính cấp toàn hệ thống như loại vật tư (MTART), nhóm vật tư (MATKL), đơn vị tính cơ bản (MEINS).",
+    "whereUsed": "Được tạo/đổi/xem qua transaction MM01 (Create), MM02 (Change), MM03 (Display). Là bảng gốc mà hầu hết các báo cáo và giao dịch liên quan đến vật tư (mua hàng, sản xuất, bán hàng, tồn kho) đều SELECT hoặc JOIN tới để lấy thông tin cơ bản của vật tư.",
+    "keyFields": [
+      { "field": "MATNR", "description": "Mã vật tư (Material Number) - khóa chính" },
+      { "field": "MTART", "description": "Loại vật tư (Material Type), vd FERT/HALB/ROH" },
+      { "field": "MATKL", "description": "Nhóm vật tư (Material Group)" },
+      { "field": "MEINS", "description": "Đơn vị tính cơ bản (Base Unit of Measure)" },
+      { "field": "BRGEW", "description": "Trọng lượng gộp (Gross Weight)" },
+      { "field": "SPART", "description": "Lĩnh vực kinh doanh (Division)" }
+    ],
+    "relatedTables": ["MARC", "MARD", "MAKT", "MBEW"]
+  },
+  {
+    "id": "MARC",
+    "name": "MARC - Plant Data for Material",
+    "module": "mm",
+    "purpose": "Lưu dữ liệu vật tư theo từng nhà máy (plant/WERKS): thông số MRP (lập kế hoạch nhu cầu vật tư), thời gian giao hàng nội bộ (lead time), người lập kế hoạch (MRP controller), profile mua hàng. Mỗi vật tư có 1 dòng MARC cho mỗi plant mà nó được sử dụng.",
+    "whereUsed": "Duy trì qua view 'MRP'/'Purchasing'/'Work Scheduling' trong MM01/MM02/MM03. Được MRP run (MD01/MD04) và các báo cáo lập kế hoạch sản xuất, mua hàng đọc để xác định cách bổ sung vật tư cho từng nhà máy.",
+    "keyFields": [
+      { "field": "MATNR", "description": "Mã vật tư" },
+      { "field": "WERKS", "description": "Mã nhà máy (Plant) - cùng MATNR tạo khóa chính" },
+      { "field": "DISMM", "description": "Loại lập kế hoạch MRP (MRP Type)" },
+      { "field": "DISPO", "description": "Người lập kế hoạch MRP (MRP Controller)" },
+      { "field": "PLIFZ", "description": "Thời gian giao hàng dự kiến (Planned Delivery Time)" },
+      { "field": "EKGRP", "description": "Nhóm mua hàng (Purchasing Group)" }
+    ],
+    "relatedTables": ["MARA", "MARD", "MBEW"]
+  },
+  {
+    "id": "MARD",
+    "name": "MARD - Storage Location Data for Material",
+    "module": "mm",
+    "purpose": "Lưu số lượng tồn kho vật tư chi tiết theo nhà máy (WERKS) và kho hàng/storage location (LGORT). Đây là bảng cấp thấp nhất về mặt tổ chức tồn kho vật lý, chứa số lượng tồn kho khả dụng (LABST), tồn kho phong tỏa (INSME), tồn kho đang kiểm kê (SPEME).",
+    "whereUsed": "Số liệu được cập nhật tự động khi thực hiện các giao dịch xuất/nhập kho như MB1C (nhập kho), MIGO (goods movement), MB1A (xuất kho). Được xem trực tiếp qua MMBE (Stock Overview) hoặc MM03 view 'Storage'.",
+    "keyFields": [
+      { "field": "MATNR", "description": "Mã vật tư" },
+      { "field": "WERKS", "description": "Mã nhà máy (Plant)" },
+      { "field": "LGORT", "description": "Mã kho hàng (Storage Location)" },
+      { "field": "LABST", "description": "Tồn kho khả dụng không hạn chế (Unrestricted-Use Stock)" },
+      { "field": "INSME", "description": "Tồn kho kiểm định chất lượng/phong tỏa" },
+      { "field": "SPEME", "description": "Tồn kho bị chặn (Blocked Stock)" }
+    ],
+    "relatedTables": ["MARA", "MARC", "MBEW"]
+  },
+  {
+    "id": "MAKT",
+    "name": "MAKT - Material Descriptions",
+    "module": "mm",
+    "purpose": "Lưu tên/mô tả của vật tư (MAKTX) theo từng ngôn ngữ (SPRAS). Vì MARA không lưu mô tả trực tiếp, mọi báo cáo cần hiển thị tên vật tư đều phải JOIN sang MAKT và lọc theo ngôn ngữ đăng nhập (thường là SY-LANGU).",
+    "whereUsed": "Được duy trì cùng lúc khi tạo/đổi vật tư qua MM01/MM02 (trường Material Description). Hầu như mọi báo cáo ABAP hiển thị danh sách vật tư đều SELECT ... INNER JOIN makt ... WHERE makt~spras = sy-langu để lấy đúng mô tả theo ngôn ngữ.",
+    "keyFields": [
+      { "field": "MATNR", "description": "Mã vật tư" },
+      { "field": "SPRAS", "description": "Mã ngôn ngữ (Language Key), cùng MATNR tạo khóa chính" },
+      { "field": "MAKTX", "description": "Mô tả vật tư (Material Description)" }
+    ],
+    "relatedTables": ["MARA"]
+  },
+  {
+    "id": "MBEW",
+    "name": "MBEW - Material Valuation",
+    "module": "mm",
+    "purpose": "Lưu dữ liệu định giá vật tư (valuation) theo valuation area/plant (BWKEY): giá chuẩn (STPRS), giá di động bình quân (VERPR), giá trị tồn kho theo sổ sách (SALK3), số lượng tồn kho định giá (LBKUM). Đây là bảng nối giữa tồn kho vật lý (MARD) và giá trị tài chính của tồn kho đó.",
+    "whereUsed": "Dữ liệu được cập nhật khi chạy tính giá thành (CK11N/CK24 release cost estimate) hoặc khi có giao dịch hàng hóa ảnh hưởng đến giá trị tồn kho. CO đọc MBEW để lấy giá chuẩn (STPRS) dùng làm cost estimate; FI dùng SALK3 để đối chiếu giá trị tồn kho trên sổ cái.",
+    "keyFields": [
+      { "field": "MATNR", "description": "Mã vật tư" },
+      { "field": "BWKEY", "description": "Valuation area (thường = mã công ty/plant định giá)" },
+      { "field": "STPRS", "description": "Giá chuẩn (Standard Price)" },
+      { "field": "PEINH", "description": "Đơn vị giá (Price Unit) - dùng để chia khi tính đơn giá thực" },
+      { "field": "SALK3", "description": "Giá trị tồn kho theo sổ sách (Value of Total Valuated Stock)" },
+      { "field": "LBKUM", "description": "Số lượng tồn kho định giá (Total Valuated Stock Quantity)" }
+    ],
+    "relatedTables": ["MARA", "MARC", "MARD", "T001W"]
+  },
+  {
+    "id": "T001W",
+    "name": "T001W - Plants/Branches",
+    "module": "mm",
+    "purpose": "Bảng master data định nghĩa nhà máy (plant/WERKS): tên plant, công ty (BWKEY liên kết đến valuation area), địa chỉ, mã quốc gia. Là 1 phần của cấu trúc tổ chức doanh nghiệp (enterprise structure) mà mọi dữ liệu MM theo plant (MARC, MARD, MBEW) đều tham chiếu tới.",
+    "whereUsed": "Được cấu hình trong Customizing (SPRO > Enterprise Structure > Definition > Logistics - General > Define/Copy/Delete/Check Plant), transaction OX10. Các báo cáo lấy tên/thuộc tính plant để hiển thị đều JOIN với T001W qua WERKS.",
+    "keyFields": [
+      { "field": "WERKS", "description": "Mã nhà máy (Plant) - khóa chính" },
+      { "field": "NAME1", "description": "Tên nhà máy" },
+      { "field": "BWKEY", "description": "Valuation area gắn với plant (thường trùng WERKS)" },
+      { "field": "LAND1", "description": "Mã quốc gia" },
+      { "field": "ORT01", "description": "Thành phố" }
+    ],
+    "relatedTables": ["MARC", "MARD", "MBEW"]
+  }
+]

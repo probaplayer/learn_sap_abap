@@ -1,0 +1,116 @@
+[
+  {
+    "id": "VBAK",
+    "name": "VBAK - Sales Document: Header Data",
+    "module": "sd",
+    "purpose": "Lưu dữ liệu header (phần đầu) của chứng từ bán hàng (sales document): loại đơn hàng (sales document type), khách hàng đặt hàng (sold-to party), tổ chức bán hàng (sales organization), ngày chứng từ, điều kiện thanh toán tổng quát. Mỗi chứng từ bán hàng (VBELN) chỉ có đúng 1 dòng trong VBAK, đại diện cho toàn bộ đơn hàng bất kể có bao nhiêu dòng item.",
+    "whereUsed": "Được tạo/đổi/xem qua transaction VA01 (Create Sales Order), VA02 (Change), VA03 (Display), là bước đầu tiên trong quy trình Order-to-Cash. Các báo cáo theo dõi đơn hàng bán, backlog, tình trạng giao hàng đều SELECT từ VBAK để lấy thông tin tổng quát của đơn hàng.",
+    "keyFields": [
+      { "field": "VBELN", "description": "Số chứng từ bán hàng (Sales Document Number) - khóa chính" },
+      { "field": "AUART", "description": "Loại đơn hàng (Sales Document Type), vd OR = Standard Order" },
+      { "field": "VKORG", "description": "Tổ chức bán hàng (Sales Organization)" },
+      { "field": "VTWEG", "description": "Kênh phân phối (Distribution Channel)" },
+      { "field": "KUNNR", "description": "Mã khách hàng đặt hàng (Sold-to Party)" },
+      { "field": "AUDAT", "description": "Ngày lập chứng từ (Document Date)" },
+      { "field": "NETWR", "description": "Giá trị ròng của toàn bộ đơn hàng (Net Value)" }
+    ],
+    "relatedTables": ["VBAP", "LIKP", "VBRK"]
+  },
+  {
+    "id": "VBAP",
+    "name": "VBAP - Sales Document: Item Data",
+    "module": "sd",
+    "purpose": "Lưu dữ liệu chi tiết từng dòng item của chứng từ bán hàng: vật tư (MATNR), số lượng đặt hàng, đơn vị tính, giá trị dòng, plant giao hàng. Một VBAK (header) có thể có nhiều dòng VBAP tương ứng với nhiều vật tư khác nhau trong cùng 1 đơn hàng.",
+    "whereUsed": "Được duy trì cùng lúc với VBAK qua VA01/VA02/VA03 khi nhập từng dòng vật tư trong đơn hàng. Là nguồn dữ liệu cho Availability Check (kiểm tra tồn kho khả dụng) và cho việc tạo outbound delivery (LIPS) khi giao hàng.",
+    "keyFields": [
+      { "field": "VBELN", "description": "Số chứng từ bán hàng (liên kết tới VBAK)" },
+      { "field": "POSNR", "description": "Số dòng item (Item Number), cùng VBELN tạo khóa chính" },
+      { "field": "MATNR", "description": "Mã vật tư (Material Number)" },
+      { "field": "WERKS", "description": "Nhà máy/plant giao hàng (Delivering Plant)" },
+      { "field": "KWMENG", "description": "Số lượng đặt hàng (Order Quantity)" },
+      { "field": "NETWR", "description": "Giá trị ròng của dòng item (Net Value)" }
+    ],
+    "relatedTables": ["VBAK", "LIPS", "VBRP"]
+  },
+  {
+    "id": "LIKP",
+    "name": "LIKP - SD Document: Delivery Header Data",
+    "module": "sd",
+    "purpose": "Lưu dữ liệu header của chứng từ giao hàng (outbound delivery): điểm xuất kho (shipping point), ngày giao hàng theo kế hoạch, trạng thái đóng gói/xuất kho. Đây là bước thứ 2 trong quy trình Order-to-Cash, được tạo dựa trên đơn hàng bán VBAK/VBAP đã đến hạn giao.",
+    "whereUsed": "Được tạo qua transaction VL01N (Create Outbound Delivery), xử lý picking/packing qua VL02N, và xác nhận goods issue (xuất kho thực tế) qua VL02N/PGI. Các báo cáo theo dõi tình trạng giao hàng, on-time delivery đều SELECT từ LIKP.",
+    "keyFields": [
+      { "field": "VBELN", "description": "Số chứng từ giao hàng (Delivery Number) - khóa chính" },
+      { "field": "LFART", "description": "Loại chứng từ giao hàng (Delivery Type)" },
+      { "field": "KUNNR", "description": "Mã khách hàng nhận hàng (Ship-to Party)" },
+      { "field": "LFDAT", "description": "Ngày giao hàng theo kế hoạch (Delivery Date)" },
+      { "field": "WADAT_IST", "description": "Ngày xuất kho thực tế (Actual Goods Issue Date)" },
+      { "field": "WBSTK", "description": "Trạng thái xuất kho tổng thể (Overall Goods Movement Status)" }
+    ],
+    "relatedTables": ["LIPS", "VBAK", "VBRK"]
+  },
+  {
+    "id": "LIPS",
+    "name": "LIPS - SD Document: Delivery Item Data",
+    "module": "sd",
+    "purpose": "Lưu dữ liệu chi tiết từng dòng item của chứng từ giao hàng: vật tư, số lượng giao thực tế, tham chiếu ngược lại tới đơn hàng bán gốc (VBELV/POSNV). Số lượng giao (LFIMG) có thể khác số lượng đặt hàng ban đầu nếu giao hàng từng phần.",
+    "whereUsed": "Được tạo cùng LIKP qua VL01N, cập nhật khi picking/packing/goods issue qua VL02N. Khi goods issue được xác nhận (PGI), hệ thống tự động giảm tồn kho tương ứng trong MARD/MSKA và cho phép tạo billing document (VBRP) từ LIPS.",
+    "keyFields": [
+      { "field": "VBELN", "description": "Số chứng từ giao hàng (liên kết tới LIKP)" },
+      { "field": "POSNR", "description": "Số dòng item giao hàng, cùng VBELN tạo khóa chính" },
+      { "field": "MATNR", "description": "Mã vật tư (Material Number)" },
+      { "field": "VGBEL", "description": "Số chứng từ tham chiếu - đơn hàng bán gốc (Reference Document, thường = VBAK-VBELN)" },
+      { "field": "VGPOS", "description": "Số dòng item tham chiếu trong đơn hàng bán gốc" },
+      { "field": "LFIMG", "description": "Số lượng giao hàng thực tế (Actual Delivery Quantity)" }
+    ],
+    "relatedTables": ["LIKP", "VBAP", "VBRP"]
+  },
+  {
+    "id": "VBRK",
+    "name": "VBRK - Billing Document: Header Data",
+    "module": "sd",
+    "purpose": "Lưu dữ liệu header của chứng từ hóa đơn (billing document): loại hóa đơn, ngày xuất hóa đơn, khách hàng nhận hóa đơn, trạng thái đã chuyển sang FI hay chưa (FKSTO, RFBSK). Đây là bước cuối cùng trong quy trình Order-to-Cash, biến giao hàng/dịch vụ đã thực hiện thành doanh thu ghi nhận về mặt kế toán.",
+    "whereUsed": "Được tạo qua transaction VF01 (Create Billing Document), thay đổi/hủy qua VF02/VF11. Khi lưu, hệ thống tự động sinh bút toán kế toán (accounting document) trong FI-GL và FI-AR thông qua trường VBRK-VBELN liên kết tới bảng BKPF/BSEG bên FI.",
+    "keyFields": [
+      { "field": "VBELN", "description": "Số chứng từ hóa đơn (Billing Document Number) - khóa chính" },
+      { "field": "FKART", "description": "Loại hóa đơn (Billing Type), vd F2 = Invoice" },
+      { "field": "KUNRG", "description": "Mã khách hàng nhận hóa đơn (Payer)" },
+      { "field": "FKDAT", "description": "Ngày lập hóa đơn (Billing Date)" },
+      { "field": "NETWR", "description": "Giá trị ròng của toàn bộ hóa đơn (Net Value)" },
+      { "field": "FKSTO", "description": "Cờ đánh dấu hóa đơn đã bị hủy (Billing Document Cancelled)" }
+    ],
+    "relatedTables": ["VBRP", "LIKP", "VBAK"]
+  },
+  {
+    "id": "VBRP",
+    "name": "VBRP - Billing Document: Item Data",
+    "module": "sd",
+    "purpose": "Lưu dữ liệu chi tiết từng dòng item của hóa đơn: vật tư, số lượng tính hóa đơn, giá trị dòng, tham chiếu ngược lại tới chứng từ giao hàng gốc (VGBEL/VGPOS). Là nguồn số liệu chi tiết để đối chiếu doanh thu ghi nhận trong FI với từng đơn hàng/giao hàng cụ thể.",
+    "whereUsed": "Được tạo cùng VBRK qua VF01. Các báo cáo phân tích doanh thu theo vật tư, theo khách hàng, hoặc đối chiếu Order-to-Cash (VBAK-LIKP-VBRK) đều JOIN qua VBRP để lấy chi tiết dòng hóa đơn.",
+    "keyFields": [
+      { "field": "VBELN", "description": "Số chứng từ hóa đơn (liên kết tới VBRK)" },
+      { "field": "POSNR", "description": "Số dòng item hóa đơn, cùng VBELN tạo khóa chính" },
+      { "field": "MATNR", "description": "Mã vật tư (Material Number)" },
+      { "field": "VGBEL", "description": "Số chứng từ tham chiếu - chứng từ giao hàng gốc (thường = LIKP-VBELN)" },
+      { "field": "FKIMG", "description": "Số lượng tính hóa đơn (Billing Quantity)" },
+      { "field": "NETWR", "description": "Giá trị ròng của dòng hóa đơn (Net Value)" }
+    ],
+    "relatedTables": ["VBRK", "LIPS", "VBAP"]
+  },
+  {
+    "id": "MSKA",
+    "name": "MSKA - Sales Order Stock",
+    "module": "sd",
+    "purpose": "Lưu tồn kho đặc biệt (special stock) gắn với từng đơn hàng bán cụ thể (sales order stock, special stock indicator SOBKZ = 'E'), dùng cho vật tư sản xuất/mua theo đơn (make-to-order). Khác với MARD (tồn kho tự do dùng chung cho mọi đơn hàng), tồn kho trong MSKA bị 'khóa' riêng, chỉ được xuất cho đúng đơn hàng bán (VBELN) và dòng item (POSNR) mà nó gắn với.",
+    "whereUsed": "Được cập nhật tự động khi nhập kho/xuất kho có tham chiếu đơn hàng bán (goods movement với account assignment category = sales order), xem qua MMBE (Stock Overview) hoặc MD04. Trong code thực tế của người dùng, bảng này được dùng trong báo cáo tính giá trị tồn kho theo chi phí (costing report): structure st_sostock (khai báo trong zco_inventory_costs_anhbhn_top.abap với các trường mska-werks, mska-lgort, mska-sobkz, mska-kalab) và form get_sales_orders (trong zco_inventory_costs_anhbhn_f01.abap) thực hiện SELECT ... FROM mska INNER JOIN mara ... INNER JOIN makt ... để lấy tồn kho khả dụng gắn với đơn hàng bán (mska-kalab) rồi nhân với đơn giá chuẩn/giá thành để tính giá trị tồn kho, gộp chung với tồn kho tự do từ MARD trong cùng một báo cáo.",
+    "keyFields": [
+      { "field": "MATNR", "description": "Mã vật tư (Material Number)" },
+      { "field": "WERKS", "description": "Mã nhà máy (Plant)" },
+      { "field": "LGORT", "description": "Mã kho hàng (Storage Location)" },
+      { "field": "VBELN", "description": "Số đơn hàng bán mà tồn kho này gắn với (Sales Order Number)" },
+      { "field": "POSNR", "description": "Số dòng item của đơn hàng bán (Sales Order Item)" },
+      { "field": "SOBKZ", "description": "Chỉ số tồn kho đặc biệt (Special Stock Indicator), = 'E' cho sales order stock" },
+      { "field": "KALAB", "description": "Số lượng tồn kho khả dụng không hạn chế gắn với đơn hàng (Valuated Unrestricted-Use Stock)" }
+    ],
+    "relatedTables": ["MARA", "MARD", "VBAK", "VBAP"]
+  }
+]

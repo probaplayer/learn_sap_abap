@@ -1,0 +1,17 @@
+{
+  "id": "zday2-exe-01",
+  "title": "Tách giờ hệ thống và vẽ tam giác số",
+  "category": "algorithm",
+  "difficulty": "basic",
+  "relatedExerciseIds": ["zday2-exe-02"],
+  "sourceFiles": ["zday2_exe_01_anhbhn.abap"],
+  "problemStatement": "Lấy giờ hệ thống hiện tại (sy-uzeit), tách riêng giờ/phút/giây bằng offset chuỗi, tính ra 1 con số 'kích thước' từ tổng các chữ số của phút và giây, rồi dùng số đó để vẽ 1 hình tam giác số bằng vòng lặp lồng nhau (không dùng bảng SAP nào).",
+  "concepts": [
+    "Offset/length trên chuỗi (w_time+0(2))",
+    "DESCRIBE FIELD ... TYPE",
+    "DO ... TIMES lồng nhau (vòng lặp đếm số)"
+  ],
+  "tablesUsed": [],
+  "walkthrough": "Bài luyện tư duy thuần ABAP, không đụng database. Giờ hệ thống `sy-uzeit` (định dạng HHMMSS) được tách thành giờ/phút/giây bằng kỹ thuật offset chuỗi kiểu `w_time+0(2)`, `w_time+2(2)`, `w_time+4(2)`. Sau đó cộng các chữ số của phút và giây lại để ra 1 số nguyên nhỏ, dùng số đó làm 'chiều cao' cho 2 vòng lặp `DO...TIMES` lồng nhau để in ra tam giác số kiểu bậc thang (dòng 1 in 1 số, dòng 2 in 2 số, ...).",
+  "sampleOutput": "**⚠️ Kết quả minh họa, không phải chạy trên hệ thống SAP thật.**\n\nGiả sử giờ hệ thống là 14:35:22 → phút+giây = 3+5+2+2 = 12 → 'kích thước' suy ra ví dụ = 4:\n```\n1\n1 2\n1 2 3\n1 2 3 4\n```"
+}

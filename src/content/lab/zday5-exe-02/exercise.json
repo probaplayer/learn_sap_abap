@@ -1,0 +1,17 @@
+{
+  "id": "zday5-exe-02",
+  "title": "Máy tính đơn giản trên Selection-Screen",
+  "category": "selection-screen",
+  "difficulty": "basic",
+  "relatedExerciseIds": ["zday5-exe-01"],
+  "sourceFiles": ["zday5_exe_02_anhbhn.abap"],
+  "problemStatement": "Xây selection-screen nhập 2 số và 1 phép toán (+, -, *, /). Validate: phép toán phải là 1 trong 4 ký tự hợp lệ, và không cho phép chia cho 0 — cả 2 lỗi đều hiển thị message ngay dưới field tương ứng.",
+  "concepts": [
+    "HASHED TABLE làm từ điển thông báo lỗi",
+    "AT SELECTION-SCREEN ON <field>",
+    "SELECTION-SCREEN COMMENT cập nhật động trong AT SELECTION-SCREEN OUTPUT"
+  ],
+  "tablesUsed": [],
+  "walkthrough": "Selection-screen đơn giản với 2 field số và 1 field ký tự phép toán. `AT SELECTION-SCREEN ON <phép toán>` kiểm tra ký tự nhập có nằm trong tập {+, -, *, /} hay không (tra qua `HASHED TABLE` chứa các message lỗi tương ứng thay vì if/else lặp lại). `AT SELECTION-SCREEN ON <số 2>` kiểm tra riêng trường hợp phép toán là chia và số 2 = 0. `AT SELECTION-SCREEN OUTPUT` cập nhật động dòng `SELECTION-SCREEN COMMENT` để hiển thị công thức/tên phép toán tương ứng ngay trên màn hình trước khi người dùng bấm Execute.",
+  "sampleOutput": "**⚠️ Kết quả minh họa, không phải chạy trên hệ thống SAP thật.**\n\n```\nInput: 12, +, 5  → Kết quả: 17\nInput: 10, /, 0  → Lỗi: \"Không thể chia cho 0\"\nInput: 3, %, 2   → Lỗi: \"Phép toán không hợp lệ\"\n```"
+}

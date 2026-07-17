@@ -1,0 +1,19 @@
+{
+  "id": "zday2-exe-02",
+  "title": "Chuyển số thành chữ tiếng Việt",
+  "category": "algorithm",
+  "difficulty": "advanced",
+  "relatedExerciseIds": ["zday2-exe-01"],
+  "sourceFiles": ["zday2_exe_02_anhbhn.abap"],
+  "problemStatement": "Viết chương trình chuyển 1 số nguyên thành chữ đọc tiếng Việt đúng ngữ pháp (vd 4561 → 'Bốn nghìn năm trăm sáu mươi mốt'), xử lý đúng các trường hợp đặc biệt của tiếng Việt: 'mười'/'mươi', 'lăm' thay 'năm' ở hàng đơn vị sau mươi, 'mốt' thay 'một', 'linh' khi hàng chục bằng 0 nhưng hàng đơn vị khác 0.",
+  "concepts": [
+    "HASHED TABLE làm từ điển tra cứu (chữ số -> chữ)",
+    "strlen / reverse / CONDENSE",
+    "Table expression tab[ key = x ]-value",
+    "Chia nhóm 3 chữ số bằng offset động",
+    "Đệ quy/chia nhỏ bài toán qua nhiều FORM"
+  ],
+  "tablesUsed": [],
+  "walkthrough": "Đây là bài thuật toán phức tạp nhất trong nhóm 'nền tảng' (265 dòng). Số đầu vào được đảo ngược chuỗi (`reverse`) rồi chia thành từng nhóm 3 chữ số (hàng nghìn, triệu...) bằng offset động. Với mỗi nhóm 3 chữ số, code tra cứu 1 `HASHED TABLE` chứa ánh xạ chữ số → chữ đọc (dùng table expression `tab[ key = x ]-value` để tra nhanh O(1) thay vì LOOP tuyến tính). Logic ngữ pháp tiếng Việt được xử lý riêng qua nhiều FORM nhỏ: hàng chục = 1 thì đọc 'mười' thay vì 'một mươi'; hàng chục ≥ 2 thì đọc '...mươi'; hàng đơn vị = 5 và có hàng chục thì đọc 'lăm' thay vì 'năm'; hàng đơn vị = 1 và có hàng chục ≥ 2 thì đọc 'mốt' thay vì 'một'; hàng chục = 0 nhưng hàng đơn vị ≠ 0 thì chèn 'linh'. Cuối cùng ghép các nhóm lại với đơn vị 'nghìn', 'triệu' tương ứng.",
+  "sampleOutput": "**⚠️ Kết quả minh họa, không phải chạy trên hệ thống SAP thật.**\n\n```\nInput: 4561\nOutput: Bốn nghìn năm trăm sáu mươi mốt\n\nInput: 105\nOutput: Một trăm linh năm\n\nInput: 21\nOutput: Hai mươi mốt\n```"
+}

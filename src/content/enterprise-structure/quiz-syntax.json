@@ -1,0 +1,279 @@
+{
+  "moduleId": "enterprise-structure",
+  "track": "syntax",
+  "lessons": [
+    {
+      "id": "basic",
+      "difficulty": "basic",
+      "title": "Khai báo TABLES và TYPES trong ABAP cổ điển",
+      "questions": [
+        {
+          "id": "enterprise-structure-syntax-basic-01",
+          "type": "multiple-choice",
+          "difficulty": "basic",
+          "explanation": "TABLES tạo ra 1 work area (header line) có cấu trúc giống bảng DB tương ứng (mara, marc,...), dùng trong ABAP cổ điển. Đây không phải internal table và cũng không tạo bảng DB mới.",
+          "question": "Trong đoạn code `TABLES: mara, marc, mard, makt, t001k, tka02, mbew, keko, keph.`, câu lệnh TABLES dùng để làm gì?",
+          "options": [
+            "Khai báo internal table rỗng để chứa nhiều dòng dữ liệu",
+            "Khai báo work area (structure) có cấu trúc giống bảng database tương ứng, dùng cho các câu lệnh xử lý cổ điển",
+            "Khai báo bảng database mới trong Data Dictionary",
+            "Khai báo type pool dùng chung cho toàn hệ thống"
+          ],
+          "answerIndex": 1
+        },
+        {
+          "id": "enterprise-structure-syntax-basic-02",
+          "type": "true-false",
+          "difficulty": "basic",
+          "explanation": "TABLES chỉ tạo work area (1 dòng dữ liệu) tương ứng cấu trúc mỗi bảng, không phải internal table nhiều dòng; muốn lưu nhiều dòng phải khai báo TYPE TABLE OF hoặc TYPE STANDARD TABLE.",
+          "statement": "Câu lệnh `TABLES: mara, marc, mard, makt, t001k, tka02, mbew, keko, keph.` sẽ tạo ra 9 internal table riêng biệt để lưu nhiều dòng dữ liệu.",
+          "answer": false
+        },
+        {
+          "id": "enterprise-structure-syntax-basic-03",
+          "type": "fill-blank",
+          "difficulty": "basic",
+          "explanation": "Để có cấu trúc giống 1 dòng bảng t001k, cách hiện đại là DATA ls_t001k TYPE t001k, thay cho TABLES cổ điển.",
+          "prompt": "Trong ABAP hiện đại, thay vì dùng `TABLES: t001k.`, người ta thường khai báo `DATA: ls_t001k TYPE ___.` để có work area tương đương.",
+          "acceptableAnswers": ["t001k", "T001K"]
+        },
+        {
+          "id": "enterprise-structure-syntax-basic-04",
+          "type": "multiple-choice",
+          "difficulty": "basic",
+          "explanation": "Cú pháp `bwkey TYPE t001k-bwkey` nghĩa là field bwkey trong structure có cùng kiểu dữ liệu với field BWKEY của bảng T001K trong Data Dictionary.",
+          "question": "Trong `TYPES: BEGIN OF st_ctr_area, bwkey TYPE t001k-bwkey, bukrs TYPE t001k-bukrs, kokrs TYPE tka02-kokrs, END OF st_ctr_area.`, field `bwkey` lấy kiểu dữ liệu từ đâu?",
+          "options": [
+            "Từ bảng T001K, field BWKEY",
+            "Từ bảng TKA02",
+            "Tự định nghĩa mới, không liên quan bảng nào",
+            "Từ bảng MARA"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "enterprise-structure-syntax-basic-05",
+          "type": "true-false",
+          "difficulty": "basic",
+          "explanation": "st_ctr_area lấy bwkey/bukrs từ t001k và kokrs từ tka02 - hoàn toàn hợp lệ vì TYPE tham chiếu theo từng field riêng lẻ, không bắt buộc cùng 1 bảng.",
+          "statement": "Một structure (TYPES BEGIN OF ... END OF) trong ABAP có thể lấy các field từ nhiều bảng database khác nhau, miễn là mỗi field khai báo kiểu bằng cú pháp `TYPE <bảng>-<field>`.",
+          "answer": true
+        },
+        {
+          "id": "enterprise-structure-syntax-basic-06",
+          "type": "fill-blank",
+          "difficulty": "basic",
+          "explanation": "Tên sau END OF phải trùng khớp với tên khai báo sau BEGIN OF để đóng đúng structure.",
+          "prompt": "Trong ABAP, để kết thúc khai báo structure bắt đầu bằng `TYPES: BEGIN OF st_ctr_area,` ta phải viết `END OF ___.`",
+          "acceptableAnswers": ["st_ctr_area", "ST_CTR_AREA"]
+        },
+        {
+          "id": "enterprise-structure-syntax-basic-07",
+          "type": "matching",
+          "difficulty": "basic",
+          "explanation": "Đây là các bảng được khai báo trong TABLES của chương trình, mỗi bảng phục vụ 1 mục đích tổ chức/dữ liệu khác nhau.",
+          "pairs": [
+            { "left": "t001k", "right": "Valuation area (bwkey) gắn với company code" },
+            { "left": "tka02", "right": "Controlling area (kokrs)" },
+            { "left": "mara", "right": "Dữ liệu chung của vật tư (material master)" },
+            { "left": "mbew", "right": "Dữ liệu định giá vật tư (material valuation)" }
+          ]
+        },
+        {
+          "id": "enterprise-structure-syntax-basic-08",
+          "type": "matching",
+          "difficulty": "basic",
+          "explanation": "Phân biệt các loại khai báo: TABLES (work area theo bảng DB), TYPES (định nghĩa kiểu), DATA...TYPE TABLE OF (internal table), DATA...TYPE structure (work area theo type tự định nghĩa).",
+          "pairs": [
+            { "left": "TABLES: t001k.", "right": "Tạo 1 work area duy nhất theo cấu trúc bảng DB t001k" },
+            { "left": "DATA: lt_ctrl_area TYPE TABLE OF st_ctr_area.", "right": "Tạo internal table nhiều dòng theo structure tự định nghĩa" },
+            { "left": "TYPES: BEGIN OF st_ctr_area ... END OF st_ctr_area.", "right": "Định nghĩa kiểu dữ liệu structure mới, chưa cấp phát bộ nhớ" },
+            { "left": "DATA: ls_ctrl_area TYPE st_ctr_area.", "right": "Cấp phát 1 work area theo structure tự định nghĩa" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "intermediate",
+      "difficulty": "intermediate",
+      "title": "JOIN dữ liệu tổ chức: T001K và TKA02",
+      "questions": [
+        {
+          "id": "enterprise-structure-syntax-intermediate-01",
+          "type": "multiple-choice",
+          "difficulty": "intermediate",
+          "explanation": "Cả T001K và TKA02 đều có field BUKRS, nên khi SELECT phải dùng alias t001k~bukrs để ABAP biết rõ lấy giá trị từ bảng nào, tránh mơ hồ (ambiguous field).",
+          "question": "Trong `SELECT bwkey, t001k~bukrs, kokrs INTO TABLE @lt_ctrl_area FROM t001k INNER JOIN tka02 ON t001k~bukrs = tka02~bukrs WHERE bwkey IN @s_plant.`, vì sao phải viết `t001k~bukrs` thay vì chỉ `bukrs`?",
+          "options": [
+            "Vì cả T001K và TKA02 đều có field BUKRS nên phải dùng alias để ABAP biết lấy từ bảng nào, tránh mơ hồ (ambiguous)",
+            "Vì BUKRS không tồn tại trong T001K",
+            "Vì cú pháp SELECT bắt buộc luôn phải có alias cho mọi field, không có ngoại lệ",
+            "Vì TKA02 không có field BUKRS nên phải ghi rõ"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "enterprise-structure-syntax-intermediate-02",
+          "type": "true-false",
+          "difficulty": "intermediate",
+          "explanation": "INNER JOIN chỉ trả về những dòng có BUKRS trùng khớp giữa 2 bảng - đây là cách link company code (t001k) với controlling area (tka02) qua công ty chung.",
+          "statement": "Trong câu lệnh `FROM t001k INNER JOIN tka02 ON t001k~bukrs = tka02~bukrs`, điều kiện nối (ON) yêu cầu giá trị BUKRS ở bảng T001K phải khớp với giá trị BUKRS ở bảng TKA02.",
+          "answer": true
+        },
+        {
+          "id": "enterprise-structure-syntax-intermediate-03",
+          "type": "fill-blank",
+          "difficulty": "intermediate",
+          "explanation": "Quan hệ company code -> controlling area là N:1 (nhiều company code có thể thuộc 1 controlling area, nhưng 1 company code chỉ gán 1 controlling area tại 1 thời điểm), nên JOIN qua BUKRS luôn cho kết quả rõ ràng.",
+          "prompt": "Trong SAP, một công ty (company code, BUKRS) chỉ được gán vào đúng 1 ___ (controlling area, KOKRS) tại một thời điểm, đó là lý do JOIN giữa T001K và TKA02 qua BUKRS cho ra kết quả duy nhất.",
+          "acceptableAnswers": ["controlling area", "Controlling Area", "kokrs", "KOKRS"]
+        },
+        {
+          "id": "enterprise-structure-syntax-intermediate-04",
+          "type": "multiple-choice",
+          "difficulty": "intermediate",
+          "explanation": "BWKEY (valuation area) chỉ tồn tại trong T001K; TKA02 không có field này nên khi SELECT bwkey không cần alias vì chỉ có 1 nguồn duy nhất.",
+          "question": "Trong form get_controlling_area, field BWKEY được SELECT ra lấy từ bảng nào?",
+          "options": [
+            "Từ T001K (vì T001K có field BWKEY - valuation area)",
+            "Từ TKA02",
+            "Từ cả 2 bảng cộng lại",
+            "BWKEY không xuất hiện trong SELECT này"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "enterprise-structure-syntax-intermediate-05",
+          "type": "true-false",
+          "difficulty": "intermediate",
+          "explanation": "Trong hệ thống này, valuation area (BWKEY) được cấu hình trùng với mã plant (WERKS), nên select-option s_plant (nhập plant) được dùng trực tiếp để lọc trên field BWKEY của T001K.",
+          "statement": "Mệnh đề `WHERE bwkey IN @s_plant` lọc kết quả theo giá trị người dùng nhập ở select-option s_plant, cho thấy chương trình coi mã plant (WERKS) và valuation area (BWKEY) dùng chung giá trị lọc.",
+          "answer": true
+        },
+        {
+          "id": "enterprise-structure-syntax-intermediate-06",
+          "type": "fill-blank",
+          "difficulty": "intermediate",
+          "explanation": "Ký hiệu @ (host variable escaping) báo cho ABAP biết đây là biến chương trình ABAP, không phải tên cột/bảng, tránh nhầm lẫn khi tên trùng nhau.",
+          "prompt": "Cú pháp ABAP hiện đại (Open SQL mới) dùng ký hiệu ___ trước tên biến chương trình (ví dụ @lt_ctrl_area, @s_plant) trong câu lệnh SELECT để phân biệt với tên field/bảng database.",
+          "acceptableAnswers": ["@"]
+        },
+        {
+          "id": "enterprise-structure-syntax-intermediate-07",
+          "type": "matching",
+          "difficulty": "intermediate",
+          "explanation": "Từng thành phần của câu lệnh SELECT...JOIN đảm nhiệm 1 vai trò riêng trong việc lấy dữ liệu company code - controlling area.",
+          "pairs": [
+            { "left": "t001k~bukrs", "right": "Field BUKRS lấy từ bảng T001K (dùng alias vì trùng tên với TKA02)" },
+            { "left": "INNER JOIN tka02 ON t001k~bukrs = tka02~bukrs", "right": "Chỉ lấy các dòng có company code khớp nhau giữa 2 bảng" },
+            { "left": "INTO TABLE @lt_ctrl_area", "right": "Đổ toàn bộ kết quả SELECT vào internal table lt_ctrl_area" },
+            { "left": "WHERE bwkey IN @s_plant", "right": "Lọc kết quả theo danh sách plant người dùng chọn trên selection screen" }
+          ]
+        },
+        {
+          "id": "enterprise-structure-syntax-intermediate-08",
+          "type": "matching",
+          "difficulty": "intermediate",
+          "explanation": "Phân biệt vai trò JOIN (kết hợp bảng) và WHERE (lọc dữ liệu), cũng như khác biệt giữa INNER JOIN và LEFT OUTER JOIN.",
+          "pairs": [
+            { "left": "INNER JOIN", "right": "Chỉ giữ lại các dòng có giá trị khớp ở cả 2 bảng" },
+            { "left": "LEFT OUTER JOIN", "right": "Giữ toàn bộ dòng của bảng bên trái, kể cả khi không tìm thấy dòng khớp ở bảng bên phải" },
+            { "left": "ON t001k~bukrs = tka02~bukrs", "right": "Điều kiện xác định 2 dòng được coi là khớp nhau" },
+            { "left": "WHERE bwkey IN @s_plant", "right": "Điều kiện lọc áp dụng sau khi đã JOIN xong" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "difficulty": "advanced",
+      "title": "READ TABLE WITH KEY: tra cứu quan hệ tổ chức trong logic nghiệp vụ",
+      "questions": [
+        {
+          "id": "enterprise-structure-syntax-advanced-01",
+          "type": "multiple-choice",
+          "difficulty": "advanced",
+          "explanation": "READ TABLE ... WITH KEY tìm kiếm (không thay đổi dữ liệu) dòng thỏa điều kiện khóa; ở đây dùng bwkey (đã lấy sẵn = werks) để tra ra bukrs/kokrs tương ứng cho từng plant khi build dòng output.",
+          "question": "Trong FORM build_line, câu lệnh `READ TABLE lt_ctrl_area INTO DATA(ls_ctrl_area) WITH KEY bwkey = iv_werks.` dùng để làm gì?",
+          "options": [
+            "Tìm trong internal table lt_ctrl_area dòng có valuation area (bwkey) bằng với mã plant hiện tại (iv_werks), để tra ra company code tương ứng",
+            "Tạo mới 1 dòng trong lt_ctrl_area với giá trị bwkey = iv_werks",
+            "Xóa dòng có bwkey = iv_werks khỏi lt_ctrl_area",
+            "Sắp xếp lại lt_ctrl_area theo bwkey"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "enterprise-structure-syntax-advanced-02",
+          "type": "true-false",
+          "difficulty": "advanced",
+          "explanation": "sy-subrc = 0 nghĩa là tìm thấy; nếu không tìm thấy (khác 0), khối IF không thực thi nên ls_out-bukrs vẫn giữ giá trị rỗng (initial) ban đầu.",
+          "statement": "Sau `READ TABLE lt_ctrl_area INTO DATA(ls_ctrl_area) WITH KEY bwkey = iv_werks.`, nếu không tìm thấy dòng nào khớp, sy-subrc sẽ khác 0 và khối `IF sy-subrc = 0.` sẽ không gán giá trị cho ls_out-bukrs.",
+          "answer": true
+        },
+        {
+          "id": "enterprise-structure-syntax-advanced-03",
+          "type": "fill-blank",
+          "difficulty": "advanced",
+          "explanation": "sy-subrc là biến hệ thống chuẩn để kiểm tra return code của nhiều câu lệnh ABAP, bao gồm READ TABLE, SELECT, PERFORM...",
+          "prompt": "Biến hệ thống ___ dùng để kiểm tra kết quả của READ TABLE có tìm thấy dòng khớp hay không (giá trị 0 nghĩa là tìm thấy).",
+          "acceptableAnswers": ["sy-subrc", "SY-SUBRC"]
+        },
+        {
+          "id": "enterprise-structure-syntax-advanced-04",
+          "type": "multiple-choice",
+          "difficulty": "advanced",
+          "explanation": "build_line nhận iv_werks (plant) làm tham số; vì bwkey (valuation area) thường được cấu hình = werks, chương trình tận dụng điều đó để tra ngược ra company code (bukrs) đã lấy sẵn trong get_controlling_area.",
+          "question": "Vì sao chương trình dùng bwkey (valuation area) làm khóa tra cứu trong lt_ctrl_area thay vì tra trực tiếp theo company code (bukrs)?",
+          "options": [
+            "Vì dữ liệu đầu vào của build_line chỉ có sẵn mã plant (iv_werks), và trong hệ thống này valuation area được cấu hình trùng với mã plant, nên dùng bwkey = iv_werks để tra ra bukrs tương ứng",
+            "Vì bukrs không tồn tại trong lt_ctrl_area",
+            "Vì bwkey luôn là khóa chính duy nhất áp dụng cho mọi bảng tổ chức",
+            "Vì tra theo bukrs sẽ gây lỗi cú pháp"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "enterprise-structure-syntax-advanced-05",
+          "type": "true-false",
+          "difficulty": "advanced",
+          "explanation": "Đây là pattern tối ưu hiệu năng phổ biến trong ABAP: SELECT dữ liệu 1 lần vào internal table, sau đó dùng READ TABLE để tra cứu nhiều lần trong vòng lặp, tránh SELECT lặp lại trong LOOP gây chậm hệ thống.",
+          "statement": "Việc dùng nhiều lệnh READ TABLE ... WITH KEY liên tiếp trong build_line (tra cứu mbew, keko, keph, rồi t001k/tka02) thể hiện kỹ thuật SELECT dữ liệu sẵn vào internal table, sau đó tra cứu (lookup) trong bộ nhớ thay vì SELECT lại database nhiều lần.",
+          "answer": true
+        },
+        {
+          "id": "enterprise-structure-syntax-advanced-06",
+          "type": "fill-blank",
+          "difficulty": "advanced",
+          "explanation": "BINARY SEARCH giúp READ TABLE tìm kiếm nhị phân thay vì tuần tự tuyến tính, nhưng bắt buộc bảng phải được SORT trước theo đúng field khóa sử dụng.",
+          "prompt": "Nếu muốn READ TABLE tìm kiếm nhanh hơn trên bảng đã SORT theo đúng khóa, ta cần thêm cụm từ khóa ___ vào sau WITH KEY (ví dụ: READ TABLE lt_ctrl_area INTO ls_ctrl_area WITH KEY bwkey = iv_werks ___).",
+          "acceptableAnswers": ["binary search", "BINARY SEARCH"]
+        },
+        {
+          "id": "enterprise-structure-syntax-advanced-07",
+          "type": "matching",
+          "difficulty": "advanced",
+          "explanation": "build_line thực hiện 1 chuỗi tra cứu (lookup chain) qua nhiều internal table để ghép nối dữ liệu tổ chức (company code) với dữ liệu giá thành cho từng dòng output.",
+          "pairs": [
+            { "left": "READ TABLE lt_ctrl_area ... WITH KEY bwkey = iv_werks", "right": "Tra company code (bukrs) tương ứng với plant hiện tại" },
+            { "left": "READ TABLE lt_material_valuations ... WITH KEY matnr = iv_matnr", "right": "Tra dữ liệu định giá vật tư (giá chuẩn, giá trị tồn kho) theo mã vật tư" },
+            { "left": "READ TABLE lt_product_costing ... WITH KEY kalnr = ls_mbew-kaln1 bwvar = ... tvers = ...", "right": "Tra bản ghi cost estimate (KEKO) khớp với số cost estimate đang dùng trong MBEW" },
+            { "left": "READ TABLE lt_cost_component ... WITH KEY kalnr = ls_keko-kalnr ...", "right": "Tra các cost component (KEPH) chi tiết của cost estimate vừa tìm được" }
+          ]
+        },
+        {
+          "id": "enterprise-structure-syntax-advanced-08",
+          "type": "matching",
+          "difficulty": "advanced",
+          "explanation": "Kỹ thuật kiểm tra sy-subrc kết hợp thêm điều kiện nghiệp vụ (losgr khác rỗng) là thực hành phổ biến để đảm bảo an toàn tính toán trong ABAP, tránh chia cho 0.",
+          "pairs": [
+            { "left": "sy-subrc = 0", "right": "READ TABLE tìm thấy dòng khớp trong internal table" },
+            { "left": "sy-subrc <> 0", "right": "READ TABLE không tìm thấy dòng nào khớp với khóa tìm kiếm" },
+            { "left": "ls_keko-losgr IS NOT INITIAL", "right": "Đảm bảo lot size khác rỗng để tránh chia cho 0 khi tính cost component" },
+            { "left": "IF sy-subrc = 0 AND ls_keko-losgr IS NOT INITIAL.", "right": "Kết hợp 2 điều kiện: vừa tìm thấy dữ liệu, vừa dữ liệu đó hợp lệ để tính toán" }
+          ]
+        }
+      ]
+    }
+  ]
+}

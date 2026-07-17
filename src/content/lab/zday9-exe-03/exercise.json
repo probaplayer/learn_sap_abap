@@ -1,0 +1,21 @@
+{
+  "id": "zday9-exe-03",
+  "title": "Báo cáo Order-to-Cash đầy đủ (đơn hàng → giao hàng → hóa đơn)",
+  "category": "capstone",
+  "difficulty": "advanced",
+  "relatedExerciseIds": ["zco-inventory-costs"],
+  "sourceFiles": ["zday9_exe_03_anhbhn.abap"],
+  "problemStatement": "Xây báo cáo tổng hợp toàn bộ chuỗi Order-to-Cash: từ đơn hàng bán (VBAK/VBAP) → truy vết sang chứng từ giao hàng (LIKP/LIPS qua bảng Document Flow VBFA loại 'J') → truy vết tiếp sang hóa đơn (VBRK/VBRP qua VBFA loại 'M'), kèm thông tin khách hàng (KNA1) và mô tả vật tư (MAKT). Cho phép 3 chế độ tìm kiếm loại trừ nhau (theo đơn hàng HOẶC theo giao hàng HOẶC theo hóa đơn), hiển thị ALV có dòng subtotal theo nhóm, và có thể xuất CSV hoặc gửi email đính kèm ngay trong report.",
+  "concepts": [
+    "JOIN 8 bảng, trong đó JOIN 2 lần lên cùng bảng VBFA với 2 alias khác nhau (để lấy cả link 'đơn→giao' và 'giao→hóa đơn')",
+    "Bảng Document Flow (VBFA) và ý nghĩa các loại quan hệ chứng từ ('J' = đơn→giao hàng, 'M' = giao hàng→hóa đơn)",
+    "Field catalog với emphasize / do_sum / subtot (ALV có dòng tổng theo nhóm)",
+    "Bật/tắt nhiều block selection-screen theo screen-group1",
+    "cl_gui_frontend_services=>directory_browse (chọn thư mục lưu file)",
+    "GUI_DOWNLOAD dạng tab-separated",
+    "SO_NEW_DOCUMENT_ATT_SEND_API1 (gửi email đính kèm file ngay từ ABAP)"
+  ],
+  "tablesUsed": ["VBAK", "VBAP", "LIKP", "LIPS", "VBRK", "VBRP", "VBFA", "MAKT", "KNA1"],
+  "walkthrough": "**Đây là file phức tạp nhất trong toàn bộ Code Lab (570 dòng)** — quy mô gần bằng dự án ZCO_INVENTORY_COSTS. Lưu ý kỹ thuật: tên file trên đĩa là `zday9_exe_03_anhbhn.abap` nhưng bên trong file lại khai `REPORT ZDAY9_EXE_02_ANHBHN` (tên report không khớp tên file) — có thể là do đổi tên file sau khi viết code, không ảnh hưởng chức năng vì report tự chạy độc lập với tên file vật lý.\n\nSelection-screen có 3 block loại trừ nhau (bật/tắt qua `screen-group1`): tìm theo số đơn hàng, tìm theo số giao hàng, hoặc tìm theo số hóa đơn — chỉ 1 trong 3 được nhập tại một thời điểm. Phần lõi là chuỗi JOIN xuyên suốt cả quy trình Order-to-Cash: `VBAK-VBAP` (đơn hàng) → JOIN `VBFA` (alias 1, lọc `vbtyp_n = 'J'`) lấy số giao hàng tương ứng → JOIN `LIKP-LIPS` (giao hàng) → JOIN `VBFA` (alias 2, lọc `vbtyp_n = 'M'`) lấy số hóa đơn tương ứng → JOIN `VBRK-VBRP` (hóa đơn), cộng thêm `KNA1` (tên khách hàng) và `MAKT` (mô tả vật tư) — tổng cộng JOIN tới 8 bảng, dùng cùng 1 bảng VBFA hai lần với 2 alias khác nhau vì bảng Document Flow lưu chung mọi loại quan hệ chứng từ, phải lọc theo `vbtyp_n` để tách đúng từng chặng.\n\nKết quả hiển thị bằng ALV có field catalog nâng cao: cột số tiền dùng `do_sum = 'X'` để ALV tự tính subtotal theo nhóm, `emphasize` để tô đậm dòng tổng. Cuối cùng người dùng có thể xuất CSV (chọn thư mục lưu qua `directory_browse`, ghi file bằng `GUI_DOWNLOAD` với dữ liệu phân tách bằng tab) hoặc gửi thẳng file đính kèm qua email nội bộ SAP bằng function `SO_NEW_DOCUMENT_ATT_SEND_API1`.",
+  "sampleOutput": "**⚠️ Kết quả minh họa, không phải chạy trên hệ thống SAP thật.**\n\n```\nĐơn hàng    Giao hàng   Hóa đơn     Khách hàng      Vật tư          Số tiền\n0000001234  8000005678  9000009012  CTY TNHH ABC    Ống thép 20mm   45,000,000\n0000001234  8000005678  9000009012  CTY TNHH ABC    Van bi 1 inch   12,500,000\n                                                     TỔNG ĐƠN 1234:  57,500,000\n```\nGửi email: \"Đã gửi báo cáo Order-to-Cash tới nguoidung@company.com với file đính kèm ORDER_TO_CASH_20260717.csv\""
+}

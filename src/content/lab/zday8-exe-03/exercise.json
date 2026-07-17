@@ -1,0 +1,17 @@
+{
+  "id": "zday8-exe-03",
+  "title": "Truyền dữ liệu giữa 2 report qua ABAP Memory và SAP Memory (bên gửi)",
+  "category": "memory",
+  "difficulty": "basic",
+  "relatedExerciseIds": ["ztest-code"],
+  "sourceFiles": ["zday8_exe_03_anhbhn.abap"],
+  "problemStatement": "Minh họa 2 cách truyền dữ liệu giữa các report ABAP mà không qua database: ABAP Memory (chỉ tồn tại trong 1 chuỗi SUBMIT, dùng ID riêng) và SAP Memory (tồn tại xuyên suốt cả phiên đăng nhập SAPGUI, qua Set/Get Parameter ID - còn gọi là SPA/GPA). Có 3 nút: lưu qua ABAP Memory rồi gọi report khác, lưu qua SAP Memory rồi gọi report khác, hoặc gọi report khác mà không lưu gì cả (để so sánh).",
+  "concepts": [
+    "EXPORT ... TO MEMORY ID (ghi vào ABAP Memory)",
+    "SET PARAMETER ID (ghi vào SAP Memory qua SPA/GPA)",
+    "SUBMIT ... AND RETURN (gọi report khác rồi quay lại report gốc)"
+  ],
+  "tablesUsed": [],
+  "walkthrough": "Bài này PHẢI xem cùng với bài `ztest-code` (report được SUBMIT tới) mới trọn nghĩa — đây là 1 cặp bài học 'bên gửi / bên nhận'. 3 nút bấm minh họa 3 tình huống: (1) `EXPORT lv_data TO MEMORY ID 'ZMEM'` rồi `SUBMIT ztest_code AND RETURN` — dữ liệu chỉ tồn tại tạm thời cho riêng lần SUBMIT này, biến mất khi cả 2 report kết thúc; (2) `SET PARAMETER ID 'ZPAR' FIELD lv_data` rồi SUBMIT — dữ liệu lưu vào vùng nhớ chung của toàn phiên đăng nhập (SAP Memory), report nhận có thể đọc lại bất cứ lúc nào trong phiên, kể cả không qua SUBMIT trực tiếp; (3) SUBMIT không lưu gì để chứng minh report nhận sẽ không thấy dữ liệu nếu không dùng 1 trong 2 cơ chế trên.",
+  "sampleOutput": "**⚠️ Kết quả minh họa, không phải chạy trên hệ thống SAP thật.**\n\n```\nBấm nút \"ABAP Memory\" → report ztest_code hiện: \"Giá trị từ ABAP Memory: Hello123\"\nBấm nút \"SAP Memory\"  → report ztest_code hiện: \"Giá trị từ SAP Memory: Hello456\"\nBấm nút \"Không lưu\"    → report ztest_code hiện: \"Không có dữ liệu nào được truyền\"\n```"
+}

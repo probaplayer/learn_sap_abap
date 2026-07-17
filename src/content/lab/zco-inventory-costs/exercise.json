@@ -1,0 +1,32 @@
+{
+  "id": "zco-inventory-costs",
+  "title": "Báo cáo giá trị tồn kho theo giá thành (Inventory Costs)",
+  "category": "capstone",
+  "difficulty": "advanced",
+  "relatedExerciseIds": ["zday9-exe-03"],
+  "sourceFiles": [
+    "zco_inventory_costs_anhbhn.abap",
+    "zco_inventory_costs_anhbhn_top.abap",
+    "zco_inventory_costs_anhbhn_sel.abap",
+    "zco_inventory_costs_anhbhn_f01.abap",
+    "zxlsx_common.abap"
+  ],
+  "problemStatement": "Viết 1 report chuẩn (REPORT + 3 include TOP/SEL/F01) để tính giá trị tồn kho vật tư theo 2 nguồn: tồn kho tự do (MARD) và tồn kho gắn với đơn hàng bán (MSKA - special stock). Với mỗi vật tư, tra ra cost estimate (KEKO/KEPH) tương ứng để tách giá trị thành 9 thành phần chi phí (nguyên vật liệu, cước phí, nhân công, overhead, dịch vụ...), so sánh với giá trị sổ sách thực tế trong MBEW. Cho phép người dùng chọn xuất kết quả ra Excel (.xlsx thật) hoặc file text, lưu về máy hoặc lên server, có kiểm tra authority-check theo plant.",
+  "concepts": [
+    "TABLES (classic work area)",
+    "SELECT ... INNER JOIN ... INTO TABLE @itab",
+    "SELECT ... FOR ALL ENTRIES IN",
+    "RANGE type động (build sign/option/low)",
+    "AUTHORITY-CHECK OBJECT",
+    "READ TABLE ... WITH KEY",
+    "LOOP AT ... GROUP BY ... INTO ... / LOOP AT GROUP",
+    "TRY...CATCH cx_root",
+    "SELECTION-SCREEN (BLOCK, PARAMETERS, SELECT-OPTIONS, AT SELECTION-SCREEN ON VALUE-REQUEST)",
+    "RTTI / FIELD-SYMBOLS / ASSIGN COMPONENT OF STRUCTURE (trong zxlsx_common)",
+    "cl_abap_zip / tự dựng file .xlsx (OOXML) bằng tay",
+    "cl_gui_frontend_services=>gui_download / OPEN DATASET"
+  ],
+  "tablesUsed": ["MARA", "MARC", "MARD", "MAKT", "MBEW", "KEKO", "KEPH", "MSKA", "T001K", "TKA02"],
+  "walkthrough": "**Include TOP** khai báo `TABLES` cổ điển cho 9 bảng và các structure/internal table dùng xuyên suốt report (`st_material`, `st_sostock`, `st_ctr_area`, `st_material_valuations`, `st_product_costing`, `st_cost_component`, `st_output`).\n\n**Include SEL** dựng selection-screen: ngày tính giá, select-options lọc vật tư/plant/storage location/loại vật tư, 3 select-options lọc theo nhóm FERT/HALB/HALB/ROH, checkbox hiển thị/tải file, radio button XLS/TXT, radio chọn lưu local hay server (kèm logic ẩn/hiện field tương ứng qua `AT SELECTION-SCREEN OUTPUT` + `LOOP AT SCREEN`). `START-OF-SELECTION` bọc toàn bộ luồng trong `TRY...CATCH cx_root` để bắt lỗi authority.\n\n**Include F01** là phần lõi nghiệp vụ, chạy tuần tự qua các FORM: `check_authorization` (AUTHORITY-CHECK theo từng plant đã chọn) → `get_material_key_information` (JOIN MARA-MARC-MARD-MAKT lấy tồn kho tự do) → `get_sales_orders` (JOIN MSKA-MARA-MAKT lấy tồn kho theo đơn hàng bán) → `get_controlling_area` (JOIN T001K-TKA02 suy ra controlling area theo plant) → `get_material_valuation` (SELECT MBEW FOR ALL ENTRIES, gom danh sách vật tư từ 2 nguồn trên rồi loại trùng bằng SORT + DELETE ADJACENT DUPLICATES) → `get_product_costing` (build RANGE `kokrs` động rồi SELECT KEKO FOR ALL ENTRIES với nhiều điều kiện lọc costing hợp lệ) → `get_cost_component` (SELECT KEPH lấy 9 cột KST001-KST009) → `calculate_cost`/`build_line` (READ TABLE WITH KEY để ráp dữ liệu, chia giá trị cho lot size `losgr` ra đơn giá, nhân với số lượng thực tế) → `group_calt` (gom nhóm bằng `LOOP ... GROUP BY` + `LOOP AT GROUP`) → `download_file` (xuất `.txt` bằng CONCATENATE/OPEN DATASET hoặc `.xlsx` thật bằng cách tự dựng XML qua `zxlsx_common.abap`).\n\n**`zxlsx_common.abap`** là thư viện dùng chung: dùng RTTI (`cl_abap_typedescr`) để đọc động tên field của BẤT KỲ internal table nào truyền vào, dùng `FIELD-SYMBOLS`/`ASSIGN COMPONENT ... OF STRUCTURE` để lấy giá trị từng ô mà không cần biết trước cấu trúc, rồi tự ghép các file XML theo chuẩn OOXML (Content_Types, workbook, worksheet, rels) và nén bằng `cl_abap_zip` thành file `.xlsx` thật (không phải `.csv` đổi tên).",
+  "sampleOutput": "**⚠️ Đây là kết quả minh họa dựa trên dữ liệu mẫu tự soạn, không phải chạy trên hệ thống SAP thật.**\n\n```\nTOTAL Storage Loc: 0001\n                    Material Cost      F&D/MH     Internal Lab.     External Lab.       Total\nFINISHED PRODUCTS       12,500.00        800.00          2,100.00          650.00     16,050.00\nCOMPONENTS               4,200.00        150.00            900.00          300.00      5,550.00\nTOTAL Plant: 1000       16,700.00        950.00          3,000.00          950.00     21,600.00\nTOTAL Company Code: 1000 ...\n```\n\nFile `INVENTORY_COST_20260717.XLSX` được tạo với các cột: ERSDA, MATNR, WERKS, LGORT, SOBKZ, MTART, MAKTX, LABST, STD_VALUE, MAT_COST, FRGHT_DUTY, LABOR_VAR, LABOR_FIX, EXT_SUBCON, OVRHEAD_VAR, OVRHEAD_FIX, SERV_COST, SPEC_ACT."
+}

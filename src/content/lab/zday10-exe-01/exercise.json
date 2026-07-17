@@ -1,0 +1,16 @@
+{
+  "id": "zday10-exe-01",
+  "title": "In hóa đơn bán hàng bằng Smart Form",
+  "category": "smartforms",
+  "difficulty": "basic",
+  "relatedExerciseIds": ["zday10-exe-02"],
+  "sourceFiles": ["zday10_exe_01_anhbhn.abap"],
+  "problemStatement": "Viết report đơn giản nhất: nhập vào số chứng từ hóa đơn bán hàng (VBRK), gọi Smart Form tương ứng để in ra 1 bản in hóa đơn.",
+  "concepts": [
+    "SSF_FUNCTION_MODULE_NAME (lấy tên function module runtime của Smart Form)",
+    "CALL FUNCTION động qua biến chứa tên FM"
+  ],
+  "tablesUsed": ["VBRK"],
+  "walkthrough": "Đây là bài tập ngắn nhất trong toàn bộ Code Lab (28 dòng) nhưng minh họa đúng kỹ thuật cốt lõi để gọi Smart Form từ ABAP: Smart Form không được gọi trực tiếp bằng tên, mà phải qua function module `SSF_FUNCTION_MODULE_NAME` để lấy tên FM runtime đã được generate sẵn (vì Smart Form biên dịch ra 1 function module riêng mỗi khi activate), sau đó `CALL FUNCTION` FM đó bằng tên biến (dynamic call) và truyền số hóa đơn (VBRK-VBELN) vào.",
+  "sampleOutput": "**⚠️ Kết quả minh họa, không phải chạy trên hệ thống SAP thật.**\n\nMàn hình in xem trước (print preview) hiển thị bố cục hóa đơn bán hàng: thông tin công ty, khách hàng, danh sách item, thành tiền — theo layout đã thiết kế sẵn trong Smart Form (không thuộc phạm vi source code này)."
+}

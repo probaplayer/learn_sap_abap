@@ -1,0 +1,17 @@
+{
+  "id": "ztest-code",
+  "title": "Đọc dữ liệu từ ABAP Memory và SAP Memory (bên nhận)",
+  "category": "memory",
+  "difficulty": "basic",
+  "relatedExerciseIds": ["zday8-exe-03"],
+  "sourceFiles": ["ztest_code.abap"],
+  "problemStatement": "Report 'bên nhận' của cặp bài học Memory: đọc lại giá trị đã được report zday8-exe-03 lưu vào ABAP Memory và SAP Memory, hiển thị ra màn hình, rồi giải phóng vùng ABAP Memory sau khi đọc xong.",
+  "concepts": [
+    "IMPORT ... FROM MEMORY ID (đọc ABAP Memory)",
+    "GET PARAMETER ID (đọc SAP Memory qua SPA/GPA)",
+    "FREE MEMORY ID (giải phóng ABAP Memory sau khi dùng)"
+  ],
+  "tablesUsed": [],
+  "walkthrough": "Report ngắn (36 dòng), chỉ có ý nghĩa đầy đủ khi xem CÙNG với bài `zday8-exe-03` (report gửi dữ liệu tới report này qua SUBMIT). Logic: `IMPORT lv_data FROM MEMORY ID 'ZMEM'` đọc lại dữ liệu vừa được EXPORT ở report gốc (chỉ đọc được nếu đang trong đúng chuỗi SUBMIT, đọc xong nên `FREE MEMORY ID 'ZMEM'` để dọn dẹp tránh rác vùng nhớ); song song đó `GET PARAMETER ID 'ZPAR'` đọc giá trị đã lưu ở SAP Memory — vùng này không cần phải qua SUBMIT trực tiếp mới đọc được, vì nó tồn tại xuyên suốt cả phiên đăng nhập, bất kỳ report nào trong cùng phiên cũng đọc được miễn biết đúng Parameter ID.",
+  "sampleOutput": "**⚠️ Kết quả minh họa, không phải chạy trên hệ thống SAP thật.**\n\n```\nGiá trị từ ABAP Memory (ID 'ZMEM'): Hello123\nGiá trị từ SAP Memory (ID 'ZPAR'): Hello456\nĐã giải phóng ABAP Memory ID 'ZMEM'\n```"
+}

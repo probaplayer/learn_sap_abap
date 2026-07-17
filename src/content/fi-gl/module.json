@@ -1,0 +1,9 @@
+{
+  "id": "fi-gl",
+  "name": "Financial Accounting - General Ledger (FI-GL)",
+  "shortName": "FI-GL",
+  "icon": "📒",
+  "color": "#ffc800",
+  "description": "FI-GL là phân hệ sổ cái tổng hợp trong SAP FI, nơi ghi nhận và tổng hợp toàn bộ các bút toán tài chính của doanh nghiệp theo chart of accounts và company code.",
+  "businessPurpose": "FI-GL (General Ledger) quản lý sổ cái tổng hợp và master data của tài khoản GL, là nền tảng của toàn bộ kế toán tài chính trong SAP. Mỗi tài khoản GL được định nghĩa ở hai cấp: cấp chart of accounts (dùng chung cho nhiều company code, lưu ở SKA1) và cấp company code (chứa các thuộc tính riêng như tiền tệ, field status group, lưu ở SKB1). FI-GL cho phép doanh nghiệp ghi nhận mọi giao dịch tài chính - từ mua hàng, bán hàng, đến khấu hao, lương - vào đúng tài khoản GL tương ứng, phục vụ lập báo cáo tài chính (bảng cân đối kế toán, báo cáo kết quả kinh doanh). FI-GL liên kết chặt chẽ với các phân hệ khác như MM (nhập kho phát sinh bút toán GL), SD (bán hàng phát sinh doanh thu), và CO (cost element thực chất là một dạng tài khoản GL đặc biệt dùng cho kế toán quản trị). Việc chuẩn hóa chart of accounts và account group giúp doanh nghiệp kiểm soát cấu trúc tài khoản nhất quán trên toàn tập đoàn."
+}

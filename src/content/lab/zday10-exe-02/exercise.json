@@ -1,0 +1,19 @@
+{
+  "id": "zday10-exe-02",
+  "title": "ALV đơn hàng bán + in Smart Form + drill-down khách hàng",
+  "category": "alv",
+  "difficulty": "intermediate",
+  "relatedExerciseIds": ["zday10-exe-01"],
+  "sourceFiles": ["zday10_exe_02_anhbhn.abap"],
+  "problemStatement": "Hiển thị danh sách đơn hàng bán (VBAK) lọc theo số đơn/ngày tạo/sales organization dưới dạng ALV. Người dùng double-click vào số đơn hàng sẽ in Smart Form hóa đơn tương ứng (nối tiếp bài zday10-exe-01); double-click vào tên khách hàng sẽ mở 1 ALV pop-up nhỏ hiển thị chi tiết khách hàng (KNA1). Một số cột kỹ thuật cần được ẩn khỏi field catalog mặc định.",
+  "concepts": [
+    "REUSE_ALV_FIELDCATALOG_MERGE",
+    "Tùy chỉnh field catalog (hotspot, no_out)",
+    "i_callback_user_command + slis_selfield (bắt double-click)",
+    "ALV pop-up (danh sách nhỏ hiển thị chồng lên màn hình chính)",
+    "Gọi lại kỹ thuật Smart Form runtime FM (như bài zday10-exe-01)"
+  ],
+  "tablesUsed": ["VBAK", "KNA1"],
+  "walkthrough": "Report merge field catalog tự động từ cấu trúc output bằng `REUSE_ALV_FIELDCATALOG_MERGE`, sau đó chỉnh tay: đánh dấu cột số đơn hàng và tên khách hàng là `hotspot` (có thể click), ẩn các cột kỹ thuật không cần hiển thị (`no_out`). Khi người dùng double-click một dòng, callback `i_callback_user_command` nhận được `slis_selfield` cho biết cột nào được click: nếu là cột đơn hàng → gọi lại đúng kỹ thuật Smart Form runtime FM như bài zday10-exe-01 để in hóa đơn; nếu là cột khách hàng → SELECT chi tiết KNA1 rồi hiển thị bằng 1 ALV pop-up nhỏ (danh sách phụ, không thay thế màn hình chính).",
+  "sampleOutput": "**⚠️ Kết quả minh họa, không phải chạy trên hệ thống SAP thật.**\n\n```\nĐơn hàng    Ngày        Sales Org   Khách hàng\n0000001234  01.07.2026  1000        CTY TNHH ABC\n0000001235  02.07.2026  1000        CTY CP XYZ\n```\nDouble-click \"0000001234\" → mở bản in Smart Form hóa đơn. Double-click \"CTY TNHH ABC\" → popup hiện: Mã KH 0000100023, Địa chỉ, Mã số thuế..."
+}

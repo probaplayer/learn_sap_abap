@@ -1,0 +1,19 @@
+{
+  "id": "zday5-exe-01",
+  "title": "Selection-Screen lọc đơn hàng bán + validate + hiển thị range generic",
+  "category": "selection-screen",
+  "difficulty": "intermediate",
+  "relatedExerciseIds": ["zday5-exe-02"],
+  "sourceFiles": ["zday5_exe_01_anhbhn.abap"],
+  "problemStatement": "Xây selection-screen lọc đơn hàng bán (VBAK) theo nhiều tiêu chí. Chặn không cho chọn 2 sales organization bị cấm (validate ngay khi rời khỏi field). Sau khi nhập xong, hiển thị lại TOÀN BỘ các select-option người dùng đã nhập bằng 1 FORM DUY NHẤT dùng chung cho mọi field, không hard-code tên field.",
+  "concepts": [
+    "TABLES vbak (classic work area)",
+    "AT SELECTION-SCREEN ON <field> (validate ngay khi rời field)",
+    "FORM generic nhận TYPE ANY TABLE",
+    "FIELD-SYMBOLS + ASSIGN COMPONENT 'SIGN'/'LOW'/'HIGH' OF STRUCTURE (đọc field theo tên động)",
+    "SORT ... BY ('SIGN') (sắp xếp theo tên field dạng chuỗi)"
+  ],
+  "tablesUsed": ["VBAK"],
+  "walkthrough": "Selection-screen khai báo nhiều select-options lọc đơn hàng bán. Sự kiện `AT SELECTION-SCREEN ON <sales_org>` kiểm tra ngay khi người dùng rời khỏi ô nhập, chặn 2 mã sales organization nằm trong danh sách cấm, báo lỗi tại chỗ. Phần thú vị nhất là FORM hiển thị lại dữ liệu: thay vì viết code hiển thị riêng cho từng select-option, FORM nhận tham số kiểu `TYPE ANY TABLE` (generic, không biết trước cấu trúc), rồi dùng `FIELD-SYMBOLS` + `ASSIGN COMPONENT 'SIGN' OF STRUCTURE ...`, `'LOW'`, `'HIGH'` để đọc động 3 field chuẩn của mọi select-option range table — nhờ vậy 1 đoạn code có thể tái sử dụng cho bất kỳ select-option nào được truyền vào, kể cả `SORT ... BY ('SIGN')` cũng dùng tên field dạng chuỗi động.",
+  "sampleOutput": "**⚠️ Kết quả minh họa, không phải chạy trên hệ thống SAP thật.**\n\n```\nS_VKORG: I EQ 1000\nS_AUDAT: I BT 01.01.2026 - 31.12.2026\nS_VBELN: (không nhập)\n```\nNếu nhập sales org bị cấm (vd 9999) → thông báo lỗi ngay dưới field: \"Sales Org 9999 không được phép chọn\"."
+}

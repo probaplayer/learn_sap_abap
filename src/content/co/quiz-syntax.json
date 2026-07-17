@@ -1,0 +1,269 @@
+{
+  "moduleId": "co",
+  "track": "syntax",
+  "lessons": [
+    {
+      "id": "basic",
+      "difficulty": "basic",
+      "title": "Khai báo cấu trúc dữ liệu Product Costing",
+      "questions": [
+        {
+          "id": "co-syntax-basic-01",
+          "type": "multiple-choice",
+          "difficulty": "basic",
+          "explanation": "Trong report ZCO_INVENTORY_COSTS_ANHBHN, cấu trúc ST_PRODUCT_COSTING khai báo 'kalnr TYPE keko-kalnr', nghĩa là field kalnr lấy kiểu dữ liệu trực tiếp từ trường KALNR của bảng KEKO.",
+          "question": "Trong TYPES: BEGIN OF st_product_costing, field 'kalnr' được khai báo với kiểu dữ liệu nào?",
+          "options": ["keko-kalnr", "mbew-kaln1", "keph-kalnr", "tka02-kokrs"],
+          "answerIndex": 0
+        },
+        {
+          "id": "co-syntax-basic-02",
+          "type": "multiple-choice",
+          "difficulty": "basic",
+          "explanation": "Cấu trúc ST_COST_COMPONENT khai báo 9 field lặp lại kst001 đến kst009, tất cả đều tham chiếu kiểu từ bảng KEPH (ví dụ 'kst001 TYPE keph-kst001'), vì KEPH là bảng lưu cost component split.",
+          "question": "9 field kst001...kst009 trong TYPES: BEGIN OF st_cost_component tham chiếu kiểu dữ liệu từ bảng nào?",
+          "options": ["KEKO", "KEPH", "MBEW", "CSKA"],
+          "answerIndex": 1
+        },
+        {
+          "id": "co-syntax-basic-03",
+          "type": "true-false",
+          "difficulty": "basic",
+          "explanation": "Đúng. Dòng 'TABLES: mara, marc, mard, makt, t001k, tka02, mbew, keko, keph.' ở đầu include TOP khai báo work area kiểu TABLES cho các bảng chuẩn này, một cú pháp cũ thường dùng để có work area ngầm định (ví dụ mara, keko...) dù report chủ yếu dùng Open SQL hiện đại với @DATA.",
+          "statement": "Include ZCO_INVENTORY_COSTS_ANHBHN_TOP khai báo TABLES cho các bảng MARA, MARC, MARD, MAKT, T001K, TKA02, MBEW, KEKO, KEPH.",
+          "answer": true
+        },
+        {
+          "id": "co-syntax-basic-04",
+          "type": "true-false",
+          "difficulty": "basic",
+          "explanation": "Sai. Các field KST001-KST009 trong ST_COST_COMPONENT tham chiếu kiểu từ KEPH (cost component split), không phải KEKO (KEKO chỉ là header, không có field KST00x).",
+          "statement": "Trong ST_COST_COMPONENT, các field KST001-KST009 đều tham chiếu kiểu dữ liệu từ bảng KEKO.",
+          "answer": false
+        },
+        {
+          "id": "co-syntax-basic-05",
+          "type": "fill-blank",
+          "difficulty": "basic",
+          "explanation": "Dòng khai báo đầy đủ là 'kalnr TYPE keko-kalnr,' - trường số cost estimate lấy kiểu dữ liệu từ bảng KEKO.",
+          "prompt": "Hoàn thành khai báo: kalnr TYPE ___-kalnr.",
+          "acceptableAnswers": ["keko", "KEKO"]
+        },
+        {
+          "id": "co-syntax-basic-06",
+          "type": "fill-blank",
+          "difficulty": "basic",
+          "explanation": "Cú pháp ABAP để mở một cấu trúc TYPES nhiều field là 'TYPES: BEGIN OF <tên>, ... END OF <tên>.' - đây là cách khai báo record/structure trong ABAP.",
+          "prompt": "Từ khóa mở đầu một khai báo cấu trúc trong ABAP là 'TYPES: ___ OF st_product_costing,'.",
+          "acceptableAnswers": ["BEGIN", "begin"]
+        },
+        {
+          "id": "co-syntax-basic-07",
+          "type": "matching",
+          "difficulty": "basic",
+          "explanation": "Mỗi field trong các cấu trúc TOP include lấy kiểu dữ liệu tham chiếu (TYPE) từ đúng bảng gốc tương ứng: kalnr/losgr từ KEKO, kst001 từ KEPH, bwkey từ T001K, kokrs từ TKA02.",
+          "pairs": [
+            { "left": "kalnr TYPE ___-kalnr", "right": "keko" },
+            { "left": "kst001 TYPE ___-kst001", "right": "keph" },
+            { "left": "bwkey TYPE ___-bwkey", "right": "t001k" },
+            { "left": "kokrs TYPE ___-kokrs", "right": "tka02" }
+          ]
+        },
+        {
+          "id": "co-syntax-basic-08",
+          "type": "matching",
+          "difficulty": "basic",
+          "explanation": "Mỗi cấu trúc TYPES trong include TOP phục vụ một mục đích riêng: ST_PRODUCT_COSTING lưu dữ liệu header cost estimate từ KEKO, ST_COST_COMPONENT lưu cost component split từ KEPH, ST_CTR_AREA lưu mapping controlling area, ST_MATERIAL_VALUATIONS lưu dữ liệu định giá vật tư từ MBEW.",
+          "pairs": [
+            { "left": "st_product_costing", "right": "Dữ liệu header cost estimate (KALNR, KADKY, BWVAR, TVERS, LOSGR)" },
+            { "left": "st_cost_component", "right": "Cost component split (KST001-KST009)" },
+            { "left": "st_ctr_area", "right": "Mapping company code với controlling area" },
+            { "left": "st_material_valuations", "right": "Dữ liệu định giá vật tư từ MBEW" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "intermediate",
+      "difficulty": "intermediate",
+      "title": "FOR ALL ENTRIES và RANGE table động",
+      "questions": [
+        {
+          "id": "co-syntax-intermediate-01",
+          "type": "multiple-choice",
+          "difficulty": "intermediate",
+          "explanation": "Trong form get_material_valuation, sau khi APPEND matnr từ 2 nguồn (lt_material_info và lt_sale_orders) vào lt_matnr_all, code thực hiện SORT rồi DELETE ADJACENT DUPLICATES FROM để loại bỏ các mã vật tư trùng lặp, tránh SELECT FOR ALL ENTRIES lặp lại không cần thiết cho cùng một MATNR.",
+          "question": "Mục đích của 'SORT lt_matnr_all.' rồi 'DELETE ADJACENT DUPLICATES FROM lt_matnr_all.' trước khi SELECT FOR ALL ENTRIES là gì?",
+          "options": [
+            "Sắp xếp lại thứ tự hiển thị output cuối cùng",
+            "Loại bỏ các MATNR trùng lặp để tránh SELECT lặp lại không cần thiết",
+            "Chuyển đổi kiểu dữ liệu của MATNR",
+            "Tăng tốc độ ghi dữ liệu ra file"
+          ],
+          "answerIndex": 1
+        },
+        {
+          "id": "co-syntax-intermediate-02",
+          "type": "multiple-choice",
+          "difficulty": "intermediate",
+          "explanation": "Trước mỗi SELECT ... FOR ALL ENTRIES IN, code luôn kiểm tra 'IF lt_matnr_all IS NOT INITIAL' (hoặc tương tự cho lt_material_valuations, lr_kokrs). Đây là thông lệ bắt buộc trong ABAP vì hành vi của FOR ALL ENTRIES với bảng driver rỗng có thể gây nhầm lẫn hoặc lãng phí một lượt truy vấn không cần thiết.",
+          "question": "Tại sao form get_material_valuation kiểm tra 'IF lt_matnr_all IS NOT INITIAL.' trước khi thực hiện SELECT FOR ALL ENTRIES?",
+          "options": [
+            "Vì cú pháp SQL yêu cầu bắt buộc phải có IF trước SELECT",
+            "Để tránh gọi SELECT FOR ALL ENTRIES với bảng driver rỗng, vốn là thông lệ an toàn bắt buộc trong ABAP",
+            "Để kiểm tra quyền truy cập authorization",
+            "Để tính tổng số lượng bản ghi trước khi SELECT"
+          ],
+          "answerIndex": 1
+        },
+        {
+          "id": "co-syntax-intermediate-03",
+          "type": "true-false",
+          "difficulty": "intermediate",
+          "explanation": "Đúng, đây là một đặc tính quan trọng cần nhớ của FOR ALL ENTRIES: nó tự động loại bỏ các dòng kết quả trùng lặp hoàn toàn (dựa trên các cột được SELECT), tương tự hành vi DISTINCT ngầm định.",
+          "statement": "SELECT ... FOR ALL ENTRIES IN trong ABAP tự động loại bỏ các dòng kết quả bị trùng lặp hoàn toàn trong kết quả trả về.",
+          "answer": true
+        },
+        {
+          "id": "co-syntax-intermediate-04",
+          "type": "true-false",
+          "difficulty": "intermediate",
+          "explanation": "Đúng. Trong form get_product_costing, điều kiện WHERE có 'AND bzobj = \\'0\\' AND kalka = \\'01\\' AND freig = \\'X\\' AND kadat <= @p_date AND bidat >= @p_date', nghĩa là chỉ lấy cost estimate loại '0' (không gắn lô cụ thể), loại costing '01' (kế hoạch chuẩn), đã release (freig = 'X'), và còn hiệu lực tại ngày p_date.",
+          "statement": "Trong form get_product_costing, điều kiện WHERE lọc 'freig = \\'X\\'' để chỉ lấy các cost estimate đã được giải phóng (released).",
+          "answer": true
+        },
+        {
+          "id": "co-syntax-intermediate-05",
+          "type": "fill-blank",
+          "difficulty": "intermediate",
+          "explanation": "Dòng khai báo đầy đủ trong form get_product_costing là 'DATA: lr_kokrs TYPE RANGE OF tka02-kokrs,' - tạo một bảng RANGE để lọc động theo nhiều giá trị KOKRS.",
+          "prompt": "Hoàn thành khai báo: DATA: lr_kokrs TYPE RANGE OF ___.",
+          "acceptableAnswers": ["tka02-kokrs", "TKA02-KOKRS"]
+        },
+        {
+          "id": "co-syntax-intermediate-06",
+          "type": "fill-blank",
+          "difficulty": "intermediate",
+          "explanation": "Trong đoạn build range động: 'ls_kokrs-sign = \\'I\\'. ls_kokrs-option = \\'EQ\\'. ls_kokrs-low = wa_ctrl_area-kokrs.' - giá trị 'EQ' nghĩa là so sánh bằng (equal).",
+          "prompt": "Trong đoạn code build range động, dòng 'ls_kokrs-option = ___.' gán điều kiện so sánh 'bằng'.",
+          "acceptableAnswers": ["'EQ'", "EQ"]
+        },
+        {
+          "id": "co-syntax-intermediate-07",
+          "type": "matching",
+          "difficulty": "intermediate",
+          "explanation": "Range table trong ABAP có 4 field chuẩn SIGN, OPTION, LOW, HIGH. Trong đoạn code: sign = 'I' (Include - lấy các dòng thỏa điều kiện), option = 'EQ' (Equal - so sánh bằng), low = wa_ctrl_area-kokrs (giá trị cụ thể để so sánh).",
+          "pairs": [
+            { "left": "ls_kokrs-sign = 'I'", "right": "Include - giữ lại các dòng thỏa điều kiện" },
+            { "left": "ls_kokrs-option = 'EQ'", "right": "Equal - so sánh bằng" },
+            { "left": "ls_kokrs-low = wa_ctrl_area-kokrs", "right": "Giá trị KOKRS cụ thể dùng để so sánh" },
+            { "left": "APPEND ls_kokrs TO lr_kokrs", "right": "Thêm một điều kiện range mới vào bảng lr_kokrs" }
+          ]
+        },
+        {
+          "id": "co-syntax-intermediate-08",
+          "type": "matching",
+          "difficulty": "intermediate",
+          "explanation": "Trong form get_product_costing, SELECT từ KEKO nối điều kiện với lt_material_valuations (dữ liệu từ MBEW) nhưng tên field không trùng nhau hoàn toàn: kaln1 (MBEW) tương ứng kalnr (KEKO), bwva2 tương ứng bwvar, vers2 tương ứng tvers - đây là điểm dễ nhầm khi đọc code.",
+          "pairs": [
+            { "left": "mbew~kaln1", "right": "keko~kalnr" },
+            { "left": "mbew~bwva2", "right": "keko~bwvar" },
+            { "left": "mbew~vers2", "right": "keko~tvers" },
+            { "left": "mbew~matnr", "right": "keko~matnr" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "difficulty": "advanced",
+      "title": "READ TABLE nhiều điều kiện và công thức tính giá thành",
+      "questions": [
+        {
+          "id": "co-syntax-advanced-01",
+          "type": "multiple-choice",
+          "difficulty": "advanced",
+          "explanation": "Trong form build_line: 'READ TABLE lt_product_costing INTO DATA(ls_keko) WITH KEY kalnr = ls_mbew-kaln1 bwvar = ls_mbew-bwva2 tvers = ls_mbew-vers2.' dùng 3 điều kiện để tìm đúng dòng KEKO khớp với cost estimate number/valuation variant/costing version đã ghi trong MBEW của vật tư đang xử lý.",
+          "question": "Trong form build_line, READ TABLE lt_product_costing WITH KEY kalnr = ls_mbew-kaln1 bwvar = ls_mbew-bwva2 tvers = ls_mbew-vers2 dùng để làm gì?",
+          "options": [
+            "Tìm dòng KEKO (cost estimate header) khớp với cost estimate đang được dùng làm giá chuẩn của vật tư trong MBEW",
+            "Tìm dòng MBEW khớp với vật tư",
+            "Tìm cost center chịu trách nhiệm chi phí",
+            "Tìm controlling area của plant"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "co-syntax-advanced-02",
+          "type": "multiple-choice",
+          "difficulty": "advanced",
+          "explanation": "Công thức 'ls_out-mat_cost = ls_keph-kst001 / ls_keko-losgr * iv_qty.' chia giá trị cost component (tính cho cả lô LOSGR) cho lot size để ra đơn giá trên 1 đơn vị, sau đó nhân với số lượng tồn kho thực tế (iv_qty) để ra tổng chi phí nguyên vật liệu tương ứng với số lượng tồn hiện có.",
+          "question": "Công thức 'ls_out-mat_cost = ls_keph-kst001 / ls_keko-losgr * iv_qty.' trong form build_line tính ra giá trị gì?",
+          "options": [
+            "Tổng chi phí nguyên vật liệu cho toàn bộ lot size gốc",
+            "Đơn giá nguyên vật liệu trên 1 đơn vị nhân với số lượng tồn kho thực tế (iv_qty) để ra tổng chi phí tương ứng",
+            "Giá chuẩn (standard price) của vật tư",
+            "Tỷ lệ phần trăm chi phí nguyên vật liệu trên tổng giá thành"
+          ],
+          "answerIndex": 1
+        },
+        {
+          "id": "co-syntax-advanced-03",
+          "type": "true-false",
+          "difficulty": "advanced",
+          "explanation": "Đúng. Nếu LOSGR = 0 thì phép chia sẽ gây lỗi runtime (division by zero). Vì vậy code có điều kiện bảo vệ: 'IF sy-subrc = 0 AND ls_keko-losgr IS NOT INITIAL.' trước khi thực hiện các phép chia cho losgr.",
+          "statement": "Nếu ls_keko-losgr bằng 0, công thức chia cho losgr trong build_line sẽ gây lỗi runtime, vì vậy code kiểm tra 'ls_keko-losgr IS NOT INITIAL' trước khi tính.",
+          "answer": true
+        },
+        {
+          "id": "co-syntax-advanced-04",
+          "type": "true-false",
+          "difficulty": "advanced",
+          "explanation": "Đúng. Các internal table như lt_product_costing, lt_cost_component, lt_material_valuations, lt_ctrl_area được khai báo là STANDARD TABLE thông thường (không SORTED/HASHED, không có BINARY SEARCH), nên mỗi lệnh READ TABLE ... WITH KEY thực hiện tìm kiếm tuyến tính (linear scan) qua các dòng.",
+          "statement": "Vì các internal table trong report này là standard table không được SORT và không dùng BINARY SEARCH, các câu lệnh READ TABLE ... WITH KEY thực hiện tìm kiếm tuyến tính (linear search).",
+          "answer": true
+        },
+        {
+          "id": "co-syntax-advanced-05",
+          "type": "fill-blank",
+          "difficulty": "advanced",
+          "explanation": "Dòng đầy đủ là 'ls_out-std_value = ls_mbew-stprs / ls_mbew-peinh * iv_qty.' - stprs (giá chuẩn) chia cho peinh (price unit, đơn vị giá) để ra đơn giá trên 1 đơn vị, tương tự cách chia cho losgr trong cost component.",
+          "prompt": "Hoàn thành công thức: ls_out-std_value = ls_mbew-stprs / ls_mbew-___ * iv_qty.",
+          "acceptableAnswers": ["peinh", "PEINH"]
+        },
+        {
+          "id": "co-syntax-advanced-06",
+          "type": "fill-blank",
+          "difficulty": "advanced",
+          "explanation": "sy-subrc = 0 sau lệnh READ TABLE nghĩa là đã tìm thấy dòng thỏa điều kiện khóa (read thành công); khác 0 nghĩa là không tìm thấy.",
+          "prompt": "Sau lệnh READ TABLE ... WITH KEY, giá trị sy-subrc = 0 có nghĩa là ___.",
+          "acceptableAnswers": ["tìm thấy dòng", "đọc thành công", "tìm thấy", "read thành công", "tim thay dong"]
+        },
+        {
+          "id": "co-syntax-advanced-07",
+          "type": "matching",
+          "difficulty": "advanced",
+          "explanation": "Form build_line thực hiện chuỗi READ TABLE nối tiếp: đầu tiên tìm dữ liệu định giá MBEW theo matnr, sau đó dùng kết quả đó (kaln1/bwva2/vers2) để tìm KEKO, rồi từ KEKO (kalnr/kadky/bwvar/tvers) tìm KEPH, cuối cùng tìm controlling area theo bwkey (plant).",
+          "pairs": [
+            { "left": "READ TABLE lt_material_valuations WITH KEY matnr = iv_matnr", "right": "Lấy dữ liệu định giá MBEW của vật tư" },
+            { "left": "READ TABLE lt_product_costing WITH KEY kalnr/bwvar/tvers", "right": "Lấy header cost estimate (KEKO) tương ứng" },
+            { "left": "READ TABLE lt_cost_component WITH KEY kalnr/kadky/bwvar/tvers", "right": "Lấy cost component split (KEPH) tương ứng" },
+            { "left": "READ TABLE lt_ctrl_area WITH KEY bwkey = iv_werks", "right": "Lấy controlling area/company code của plant" }
+          ]
+        },
+        {
+          "id": "co-syntax-advanced-08",
+          "type": "matching",
+          "difficulty": "advanced",
+          "explanation": "Mỗi field output trong ls_out được tính trực tiếp từ đúng cost component KST00x tương ứng trong KEPH, chia cho losgr và nhân iv_qty.",
+          "pairs": [
+            { "left": "ls_out-mat_cost", "right": "ls_keph-kst001 (nguyên vật liệu)" },
+            { "left": "ls_out-frght_duty", "right": "ls_keph-kst002 (cước phí/thuế)" },
+            { "left": "ls_out-labor_var", "right": "ls_keph-kst003 (nhân công biến đổi)" },
+            { "left": "ls_out-ext_subcon", "right": "ls_keph-kst005 (gia công ngoài)" }
+          ]
+        }
+      ]
+    }
+  ]
+}

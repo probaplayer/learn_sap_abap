@@ -1,0 +1,275 @@
+{
+  "moduleId": "mm",
+  "track": "business",
+  "lessons": [
+    {
+      "id": "basic",
+      "difficulty": "basic",
+      "title": "Vật tư và tồn kho là gì",
+      "questions": [
+        {
+          "id": "mm-business-basic-01",
+          "type": "multiple-choice",
+          "difficulty": "basic",
+          "explanation": "MARA lưu dữ liệu chung của vật tư ở cấp client, không phân biệt theo plant. Các dữ liệu theo plant (MRP, tồn kho, giá) nằm ở MARC/MARD/MBEW.",
+          "question": "Bảng MARA trong SAP MM dùng để làm gì?",
+          "options": [
+            "Lưu dữ liệu chung của vật tư (material master), không phân biệt theo plant",
+            "Lưu số lượng tồn kho theo từng plant",
+            "Lưu giá chuẩn và giá trị tồn kho của vật tư",
+            "Lưu mô tả vật tư theo từng ngôn ngữ"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "mm-business-basic-02",
+          "type": "multiple-choice",
+          "difficulty": "basic",
+          "explanation": "MM01 = Create Material, MM02 = Change Material, MM03 = Display Material, MB1C = nhập kho (Goods Receipt - Other).",
+          "question": "Transaction code nào dùng để tạo mới 1 vật tư (material master)?",
+          "options": ["MM01", "MM02", "MM03", "MB1C"],
+          "answerIndex": 0
+        },
+        {
+          "id": "mm-business-basic-03",
+          "type": "true-false",
+          "difficulty": "basic",
+          "explanation": "FERT (Fertigerzeugnis) = thành phẩm, HALB (Halbfabrikat) = bán thành phẩm, ROH (Rohstoff) = nguyên liệu thô - đây là các material type phổ biến trong SAP MM.",
+          "statement": "MTART = FERT nghĩa là vật tư thuộc loại thành phẩm (Finished Product).",
+          "answer": true
+        },
+        {
+          "id": "mm-business-basic-04",
+          "type": "true-false",
+          "difficulty": "basic",
+          "explanation": "Ngược lại: MARC lưu dữ liệu vật tư ở cấp plant (WERKS) như thông số MRP, lead time; đây chính là dữ liệu theo plant chứ không phải cấp client.",
+          "statement": "MARC lưu dữ liệu vật tư ở cấp client (toàn hệ thống), không phân biệt theo nhà máy.",
+          "answer": false
+        },
+        {
+          "id": "mm-business-basic-05",
+          "type": "fill-blank",
+          "difficulty": "basic",
+          "explanation": "MAKT (Material Descriptions) lưu tên/mô tả vật tư theo từng ngôn ngữ (SPRAS), vì MARA không lưu trực tiếp mô tả.",
+          "prompt": "Bảng ___ lưu mô tả (tên gọi) của vật tư theo từng ngôn ngữ.",
+          "acceptableAnswers": ["MAKT", "makt"]
+        },
+        {
+          "id": "mm-business-basic-06",
+          "type": "fill-blank",
+          "difficulty": "basic",
+          "explanation": "MMBE (Stock Overview) hiển thị tổng quan tồn kho của 1 vật tư trên các plant và storage location khác nhau.",
+          "prompt": "Transaction code để xem tổng quan tồn kho của 1 vật tư trên nhiều plant/storage location là ___.",
+          "acceptableAnswers": ["MMBE", "mmbe"]
+        },
+        {
+          "id": "mm-business-basic-07",
+          "type": "matching",
+          "difficulty": "basic",
+          "explanation": "Bốn bảng cốt lõi của MM tổ chức dữ liệu theo cấp độ khác nhau: chung, theo plant, theo kho, và theo giá trị.",
+          "pairs": [
+            { "left": "MARA", "right": "Dữ liệu chung vật tư (không theo plant)" },
+            { "left": "MARC", "right": "Dữ liệu vật tư theo plant (MRP, lead time)" },
+            { "left": "MARD", "right": "Tồn kho theo plant và storage location" },
+            { "left": "MBEW", "right": "Định giá vật tư (giá chuẩn, giá trị tồn kho)" }
+          ]
+        },
+        {
+          "id": "mm-business-basic-08",
+          "type": "matching",
+          "difficulty": "basic",
+          "explanation": "MM01/02/03 theo mẫu Create/Change/Display quen thuộc của SAP; MB1C là 1 trong các transaction cho goods movement.",
+          "pairs": [
+            { "left": "MM01", "right": "Tạo mới vật tư" },
+            { "left": "MM02", "right": "Thay đổi vật tư" },
+            { "left": "MM03", "right": "Hiển thị vật tư" },
+            { "left": "MB1C", "right": "Nhập kho (Goods Receipt - Other)" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "intermediate",
+      "difficulty": "intermediate",
+      "title": "Liên hệ giữa các bảng và ý nghĩa field",
+      "questions": [
+        {
+          "id": "mm-business-intermediate-01",
+          "type": "multiple-choice",
+          "difficulty": "intermediate",
+          "explanation": "MARA ở cấp client (toàn hệ thống), MARC ở cấp plant, MARD ở cấp storage location trong plant - cấu trúc tổ chức dữ liệu vật tư đi từ rộng đến hẹp.",
+          "question": "MM tổ chức dữ liệu vật tư theo các cấp độ tổ chức nào, từ tổng quát đến chi tiết?",
+          "options": [
+            "Client (MARA) -> Plant (MARC) -> Storage Location (MARD)",
+            "Storage Location -> Plant -> Client",
+            "Company code -> Client -> Plant",
+            "Chỉ có duy nhất 1 cấp là Plant"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "mm-business-intermediate-02",
+          "type": "multiple-choice",
+          "difficulty": "intermediate",
+          "explanation": "STPRS (Standard Price) là giá chuẩn của vật tư, dùng làm cơ sở tính giá trị tồn kho theo phương pháp standard costing.",
+          "question": "Field STPRS trong bảng MBEW có ý nghĩa gì?",
+          "options": [
+            "Giá chuẩn (Standard Price) của vật tư",
+            "Số lượng tồn kho khả dụng",
+            "Mã kho hàng (Storage Location)",
+            "Loại vật tư (Material Type)"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "mm-business-intermediate-03",
+          "type": "true-false",
+          "difficulty": "intermediate",
+          "explanation": "WERKS (Plant) là field liên kết xuyên suốt giữa dữ liệu MM theo plant (MARC, MARD) và bảng master data định nghĩa plant (T001W).",
+          "statement": "Field WERKS xuất hiện trong cả MARC, MARD và T001W vì đây là mã nhà máy (plant) dùng để liên kết dữ liệu vật tư với đơn vị tổ chức plant.",
+          "answer": true
+        },
+        {
+          "id": "mm-business-intermediate-04",
+          "type": "true-false",
+          "difficulty": "intermediate",
+          "explanation": "LGORT (storage location) là 1 phần khóa chính của MARD (cùng MATNR, WERKS), không phải MARC - MARC chỉ có khóa MATNR + WERKS.",
+          "statement": "Field LGORT (storage location) là 1 phần khóa chính của bảng MARC.",
+          "answer": false
+        },
+        {
+          "id": "mm-business-intermediate-05",
+          "type": "fill-blank",
+          "difficulty": "intermediate",
+          "explanation": "SALK3 (Value of Total Valuated Stock) là giá trị tồn kho theo sổ sách, được dùng để đối chiếu với giá trị tài chính của hàng tồn kho.",
+          "prompt": "Giá trị tồn kho theo sổ sách (giá trị tài chính) của 1 vật tư trong MBEW được lưu ở field ___.",
+          "acceptableAnswers": ["SALK3", "salk3"]
+        },
+        {
+          "id": "mm-business-intermediate-06",
+          "type": "fill-blank",
+          "difficulty": "intermediate",
+          "explanation": "MTART (Material Type) phân loại vật tư thành các nhóm như FERT (thành phẩm), HALB (bán thành phẩm), ROH (nguyên liệu thô).",
+          "prompt": "Field ___ trong bảng MARA cho biết loại vật tư như FERT, HALB, ROH.",
+          "acceptableAnswers": ["MTART", "mtart"]
+        },
+        {
+          "id": "mm-business-intermediate-07",
+          "type": "matching",
+          "difficulty": "intermediate",
+          "explanation": "Mỗi field trong dữ liệu vật tư mang một ý nghĩa nghiệp vụ cụ thể, cần nắm rõ để đọc đúng báo cáo tồn kho và định giá.",
+          "pairs": [
+            { "left": "MTART", "right": "Loại vật tư (Material Type)" },
+            { "left": "WERKS", "right": "Mã nhà máy (Plant)" },
+            { "left": "LGORT", "right": "Mã kho hàng (Storage Location)" },
+            { "left": "LABST", "right": "Tồn kho khả dụng không hạn chế" },
+            { "left": "STPRS", "right": "Giá chuẩn của vật tư" }
+          ]
+        },
+        {
+          "id": "mm-business-intermediate-08",
+          "type": "matching",
+          "difficulty": "intermediate",
+          "explanation": "Mỗi bảng MM bổ sung thêm 1 hoặc nhiều field khóa so với MATNR, phản ánh cấp độ tổ chức chi tiết hơn của dữ liệu.",
+          "pairs": [
+            { "left": "MARC", "right": "Khóa chính bổ sung thêm WERKS" },
+            { "left": "MARD", "right": "Khóa chính bổ sung thêm WERKS và LGORT" },
+            { "left": "MAKT", "right": "Khóa chính bổ sung thêm SPRAS" },
+            { "left": "MBEW", "right": "Khóa chính bổ sung thêm BWKEY" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "difficulty": "advanced",
+      "title": "Tình huống thực tế và liên hệ với CO/FI",
+      "questions": [
+        {
+          "id": "mm-business-advanced-01",
+          "type": "multiple-choice",
+          "difficulty": "advanced",
+          "explanation": "MARA cho thông tin chung, MARD cho tồn kho theo plant/storage location, MAKT cho tên vật tư theo ngôn ngữ, MBEW cho giá chuẩn - đúng cách một báo cáo tồn kho định giá thực tế join dữ liệu.",
+          "question": "Một báo cáo cần liệt kê tồn kho khả dụng (LABST) theo từng plant, kèm tên vật tư và giá chuẩn. Cần join những bảng nào?",
+          "options": [
+            "MARA + MARD (tồn kho theo plant) + MAKT (tên vật tư) + MBEW (giá chuẩn)",
+            "Chỉ cần MARA",
+            "MARC + T001W",
+            "Chỉ cần MBEW"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "mm-business-advanced-02",
+          "type": "multiple-choice",
+          "difficulty": "advanced",
+          "explanation": "CO dùng giá chuẩn (standard price) trong cost estimate (CK11N/CK24) làm cơ sở tính giá thành, sau đó so sánh với chi phí thực tế để phân tích chênh lệch giá (price/cost variance).",
+          "question": "Giá chuẩn (STPRS) trong MBEW được CO (Controlling) sử dụng chủ yếu để làm gì?",
+          "options": [
+            "Làm cơ sở tính giá trị tồn kho theo phương pháp standard costing và so sánh với chi phí thực tế khi tính giá thành sản phẩm",
+            "Chỉ dùng để hiển thị trên báo cáo bán hàng",
+            "Không liên quan đến CO, chỉ dùng nội bộ MM",
+            "Dùng để tính thuế VAT khi bán hàng"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "mm-business-advanced-03",
+          "type": "true-false",
+          "difficulty": "advanced",
+          "explanation": "Nếu chỉ join theo MATNR mà bỏ qua WERKS, kết quả sẽ là tích Descartes giữa các dòng MARC và MARD của cùng vật tư nhưng khác plant, gây sai dữ liệu (nhân bản dòng).",
+          "statement": "Khi join MARC và MARD trong cùng 1 câu SELECT cho 1 vật tư, cần thêm điều kiện WERKS = WERKS ở cả 2 bảng để tránh kết quả bị nhân bản.",
+          "answer": true
+        },
+        {
+          "id": "mm-business-advanced-04",
+          "type": "true-false",
+          "difficulty": "advanced",
+          "explanation": "SALK3 trong MBEW phản ánh giá trị tồn kho, được FI dùng để đối chiếu với số dư tài khoản tồn kho (inventory G/L account) trên sổ cái - nên MBEW có liên hệ trực tiếp với FI.",
+          "statement": "Bảng MBEW không có ảnh hưởng gì đến FI (Financial Accounting) vì đây thuần túy là dữ liệu nội bộ của MM.",
+          "answer": false
+        },
+        {
+          "id": "mm-business-advanced-05",
+          "type": "fill-blank",
+          "difficulty": "advanced",
+          "explanation": "PEINH (Price Unit) là đơn vị giá, dùng để chia STPRS khi tính đơn giá thực tế, vì giá chuẩn có thể được niêm yết theo 1 lô nhiều đơn vị (vd giá cho 100 cái).",
+          "prompt": "Để tính giá trị tồn kho theo giá chuẩn, công thức thường dùng là: giá trị = (STPRS / ___) * số lượng tồn kho, trong đó field còn thiếu là đơn vị giá.",
+          "acceptableAnswers": ["PEINH", "peinh"]
+        },
+        {
+          "id": "mm-business-advanced-06",
+          "type": "fill-blank",
+          "difficulty": "advanced",
+          "explanation": "M_MATE_WRK là authorization object chuẩn của SAP dùng để kiểm soát quyền truy cập dữ liệu vật tư theo từng plant (werks).",
+          "prompt": "Để kiểm tra người dùng có quyền xem dữ liệu vật tư của 1 plant cụ thể hay không, ABAP dùng authorization object ___.",
+          "acceptableAnswers": ["M_MATE_WRK", "m_mate_wrk"]
+        },
+        {
+          "id": "mm-business-advanced-07",
+          "type": "matching",
+          "difficulty": "advanced",
+          "explanation": "Mỗi tình huống báo cáo thực tế cần join đúng bảng và lọc đúng field để lấy dữ liệu chính xác theo yêu cầu nghiệp vụ.",
+          "pairs": [
+            { "left": "Lấy tên vật tư theo ngôn ngữ hiện tại", "right": "JOIN với MAKT, lọc SPRAS = ngôn ngữ đăng nhập" },
+            { "left": "Lấy tồn kho khả dụng theo từng plant/kho", "right": "JOIN với MARD, lọc theo WERKS/LGORT" },
+            { "left": "Lấy giá chuẩn/giá trị tồn kho", "right": "JOIN với MBEW, lọc theo BWKEY" },
+            { "left": "Lấy thông số MRP/lead time theo plant", "right": "JOIN với MARC, lọc theo WERKS" }
+          ]
+        },
+        {
+          "id": "mm-business-advanced-08",
+          "type": "matching",
+          "difficulty": "advanced",
+          "explanation": "Việc hiểu đúng cấp độ tổ chức giúp xác định bảng nào cần join khi xây dựng báo cáo hoặc tùy biến chương trình MM.",
+          "pairs": [
+            { "left": "Cấp Client (toàn hệ thống)", "right": "MARA, MAKT" },
+            { "left": "Cấp Plant", "right": "MARC" },
+            { "left": "Cấp Plant + Storage Location", "right": "MARD" },
+            { "left": "Cấp Valuation Area (thường gắn với Plant/Company Code)", "right": "MBEW" }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+[
+  {
+    "id": "KEKO",
+    "name": "KEKO - Product Costing Header",
+    "module": "co",
+    "purpose": "Bảng header của cost estimate (bản tính giá thành). Mỗi dòng trong KEKO đại diện cho một lần tính giá thành của một vật tư, xác định bởi số cost estimate KALNR cùng với ngày tính giá, biến thể định giá và phiên bản costing. KEKO lưu các thông tin tổng quan như lot size (số lượng cơ sở để tính giá), trạng thái giải phóng (freig) và khoảng thời gian hiệu lực của cost estimate.",
+    "whereUsed": "Được tạo ra khi chạy CK11N (tạo cost estimate cho 1 vật tư), CK40N (costing run hàng loạt); xem lại bằng CK13N. KEKO là bảng trung tâm mà MBEW tham chiếu tới (qua các trường KALN1/BWVA2/VERS2) để biết cost estimate nào đang được dùng làm giá chuẩn hiện hành của vật tư.",
+    "keyFields": [
+      { "field": "KALNR", "description": "Số cost estimate (costing number) - khóa định danh duy nhất cho một lần tính giá" },
+      { "field": "KADKY", "description": "Ngày tính giá (costing date) - ngày cost estimate được tạo/lưu" },
+      { "field": "BWVAR", "description": "Biến thể định giá (valuation variant) - quy định nguồn giá nguyên vật liệu, tỷ lệ overhead dùng khi tính giá" },
+      { "field": "TVERS", "description": "Phiên bản costing (costing version), ví dụ 01 = giá chuẩn kế hoạch" },
+      { "field": "LOSGR", "description": "Lot size - số lượng cơ sở mà cost estimate được tính (dùng để quy đổi ra đơn giá/đơn vị)" },
+      { "field": "BZOBJ", "description": "Loại đối tượng tính giá (costing object type), '0' là cost estimate không lô sản xuất cụ thể" },
+      { "field": "KALKA", "description": "Loại costing (costing type), '01' là costing kế hoạch chuẩn" },
+      { "field": "FREIG", "description": "Cờ đánh dấu cost estimate đã được giải phóng (released) để dùng làm giá chuẩn" }
+    ],
+    "relatedTables": ["KEPH", "MBEW", "MARA"]
+  },
+  {
+    "id": "KEPH",
+    "name": "KEPH - Cost Component Split",
+    "module": "co",
+    "purpose": "Bảng lưu chi tiết cost component split - tức là phân rã tổng giá thành của một cost estimate (KEKO) thành 9 thành phần chi phí (KST001 đến KST009): nguyên vật liệu, cước phí/thuế, nhân công biến đổi, nhân công cố định, gia công ngoài, overhead biến đổi, overhead cố định, dịch vụ, chi phí đặc biệt. Cho phép phân tích cấu trúc chi phí thay vì chỉ nhìn một con số tổng.",
+    "whereUsed": "Tự động sinh ra khi tạo cost estimate qua CK11N/CK40N, xem chi tiết cost component qua CK13N (tab Cost Component). Dùng để đối chiếu với báo cáo phân tích chi phí sản xuất và feed dữ liệu cho các báo cáo giá vốn hàng bán (COGS breakdown).",
+    "keyFields": [
+      { "field": "KALNR", "description": "Số cost estimate, khóa liên kết với KEKO" },
+      { "field": "KADKY", "description": "Ngày tính giá, cùng khóa với KEKO" },
+      { "field": "BWVAR", "description": "Biến thể định giá, cùng khóa với KEKO" },
+      { "field": "TVERS", "description": "Phiên bản costing, cùng khóa với KEKO" },
+      { "field": "KST001", "description": "Cost component 1 - chi phí nguyên vật liệu (material cost)" },
+      { "field": "KST002", "description": "Cost component 2 - cước phí/thuế nhập khẩu (freight/duty)" },
+      { "field": "KST003", "description": "Cost component 3 - nhân công biến đổi (labor variable)" },
+      { "field": "KST006", "description": "Cost component 6 - overhead biến đổi (overhead variable)" }
+    ],
+    "relatedTables": ["KEKO", "MBEW"]
+  },
+  {
+    "id": "TKA02",
+    "name": "TKA02 - Controlling Area Assignment",
+    "module": "co",
+    "purpose": "Bảng gán controlling area (KOKRS) với company code (BUKRS). Một controlling area có thể quản lý nhiều company code (mô hình 1 controlling area - nhiều công ty), phục vụ việc tổng hợp và phân tích chi phí xuyên suốt nhiều công ty trong cùng một tập đoàn.",
+    "whereUsed": "Cấu hình trong IMG (Enterprise Structure - Assignment - Controlling), dùng để xác định controlling area khi lọc dữ liệu costing theo plant/company code trong các báo cáo CO (ví dụ join với T001K qua BUKRS để suy ra KOKRS tương ứng với plant).",
+    "keyFields": [
+      { "field": "KOKRS", "description": "Mã controlling area - đơn vị tổ chức quản trị chi phí" },
+      { "field": "BUKRS", "description": "Mã company code được gán vào controlling area này" }
+    ],
+    "relatedTables": ["T001K", "T001", "CSKS"]
+  },
+  {
+    "id": "CSKS",
+    "name": "CSKS - Cost Center Master",
+    "module": "co",
+    "purpose": "Bảng master data của cost center (trung tâm chi phí) - đơn vị tổ chức nơi chi phí phát sinh và được thu thập (ví dụ: phân xưởng sản xuất, phòng ban hành chính). Mỗi cost center thuộc về một controlling area và có khoảng thời gian hiệu lực riêng.",
+    "whereUsed": "Tạo/sửa qua KS01/KS02/KS03, dùng làm đối tượng chi phí (cost object) khi ghi nhận chi phí thực tế (actual cost posting), phân bổ overhead trong quá trình tính giá thành, và lập kế hoạch chi phí (cost center planning) qua KP06.",
+    "keyFields": [
+      { "field": "KOSTL", "description": "Mã cost center" },
+      { "field": "KOKRS", "description": "Controlling area mà cost center này thuộc về" },
+      { "field": "DATBI", "description": "Ngày kết thúc hiệu lực (validity to)" },
+      { "field": "DATAB", "description": "Ngày bắt đầu hiệu lực (validity from)" },
+      { "field": "VERAK", "description": "Người chịu trách nhiệm cost center (person responsible)" }
+    ],
+    "relatedTables": ["TKA02", "CSKA"]
+  },
+  {
+    "id": "CSKA",
+    "name": "CSKA - Cost Element Master (Chart of Accounts)",
+    "module": "co",
+    "purpose": "Bảng master data của cost element (yếu tố chi phí) ở cấp chart of accounts - độc lập với controlling area. Cost element là 'khoản mục chi phí/doanh thu' dùng trong CO, thường tương ứng 1-1 với một tài khoản G/L trong FI (primary cost element) hoặc là cost element nội bộ chỉ tồn tại trong CO (secondary cost element, dùng cho phân bổ nội bộ, ví dụ activity allocation).",
+    "whereUsed": "Tạo qua KA01/KA02/KA03 (hoặc tự động khi tạo tài khoản G/L loại chi phí), dùng làm nền tảng phân loại chi phí trong mọi giao dịch CO, và là cơ sở để cost component structure (trong customizing costing) ánh xạ cost element vào các cost component KST001-KST009 của KEPH.",
+    "keyFields": [
+      { "field": "KTOPL", "description": "Chart of accounts (bảng hệ thống tài khoản)" },
+      { "field": "KSTAR", "description": "Mã cost element (cost element number), thường trùng số tài khoản G/L" },
+      { "field": "DATBI", "description": "Ngày kết thúc hiệu lực" },
+      { "field": "DATAB", "description": "Ngày bắt đầu hiệu lực" }
+    ],
+    "relatedTables": ["CSKS", "SKA1"]
+  }
+]

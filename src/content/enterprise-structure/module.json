@@ -1,0 +1,9 @@
+{
+  "id": "enterprise-structure",
+  "name": "Enterprise Structure (Cơ cấu tổ chức)",
+  "shortName": "Enterprise Structure",
+  "icon": "🏢",
+  "color": "#ce82ff",
+  "description": "Enterprise Structure là bộ khung tổ chức nền tảng của hệ thống SAP, định nghĩa các đơn vị như Client, Company Code, Plant, Storage Location, Controlling Area và Valuation Area. Đây là bước thiết lập đầu tiên, bắt buộc phải hoàn tất trước khi triển khai bất kỳ module nghiệp vụ nào như MM, SD, FI hay CO.",
+  "businessPurpose": "Enterprise Structure là nền tảng tổ chức mà mọi module SAP khác đều phụ thuộc vào: Company Code (bảng T001) đại diện cho 1 pháp nhân hạch toán tài chính độc lập, Plant (bảng T001W) đại diện cho địa điểm vận hành logistics/sản xuất, còn Storage Location là kho hàng chi tiết bên trong Plant. Valuation Area (bảng T001K, field BWKEY) xác định cấp độ định giá vật tư - có thể ở cấp Plant hoặc cấp Company Code - và luôn gắn với đúng 1 Company Code cụ thể. Controlling Area (bảng TKA02, field KOKRS) là đơn vị kế toán quản trị có thể bao trùm nhiều Company Code cùng lúc (mô hình cross-company controlling), cho phép doanh nghiệp tập hợp và so sánh chi phí (cost center, profit center, product costing) xuyên nhiều pháp nhân khác nhau. Vì mọi giao dịch nghiệp vụ - từ mua hàng, bán hàng, sản xuất cho đến bút toán kế toán - đều phải gắn với 1 đơn vị tổ chức cụ thể, việc hiểu đúng Enterprise Structure giúp người học nắm được cách dữ liệu được phân chia, kiểm soát và báo cáo xuyên suốt toàn bộ hệ thống SAP."
+}

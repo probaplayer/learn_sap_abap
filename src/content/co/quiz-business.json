@@ -1,0 +1,279 @@
+{
+  "moduleId": "co",
+  "track": "business",
+  "lessons": [
+    {
+      "id": "basic",
+      "difficulty": "basic",
+      "title": "Khái niệm cơ bản về Cost Estimate và Cost Component",
+      "questions": [
+        {
+          "id": "co-business-basic-01",
+          "type": "multiple-choice",
+          "difficulty": "basic",
+          "explanation": "Cost estimate (lưu ở bảng KEKO/KEPH) là một bản ghi tính toán giá thành sản xuất của một vật tư tại một thời điểm cụ thể, dựa trên cấu trúc nguyên vật liệu (BOM), quy trình sản xuất (routing) và các tỷ lệ overhead đã cấu hình.",
+          "question": "Cost estimate trong CO-PC là gì?",
+          "options": [
+            "Một bản ghi tính toán giá thành sản xuất của một vật tư tại một thời điểm, dựa trên BOM, routing và overhead",
+            "Một chứng từ kế toán ghi nhận doanh thu bán hàng",
+            "Một bảng lương của nhân viên sản xuất",
+            "Một đơn đặt hàng mua nguyên vật liệu"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "co-business-basic-02",
+          "type": "multiple-choice",
+          "difficulty": "basic",
+          "explanation": "KALNR (Kalkulationsnummer) là số định danh duy nhất của một cost estimate, dùng làm khóa chính để liên kết dữ liệu giữa KEKO (header) và KEPH (cost component split).",
+          "question": "KALNR trong CO-PC có ý nghĩa gì?",
+          "options": [
+            "Số cost estimate (costing number) - khóa định danh duy nhất cho một lần tính giá thành",
+            "Mã cost center chịu trách nhiệm chi phí",
+            "Mã controlling area",
+            "Số lượng tồn kho hiện tại của vật tư"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "co-business-basic-03",
+          "type": "true-false",
+          "difficulty": "basic",
+          "explanation": "Sai. Một controlling area (KOKRS) có thể được gán cho nhiều company code (BUKRS) - đây là mô hình phổ biến khi một tập đoàn muốn quản lý chi phí tập trung xuyên suốt nhiều pháp nhân/công ty con.",
+          "statement": "Một controlling area (KOKRS) chỉ có thể được gán cho đúng một company code (BUKRS) duy nhất.",
+          "answer": false
+        },
+        {
+          "id": "co-business-basic-04",
+          "type": "true-false",
+          "difficulty": "basic",
+          "explanation": "Đúng. Cost component split (lưu trong KEPH) chia tổng giá thành thành các thành phần chi phí riêng biệt như nguyên vật liệu, cước phí/thuế, nhân công biến đổi/cố định, gia công ngoài, overhead biến đổi/cố định, dịch vụ và chi phí đặc biệt, giúp doanh nghiệp phân tích cấu trúc chi phí chi tiết thay vì chỉ nhìn một con số tổng.",
+          "statement": "Cost component split chia tổng giá thành sản phẩm thành nhiều thành phần chi phí như nguyên vật liệu, nhân công và overhead.",
+          "answer": true
+        },
+        {
+          "id": "co-business-basic-05",
+          "type": "fill-blank",
+          "difficulty": "basic",
+          "explanation": "CK11N là transaction dùng để tạo cost estimate (create cost estimate) cho một vật tư riêng lẻ.",
+          "prompt": "Transaction dùng để tạo cost estimate cho một vật tư đơn lẻ là ___.",
+          "acceptableAnswers": ["CK11N", "ck11n"]
+        },
+        {
+          "id": "co-business-basic-06",
+          "type": "fill-blank",
+          "difficulty": "basic",
+          "explanation": "CK13N là transaction dùng để xem lại (display) cost estimate đã được tạo trước đó, bao gồm cả tab cost component split.",
+          "prompt": "Transaction dùng để xem lại (display) một cost estimate đã tạo là ___.",
+          "acceptableAnswers": ["CK13N", "ck13n"]
+        },
+        {
+          "id": "co-business-basic-07",
+          "type": "matching",
+          "difficulty": "basic",
+          "explanation": "KALNR là số cost estimate, KADKY là ngày tính giá, BWVAR là biến thể định giá quy định nguồn giá và tỷ lệ overhead, TVERS là phiên bản costing (ví dụ 01 = kế hoạch chuẩn).",
+          "pairs": [
+            { "left": "KALNR", "right": "Số cost estimate (costing number)" },
+            { "left": "KADKY", "right": "Ngày tính giá (costing date)" },
+            { "left": "BWVAR", "right": "Biến thể định giá (valuation variant)" },
+            { "left": "TVERS", "right": "Phiên bản costing (costing version)" }
+          ]
+        },
+        {
+          "id": "co-business-basic-08",
+          "type": "matching",
+          "difficulty": "basic",
+          "explanation": "Mỗi cost component KST00x trong KEPH đại diện cho một loại chi phí cụ thể trong cấu trúc giá thành: KST001 nguyên vật liệu, KST003 nhân công biến đổi, KST005 gia công ngoài, KST006 overhead biến đổi.",
+          "pairs": [
+            { "left": "KST001", "right": "Nguyên vật liệu (material cost)" },
+            { "left": "KST003", "right": "Nhân công biến đổi (labor variable)" },
+            { "left": "KST005", "right": "Gia công ngoài (external subcontracting)" },
+            { "left": "KST006", "right": "Overhead biến đổi (overhead variable)" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "intermediate",
+      "difficulty": "intermediate",
+      "title": "Lot size, standard cost và cấu trúc tổ chức CO",
+      "questions": [
+        {
+          "id": "co-business-intermediate-01",
+          "type": "multiple-choice",
+          "difficulty": "intermediate",
+          "explanation": "Cost estimate được tính dựa trên một số lượng cơ sở gọi là lot size (LOSGR), ví dụ chi phí nguyên vật liệu được tính cho cả lô 100 đơn vị. Để so sánh hoặc nhân với số lượng tồn kho thực tế khác đi, cần chia giá trị cost component cho lot size để ra đơn giá trên 1 đơn vị, sau đó mới nhân với số lượng cần tính.",
+          "question": "Tại sao cần lot size (LOSGR) khi tính đơn giá từ cost component?",
+          "options": [
+            "Vì cost estimate được tính tổng cho cả một lô sản xuất (lot size), cần chia cho lot size mới ra được đơn giá trên 1 đơn vị",
+            "Vì lot size quyết định giá bán của sản phẩm",
+            "Vì lot size là số lượng nhân viên tham gia sản xuất",
+            "Vì lot size dùng để tính thuế nhập khẩu"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "co-business-intermediate-02",
+          "type": "multiple-choice",
+          "difficulty": "intermediate",
+          "explanation": "Standard cost (giá chuẩn) là giá được tính trước và cố định trong suốt kỳ costing (thường là 1 năm hoặc 1 kỳ tài chính), dùng làm chuẩn để đánh giá tồn kho và so sánh với chi phí thực tế phát sinh. Giá trị tồn kho SAP thực tế (ví dụ SALK3/LBKUM trong MBEW với phương pháp moving average) phản ánh giá trị bình quân gia quyền thực tế biến động theo từng lần nhập/xuất kho, nên hai giá trị này có thể chênh lệch nhau (price variance).",
+          "question": "Sự khác biệt cơ bản giữa giá chuẩn (standard cost) và giá trị tồn kho thực tế trên SAP là gì?",
+          "options": [
+            "Standard cost cố định trong kỳ costing để làm chuẩn so sánh, còn giá trị tồn kho thực tế (moving average) biến động theo từng giao dịch nhập/xuất, dẫn đến chênh lệch giá",
+            "Standard cost chỉ áp dụng cho vật tư nhập khẩu, còn giá thực tế áp dụng cho vật tư sản xuất trong nước",
+            "Hai giá trị này luôn bằng nhau vì đều lấy từ KEKO",
+            "Standard cost do phòng bán hàng quyết định, giá thực tế do phòng kế toán quyết định"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "co-business-intermediate-03",
+          "type": "true-false",
+          "difficulty": "intermediate",
+          "explanation": "Đúng. Đây là bản chất của standard costing: giá chuẩn được cố định trong suốt kỳ costing (release period) để làm cơ sở đánh giá tồn kho ổn định, bất kể giá nguyên vật liệu thực tế biến động ra sao trong kỳ. Chênh lệch sẽ được ghi nhận riêng qua price variance.",
+          "statement": "Standard cost (giá chuẩn) được cố định trong suốt kỳ costing, không thay đổi theo biến động giá nguyên vật liệu thực tế trong kỳ đó.",
+          "answer": true
+        },
+        {
+          "id": "co-business-intermediate-04",
+          "type": "true-false",
+          "difficulty": "intermediate",
+          "explanation": "Đúng. Cost center (lưu trong CSKS) là đơn vị tổ chức nơi chi phí thực tế phát sinh và được thu thập, ví dụ một phân xưởng sản xuất hoặc một phòng ban. Cost center cũng được dùng làm cost object khi ghi nhận chi phí thực tế và lập kế hoạch chi phí.",
+          "statement": "Cost center (CSKS) là đơn vị tổ chức nơi chi phí phát sinh và được thu thập, ví dụ một phân xưởng sản xuất.",
+          "answer": true
+        },
+        {
+          "id": "co-business-intermediate-05",
+          "type": "fill-blank",
+          "difficulty": "intermediate",
+          "explanation": "CSKA là bảng master data của cost element (yếu tố chi phí) ở cấp chart of accounts, độc lập với controlling area.",
+          "prompt": "Bảng lưu master data của cost element ở cấp chart of accounts là ___.",
+          "acceptableAnswers": ["CSKA", "cska"]
+        },
+        {
+          "id": "co-business-intermediate-06",
+          "type": "fill-blank",
+          "difficulty": "intermediate",
+          "explanation": "CSKS là bảng master data của cost center, đơn vị tổ chức phát sinh và thu thập chi phí.",
+          "prompt": "Bảng lưu master data của cost center là ___.",
+          "acceptableAnswers": ["CSKS", "csks"]
+        },
+        {
+          "id": "co-business-intermediate-07",
+          "type": "matching",
+          "difficulty": "intermediate",
+          "explanation": "TKA02 gán controlling area với company code, CSKS lưu master data cost center, CSKA lưu master data cost element, KEKO lưu header cost estimate.",
+          "pairs": [
+            { "left": "TKA02", "right": "Gán controlling area (KOKRS) với company code (BUKRS)" },
+            { "left": "CSKS", "right": "Master data cost center" },
+            { "left": "CSKA", "right": "Master data cost element (chart of accounts)" },
+            { "left": "KEKO", "right": "Header của cost estimate" }
+          ]
+        },
+        {
+          "id": "co-business-intermediate-08",
+          "type": "matching",
+          "difficulty": "intermediate",
+          "explanation": "Valuation variant quy định nguồn giá và tỷ lệ overhead khi tính giá; costing version phân biệt các phiên bản tính giá (kế hoạch, mô phỏng...); lot size là số lượng cơ sở dùng để tính cost estimate; cost component split là bảng phân rã chi phí theo từng loại.",
+          "pairs": [
+            { "left": "Valuation variant (BWVAR)", "right": "Quy định nguồn giá nguyên vật liệu và tỷ lệ overhead khi tính giá" },
+            { "left": "Costing version (TVERS)", "right": "Phân biệt các phiên bản tính giá khác nhau (kế hoạch, mô phỏng)" },
+            { "left": "Lot size (LOSGR)", "right": "Số lượng cơ sở dùng để tính tổng chi phí cost estimate" },
+            { "left": "Cost component split (KEPH)", "right": "Bảng phân rã giá thành theo từng loại chi phí" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "difficulty": "advanced",
+      "title": "Costing run, release giá chuẩn và phân tích chênh lệch",
+      "questions": [
+        {
+          "id": "co-business-advanced-01",
+          "type": "multiple-choice",
+          "difficulty": "advanced",
+          "explanation": "CK40N là transaction chạy costing run - cho phép tính giá thành hàng loạt cho nhiều vật tư cùng lúc theo một cấu trúc thứ tự (BOM explosion, routing), thay vì phải chạy CK11N thủ công cho từng vật tư một, tiết kiệm thời gian cho việc costing định kỳ (ví dụ đầu năm tài chính).",
+          "question": "Transaction CK40N (costing run) dùng để làm gì?",
+          "options": [
+            "Chạy tính giá thành hàng loạt cho nhiều vật tư cùng lúc, thay vì tạo từng cost estimate riêng lẻ bằng CK11N",
+            "Tạo đơn đặt hàng mua nguyên vật liệu hàng loạt",
+            "Xóa toàn bộ cost estimate cũ trong hệ thống",
+            "Ghi nhận chi phí nhân công thực tế hàng tháng"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "co-business-advanced-02",
+          "type": "multiple-choice",
+          "difficulty": "advanced",
+          "explanation": "Sau khi costing run hoàn tất, cost estimate cần được đánh dấu (mark) và giải phóng (release); khi release, giá thành mới sẽ được cập nhật vào material master (bảng MBEW) làm giá chuẩn (standard price) chính thức cho kỳ tiếp theo, thực hiện qua transaction CK24.",
+          "question": "Sau khi costing run hoàn tất và cost estimate được mark/release, giá chuẩn mới được cập nhật vào đâu và qua transaction nào?",
+          "options": [
+            "Cập nhật vào material master (MBEW) làm standard price mới, thực hiện qua CK24",
+            "Cập nhật vào bảng lương nhân viên, thực hiện qua PA30",
+            "Cập nhật vào đơn hàng bán, thực hiện qua VA02",
+            "Cập nhật vào cost center planning, thực hiện qua KP06"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "co-business-advanced-03",
+          "type": "true-false",
+          "difficulty": "advanced",
+          "explanation": "Đúng. Trường FREIG = 'X' trong KEKO đánh dấu cost estimate đã được release chính thức; chỉ những cost estimate này mới đủ điều kiện dùng làm giá chuẩn (standard price) chính thức của vật tư, các cost estimate chưa release chỉ mang tính tham khảo/mô phỏng.",
+          "statement": "Chỉ những cost estimate có cờ FREIG = 'X' (đã được release) mới được dùng làm giá chuẩn chính thức của vật tư.",
+          "answer": true
+        },
+        {
+          "id": "co-business-advanced-04",
+          "type": "true-false",
+          "difficulty": "advanced",
+          "explanation": "Đúng. Secondary cost element (loại 21, 42...) chỉ tồn tại trong CO, không có tài khoản G/L tương ứng trong FI, được dùng cho các giao dịch nội bộ CO như phân bổ hoạt động (activity allocation), phân bổ overhead giữa các cost center, không liên quan trực tiếp đến kế toán tài chính bên ngoài.",
+          "statement": "Secondary cost element chỉ tồn tại trong CO (không có tài khoản G/L tương ứng trong FI) và dùng cho các giao dịch phân bổ chi phí nội bộ.",
+          "answer": true
+        },
+        {
+          "id": "co-business-advanced-05",
+          "type": "fill-blank",
+          "difficulty": "advanced",
+          "explanation": "CK24 là transaction dùng để mark/release cost estimate, qua đó cập nhật giá chuẩn (standard price) mới vào material master.",
+          "prompt": "Transaction dùng để release cost estimate và cập nhật giá chuẩn mới vào material master là ___.",
+          "acceptableAnswers": ["CK24", "ck24"]
+        },
+        {
+          "id": "co-business-advanced-06",
+          "type": "fill-blank",
+          "difficulty": "advanced",
+          "explanation": "CK40N là transaction dùng để chạy costing run hàng loạt cho nhiều vật tư trong một lần thực hiện.",
+          "prompt": "Transaction dùng để chạy costing run hàng loạt cho nhiều vật tư cùng lúc là ___.",
+          "acceptableAnswers": ["CK40N", "ck40n"]
+        },
+        {
+          "id": "co-business-advanced-07",
+          "type": "matching",
+          "difficulty": "advanced",
+          "explanation": "CK11N tạo cost estimate cho từng vật tư đơn lẻ, CK13N xem lại cost estimate đã tạo, CK40N chạy costing run hàng loạt, CK24 release/cập nhật giá chuẩn vào material master.",
+          "pairs": [
+            { "left": "CK11N", "right": "Tạo cost estimate cho một vật tư đơn lẻ" },
+            { "left": "CK13N", "right": "Xem lại (display) cost estimate đã tạo" },
+            { "left": "CK40N", "right": "Chạy costing run hàng loạt cho nhiều vật tư" },
+            { "left": "CK24", "right": "Release/cập nhật giá chuẩn mới vào material master" }
+          ]
+        },
+        {
+          "id": "co-business-advanced-08",
+          "type": "matching",
+          "difficulty": "advanced",
+          "explanation": "Trong báo cáo phân tích chi phí, các cost component thường được gộp nhóm để dễ đọc: 'Internal Labor' gộp nhân công/overhead nội bộ (labor_var + labor_fix + ovrhead_var + ovrhead_fix + spec_act), còn 'External Labor' gộp các chi phí thuê ngoài (ext_subcon + serv_cost).",
+          "pairs": [
+            { "left": "Internal Labor (nhóm báo cáo)", "right": "labor_var + labor_fix + ovrhead_var + ovrhead_fix + spec_act" },
+            { "left": "External Labor (nhóm báo cáo)", "right": "ext_subcon + serv_cost" },
+            { "left": "Material Cost (nhóm báo cáo)", "right": "mat_cost (KST001)" },
+            { "left": "F&D/MH (nhóm báo cáo)", "right": "frght_duty (KST002)" }
+          ]
+        }
+      ]
+    }
+  ]
+}

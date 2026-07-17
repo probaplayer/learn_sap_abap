@@ -1,0 +1,58 @@
+[
+  {
+    "id": "T001",
+    "name": "T001 - Company Codes",
+    "module": "enterprise-structure",
+    "purpose": "Bảng master data định nghĩa Company Code (BUKRS) - đơn vị tổ chức đại diện cho 1 pháp nhân độc lập, lập báo cáo tài chính (bảng cân đối kế toán, báo cáo lãi lỗ) riêng biệt. Chứa các thuộc tính như tên công ty, địa chỉ, đồng tiền hạch toán (Currency) và Chart of Accounts sử dụng.",
+    "whereUsed": "Được cấu hình qua transaction OX02 (SPRO > Enterprise Structure > Definition > Financial Accounting > Edit, Copy, Delete, Check Company Code). Mọi giao dịch tài chính (bút toán FI, hóa đơn, thanh toán) và hầu hết giao dịch logistics (đơn hàng, goods movement) đều gắn với 1 BUKRS cụ thể để xác định phạm vi hạch toán và báo cáo.",
+    "keyFields": [
+      { "field": "BUKRS", "description": "Mã công ty (Company Code) - khóa chính" },
+      { "field": "BUTXT", "description": "Tên công ty (Company Name)" },
+      { "field": "WAERS", "description": "Đồng tiền hạch toán (Company Code Currency)" },
+      { "field": "KTOPL", "description": "Chart of Accounts (hệ thống tài khoản) sử dụng" },
+      { "field": "LAND1", "description": "Mã quốc gia (Country Key)" },
+      { "field": "PERIV", "description": "Fiscal Year Variant (biến thể năm tài chính)" }
+    ],
+    "relatedTables": ["T001K", "T001W", "TKA02"]
+  },
+  {
+    "id": "T001K",
+    "name": "T001K - Valuation Area",
+    "module": "enterprise-structure",
+    "purpose": "Bảng master data định nghĩa Valuation Area (BWKEY) - đơn vị tổ chức xác định cấp độ định giá vật tư trong MM/CO. Mỗi Valuation Area luôn gắn với đúng 1 Company Code (BUKRS); tùy cấu hình của toàn hệ thống, BWKEY có thể trùng với mã Plant (định giá cấp plant - phổ biến nhất) hoặc trùng với mã Company Code (định giá cấp công ty).",
+    "whereUsed": "Được cấu hình trong Customizing (SPRO > Enterprise Structure > Definition > Logistics - General > Define Valuation Level, và Assignment > Assign Plant to Company Code/Valuation Area). Bảng MBEW (Material Valuation) dùng BWKEY làm khóa để lưu giá trị/giá chuẩn vật tư theo đúng phạm vi định giá đã cấu hình. Trong chương trình ZCO_INVENTORY_COSTS_ANHBHN, form get_controlling_area SELECT trực tiếp từ T001K để tra công ty (BUKRS) tương ứng với từng valuation area/plant.",
+    "keyFields": [
+      { "field": "BWKEY", "description": "Mã Valuation Area (khu vực định giá) - khóa chính" },
+      { "field": "BUKRS", "description": "Company Code mà Valuation Area này thuộc về" },
+      { "field": "BWMOD", "description": "Nhóm định giá dùng để xác định tài khoản tự động (Valuation Grouping Code)" }
+    ],
+    "relatedTables": ["T001", "T001W", "TKA02"]
+  },
+  {
+    "id": "T001W",
+    "name": "T001W - Plants/Branches",
+    "module": "enterprise-structure",
+    "purpose": "Bảng master data định nghĩa Plant (WERKS) - đơn vị tổ chức đại diện cho 1 địa điểm vận hành vật lý (nhà máy sản xuất, trung tâm phân phối, kho hàng lớn). Chứa tên plant, địa chỉ, mã quốc gia và field BWKEY liên kết Plant với Valuation Area tương ứng.",
+    "whereUsed": "Được cấu hình qua transaction OX10 (SPRO > Enterprise Structure > Definition > Logistics - General > Define, Copy, Delete, Check Plant) và gán vào Company Code qua bước Assign plant to company code. Toàn bộ dữ liệu MM theo plant (MARC, MARD, MBEW) và các giao dịch logistics (MRP, goods movement, giao hàng bán) đều tham chiếu tới T001W qua WERKS.",
+    "keyFields": [
+      { "field": "WERKS", "description": "Mã nhà máy (Plant) - khóa chính" },
+      { "field": "NAME1", "description": "Tên nhà máy" },
+      { "field": "BWKEY", "description": "Valuation Area gắn với plant (thường trùng WERKS)" },
+      { "field": "LAND1", "description": "Mã quốc gia" },
+      { "field": "ORT01", "description": "Thành phố" }
+    ],
+    "relatedTables": ["T001", "T001K"]
+  },
+  {
+    "id": "TKA02",
+    "name": "TKA02 - Assignment of Company Code to Controlling Area",
+    "module": "enterprise-structure",
+    "purpose": "Bảng lưu quan hệ gán Company Code (BUKRS) vào Controlling Area (KOKRS) - đơn vị tổ chức kế toán quản trị (CO). Một Controlling Area có thể chứa nhiều Company Code (mô hình cross-company-code controlling), cho phép tập hợp và so sánh chi phí, cost center, profit center xuyên nhiều pháp nhân, miễn các company code đó tương thích về Chart of Accounts hoạt động và Fiscal Year Variant.",
+    "whereUsed": "Được cấu hình qua transaction OX19 (SPRO > Controlling > General Controlling > Organization > Assignment of Company Code(s) to a Controlling Area). Trong chương trình ZCO_INVENTORY_COSTS_ANHBHN, form get_controlling_area JOIN TKA02 với T001K qua BUKRS để xác định Controlling Area quản lý từng plant, sau đó form get_product_costing dùng KOKRS này để lọc đúng phạm vi cost estimate (KEKO) cần tính giá thành.",
+    "keyFields": [
+      { "field": "KOKRS", "description": "Mã Controlling Area - khóa chính" },
+      { "field": "BUKRS", "description": "Company Code được gán vào Controlling Area này - cùng KOKRS tạo khóa chính" }
+    ],
+    "relatedTables": ["T001", "T001K"]
+  }
+]

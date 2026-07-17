@@ -1,0 +1,19 @@
+{
+  "id": "zday11-bdc-fs00-mass",
+  "title": "Tạo hàng loạt tài khoản GL qua BDC (FS00 mass upload)",
+  "category": "bdc",
+  "difficulty": "advanced",
+  "relatedExerciseIds": [],
+  "sourceFiles": ["zday11_bdc_fs00_mass_anhbhn.abap"],
+  "problemStatement": "Đọc 1 file CSV chứa danh sách tài khoản GL cần tạo (số tài khoản, company code, account group, tên ngắn/dài, tiền tệ, field status group). Với mỗi dòng, kiểm tra tài khoản đã tồn tại chưa; nếu chưa, dùng kỹ thuật BDC để tự động nhập liệu qua transaction FS00 (Create G/L Account) y như thao tác tay trên giao diện SAPGUI. Ghi lại kết quả (thành công/thất bại + message) cho từng dòng để người dùng kiểm tra sau khi chạy hàng loạt.",
+  "concepts": [
+    "GUI_UPLOAD (đọc file CSV từ máy client)",
+    "BDCDATA + macro DEFINE bdc_dynpro/bdc_field",
+    "CALL TRANSACTION ... OPTIONS FROM ctu_params MESSAGES INTO bdcmsgcoll",
+    "ctu_params (chế độ hiển thị N/A/E khi chạy BDC)",
+    "Kiểm tra tồn tại trước khi tạo (tránh tạo trùng)"
+  ],
+  "tablesUsed": ["SKA1", "SKB1", "SKAT", "T001"],
+  "walkthrough": "Người dùng chọn file CSV qua dialog (`filetable`/`gui_upload`), mỗi dòng dữ liệu thô (`it_raw TYPE TABLE OF string`) được tách thành structure `st_glaccount`. Với mỗi tài khoản, code `SELECT SINGLE` kiểm tra `SKA1` xem đã tồn tại chưa (`lv_check`) — nếu có thì bỏ qua, ghi log 'Đã tồn tại'. Nếu chưa có, xây dựng `BDCDATA` mô phỏng đúng các bước nhập liệu trên giao diện FS00: mỗi màn hình (dynpro) được khai qua macro `bdc_dynpro` (chỉ định program + số màn hình), mỗi ô nhập liệu qua macro `bdc_field` (tên field kỹ thuật trên dynpro + giá trị). Sau khi build xong toàn bộ chuỗi thao tác, `CALL TRANSACTION 'FS00' USING it_bdcdata OPTIONS FROM wa_opt MESSAGES INTO it_messtab` thực thi y hệt như người dùng tự tay bấm qua từng màn hình. Kết quả (thành công/lỗi) được đọc từ `it_messtab` và ghi vào `it_result` để hiển thị báo cáo cuối cùng.",
+  "sampleOutput": "**⚠️ Kết quả minh họa, không phải chạy trên hệ thống SAP thật.**\n\n```\nSố TK       Trạng thái   Thông báo\n0000400100  THÀNH CÔNG   Tài khoản GL 400100 đã được tạo trong company code 1000\n0000400101  BỎ QUA       Tài khoản đã tồn tại\n0000400102  LỖI          Account group không hợp lệ\n```"
+}

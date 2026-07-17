@@ -1,0 +1,9 @@
+{
+  "id": "sd",
+  "name": "Sales and Distribution (SD)",
+  "shortName": "SD",
+  "icon": "🛒",
+  "color": "#ff9600",
+  "description": "SD là phân hệ quản lý bán hàng và phân phối của SAP, phụ trách toàn bộ quy trình từ nhận đơn hàng, giao hàng đến xuất hóa đơn cho khách hàng.",
+  "businessPurpose": "SD (Sales and Distribution) quản lý toàn bộ quy trình Order-to-Cash: tạo đơn hàng bán (Sales Order) trong VBAK/VBAP, giao hàng cho khách (Outbound Delivery) trong LIKP/LIPS, rồi xuất hóa đơn (Billing Document) trong VBRK/VBRP. Khi tạo đơn hàng, SD kiểm tra khả năng đáp ứng (Availability Check/ATP) dựa trên tồn kho do MM quản lý (bảng MARD, MSKA), và có thể tạo tồn kho riêng gắn với từng đơn hàng bán (sales order stock, special stock loại E, lưu trong MSKA) cho các vật tư sản xuất theo đơn (make-to-order). Khi billing document được tạo, SD tự động sinh bút toán ghi nhận doanh thu và công nợ phải thu sang FI (sổ cái chung FI-GL, tài khoản khách hàng FI-AR). Nhờ vậy SD là mắt xích kết nối giữa hoạt động bán hàng thực tế với chuỗi cung ứng (MM) và kế toán tài chính (FI)."
+}

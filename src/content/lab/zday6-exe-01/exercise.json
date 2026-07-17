@@ -1,0 +1,21 @@
+{
+  "id": "zday6-exe-01",
+  "title": "Quản lý khách hàng & chứng từ trên bảng Z + drill-down cổ điển",
+  "category": "selection-screen",
+  "difficulty": "advanced",
+  "relatedExerciseIds": ["zday8-exe-01"],
+  "sourceFiles": ["zday6_exe_01_anhbhn.abap"],
+  "problemStatement": "Xây 1 report có 2 chế độ trên cùng selection-screen (chọn bằng radio button, ẩn/hiện field tương ứng): (a) upload file CSV danh sách khách hàng để insert/update vào bảng Z khách hàng tự thiết kế; (b) tìm kiếm chứng từ theo nhiều điều kiện, hiển thị danh sách classic list có drill-down 2 cấp (bấm dòng cấp 1 xem chi tiết cấp 2), và xuất kết quả ra CSV.",
+  "concepts": [
+    "LOOP AT SCREEN (cả AT SELECTION-SCREEN ON và OUTPUT) để bật/tắt field theo radio button",
+    "Classic list drill-down: AT LINE-SELECTION / sy-lsind / HIDE",
+    "LEFT JOIN + GROUP BY + SUM() trong Open SQL",
+    "DELETE ADJACENT DUPLICATES COMPARING",
+    "Canh cột bằng WRITE ... WIDTH =",
+    "GUI_UPLOAD / GUI_DOWNLOAD",
+    "MODIFY ... FROM TABLE + COMMIT WORK / ROLLBACK WORK"
+  ],
+  "tablesUsed": ["ZTRAIN_CUSTOMER", "ZTRAIN_DOCHD", "ZTRAIN_DOCDT", "ZTRAIN_MATERIAL"],
+  "walkthrough": "Đây là 1 trong những bài phức tạp nhất nhóm 'zdayN' (254 dòng, nhiều luồng). Selection-screen có 2 radio button chọn chế độ; `LOOP AT SCREEN` chạy cả ở `AT SELECTION-SCREEN ON` (validate) lẫn `AT SELECTION-SCREEN OUTPUT` (ẩn/hiện input) để field tương ứng với chế độ đang chọn mới cho nhập.\n\n**Chế độ upload**: đọc CSV qua `GUI_UPLOAD`, `MODIFY ZTRAIN_CUSTOMER FROM TABLE` để insert-hoặc-update hàng loạt (MODIFY khác INSERT ở chỗ tự động ghi đè nếu khóa đã tồn tại), bọc `COMMIT WORK`/`ROLLBACK WORK` để đảm bảo toàn vẹn dữ liệu.\n\n**Chế độ tìm chứng từ**: `SELECT` với `LEFT JOIN` nhiều bảng Z + `GROUP BY`/`SUM()` để tổng hợp số tiền theo chứng từ, `DELETE ADJACENT DUPLICATES COMPARING` loại các dòng trùng sau khi gom nhóm. Kết quả hiển thị bằng classic list (kỹ thuật cũ trước khi có ALV): mỗi dòng ghi lại ngữ cảnh bằng `HIDE`, khi người dùng double-click (`AT LINE-SELECTION`) chương trình kiểm tra `sy-lsind` (cấp độ list hiện tại) để biết đang ở cấp 1 hay cấp 2, từ đó hiển thị đúng màn hình chi tiết tương ứng — đây chính là cơ chế 'drill-down' kiểu cũ trước khi ALV Hierarchical-Sequential List ra đời.",
+  "sampleOutput": "**⚠️ Kết quả minh họa, không phải chạy trên hệ thống SAP thật.**\n\n```\nChế độ Upload: Đã import 25 khách hàng (18 mới, 7 cập nhật)\n\nChế độ tìm chứng từ:\nDOCID       Trạng thái   Tổng tiền\nDOC-0001    Đã duyệt     15,000,000\nDOC-0002    Chờ duyệt     8,200,000\n→ Double-click DOC-0001 hiện chi tiết dòng hàng bên dưới\n```"
+}

@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+:root {
+  --color-bg: #fff7e6;
+  --color-panel: #ffffff;
+  --color-text: #3c3c3c;
+  --color-primary: #58cc02;
+  --color-primary-dark: #46a302;
+  --color-secondary: #1cb0f6;
+  --color-warning: #ffc800;
+  --color-danger: #ff4b4b;
+  --color-border: #e5e5e5;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #131f24;
+    --color-panel: #1f2c34;
+    --color-text: #e5e5e5;
+    --color-border: #37464f;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: 'Nunito', system-ui, 'Segoe UI', Roboto, sans-serif;
+}
+
+#root {
+  min-height: 100svh;
+}
+
+.md-content p {
+  margin: 0 0 0.75em;
+  line-height: 1.6;
+}
+.md-content p:last-child {
+  margin-bottom: 0;
+}
+.md-content strong {
+  font-weight: 800;
+}
+.md-content code {
+  font-family: ui-monospace, Consolas, monospace;
+  background: var(--color-border);
+  border-radius: 4px;
+  padding: 0.1em 0.4em;
+  font-size: 0.9em;
+}
+.md-content pre {
+  background: #1f2937;
+  color: #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 1em;
+  overflow-x: auto;
+  margin: 0 0 0.75em;
+}
+.md-content pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}

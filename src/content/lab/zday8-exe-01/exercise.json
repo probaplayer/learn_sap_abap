@@ -1,0 +1,18 @@
+{
+  "id": "zday8-exe-01",
+  "title": "Cập nhật chứng từ Z có khóa bản ghi (ENQUEUE/DEQUEUE)",
+  "category": "crud-lock",
+  "difficulty": "intermediate",
+  "relatedExerciseIds": ["zday8-exe-02", "zday6-exe-01"],
+  "sourceFiles": ["zday8_exe_01_anhbhn.abap"],
+  "problemStatement": "Cho phép người dùng nhập số chứng từ (ZTRAIN_DOCHD/DOCDT) để cập nhật trạng thái, số lượng, số tiền. Validate chứng từ phải tồn tại ngay khi rời khỏi field số chứng từ. Trước khi UPDATE, phải khóa bản ghi bằng lock object tự sinh để tránh 2 người sửa cùng lúc; không cho phép tạo chứng từ mới qua report này (chỉ update).",
+  "concepts": [
+    "Lock object tự sinh: ENQUEUE_EZDOCHD_ANHBHN / DEQUEUE_EZDOCHD_ANHBHN",
+    "AT SELECTION-SCREEN ON <field> (validate tồn tại)",
+    "UPDATE ... SET",
+    "SELECT SINGLE ... JOIN ... INTO (@f1, @f2)"
+  ],
+  "tablesUsed": ["ZTRAIN_DOCHD", "ZTRAIN_DOCDT"],
+  "walkthrough": "Khi tạo bảng Z tùy chỉnh trong SAP, hệ thống tự sinh sẵn 2 function module lock chuẩn theo tên bảng (`ENQUEUE_E<tên bảng>`/`DEQUEUE_E<tên bảng>`) nếu bảng có gắn lock object — bài này minh họa cách dùng đúng cặp function đó cho bảng `ZTRAIN_DOCHD`. Luồng: `AT SELECTION-SCREEN ON p_docid` chạy `SELECT SINGLE` kiểm tra chứng từ tồn tại (dùng JOIN DOCHD-DOCDT, SELECT thẳng vào biến bằng `INTO (@f1, @f2)`), báo lỗi nếu không thấy. Trước khi `UPDATE ... SET` các field trạng thái/số lượng/số tiền, code gọi `CALL FUNCTION 'ENQUEUE_EZDOCHD_ANHBHN'` để khóa bản ghi (nếu bản ghi đang bị người khác khóa thì nhận lỗi và dừng lại, tránh 2 người ghi đè lẫn nhau) — sau khi UPDATE xong luôn gọi `DEQUEUE_EZDOCHD_ANHBHN` để giải phóng khóa, kể cả khi có lỗi giữa chừng.",
+  "sampleOutput": "**⚠️ Kết quả minh họa, không phải chạy trên hệ thống SAP thật.**\n\n```\nNhập DOCID = DOC-0001, Status = 'A', Qty = 50, Amount = 12500000\n→ Khóa bản ghi DOC-0001 thành công\n→ UPDATE thành công, giải phóng khóa\n→ Thông báo: \"Cập nhật chứng từ DOC-0001 thành công\"\n```\nNếu DOCID không tồn tại → lỗi ngay dưới field: \"Chứng từ không tồn tại\"."
+}

@@ -1,0 +1,279 @@
+{
+  "moduleId": "enterprise-structure",
+  "track": "business",
+  "lessons": [
+    {
+      "id": "basic",
+      "difficulty": "basic",
+      "title": "Thứ bậc tổ chức cơ bản: Client, Company Code, Plant, Storage Location",
+      "questions": [
+        {
+          "id": "enterprise-structure-business-basic-01",
+          "type": "multiple-choice",
+          "difficulty": "basic",
+          "explanation": "Client là cấp cao nhất (1 hệ thống có thể chứa nhiều client độc lập về dữ liệu); bên trong Client có nhiều Company Code (đơn vị pháp lý); mỗi Company Code có thể có nhiều Plant; mỗi Plant có nhiều Storage Location.",
+          "question": "Thứ bậc tổ chức cơ bản trong hệ thống SAP (từ cao xuống thấp) thường là gì?",
+          "options": [
+            "Client → Company Code → Plant → Storage Location",
+            "Plant → Client → Storage Location → Company Code",
+            "Storage Location → Plant → Client → Company Code",
+            "Company Code → Client → Plant → Storage Location"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "enterprise-structure-business-basic-02",
+          "type": "true-false",
+          "difficulty": "basic",
+          "explanation": "Company Code là đơn vị hạch toán độc lập nhỏ nhất trong SAP về mặt pháp lý/tài chính; mỗi company code lập báo cáo tài chính (P&L, Balance Sheet) riêng.",
+          "statement": "Company Code (mã công ty) là đơn vị tổ chức đại diện cho 1 pháp nhân độc lập, có bảng cân đối kế toán và báo cáo tài chính riêng.",
+          "answer": true
+        },
+        {
+          "id": "enterprise-structure-business-basic-03",
+          "type": "fill-blank",
+          "difficulty": "basic",
+          "explanation": "Plant (WERKS) là đơn vị tổ chức logistics/vận hành, đại diện cho địa điểm vật lý, khác với Company Code là đơn vị pháp lý/tài chính.",
+          "prompt": "Trong SAP, ___ là đơn vị tổ chức đại diện cho 1 địa điểm vật lý (nhà máy, kho, trung tâm phân phối) nơi diễn ra hoạt động sản xuất/logistics, được cấu hình trong bảng T001W.",
+          "acceptableAnswers": ["plant", "Plant", "nhà máy"]
+        },
+        {
+          "id": "enterprise-structure-business-basic-04",
+          "type": "multiple-choice",
+          "difficulty": "basic",
+          "explanation": "1 Plant có thể có nhiều Storage Location, mỗi Storage Location đại diện cho 1 khu vực lưu kho cụ thể trong phạm vi nhà máy đó (ví dụ kho nguyên liệu, kho thành phẩm).",
+          "question": "Storage Location (kho hàng, LGORT) nằm ở cấp tổ chức nào so với Plant?",
+          "options": [
+            "Là cấp con của Plant, dùng để phân chia tồn kho vật lý chi tiết hơn trong 1 nhà máy",
+            "Là cấp cha của Plant",
+            "Ngang cấp với Company Code",
+            "Ngang cấp với Client"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "enterprise-structure-business-basic-05",
+          "type": "true-false",
+          "difficulty": "basic",
+          "explanation": "Trong cấu trúc tổ chức chuẩn của SAP, mỗi Plant được gán (assign) vào đúng 1 Company Code duy nhất, dù 1 Company Code có thể có nhiều Plant.",
+          "statement": "Một Plant chỉ có thể thuộc về đúng 1 Company Code.",
+          "answer": true
+        },
+        {
+          "id": "enterprise-structure-business-basic-06",
+          "type": "fill-blank",
+          "difficulty": "basic",
+          "explanation": "Client (mandant) là cấp cao nhất, đóng vai trò như 1 công ty ảo hoàn toàn tách biệt về dữ liệu với các client khác trong cùng hệ thống.",
+          "prompt": "Client là cấp tổ chức ___ trong hệ thống SAP: dữ liệu master data và transaction data giữa các client khác nhau hoàn toàn độc lập, không chia sẻ.",
+          "acceptableAnswers": ["cao nhất", "cao nhất trong SAP", "top-level"]
+        },
+        {
+          "id": "enterprise-structure-business-basic-07",
+          "type": "matching",
+          "difficulty": "basic",
+          "explanation": "Đây là 4 cấp tổ chức cơ bản và phổ biến nhất khi bắt đầu học Enterprise Structure trong SAP.",
+          "pairs": [
+            { "left": "Client", "right": "Cấp tổ chức cao nhất, tách biệt hoàn toàn dữ liệu giữa các client" },
+            { "left": "Company Code", "right": "Đơn vị pháp lý/tài chính, lập báo cáo tài chính riêng" },
+            { "left": "Plant", "right": "Địa điểm vận hành/logistics như nhà máy, kho, trung tâm phân phối" },
+            { "left": "Storage Location", "right": "Kho hàng chi tiết trong phạm vi 1 plant" }
+          ]
+        },
+        {
+          "id": "enterprise-structure-business-basic-08",
+          "type": "matching",
+          "difficulty": "basic",
+          "explanation": "Mỗi đơn vị tổ chức trả lời 1 câu hỏi quản trị khác nhau: company code cho mục đích pháp lý/tài chính, plant/storage location cho mục đích vận hành/tồn kho, controlling area cho mục đích kế toán quản trị.",
+          "pairs": [
+            { "left": "Company Code", "right": "Trả lời câu hỏi: giao dịch này thuộc pháp nhân nào để lập báo cáo tài chính?" },
+            { "left": "Plant", "right": "Trả lời câu hỏi: hàng hóa/vật tư này đang ở nhà máy/địa điểm vận hành nào?" },
+            { "left": "Controlling Area", "right": "Trả lời câu hỏi: chi phí này được kiểm soát, tổng hợp trong phạm vi tổ chức quản trị nào?" },
+            { "left": "Storage Location", "right": "Trả lời câu hỏi: hàng hóa này cụ thể đang nằm ở kho nào trong nhà máy?" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "intermediate",
+      "difficulty": "intermediate",
+      "title": "Controlling Area xuyên nhiều Company Code và Valuation Area",
+      "questions": [
+        {
+          "id": "enterprise-structure-business-intermediate-01",
+          "type": "multiple-choice",
+          "difficulty": "intermediate",
+          "explanation": "Controlling Area có thể gán với 1 hoặc nhiều Company Code (mô hình cross-company-code controlling), cho phép tổng hợp/so sánh chi phí xuyên nhiều pháp nhân, miễn thỏa điều kiện tương thích về Chart of Accounts và Fiscal Year Variant.",
+          "question": "Một Controlling Area (KOKRS) trong SAP có thể bao gồm bao nhiêu Company Code?",
+          "options": [
+            "Đúng 1 Company Code duy nhất, không được nhiều hơn",
+            "1 hoặc nhiều Company Code (cross-company controlling), miễn các company code đó tương thích về Chart of Accounts và Fiscal Year Variant",
+            "Không giới hạn liên quan gì đến Company Code vì 2 khái niệm hoàn toàn độc lập",
+            "Chỉ áp dụng cho các Company Code ở cùng 1 quốc gia"
+          ],
+          "answerIndex": 1
+        },
+        {
+          "id": "enterprise-structure-business-intermediate-02",
+          "type": "true-false",
+          "difficulty": "intermediate",
+          "explanation": "Đây chính là mục đích chính của mô hình cross-company controlling - cho phép tập đoàn có nhiều pháp nhân (company code) nhưng vẫn quản lý chi phí (cost center/profit center) tập trung ở cấp Controlling Area.",
+          "statement": "Việc gán nhiều Company Code vào cùng 1 Controlling Area cho phép doanh nghiệp chia sẻ chung Cost Center và Profit Center giữa các công ty con khác nhau để phân tích chi phí tập trung.",
+          "answer": true
+        },
+        {
+          "id": "enterprise-structure-business-intermediate-03",
+          "type": "fill-blank",
+          "difficulty": "intermediate",
+          "explanation": "T001K là bảng master data Valuation Area, chứa field BWKEY và BUKRS - xác định valuation area thuộc company code nào.",
+          "prompt": "Bảng ___ trong SAP lưu định nghĩa Valuation Area (BWKEY) và cho biết BWKEY đó gắn với Company Code (BUKRS) nào.",
+          "acceptableAnswers": ["T001K", "t001k"]
+        },
+        {
+          "id": "enterprise-structure-business-intermediate-04",
+          "type": "multiple-choice",
+          "difficulty": "intermediate",
+          "explanation": "Valuation Area là đơn vị tổ chức xác định mức độ chi tiết của việc định giá vật tư: có thể valuation ở cấp Plant (mỗi nhà máy có giá vật tư riêng - phổ biến hơn) hoặc ở cấp Company Code (dùng chung 1 giá cho toàn công ty).",
+          "question": "Valuation Area (BWKEY) trong SAP MM/CO dùng để làm gì?",
+          "options": [
+            "Xác định cấp độ tổ chức mà giá trị vật tư (MBEW) được định giá - có thể ở cấp Plant hoặc cấp Company Code",
+            "Chỉ dùng để đặt tên cho nhà máy, không liên quan đến giá trị vật tư",
+            "Là mã số nhân viên phụ trách định giá",
+            "Là mã khách hàng liên quan đến giao dịch bán hàng"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "enterprise-structure-business-intermediate-05",
+          "type": "true-false",
+          "difficulty": "intermediate",
+          "explanation": "Định giá cấp Plant cho phép mỗi nhà máy ghi nhận giá vật tư riêng (do chi phí sản xuất/vận chuyển khác nhau giữa các plant), phù hợp với đa số doanh nghiệp sản xuất phân tán.",
+          "statement": "Khi Valuation Area được cấu hình ở cấp Plant, mỗi Plant có thể có giá trị tồn kho (ví dụ giá chuẩn STPRS trong MBEW) khác nhau cho cùng 1 vật tư.",
+          "answer": true
+        },
+        {
+          "id": "enterprise-structure-business-intermediate-06",
+          "type": "fill-blank",
+          "difficulty": "intermediate",
+          "explanation": "WHERE bwkey IN @s_plant cho thấy chương trình coi giá trị người dùng nhập ở s_plant (đại diện cho Plant/WERKS) áp dụng luôn để lọc BWKEY, vì trong hệ thống này BWKEY = WERKS.",
+          "prompt": "Trong đoạn code get_controlling_area, vì hệ thống này cấu hình Valuation Area = mã Plant, nên biến chọn lọc select-option tên ___ được dùng để lọc trực tiếp trên field BWKEY của bảng T001K.",
+          "acceptableAnswers": ["s_plant", "S_PLANT"]
+        },
+        {
+          "id": "enterprise-structure-business-intermediate-07",
+          "type": "matching",
+          "difficulty": "intermediate",
+          "explanation": "Các bảng tổ chức này phối hợp với nhau để trả lời câu hỏi: vật tư này được định giá ở đâu, thuộc công ty nào, và công ty đó thuộc controlling area nào.",
+          "pairs": [
+            { "left": "T001K", "right": "Master data Valuation Area, liên kết BWKEY với Company Code" },
+            { "left": "TKA02", "right": "Master data Controlling Area, xác định KOKRS gắn với BUKRS nào" },
+            { "left": "MBEW", "right": "Dữ liệu định giá vật tư thực tế, gắn theo Valuation Area (BWKEY)" },
+            { "left": "T001W", "right": "Master data Plant, gồm tên, địa chỉ, valuation area của nhà máy" }
+          ]
+        },
+        {
+          "id": "enterprise-structure-business-intermediate-08",
+          "type": "matching",
+          "difficulty": "intermediate",
+          "explanation": "Doanh nghiệp cần cả 2 góc nhìn - theo Company Code (mục đích tài chính/pháp lý) và theo Plant (mục đích vận hành) - nên báo cáo giá thành phải tra cứu và hiển thị đủ cả 2 chiều tổ chức.",
+          "pairs": [
+            { "left": "Plant thuộc Company Code A", "right": "Giá trị tồn kho tại plant đó được ghi nhận vào sổ sách tài chính của Company Code A" },
+            { "left": "Company Code đổi Controlling Area", "right": "Ảnh hưởng đến việc chi phí có được tổng hợp chung với các company code khác hay không" },
+            { "left": "Báo cáo giá thành theo Company Code", "right": "Giúp đối chiếu đúng với báo cáo tài chính (P&L) của từng pháp nhân" },
+            { "left": "Báo cáo giá thành theo Plant", "right": "Giúp phân tích chi tiết hiệu quả sản xuất/vận hành ở từng nhà máy" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "difficulty": "advanced",
+      "title": "Cross-company Controlling và ranh giới định giá vật tư",
+      "questions": [
+        {
+          "id": "enterprise-structure-business-advanced-01",
+          "type": "multiple-choice",
+          "difficulty": "advanced",
+          "explanation": "Đây là phân biệt kinh điển trong Enterprise Structure: Company Code phục vụ mục đích tài chính/pháp lý (FI), Plant phục vụ mục đích vận hành logistics (MM/PP/SD), quan hệ là 1 Company Code - nhiều Plant.",
+          "question": "Điểm khác biệt cốt lõi giữa Company Code và Plant là gì?",
+          "options": [
+            "Company Code là đơn vị tổ chức pháp lý/tài chính; Plant là đơn vị tổ chức vận hành/logistics - 1 Company Code có thể có nhiều Plant nhưng 1 Plant chỉ thuộc 1 Company Code",
+            "Company Code và Plant là 2 tên gọi khác nhau của cùng 1 khái niệm",
+            "Plant luôn lớn hơn Company Code về mặt tổ chức",
+            "Company Code chỉ dùng trong module SD, còn Plant chỉ dùng trong module FI"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "enterprise-structure-business-advanced-02",
+          "type": "true-false",
+          "difficulty": "advanced",
+          "explanation": "Đây chính là lợi ích của mô hình cross-company-code controlling: tập đoàn đa quốc gia vẫn có thể tổng hợp/so sánh cost center, profit center xuyên công ty con trong 1 Controlling Area chung.",
+          "statement": "Một tập đoàn có 3 công ty con (3 Company Code) hoạt động ở 3 quốc gia khác nhau vẫn có thể dùng chung 1 Controlling Area để so sánh hiệu quả chi phí, miễn Chart of Accounts và Fiscal Year Variant tương thích.",
+          "answer": true
+        },
+        {
+          "id": "enterprise-structure-business-advanced-03",
+          "type": "fill-blank",
+          "difficulty": "advanced",
+          "explanation": "Controlling Area là mái nhà chung cho kế toán quản trị (CO), cho phép quản lý Cost Center, Profit Center, Product Costing tập trung dù các company code bên dưới khác nhau về pháp lý.",
+          "prompt": "Trong CO, đơn vị tổ chức dùng để tập hợp và phân bổ chi phí nội bộ xuyên nhiều Company Code gọi là ___.",
+          "acceptableAnswers": ["Controlling Area", "controlling area", "KOKRS", "kokrs"]
+        },
+        {
+          "id": "enterprise-structure-business-advanced-04",
+          "type": "multiple-choice",
+          "difficulty": "advanced",
+          "explanation": "Kết quả lt_ctrl_area (bwkey-bukrs-kokrs) được dùng ở 2 chỗ: build_line lấy bukrs để gắn vào output, và get_product_costing dùng kokrs để lọc SELECT trên KEKO - đảm bảo chỉ lấy cost estimate thuộc đúng phạm vi controlling area quản lý các plant đang xét.",
+          "question": "Trong chương trình ZCO_INVENTORY_COSTS_ANHBHN, hàm get_controlling_area JOIN T001K với TKA02 qua BUKRS để phục vụ mục đích nghiệp vụ nào?",
+          "options": [
+            "Xác định mỗi Plant thuộc Company Code nào, và Company Code đó thuộc Controlling Area nào, để sau đó lọc/nhóm chi phí sản xuất đúng phạm vi Controlling Area cần tính",
+            "Chỉ để hiển thị tên công ty trên báo cáo, không phục vụ tính toán gì thêm",
+            "Để kiểm tra quyền hạn người dùng",
+            "Để tính tỷ giá hối đoái giữa các company code"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "enterprise-structure-business-advanced-05",
+          "type": "true-false",
+          "difficulty": "advanced",
+          "explanation": "Vì MBEW được lưu theo BWKEY chứ không phải theo WERKS, nếu nhiều Plant dùng chung 1 Valuation Area thì chúng chia sẻ chung dữ liệu định giá (giá chuẩn, giá trị tồn kho) của Valuation Area đó.",
+          "statement": "Nếu 2 Plant khác nhau có cùng 1 Valuation Area (BWKEY giống nhau), thì SAP sẽ coi 2 plant đó chia sẻ chung 1 mức giá vật tư (MBEW) thay vì mỗi plant 1 giá riêng.",
+          "answer": true
+        },
+        {
+          "id": "enterprise-structure-business-advanced-06",
+          "type": "fill-blank",
+          "difficulty": "advanced",
+          "explanation": "Valuation cấp Plant (Valuation Area = Plant, tức mỗi plant có 1 BWKEY riêng biệt) là cách phổ biến để đảm bảo mỗi nhà máy có giá vật tư độc lập, phản ánh đúng chi phí sản xuất/vận chuyển tại từng nơi.",
+          "prompt": "Nếu doanh nghiệp muốn mỗi Plant có giá vật tư hoàn toàn độc lập, không chia sẻ với plant khác, cấu hình Valuation Area cần đặt ở cấp độ ___ thay vì cấp Company Code.",
+          "acceptableAnswers": ["plant", "Plant"]
+        },
+        {
+          "id": "enterprise-structure-business-advanced-07",
+          "type": "matching",
+          "difficulty": "advanced",
+          "explanation": "4 khái niệm này thường bị nhầm lẫn vì đều là đơn vị tổ chức, nhưng mỗi khái niệm phục vụ 1 mục đích quản trị khác nhau và có phạm vi (scope) khác nhau.",
+          "pairs": [
+            { "left": "Company Code", "right": "Ranh giới hạch toán pháp lý; báo cáo tài chính bắt buộc lập theo từng company code" },
+            { "left": "Plant", "right": "Ranh giới vận hành logistics; MRP, tồn kho, sản xuất quản lý theo từng plant" },
+            { "left": "Controlling Area", "right": "Ranh giới kế toán quản trị; có thể xuyên nhiều company code để so sánh chi phí tập trung" },
+            { "left": "Valuation Area", "right": "Ranh giới định giá vật tư; quyết định giá vật tư tính riêng theo plant hay dùng chung theo company code" }
+          ]
+        },
+        {
+          "id": "enterprise-structure-business-advanced-08",
+          "type": "matching",
+          "difficulty": "advanced",
+          "explanation": "Đây là minh họa thực tế cho cross-company controlling: 1 Controlling Area tổng hợp chi phí từ nhiều Company Code/Plant khác nhau nhưng vẫn phân định rõ ràng company code nào chịu trách nhiệm hạch toán tài chính cho plant nào.",
+          "pairs": [
+            { "left": "Controlling Area X gồm Company Code A, B", "right": "Report lọc theo Controlling Area X sẽ lấy dữ liệu từ toàn bộ Plant thuộc cả A và B" },
+            { "left": "Company Code A có Plant 1", "right": "Chi phí/giá trị tồn kho tại Plant 1 được hạch toán vào sổ sách của Company Code A" },
+            { "left": "Company Code B có Plant 2", "right": "Chi phí/giá trị tồn kho tại Plant 2 được hạch toán vào sổ sách của Company Code B" },
+            { "left": "get_product_costing lọc WHERE kokrs IN lr_kokrs", "right": "Đảm bảo chỉ lấy cost estimate thuộc đúng phạm vi Controlling Area đang phân tích, dù dữ liệu đến từ nhiều Company Code khác nhau" }
+          ]
+        }
+      ]
+    }
+  ]
+}

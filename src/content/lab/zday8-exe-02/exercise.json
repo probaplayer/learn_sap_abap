@@ -1,0 +1,17 @@
+{
+  "id": "zday8-exe-02",
+  "title": "Cập nhật SFLIGHT có khóa bản ghi + dropdown chọn chế độ",
+  "category": "crud-lock",
+  "difficulty": "intermediate",
+  "relatedExerciseIds": ["zday8-exe-01"],
+  "sourceFiles": ["zday8_exe_02_anhbhn.abap"],
+  "problemStatement": "Làm lại đúng bài toán 'cập nhật có khóa bản ghi' như zday8-exe-01, nhưng lần này trên bảng chuẩn SFLIGHT của SAP (không phải bảng Z tự tạo), có thêm nút 'Get' để tải dữ liệu chuyến bay hiện tại lên màn hình trước khi sửa, và 1 dropdown chọn Scope/Mode bị khóa cứng danh sách giá trị cho phép.",
+  "concepts": [
+    "SELECTION-SCREEN PUSHBUTTON ... USER-COMMAND (nút bấm tùy chỉnh)",
+    "AS LISTBOX + VRM_SET_VALUES (dropdown với danh sách giá trị cố định)",
+    "ENQUEUE_ESFLIGHT / DEQUEUE_ESFLIGHT (lock object chuẩn có sẵn của SAP, khác với lock tự sinh ở bài trước)"
+  ],
+  "tablesUsed": ["SFLIGHT"],
+  "walkthrough": "Bài này nên học ngay sau zday8-exe-01 để đối chiếu: cùng 1 pattern (validate tồn tại → enqueue → update → dequeue) nhưng áp dụng lên bảng chuẩn SAP `SFLIGHT` thay vì bảng Z, dùng cặp lock chuẩn có sẵn `ENQUEUE_ESFLIGHT`/`DEQUEUE_ESFLIGHT` (khác tên với lock tự sinh `ENQUEUE_EZDOCHD_ANHBHN` ở bài trước vì SFLIGHT có sẵn lock object chuẩn từ SAP, không cần tự tạo). Thêm 1 nút bấm tùy chỉnh trên selection-screen (`SELECTION-SCREEN PUSHBUTTON ... USER-COMMAND`) để chủ động tải dữ liệu hiện tại lên trước khi sửa (thay vì chỉ validate khi rời field). Dropdown Scope/Mode dùng `AS LISTBOX` kết hợp function `VRM_SET_VALUES` để giới hạn cứng các lựa chọn hợp lệ hiển thị cho người dùng chọn, tránh gõ tay sai giá trị.",
+  "sampleOutput": "**⚠️ Kết quả minh họa, không phải chạy trên hệ thống SAP thật.**\n\n```\nCARRID = LH, CONNID = 0400 → bấm \"Get\" → tải: Ngày bay 15.08.2026, Giá 450.00 EUR, Chỗ trống 12\nSửa giá thành 480.00 → khóa SFLIGHT thành công → UPDATE → giải phóng khóa\n```"
+}

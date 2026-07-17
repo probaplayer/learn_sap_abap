@@ -5,19 +5,19 @@ export function ProgressHeader() {
   const { progress, level } = useProgress()
 
   return (
-    <header className="sticky top-0 z-10 bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-200 dark:border-slate-700 px-4 py-3 flex items-center justify-between">
-      <Link to="/" className="font-extrabold text-xl text-green-600 dark:text-green-400">
-        🎓 SAP Quest
+    <header className="sticky top-0 z-10 bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-200 dark:border-slate-700 px-3 sm:px-4 py-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
+      <Link to="/" className="font-extrabold text-lg sm:text-xl text-green-600 dark:text-green-400 shrink-0">
+        🎓 <span className="hidden sm:inline">SAP Quest</span>
       </Link>
-      <div className="flex items-center gap-4 font-bold text-sm">
+      <div className="flex items-center gap-2 sm:gap-4 font-bold text-xs sm:text-sm">
         <span title="Cấp độ">🏅 Lv.{level}</span>
-        <span title="Tổng XP">⚡ {progress.xp} XP</span>
+        <span title="Tổng XP">⚡ {progress.xp}</span>
         <span title="Chuỗi ngày học liên tiếp">🔥 {progress.streak}</span>
-        <Link to="/wiki" className="text-sky-600 dark:text-sky-400 hover:underline">
-          📖 Wiki
+        <Link to="/wiki" className="text-sky-600 dark:text-sky-400 hover:underline" title="Wiki">
+          📖 <span className="hidden sm:inline">Wiki</span>
         </Link>
-        <Link to="/lab" className="text-sky-600 dark:text-sky-400 hover:underline">
-          🧪 Code Lab
+        <Link to="/lab" className="text-sky-600 dark:text-sky-400 hover:underline" title="Code Lab">
+          🧪 <span className="hidden sm:inline">Code Lab</span>
         </Link>
       </div>
     </header>

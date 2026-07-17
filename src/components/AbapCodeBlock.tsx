@@ -15,7 +15,7 @@ export function AbapCodeBlock({ code }: AbapCodeBlockProps) {
         language="abap"
         style={oneDark}
         showLineNumbers
-        customStyle={{ margin: 0, fontSize: '0.8rem', maxHeight: '32rem' }}
+        customStyle={{ margin: 0, fontSize: '0.8rem', maxHeight: '32rem', overflowX: 'auto' }}
       >
         {code}
       </SyntaxHighlighter>

@@ -5,19 +5,19 @@
     {
       "id": "basic",
       "difficulty": "basic",
-      "title": "Chart of accounts và cấu trúc tài khoản GL",
+      "title": "FI-GL Cơ bản: Công dụng module và bảng T001",
       "questions": [
         {
           "id": "fi-gl-business-basic-01",
           "type": "multiple-choice",
           "difficulty": "basic",
-          "explanation": "Chart of accounts (KTOPL) là danh mục tất cả các số tài khoản GL có thể sử dụng, kèm tên gọi và loại tài khoản, dùng làm khung phân loại chung mà một hoặc nhiều company code có thể tham chiếu tới khi ghi sổ.",
-          "question": "Chart of accounts trong SAP FI-GL là gì?",
+          "explanation": "FI-GL là phân hệ sổ cái tổng hợp, quản lý master data tài khoản GL và ghi nhận toàn bộ bút toán tài chính, phục vụ lập báo cáo tài chính doanh nghiệp.",
+          "question": "FI-GL (General Ledger) trong SAP có công dụng chính là gì?",
           "options": [
-            "Danh mục các số tài khoản GL cùng loại/tên gọi, dùng làm khung phân loại chung cho một hoặc nhiều company code",
-            "Danh sách các nhân viên được phép ghi sổ kế toán",
-            "Bảng lưu tỷ giá hối đoái giữa các loại tiền tệ",
-            "Danh sách các báo cáo tài chính đã được duyệt"
+            "Quản lý sổ cái tổng hợp và master data tài khoản GL, làm nền tảng cho kế toán tài chính doanh nghiệp",
+            "Quản lý đơn hàng mua hàng từ nhà cung cấp",
+            "Quản lý hồ sơ nhân sự và tính lương nhân viên",
+            "Quản lý tồn kho và vận chuyển hàng hóa"
           ],
           "answerIndex": 0
         },
@@ -25,13 +25,13 @@
           "id": "fi-gl-business-basic-02",
           "type": "multiple-choice",
           "difficulty": "basic",
-          "explanation": "SKA1 lưu phần dữ liệu tài khoản GL ở cấp chart of accounts - phần thông tin dùng chung cho mọi company code sử dụng cùng chart of accounts đó, ví dụ account group và loại tài khoản (balance sheet/P&L).",
-          "question": "Bảng SKA1 lưu trữ dữ liệu tài khoản GL ở cấp độ nào?",
+          "explanation": "T001 là bảng master data company code, lưu tên công ty, chart of accounts được gán và đồng tiền hạch toán của công ty đó.",
+          "question": "Bảng T001 trong FI-GL dùng để lưu trữ thông tin gì?",
           "options": [
-            "Cấp chart of accounts - dữ liệu dùng chung cho các company code cùng chart of accounts",
-            "Cấp company code - dữ liệu riêng cho từng công ty",
-            "Cấp tập đoàn (client) - không liên quan tới chart of accounts",
-            "Cấp người dùng - tùy chỉnh riêng cho từng nhân viên kế toán"
+            "Thông tin công ty (company code) như tên công ty, chart of accounts, tiền tệ hạch toán",
+            "Danh sách khách hàng và nhà cung cấp",
+            "Mô tả tài khoản GL theo ngôn ngữ",
+            "Dữ liệu tài khoản GL cấp company code"
           ],
           "answerIndex": 0
         },
@@ -39,56 +39,56 @@
           "id": "fi-gl-business-basic-03",
           "type": "true-false",
           "difficulty": "basic",
-          "explanation": "Đúng, SKB1 lưu các thuộc tính riêng theo từng company code như đồng tiền hạch toán (WAERS) và field status group (FSTAG), khác với SKA1 vốn dùng chung cho nhiều company code.",
-          "statement": "Bảng SKB1 chứa dữ liệu tiền tệ (WAERS) và field status group (FSTAG) riêng cho từng company code sử dụng tài khoản GL đó.",
+          "explanation": "Đúng, FI-GL (General Ledger) là nơi tổng hợp toàn bộ bút toán tài chính theo chart of accounts và company code.",
+          "statement": "FI-GL là phân hệ chịu trách nhiệm ghi nhận và tổng hợp các bút toán tài chính của doanh nghiệp.",
           "answer": true
         },
         {
           "id": "fi-gl-business-basic-04",
           "type": "true-false",
           "difficulty": "basic",
-          "explanation": "Đúng, một tài khoản GL có thể được tạo ở cấp chart of accounts (chỉ có bản ghi SKA1) nhưng chưa được extend sang bất kỳ company code nào (chưa có bản ghi SKB1 tương ứng); khi đó tài khoản chưa thể dùng để ghi bút toán tại company code đó.",
-          "statement": "Một tài khoản GL có thể tồn tại trong SKA1 nhưng chưa được extend (chưa có bản ghi tương ứng) sang bất kỳ company code nào trong SKB1.",
-          "answer": true
+          "explanation": "Sai, đó là chức năng của bảng SKAT. T001 lưu thông tin về company code như tên công ty, chart of accounts, tiền tệ.",
+          "statement": "Bảng T001 lưu thông tin mô tả (tên gọi) của từng tài khoản GL theo ngôn ngữ.",
+          "answer": false
         },
         {
           "id": "fi-gl-business-basic-05",
           "type": "fill-blank",
           "difficulty": "basic",
-          "explanation": "Bảng SKAT lưu mô tả (tên gọi) tài khoản GL theo từng ngôn ngữ, gồm TXT20 (mô tả ngắn) và TXT50 (mô tả dài), cho phép hệ thống hiển thị đúng tên tài khoản theo ngôn ngữ đăng nhập.",
-          "prompt": "Bảng ___ lưu mô tả (tên gọi) của tài khoản GL theo từng ngôn ngữ khác nhau.",
-          "acceptableAnswers": ["SKAT", "skat"]
+          "explanation": "FI-GL (General Ledger) nghĩa là sổ cái tổng hợp, nơi tổng hợp mọi bút toán tài chính của doanh nghiệp.",
+          "prompt": "FI-GL là phân hệ quản lý ___ tổng hợp của doanh nghiệp, phục vụ lập báo cáo tài chính.",
+          "acceptableAnswers": ["sổ cái", "sổ cái tổng hợp", "general ledger"]
         },
         {
           "id": "fi-gl-business-basic-06",
           "type": "fill-blank",
           "difficulty": "basic",
-          "explanation": "FS00 là transaction trung tâm (centrally) cho phép tạo, hiển thị và thay đổi tài khoản GL, xử lý đồng thời cả dữ liệu cấp chart of accounts và cấp company code trong một màn hình duy nhất.",
-          "prompt": "Transaction ___ dùng để tạo/hiển thị/thay đổi tài khoản GL một cách tập trung (centrally), bao gồm cả dữ liệu chart of accounts lẫn company code.",
-          "acceptableAnswers": ["FS00", "fs00"]
+          "explanation": "T001 là bảng master data lưu thông tin company code - đơn vị hạch toán độc lập trong SAP.",
+          "prompt": "Bảng ___ trong FI-GL lưu thông tin company code như tên công ty, chart of accounts và tiền tệ hạch toán.",
+          "acceptableAnswers": ["T001"]
         },
         {
           "id": "fi-gl-business-basic-07",
           "type": "matching",
           "difficulty": "basic",
-          "explanation": "Mỗi bảng phục vụ một mục đích riêng trong việc quản lý tài khoản GL: SKA1 lưu dữ liệu chart of accounts, SKB1 lưu dữ liệu company code, SKAT lưu mô tả đa ngôn ngữ, T001 lưu master data company code.",
+          "explanation": "Mỗi bảng trong FI-GL đảm nhận một vai trò riêng: SKA1 (chart of accounts), SKB1 (company code), SKAT (mô tả), T001 (company code master data).",
           "pairs": [
-            { "left": "SKA1", "right": "Dữ liệu tài khoản GL ở cấp chart of accounts" },
-            { "left": "SKB1", "right": "Dữ liệu tài khoản GL ở cấp company code (tiền tệ, field status group)" },
-            { "left": "SKAT", "right": "Mô tả (tên gọi) tài khoản GL theo ngôn ngữ" },
-            { "left": "T001", "right": "Master data company code (tên công ty, chart of accounts sử dụng)" }
+            { "left": "SKA1", "right": "Lưu dữ liệu tài khoản GL cấp chart of accounts, dùng chung cho nhiều company code" },
+            { "left": "SKB1", "right": "Lưu dữ liệu tài khoản GL cấp company code, gồm tiền tệ và field status group" },
+            { "left": "SKAT", "right": "Lưu mô tả (tên gọi) của tài khoản GL theo từng ngôn ngữ" },
+            { "left": "T001", "right": "Lưu thông tin company code như tên công ty, chart of accounts, tiền tệ hạch toán" }
           ]
         },
         {
           "id": "fi-gl-business-basic-08",
           "type": "matching",
           "difficulty": "basic",
-          "explanation": "Các khái niệm cơ bản trong FI-GL gắn liền với nhau: chart of accounts là khung tài khoản chung, account group kiểm soát dải số/field, company code là đơn vị hạch toán, GL account là đối tượng ghi nhận bút toán.",
+          "explanation": "Đây là các khái niệm nền tảng của FI-GL: chart of accounts, company code, sổ cái tổng hợp và báo cáo tài chính.",
           "pairs": [
-            { "left": "Chart of accounts", "right": "Danh mục tài khoản GL dùng chung cho một hoặc nhiều company code" },
-            { "left": "Account group", "right": "Nhóm kiểm soát dải số tài khoản và field status khi tạo mới" },
-            { "left": "Company code", "right": "Đơn vị pháp nhân hạch toán độc lập trong SAP" },
-            { "left": "G/L account", "right": "Tài khoản dùng để ghi nhận các bút toán tài chính" }
+            { "left": "Chart of accounts", "right": "Hệ thống tài khoản GL dùng chung cho nhiều company code" },
+            { "left": "Company code", "right": "Đơn vị hạch toán tài chính độc lập trong SAP" },
+            { "left": "Sổ cái tổng hợp (General Ledger)", "right": "Nơi ghi nhận và tổng hợp toàn bộ bút toán tài chính" },
+            { "left": "Báo cáo tài chính", "right": "Kết quả đầu ra được lập dựa trên dữ liệu sổ cái GL" }
           ]
         }
       ]
@@ -96,19 +96,19 @@
     {
       "id": "intermediate",
       "difficulty": "intermediate",
-      "title": "Account group, field status group và các transaction FS0x",
+      "title": "FI-GL Trung cấp: Các bảng SKA1, SKB1, SKAT và field cơ bản",
       "questions": [
         {
           "id": "fi-gl-business-intermediate-01",
           "type": "multiple-choice",
           "difficulty": "intermediate",
-          "explanation": "Account group (KTOKS) quy định dải số tài khoản GL được phép sử dụng (number range) và kiểm soát field status của các field trên màn hình tạo/thay đổi tài khoản (screen layout), giúp chuẩn hóa cách tạo tài khoản theo từng loại (ví dụ tài sản, chi phí, doanh thu).",
-          "question": "Account group (KTOKS) trong quản lý tài khoản GL dùng để làm gì?",
+          "explanation": "SKA1 lưu phần dữ liệu tài khoản GL dùng chung ở cấp chart of accounts (KTOPL), như account group và loại tài khoản.",
+          "question": "Bảng SKA1 trong FI-GL dùng để làm gì?",
           "options": [
-            "Kiểm soát dải số tài khoản (number range) được phép và field status trên màn hình tạo tài khoản",
-            "Quy định tỷ giá hối đoái áp dụng cho tài khoản đó",
-            "Xác định người dùng nào được phép đăng nhập vào hệ thống",
-            "Lưu trữ lịch sử các bút toán đã ghi vào tài khoản"
+            "Lưu dữ liệu tài khoản GL ở cấp chart of accounts, dùng chung cho các company code cùng hệ thống tài khoản",
+            "Lưu dữ liệu tài khoản GL ở cấp company code",
+            "Lưu thông tin công ty (company code)",
+            "Lưu mô tả tài khoản theo ngôn ngữ"
           ],
           "answerIndex": 0
         },
@@ -116,13 +116,13 @@
           "id": "fi-gl-business-intermediate-02",
           "type": "multiple-choice",
           "difficulty": "intermediate",
-          "explanation": "Field status group (FSTAG) quy định field nào trên màn hình ghi bút toán (ví dụ FB50, FB60) là bắt buộc nhập (Required), tùy chọn (Optional), hay bị ẩn (Suppressed), giúp kiểm soát chất lượng dữ liệu khi hạch toán vào tài khoản đó.",
-          "question": "Field status group (FSTAG) trong SKB1 dùng để làm gì?",
+          "explanation": "SKB1 lưu phần dữ liệu riêng của tài khoản GL cho từng company code, như loại tiền tệ (WAERS) và field status group (FSTAG).",
+          "question": "Bảng SKB1 trong FI-GL dùng để làm gì?",
           "options": [
-            "Quy định field nào bắt buộc/tùy chọn/ẩn khi ghi bút toán vào tài khoản đó",
-            "Quy định số lượng company code được phép sử dụng tài khoản",
-            "Xác định đồng tiền hạch toán mặc định của toàn tập đoàn",
-            "Lưu trữ mật khẩu truy cập vào tài khoản GL"
+            "Lưu dữ liệu tài khoản GL ở cấp company code, gồm tiền tệ và field status group",
+            "Lưu dữ liệu tài khoản GL ở cấp chart of accounts",
+            "Lưu thông tin công ty (company code)",
+            "Lưu mô tả ngắn và mô tả dài của tài khoản"
           ],
           "answerIndex": 0
         },
@@ -130,56 +130,55 @@
           "id": "fi-gl-business-intermediate-03",
           "type": "true-false",
           "difficulty": "intermediate",
-          "explanation": "Đúng, FS00 là transaction tập trung, cho phép xử lý cả dữ liệu cấp chart of accounts (SKA1) và cấp company code (SKB1) trong cùng một giao diện, khác với FS01/FS02/FS03 vốn tách riêng theo thao tác.",
-          "statement": "Transaction FS00 cho phép tạo/hiển thị/thay đổi tài khoản GL một cách tập trung, xử lý đồng thời cả dữ liệu chart of accounts lẫn company code.",
+          "explanation": "Đúng, SKAT lưu TXT20 (mô tả ngắn) và TXT50 (mô tả dài) của tài khoản GL theo mã ngôn ngữ SPRAS.",
+          "statement": "Bảng SKAT lưu mô tả ngắn và mô tả dài của tài khoản GL theo từng ngôn ngữ.",
           "answer": true
         },
         {
           "id": "fi-gl-business-intermediate-04",
           "type": "true-false",
           "difficulty": "intermediate",
-          "explanation": "Sai. FS01 dùng để tạo mới (Create) tài khoản GL ở company code, không phải chỉ để hiển thị; việc chỉ hiển thị (Display only) thuộc về FS03.",
-          "statement": "Transaction FS01 chỉ cho phép hiển thị (display) tài khoản GL, không cho phép tạo mới.",
-          "answer": false
+          "explanation": "Đúng, SAKNR là số tài khoản GL, dùng làm khóa nhận diện tài khoản trong bảng SKA1.",
+          "statement": "Field SAKNR trong bảng SKA1 đại diện cho số tài khoản GL (G/L account number).",
+          "answer": true
         },
         {
           "id": "fi-gl-business-intermediate-05",
           "type": "fill-blank",
           "difficulty": "intermediate",
-          "explanation": "Transaction FS01 dùng để tạo mới (Create) tài khoản GL ở cấp company code, tức là extend một tài khoản đã có ở chart of accounts (SKA1) sang một company code cụ thể (tạo bản ghi SKB1 tương ứng).",
-          "prompt": "Transaction ___ dùng để tạo mới (extend) tài khoản GL ở cấp company code cho một tài khoản đã tồn tại trong chart of accounts.",
-          "acceptableAnswers": ["FS01", "fs01"]
+          "explanation": "BUKRS là mã company code, xác định tài khoản GL này thuộc công ty nào.",
+          "prompt": "Field ___ trong bảng SKB1 đại diện cho mã company code.",
+          "acceptableAnswers": ["BUKRS"]
         },
         {
           "id": "fi-gl-business-intermediate-06",
           "type": "fill-blank",
           "difficulty": "intermediate",
-          "explanation": "Account group kiểm soát dải số tài khoản được phép tạo mới thông qua number range (from-number đến to-number), đảm bảo mỗi loại tài khoản (tài sản, nợ phải trả, doanh thu, chi phí) rơi vào đúng dải số quy định.",
-          "prompt": "Account group kiểm soát dải số tài khoản GL được phép tạo mới thông qua khái niệm ___ (number range).",
-          "acceptableAnswers": ["number range", "dải số", "dải số tài khoản"]
+          "explanation": "KTOPL trong T001 cho biết company code đang sử dụng hệ thống tài khoản (chart of accounts) nào.",
+          "prompt": "Field ___ trong bảng T001 xác định chart of accounts được gán cho company code đó.",
+          "acceptableAnswers": ["KTOPL"]
         },
         {
           "id": "fi-gl-business-intermediate-07",
           "type": "matching",
           "difficulty": "intermediate",
-          "explanation": "Bốn transaction FS0x phục vụ các thao tác khác nhau trên vòng đời tài khoản GL: FS00 xử lý tập trung cả hai cấp, FS01 tạo mới ở company code, FS02 thay đổi ở company code, FS03 chỉ hiển thị.",
+          "explanation": "Đây là các field cơ bản, dễ nhận biết trong các bảng FI-GL: SAKNR, BUKRS, KTOPL, WAERS.",
           "pairs": [
-            { "left": "FS00", "right": "Tạo/hiển thị/thay đổi tài khoản GL tập trung (cả chart of accounts và company code)" },
-            { "left": "FS01", "right": "Tạo mới (Create) tài khoản GL ở cấp company code" },
-            { "left": "FS02", "right": "Thay đổi (Change) tài khoản GL ở cấp company code" },
-            { "left": "FS03", "right": "Chỉ hiển thị (Display) tài khoản GL, không cho sửa" }
+            { "left": "SAKNR", "right": "Số tài khoản GL (G/L account number)" },
+            { "left": "BUKRS", "right": "Mã company code" },
+            { "left": "KTOPL", "right": "Chart of accounts - hệ thống tài khoản dùng chung" },
+            { "left": "WAERS", "right": "Loại tiền tệ của tài khoản/công ty" }
           ]
         },
         {
           "id": "fi-gl-business-intermediate-08",
           "type": "matching",
           "difficulty": "intermediate",
-          "explanation": "Field status group quy định 4 trạng thái khả dụng cho mỗi field trên màn hình ghi bút toán: Required bắt buộc nhập, Optional có thể bỏ trống, Suppressed field bị ẩn hoàn toàn, Display chỉ hiển thị không cho sửa.",
+          "explanation": "Ba bảng lưu tài khoản GL ở các cấp độ khác nhau: chart of accounts (SKA1), company code (SKB1), và mô tả (SKAT).",
           "pairs": [
-            { "left": "Required", "right": "Field bắt buộc phải nhập giá trị khi ghi bút toán" },
-            { "left": "Optional", "right": "Field có thể nhập hoặc để trống tùy ý" },
-            { "left": "Suppressed", "right": "Field bị ẩn hoàn toàn, không hiển thị trên màn hình" },
-            { "left": "Display", "right": "Field chỉ hiển thị giá trị, không cho phép chỉnh sửa" }
+            { "left": "SKA1", "right": "Dữ liệu tài khoản GL cấp chart of accounts" },
+            { "left": "SKB1", "right": "Dữ liệu tài khoản GL cấp company code" },
+            { "left": "SKAT", "right": "Mô tả tài khoản GL theo ngôn ngữ" }
           ]
         }
       ]
@@ -187,19 +186,19 @@
     {
       "id": "advanced",
       "difficulty": "advanced",
-      "title": "Đa company code và mối quan hệ FI-GL với CO",
+      "title": "FI-GL Nâng cao: Các field ít hiển nhiên trong SKA1, SKB1, SKAT, T001",
       "questions": [
         {
           "id": "fi-gl-business-advanced-01",
           "type": "multiple-choice",
           "difficulty": "advanced",
-          "explanation": "Một tập đoàn thường có nhiều công ty con (company code) cùng dùng chung một chart of accounts để đảm bảo tính nhất quán trong báo cáo hợp nhất, nhưng mỗi công ty con có thể có đồng tiền hạch toán, field status khác nhau, do đó tài khoản GL cần được extend (tạo bản ghi SKB1) riêng cho từng company code muốn sử dụng.",
-          "question": "Tại sao một tài khoản GL đã tồn tại trong chart of accounts (SKA1) cần được extend sang nhiều company code khác nhau?",
+          "explanation": "FSTAG (field status group) trong SKB1 quy định các trường dữ liệu bắt buộc/tùy chọn/ẩn khi ghi bút toán vào tài khoản đó.",
+          "question": "Field FSTAG trong bảng SKB1 dùng để làm gì?",
           "options": [
-            "Vì mỗi company code cần thiết lập riêng các thuộc tính như tiền tệ, field status group để tài khoản đó có thể sử dụng khi ghi bút toán tại công ty đó",
-            "Vì SAP yêu cầu xóa và tạo lại tài khoản mới cho mỗi công ty",
-            "Vì chart of accounts chỉ cho phép một công ty sử dụng tại một thời điểm",
-            "Vì việc extend giúp thay đổi số tài khoản GL cho từng công ty"
+            "Quy định field nào bắt buộc, tùy chọn hoặc ẩn khi ghi bút toán (field status group)",
+            "Xác định loại tiền tệ của tài khoản",
+            "Đánh dấu tài khoản đã bị xóa",
+            "Xác định số tài khoản GL"
           ],
           "answerIndex": 0
         },
@@ -207,13 +206,13 @@
           "id": "fi-gl-business-advanced-02",
           "type": "multiple-choice",
           "difficulty": "advanced",
-          "explanation": "Trong CO, cost element (đặc biệt là primary cost element) là một dạng mở rộng của tài khoản GL loại P&L, dùng để theo dõi chi phí ở góc độ kế toán quản trị; mỗi primary cost element bắt buộc phải tương ứng với một tài khoản GL chi phí đã tồn tại trong chart of accounts.",
-          "question": "Cost element trong CO liên quan thế nào tới tài khoản GL trong FI-GL?",
+          "explanation": "KTOKS (account group) kiểm soát dải số tài khoản được phép sử dụng và field status khi tạo tài khoản GL.",
+          "question": "Field KTOKS trong bảng SKA1 có ý nghĩa gì?",
           "options": [
-            "Primary cost element là một dạng mở rộng của tài khoản GL loại chi phí (P&L), bắt buộc tương ứng 1-1 với tài khoản GL đã có trong chart of accounts",
-            "Cost element hoàn toàn độc lập, không liên quan gì đến chart of accounts",
-            "Cost element chỉ dùng trong SD, không liên quan đến CO hay FI",
-            "Cost element thay thế hoàn toàn cho tài khoản GL, không cần tạo SKA1/SKB1"
+            "Account group - nhóm tài khoản, kiểm soát dải số và field status",
+            "Loại tiền tệ của tài khoản",
+            "Mô tả ngắn của tài khoản",
+            "Mã ngôn ngữ của mô tả tài khoản"
           ],
           "answerIndex": 0
         },
@@ -221,56 +220,58 @@
           "id": "fi-gl-business-advanced-03",
           "type": "true-false",
           "difficulty": "advanced",
-          "explanation": "Đúng, primary cost element luôn gắn với một tài khoản GL loại P&L (chi phí/doanh thu) đã tồn tại trong chart of accounts; đây là điều kiện bắt buộc để CO có thể ghi nhận và phân bổ chi phí song song với FI.",
-          "statement": "Một primary cost element trong CO phải có một tài khoản GL tương ứng đã tồn tại trong chart of accounts.",
+          "explanation": "Đúng, XBILK là cờ (flag) xác định tài khoản GL có phải là balance sheet account hay không.",
+          "statement": "Field XBILK trong SKA1 là cờ đánh dấu tài khoản thuộc bảng cân đối kế toán (balance sheet account).",
           "answer": true
         },
         {
           "id": "fi-gl-business-advanced-04",
           "type": "true-false",
           "difficulty": "advanced",
-          "explanation": "Sai. Reconciliation account (tài khoản đối chiếu/sổ phụ, ví dụ tài khoản phải thu/phải trả) không cho phép ghi bút toán trực tiếp trên FI-GL - mọi bút toán phải đi qua subledger tương ứng (FI-AR/FI-AP), sau đó hệ thống tự động cập nhật số dư lên reconciliation account.",
-          "statement": "Reconciliation account (tài khoản đối chiếu) cho phép ghi bút toán trực tiếp mà không cần thông qua subledger (như FI-AR hoặc FI-AP).",
+          "explanation": "Sai, MITKZ là chỉ báo tài khoản được quản lý theo reconciliation account (sổ phụ). Mã ngôn ngữ là field SPRAS trong bảng SKAT.",
+          "statement": "Field MITKZ trong SKB1 dùng để xác định mã ngôn ngữ của mô tả tài khoản.",
           "answer": false
         },
         {
           "id": "fi-gl-business-advanced-05",
           "type": "fill-blank",
           "difficulty": "advanced",
-          "explanation": "Trong CO, cost element (đặc biệt primary cost element) đóng vai trò như một tài khoản GL mở rộng, cho phép ghi nhận cùng một khoản chi phí song song trên cả FI (theo tài khoản GL) và CO (theo đối tượng chi phí như cost center, order).",
-          "prompt": "Trong kế toán quản trị CO, ___ đóng vai trò như một tài khoản GL mở rộng để ghi nhận chi phí song song với FI.",
-          "acceptableAnswers": ["cost element", "cost elements"]
+          "explanation": "GVTYP xác định loại tài khoản P&L (loại chuyển kết quả kinh doanh) khi tài khoản đó không phải balance sheet account.",
+          "prompt": "Field ___ trong bảng SKA1 xác định loại P&L statement account type khi tài khoản không phải balance sheet account.",
+          "acceptableAnswers": ["GVTYP"]
         },
         {
           "id": "fi-gl-business-advanced-06",
           "type": "fill-blank",
           "difficulty": "advanced",
-          "explanation": "Bảng T001 là master data company code, lưu thông tin như tên công ty, chart of accounts sử dụng, đồng tiền hạch toán - là điều kiện tiên quyết để extend tài khoản GL sang company code đó.",
-          "prompt": "Bảng ___ lưu master data company code, bao gồm chart of accounts mà công ty đó sử dụng.",
-          "acceptableAnswers": ["T001", "t001"]
+          "explanation": "XLOEV là deletion flag, đánh dấu tài khoản GL ở cấp company code đã được đề xuất xóa.",
+          "prompt": "Field ___ trong bảng SKB1 là cờ đánh dấu tài khoản GL đã bị đánh dấu xóa (deletion flag).",
+          "acceptableAnswers": ["XLOEV"]
         },
         {
           "id": "fi-gl-business-advanced-07",
           "type": "matching",
           "difficulty": "advanced",
-          "explanation": "Mỗi loại tài khoản GL có đặc điểm và cách sử dụng khác nhau: balance sheet account nằm trên bảng cân đối kế toán, P&L account nằm trên báo cáo kết quả kinh doanh, reconciliation account chỉ cập nhật gián tiếp qua subledger, cost element phục vụ kế toán quản trị trong CO.",
+          "explanation": "Đây là các field kiểm soát nghiệp vụ ở mức chi tiết hơn trong SKA1 và SKB1: FSTAG, XLOEV, MITKZ, GVTYP, XBILK.",
           "pairs": [
-            { "left": "Balance sheet account", "right": "Tài khoản xuất hiện trên bảng cân đối kế toán (tài sản, nợ phải trả, vốn)" },
-            { "left": "P&L account", "right": "Tài khoản xuất hiện trên báo cáo kết quả kinh doanh (doanh thu, chi phí)" },
-            { "left": "Reconciliation account", "right": "Tài khoản chỉ được cập nhật gián tiếp qua subledger (AR/AP/Asset)" },
-            { "left": "Cost element", "right": "Tài khoản GL loại chi phí được mở rộng để dùng trong kế toán quản trị CO" }
+            { "left": "FSTAG", "right": "Field status group - quy định field bắt buộc/tùy chọn/ẩn khi ghi bút toán" },
+            { "left": "XLOEV", "right": "Cờ đánh dấu tài khoản đã bị đánh dấu xóa" },
+            { "left": "MITKZ", "right": "Chỉ báo tài khoản quản lý theo reconciliation account" },
+            { "left": "GVTYP", "right": "Loại P&L statement account type" },
+            { "left": "XBILK", "right": "Cờ đánh dấu tài khoản thuộc bảng cân đối kế toán" }
           ]
         },
         {
           "id": "fi-gl-business-advanced-08",
           "type": "matching",
           "difficulty": "advanced",
-          "explanation": "FI-GL liên kết với nhiều phân hệ khác thông qua bút toán tự động: MM phát sinh bút toán tồn kho/công nợ khi nhập hàng, SD phát sinh bút toán doanh thu khi xuất hóa đơn bán hàng, CO chia sẻ cost element với GL account để theo dõi chi phí song song, FI-AA phát sinh bút toán khấu hao/tài sản cố định.",
+          "explanation": "Các field này thuộc SKAT (SPRAS, TXT20, TXT50) và T001 (LAND1, BUTXT), ít hiển nhiên hơn nhưng vẫn quan trọng để tra cứu dữ liệu GL.",
           "pairs": [
-            { "left": "MM (Materials Management)", "right": "Phát sinh bút toán GL khi nhập kho, nhận hóa đơn nhà cung cấp" },
-            { "left": "SD (Sales and Distribution)", "right": "Phát sinh bút toán doanh thu GL khi xuất hóa đơn bán hàng" },
-            { "left": "CO (Controlling)", "right": "Chia sẻ cost element với GL account để ghi nhận chi phí song song" },
-            { "left": "FI-AA (Asset Accounting)", "right": "Phát sinh bút toán khấu hao và giá trị tài sản cố định vào GL" }
+            { "left": "SPRAS", "right": "Mã ngôn ngữ của mô tả tài khoản" },
+            { "left": "TXT20", "right": "Mô tả ngắn của tài khoản (20 ký tự)" },
+            { "left": "TXT50", "right": "Mô tả dài của tài khoản (50 ký tự)" },
+            { "left": "LAND1", "right": "Mã quốc gia của công ty" },
+            { "left": "BUTXT", "right": "Tên công ty (company name)" }
           ]
         }
       ]

@@ -65,8 +65,8 @@ export function ModulePage() {
   return (
     <main className="max-w-2xl mx-auto px-4 py-8">
       <div className="mb-6">
-        <h1 className="text-3xl font-extrabold flex items-center gap-2">
-          {mod.icon} {mod.name}
+        <h1 className="text-2xl sm:text-3xl font-extrabold flex items-center gap-2 flex-wrap">
+          <span>{mod.icon}</span> <span>{mod.name}</span>
         </h1>
         <p className="text-slate-500 dark:text-slate-400 mt-1">{mod.businessPurpose}</p>
       </div>
@@ -83,7 +83,7 @@ export function ModulePage() {
         </span>
       </div>
 
-      <div className="flex gap-8">
+      <div className="flex flex-col sm:flex-row gap-10 sm:gap-8">
         <TrackPath moduleId={moduleId} track="syntax" />
         <TrackPath moduleId={moduleId} track="business" />
       </div>

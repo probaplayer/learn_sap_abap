@@ -5,88 +5,89 @@
     {
       "id": "basic",
       "difficulty": "basic",
-      "title": "Quy trình Order-to-Cash: Sales Order, Delivery, Billing",
+      "title": "Công dụng module SD và bảng VBAK",
       "questions": [
         {
           "id": "sd-business-basic-01",
           "type": "multiple-choice",
           "difficulty": "basic",
-          "question": "Quy trình Order-to-Cash chuẩn trong SD gồm những bước nào, theo đúng thứ tự?",
+          "question": "SD (Sales and Distribution) là phân hệ SAP có công dụng chính là gì?",
           "options": [
-            "Sales Order -> Delivery -> Billing",
-            "Billing -> Delivery -> Sales Order",
-            "Delivery -> Sales Order -> Billing",
-            "Sales Order -> Billing -> Delivery"
+            "Quản lý hoạt động bán hàng và phân phối hàng hóa cho khách hàng, bao gồm đơn hàng bán, giao hàng và xuất hóa đơn",
+            "Quản lý việc tuyển dụng và tính lương nhân viên",
+            "Quản lý bảo trì máy móc thiết bị sản xuất",
+            "Quản lý sổ cái kế toán tổng hợp"
           ],
           "answerIndex": 0,
-          "explanation": "Order-to-Cash bắt đầu từ Sales Order (nhận yêu cầu khách hàng), sau đó Delivery (giao hàng vật lý), và kết thúc bằng Billing (xuất hóa đơn, ghi nhận doanh thu)."
+          "explanation": "SD (Sales and Distribution) là phân hệ SAP phụ trách các hoạt động bán hàng và phân phối: tạo đơn hàng bán, giao hàng cho khách và xuất hóa đơn."
         },
         {
           "id": "sd-business-basic-02",
           "type": "true-false",
           "difficulty": "basic",
-          "statement": "Bảng VBAK/VBAP lưu dữ liệu của Sales Order (đơn hàng bán) - giai đoạn đầu tiên của quy trình Order-to-Cash, trước khi hàng được giao đi.",
+          "statement": "SD là phân hệ SAP phụ trách quản lý các hoạt động liên quan đến bán hàng và phân phối hàng hóa cho khách hàng.",
           "answer": true,
-          "explanation": "VBAK là header và VBAP là item của chứng từ bán hàng (sales document), được tạo đầu tiên khi khách hàng đặt hàng, trước khi có delivery hay billing."
+          "explanation": "Đúng. SD quản lý toàn bộ hoạt động bán hàng và phân phối hàng hóa cho khách hàng trong doanh nghiệp."
         },
         {
           "id": "sd-business-basic-03",
           "type": "fill-blank",
           "difficulty": "basic",
-          "prompt": "Trong SAP SD, loại chứng từ bán hàng chuẩn (Standard Order) có sales document type là ___.",
-          "acceptableAnswers": ["OR", "or"],
-          "explanation": "OR là mã sales document type tiêu chuẩn cho đơn hàng bán thông thường (Standard Order) trong hệ thống SAP SD."
+          "prompt": "SD là viết tắt của Sales and ___.",
+          "acceptableAnswers": ["Distribution", "distribution"],
+          "explanation": "SD = Sales and Distribution, phân hệ quản lý bán hàng và phân phối trong SAP."
         },
         {
           "id": "sd-business-basic-04",
-          "type": "matching",
+          "type": "multiple-choice",
           "difficulty": "basic",
-          "explanation": "Mỗi cặp bảng header/item tương ứng với 1 giai đoạn cụ thể trong quy trình Order-to-Cash.",
-          "pairs": [
-            { "left": "VBAK/VBAP", "right": "Đơn hàng bán (Sales Order) - giai đoạn nhận yêu cầu từ khách hàng" },
-            { "left": "LIKP/LIPS", "right": "Giao hàng (Outbound Delivery) - giai đoạn xuất kho, vận chuyển hàng cho khách" },
-            { "left": "VBRK/VBRP", "right": "Hóa đơn (Billing Document) - giai đoạn ghi nhận doanh thu, thu tiền khách hàng" }
-          ]
+          "question": "Bảng VBAK trong SAP SD dùng để lưu trữ dữ liệu gì?",
+          "options": [
+            "Dữ liệu header (phần đầu) của chứng từ bán hàng, như loại đơn hàng, khách hàng đặt hàng, tổ chức bán hàng",
+            "Dữ liệu chi tiết tồn kho vật tư trong nhà máy",
+            "Dữ liệu bảng lương nhân viên bán hàng",
+            "Dữ liệu cấu hình hệ thống chung của SAP"
+          ],
+          "answerIndex": 0,
+          "explanation": "VBAK lưu dữ liệu header của chứng từ bán hàng: loại đơn hàng, khách hàng, tổ chức bán hàng, ngày chứng từ... Mỗi chứng từ chỉ có 1 dòng trong VBAK."
         },
         {
           "id": "sd-business-basic-05",
-          "type": "multiple-choice",
+          "type": "true-false",
           "difficulty": "basic",
-          "question": "Điểm khác biệt chính giữa VBAK/VBAP và LIKP/LIPS là gì?",
-          "options": [
-            "VBAK/VBAP đại diện cho yêu cầu bán hàng (đơn hàng), còn LIKP/LIPS đại diện cho việc thực hiện giao hàng vật lý dựa trên đơn hàng đó",
-            "Chúng hoàn toàn giống nhau, chỉ khác tên bảng",
-            "LIKP/LIPS luôn được tạo trước VBAK/VBAP",
-            "VBAK/VBAP chỉ dùng cho khách hàng nội bộ"
-          ],
-          "answerIndex": 0,
-          "explanation": "VBAK/VBAP ghi nhận thỏa thuận bán hàng (cái khách hàng muốn mua), còn LIKP/LIPS ghi nhận việc thực hiện giao hàng thực tế (xuất kho, vận chuyển) dựa trên đơn hàng đó."
+          "statement": "Mỗi chứng từ bán hàng (VBELN) chỉ có đúng 1 dòng trong bảng VBAK, bất kể chứng từ đó có bao nhiêu dòng item.",
+          "answer": true,
+          "explanation": "VBAK là bảng header, mỗi chứng từ bán hàng chỉ có 1 bản ghi duy nhất đại diện cho toàn bộ đơn hàng."
         },
         {
           "id": "sd-business-basic-06",
-          "type": "true-false",
+          "type": "fill-blank",
           "difficulty": "basic",
-          "statement": "Một đơn hàng bán (Sales Order) có thể được giao hàng thành nhiều lần (partial delivery), tức 1 VBAK/VBAP có thể liên kết với nhiều LIKP/LIPS khác nhau.",
-          "answer": true,
-          "explanation": "SAP SD hỗ trợ giao hàng từng phần: nếu không đủ hàng hoặc khách yêu cầu giao nhiều đợt, 1 dòng VBAP có thể được tham chiếu bởi nhiều dòng LIPS (qua VGBEL/VGPOS) thuộc các delivery khác nhau."
+          "prompt": "Trong bảng VBAK, trường lưu số chứng từ bán hàng (khóa chính) là ___.",
+          "acceptableAnswers": ["VBELN", "vbeln"],
+          "explanation": "VBELN (Sales Document Number) là khóa chính của bảng VBAK, xác định duy nhất một chứng từ bán hàng."
         },
         {
           "id": "sd-business-basic-07",
-          "type": "fill-blank",
+          "type": "matching",
           "difficulty": "basic",
-          "prompt": "Chứng từ ghi nhận doanh thu bán hàng, được tạo sau khi giao hàng hoàn tất, gọi là chứng từ ___ (Billing Document).",
-          "acceptableAnswers": ["hóa đơn", "billing document", "hoa don"],
-          "explanation": "Billing Document (VBRK/VBRP) là bước cuối trong Order-to-Cash, chuyển hóa việc giao hàng/dịch vụ đã thực hiện thành doanh thu được ghi nhận kế toán."
+          "explanation": "Đây là các trường quan trọng trong header chứng từ bán hàng VBAK, mỗi trường lưu một thông tin cụ thể về đơn hàng.",
+          "pairs": [
+            { "left": "VBELN", "right": "Số chứng từ bán hàng (khóa chính)" },
+            { "left": "AUART", "right": "Loại đơn hàng (Sales Document Type), vd OR = Standard Order" },
+            { "left": "VKORG", "right": "Tổ chức bán hàng (Sales Organization)" },
+            { "left": "KUNNR", "right": "Mã khách hàng đặt hàng (Sold-to Party)" }
+          ]
         },
         {
           "id": "sd-business-basic-08",
           "type": "matching",
           "difficulty": "basic",
-          "explanation": "Mỗi transaction code SAP tương ứng với 1 bước trong quy trình Order-to-Cash.",
+          "explanation": "Các trường còn lại trong VBAK bổ sung thông tin về kênh bán hàng, ngày lập chứng từ và giá trị của đơn hàng.",
           "pairs": [
-            { "left": "VA01", "right": "Tạo đơn hàng bán (Create Sales Order)" },
-            { "left": "VL01N", "right": "Tạo chứng từ giao hàng (Create Outbound Delivery)" },
-            { "left": "VF01", "right": "Tạo hóa đơn (Create Billing Document)" }
+            { "left": "VTWEG", "right": "Kênh phân phối (Distribution Channel)" },
+            { "left": "AUDAT", "right": "Ngày lập chứng từ (Document Date)" },
+            { "left": "NETWR (trong VBAK)", "right": "Giá trị ròng của toàn bộ đơn hàng (Net Value)" }
           ]
         }
       ]
@@ -94,90 +95,91 @@
     {
       "id": "intermediate",
       "difficulty": "intermediate",
-      "title": "Sales Order Stock (MSKA), Special Stock và Availability Check",
+      "title": "Công dụng các bảng VBAP, LIKP, LIPS, VBRK, VBRP",
       "questions": [
         {
           "id": "sd-business-intermediate-01",
           "type": "multiple-choice",
           "difficulty": "intermediate",
-          "question": "Special stock indicator 'E' trong SAP đại diện cho loại tồn kho nào?",
+          "question": "Bảng VBAP trong SAP SD dùng để lưu trữ dữ liệu gì?",
           "options": [
-            "Sales order stock (tồn kho gắn với đơn hàng bán cụ thể)",
-            "Consignment stock (tồn kho ký gửi)",
-            "Subcontracting stock (tồn kho gia công ngoài)",
-            "Project stock (tồn kho theo dự án)"
+            "Dữ liệu chi tiết từng dòng item của chứng từ bán hàng: vật tư, số lượng đặt hàng, giá trị dòng",
+            "Dữ liệu header của chứng từ giao hàng",
+            "Dữ liệu kế toán công nợ khách hàng",
+            "Dữ liệu cấu hình tổ chức bán hàng"
           ],
           "answerIndex": 0,
-          "explanation": "SOBKZ = 'E' là chỉ số special stock cho sales order stock, được lưu trong bảng MSKA, dùng cho vật tư sản xuất/mua theo đơn (make-to-order)."
+          "explanation": "VBAP là bảng item của chứng từ bán hàng, lưu chi tiết từng dòng vật tư, số lượng, đơn vị tính và giá trị dòng; một VBAK có thể có nhiều dòng VBAP."
         },
         {
           "id": "sd-business-intermediate-02",
-          "type": "true-false",
+          "type": "multiple-choice",
           "difficulty": "intermediate",
-          "statement": "Tồn kho trong MSKA (sales order stock) chỉ có thể được xuất kho cho đúng đơn hàng bán (VBELN) và dòng item (POSNR) mà nó gắn với, không thể dùng chung cho đơn hàng khác.",
-          "answer": true,
-          "explanation": "Đây chính là đặc trưng của special stock: tồn kho bị 'khóa' riêng theo cặp VBELN/POSNR, phân biệt với tồn kho tự do trong MARD có thể dùng cho bất kỳ đơn hàng nào."
+          "question": "Bảng VBRK trong SAP SD dùng để lưu trữ dữ liệu gì?",
+          "options": [
+            "Dữ liệu header của chứng từ hóa đơn (billing document): loại hóa đơn, ngày xuất hóa đơn, khách hàng nhận hóa đơn",
+            "Dữ liệu chi tiết tồn kho vật tư",
+            "Dữ liệu header của chứng từ giao hàng",
+            "Dữ liệu chi tiết từng dòng đơn hàng bán"
+          ],
+          "answerIndex": 0,
+          "explanation": "VBRK lưu dữ liệu header của hóa đơn: loại hóa đơn, ngày lập, khách hàng nhận hóa đơn, giá trị ròng và cờ hủy hóa đơn."
         },
         {
           "id": "sd-business-intermediate-03",
-          "type": "fill-blank",
+          "type": "true-false",
           "difficulty": "intermediate",
-          "prompt": "Mô hình sản xuất/mua hàng trong đó vật tư chỉ được sản xuất hoặc mua sau khi có đơn hàng bán cụ thể, và tồn kho được giữ riêng cho đơn hàng đó (lưu trong MSKA), gọi là ___.",
-          "acceptableAnswers": ["make-to-order", "make to order", "sản xuất theo đơn hàng"],
-          "explanation": "Make-to-order (MTO) là mô hình mà việc sản xuất/mua hàng chỉ bắt đầu khi có đơn hàng bán, khác với make-to-stock (sản xuất sẵn vào kho chung)."
+          "statement": "Bảng LIKP lưu dữ liệu header của chứng từ giao hàng (outbound delivery), như điểm xuất kho và ngày giao hàng theo kế hoạch.",
+          "answer": true,
+          "explanation": "LIKP là bảng header của chứng từ giao hàng, chứa thông tin như shipping point, ngày giao hàng kế hoạch và trạng thái xuất kho."
         },
         {
           "id": "sd-business-intermediate-04",
-          "type": "matching",
+          "type": "true-false",
           "difficulty": "intermediate",
-          "explanation": "Phân biệt tồn kho tự do (MARD) với tồn kho gắn riêng theo đơn hàng bán (MSKA) là kiến thức nền tảng khi làm việc với make-to-order.",
-          "pairs": [
-            { "left": "MARD", "right": "Tồn kho tự do (unrestricted stock), dùng chung cho mọi đơn hàng" },
-            { "left": "MSKA (SOBKZ = E)", "right": "Tồn kho gắn riêng với 1 đơn hàng bán cụ thể (sales order stock)" },
-            { "left": "KALAB", "right": "Trường số lượng tồn kho khả dụng trong MSKA" },
-            { "left": "VBELN + POSNR (trong MSKA)", "right": "Cặp trường xác định đơn hàng bán và dòng item mà tồn kho đó thuộc về" }
-          ]
+          "statement": "Trường MATNR trong bảng LIPS lưu mã vật tư (Material Number) của dòng item giao hàng.",
+          "answer": true,
+          "explanation": "MATNR là trường lưu mã vật tư, xuất hiện trong nhiều bảng SD bao gồm LIPS để xác định vật tư được giao ở từng dòng."
         },
         {
           "id": "sd-business-intermediate-05",
-          "type": "multiple-choice",
+          "type": "fill-blank",
           "difficulty": "intermediate",
-          "question": "Khi tạo đơn hàng bán cho vật tư make-to-order, SD thực hiện Availability Check (ATP - Available to Promise). Nguồn tồn kho nào SD cần xem xét để trả lời khách hàng có đủ hàng hay không?",
-          "options": [
-            "Tồn kho tự do (MARD) cộng với tồn kho sales order stock (MSKA) gắn riêng cho đúng đơn hàng đang xét; tồn kho MSKA của đơn hàng khác thường không được tính chung",
-            "Chỉ tồn kho của công ty đối thủ cạnh tranh",
-            "Chỉ dữ liệu trong bảng VBAK, hoàn toàn không cần đọc dữ liệu tồn kho từ MM",
-            "ATP không liên quan gì đến tồn kho vật tư"
-          ],
-          "answerIndex": 0,
-          "explanation": "ATP tổng hợp tồn kho khả dụng (MARD) và tồn kho đặc biệt gắn với đơn hàng (MSKA của chính đơn hàng đó), có xét thêm các nhu cầu/nguồn cung theo kế hoạch MRP; tồn kho MSKA của đơn hàng khác thường bị loại trừ vì đã bị khóa riêng."
+          "prompt": "Bảng lưu dữ liệu chi tiết từng dòng item của chứng từ giao hàng, bao gồm vật tư và số lượng giao hàng thực tế, là bảng ___.",
+          "acceptableAnswers": ["LIPS", "lips"],
+          "explanation": "LIPS là bảng item của chứng từ giao hàng, lưu vật tư, số lượng giao thực tế (LFIMG) của từng dòng."
         },
         {
           "id": "sd-business-intermediate-06",
-          "type": "true-false",
+          "type": "fill-blank",
           "difficulty": "intermediate",
-          "statement": "Availability Check (ATP) trong SD là một điểm tích hợp trực tiếp với MM, vì SD cần đọc dữ liệu tồn kho (MARD, MSKA) do MM quản lý để xác định ngày có thể giao hàng.",
-          "answer": true,
-          "explanation": "ATP là ví dụ điển hình của tích hợp SD-MM: khi tạo/thay đổi đơn hàng bán, SD gọi logic kiểm tra tồn kho và kế hoạch cung ứng vốn thuộc phạm vi dữ liệu MM/PP."
+          "prompt": "Trong bảng LIKP, trường lưu ngày giao hàng theo kế hoạch (Delivery Date) là ___.",
+          "acceptableAnswers": ["LFDAT", "lfdat"],
+          "explanation": "LFDAT là trường Delivery Date trong LIKP, thể hiện ngày giao hàng theo kế hoạch."
         },
         {
           "id": "sd-business-intermediate-07",
-          "type": "fill-blank",
+          "type": "matching",
           "difficulty": "intermediate",
-          "prompt": "Chữ viết tắt ATP trong SAP SD nghĩa là ___ (khả năng đáp ứng đơn hàng dựa trên tồn kho và kế hoạch cung ứng).",
-          "acceptableAnswers": ["Available to Promise", "available to promise"],
-          "explanation": "ATP (Available to Promise) là cơ chế kiểm tra khả năng đáp ứng số lượng và ngày giao hàng cho khách dựa trên tồn kho hiện có và nguồn cung dự kiến."
+          "explanation": "Mỗi bảng lưu một loại dữ liệu cụ thể trong SD: VBAP/LIPS/VBRP là các bảng item tương ứng với công dụng riêng của từng bảng.",
+          "pairs": [
+            { "left": "VBAP", "right": "Dữ liệu chi tiết từng dòng item của chứng từ bán hàng" },
+            { "left": "LIKP", "right": "Dữ liệu header của chứng từ giao hàng (outbound delivery)" },
+            { "left": "LIPS", "right": "Dữ liệu chi tiết từng dòng item của chứng từ giao hàng" },
+            { "left": "VBRK", "right": "Dữ liệu header của chứng từ hóa đơn (billing document)" },
+            { "left": "VBRP", "right": "Dữ liệu chi tiết từng dòng item của hóa đơn" }
+          ]
         },
         {
           "id": "sd-business-intermediate-08",
           "type": "matching",
           "difficulty": "intermediate",
-          "explanation": "SOBKZ (Special Stock Indicator) phân loại các loại tồn kho đặc biệt khác nhau trong SAP, mỗi loại có quy tắc sử dụng riêng.",
+          "explanation": "Đây là các trường phổ biến, dễ đoán ý nghĩa trong các bảng item/header của SD.",
           "pairs": [
-            { "left": "SOBKZ = space", "right": "Tồn kho tự do, dùng chung (không phải special stock)" },
-            { "left": "SOBKZ = E", "right": "Sales order stock - gắn với đơn hàng bán cụ thể" },
-            { "left": "SOBKZ = Q", "right": "Project stock - gắn với dự án (WBS element)" },
-            { "left": "SOBKZ = K", "right": "Consignment stock - tồn kho ký gửi của nhà cung cấp tại kho của doanh nghiệp" }
+            { "left": "MATNR (trong VBAP)", "right": "Mã vật tư (Material Number)" },
+            { "left": "WERKS (trong VBAP)", "right": "Nhà máy/plant giao hàng (Delivering Plant)" },
+            { "left": "KWMENG (trong VBAP)", "right": "Số lượng đặt hàng (Order Quantity)" },
+            { "left": "FKART (trong VBRK)", "right": "Loại hóa đơn (Billing Type), vd F2 = Invoice" }
           ]
         }
       ]
@@ -185,90 +187,91 @@
     {
       "id": "advanced",
       "difficulty": "advanced",
-      "title": "Tích hợp SD với MM và FI: từ giao hàng đến ghi nhận doanh thu",
+      "title": "Các trường ít hiển nhiên hơn trong SD và bảng MSKA",
       "questions": [
         {
           "id": "sd-business-advanced-01",
           "type": "multiple-choice",
           "difficulty": "advanced",
-          "question": "Khi Billing Document (VBRK/VBRP) được lưu và chuyển sang kế toán (Release to Accounting), SAP tự động thực hiện điều gì?",
+          "question": "Bảng MSKA trong SAP SD dùng để lưu trữ dữ liệu gì?",
           "options": [
-            "Sinh bút toán kế toán (accounting document) trong FI, ghi Nợ tài khoản phải thu khách hàng (Customer/AR) và ghi Có tài khoản doanh thu (Revenue) trong FI-GL",
-            "Xóa toàn bộ dữ liệu VBAK/VBAP liên quan",
-            "Tự động hủy đơn hàng gốc",
-            "Chỉ in hóa đơn giấy, không ảnh hưởng gì tới FI"
+            "Tồn kho đặc biệt gắn với từng đơn hàng bán cụ thể (sales order stock), dùng cho vật tư sản xuất/mua theo đơn",
+            "Dữ liệu header của chứng từ bán hàng",
+            "Dữ liệu chi tiết dòng hóa đơn",
+            "Dữ liệu cấu hình kênh phân phối"
           ],
           "answerIndex": 0,
-          "explanation": "Đây là điểm tích hợp SD-FI quan trọng nhất: billing document khi release to accounting sẽ tự động tạo bút toán kế toán, ghi nhận công nợ phải thu và doanh thu tương ứng."
+          "explanation": "MSKA lưu tồn kho đặc biệt (special stock indicator 'E') gắn với từng đơn hàng bán cụ thể, khác với tồn kho tự do dùng chung."
         },
         {
           "id": "sd-business-advanced-02",
-          "type": "true-false",
+          "type": "multiple-choice",
           "difficulty": "advanced",
-          "statement": "Việc xác định tài khoản GL nào sẽ được ghi Có (doanh thu) khi billing document được chuyển sang FI dựa trên cấu hình Account Determination (bảng điều kiện, condition technique), không phải nhập tay từng lần.",
-          "answer": true,
-          "explanation": "SAP dùng cơ chế Account Determination (thường qua bảng điều kiện dựa trên account key, chart of accounts, sales organization, material/customer account assignment group) để tự động chọn tài khoản GL phù hợp."
+          "question": "Khi trường SOBKZ trong bảng MSKA có giá trị 'E', điều đó thể hiện điều gì?",
+          "options": [
+            "Đây là tồn kho đặc biệt loại sales order stock, gắn riêng với một đơn hàng bán cụ thể",
+            "Đây là tồn kho đã hết hạn sử dụng",
+            "Đây là vật tư bị lỗi cần trả lại nhà cung cấp",
+            "Đây là đơn hàng đã bị hủy"
+          ],
+          "answerIndex": 0,
+          "explanation": "SOBKZ (Special Stock Indicator) = 'E' đánh dấu đây là sales order stock - tồn kho gắn riêng với 1 đơn hàng bán, không dùng chung cho đơn hàng khác."
         },
         {
           "id": "sd-business-advanced-03",
-          "type": "fill-blank",
+          "type": "true-false",
           "difficulty": "advanced",
-          "prompt": "Quy trình tự động xác định tài khoản sổ cái (GL account) khi chuyển billing document sang FI, dựa trên tổ hợp điều kiện như account key, nhóm khách hàng, nhóm vật tư, gọi là ___.",
-          "acceptableAnswers": ["Account Determination", "account determination", "xác định tài khoản"],
-          "explanation": "Account Determination là cơ chế cấu hình (thường trong VKOA) giúp hệ thống tự động chọn đúng tài khoản GL cho doanh thu, chiết khấu, thuế... khi billing document chuyển sang FI."
+          "statement": "Trường KALAB trong bảng MSKA lưu số lượng tồn kho khả dụng không hạn chế (valuated unrestricted-use stock) gắn với đơn hàng bán.",
+          "answer": true,
+          "explanation": "KALAB là trường số lượng tồn kho khả dụng gắn với đơn hàng bán trong MSKA."
         },
         {
           "id": "sd-business-advanced-04",
-          "type": "matching",
+          "type": "true-false",
           "difficulty": "advanced",
-          "explanation": "Mỗi giai đoạn trong Order-to-Cash gắn với một điểm tích hợp cụ thể với MM, FI hoặc cơ chế kiểm soát nội bộ.",
-          "pairs": [
-            { "left": "VBAK/VBAP", "right": "Nguồn dữ liệu số lượng & giá trị đặt hàng ban đầu, dùng để kiểm tra tín dụng khách hàng (Credit Management)" },
-            { "left": "LIKP/LIPS -> Goods Issue (PGI)", "right": "Thời điểm giảm tồn kho MM (MARD/MSKA) và ghi nhận giá vốn hàng bán (COGS) trong FI" },
-            { "left": "VBRK/VBRP -> Release to Accounting", "right": "Thời điểm sinh bút toán ghi nhận doanh thu (Revenue) và công nợ phải thu (AR) trong FI-GL" },
-            { "left": "Account Determination", "right": "Cơ chế tự động chọn tài khoản GL phù hợp dựa trên điều kiện cấu hình, không cần nhập tay" }
-          ]
+          "statement": "Trường FKSTO trong bảng VBRK là cờ đánh dấu hóa đơn đã bị hủy (Billing Document Cancelled).",
+          "answer": true,
+          "explanation": "FKSTO trong VBRK đánh dấu trạng thái hóa đơn đã bị hủy hay chưa."
         },
         {
           "id": "sd-business-advanced-05",
-          "type": "multiple-choice",
+          "type": "fill-blank",
           "difficulty": "advanced",
-          "question": "Khi thực hiện Goods Issue (PGI) cho một outbound delivery (LIKP/LIPS), điều gì xảy ra đồng thời về mặt tích hợp MM-FI?",
-          "options": [
-            "Tồn kho vật lý (MARD/MSKA) giảm tương ứng, và giá trị hàng xuất kho được ghi nhận vào giá vốn hàng bán (COGS) trong FI/CO",
-            "Chỉ có tồn kho MM thay đổi, hoàn toàn không ảnh hưởng đến FI/CO",
-            "Đơn hàng bán VBAK bị xóa khỏi hệ thống",
-            "Hóa đơn VBRK được tạo tự động ngay lập tức, không cần chạy VF01"
-          ],
-          "answerIndex": 0,
-          "explanation": "PGI (Post Goods Issue) là một goods movement, làm giảm tồn kho MM (MARD/MSKA) đồng thời sinh bút toán ghi nhận giá vốn hàng bán (COGS) trong FI/CO, độc lập với việc tạo billing document."
+          "prompt": "Trong bảng MSKA, trường lưu số lượng tồn kho khả dụng gắn với đơn hàng bán là ___.",
+          "acceptableAnswers": ["KALAB", "kalab"],
+          "explanation": "KALAB là trường số lượng tồn kho khả dụng (valuated unrestricted-use stock) trong MSKA."
         },
         {
           "id": "sd-business-advanced-06",
-          "type": "true-false",
+          "type": "fill-blank",
           "difficulty": "advanced",
-          "statement": "Nếu một billing document bị hủy (VBRK-FKSTO = 'X'), SAP thường tạo thêm một bút toán đảo ngược (cancellation) trong FI, chứ không đơn giản xóa bút toán gốc đã ghi sổ.",
-          "answer": true,
-          "explanation": "Theo nguyên tắc kế toán, chứng từ đã ghi sổ không bị xóa; hệ thống tạo bút toán đảo (cancellation document) để triệt tiêu bút toán gốc, đảm bảo dấu vết kiểm toán (audit trail) đầy đủ."
+          "prompt": "Trong bảng LIKP, trường lưu ngày xuất kho thực tế (Actual Goods Issue Date) là ___.",
+          "acceptableAnswers": ["WADAT_IST", "wadat_ist"],
+          "explanation": "WADAT_IST là trường Actual Goods Issue Date trong LIKP, khác với LFDAT là ngày giao hàng theo kế hoạch."
         },
         {
           "id": "sd-business-advanced-07",
-          "type": "fill-blank",
+          "type": "matching",
           "difficulty": "advanced",
-          "prompt": "Trong quy trình Order-to-Cash, chức năng kiểm tra hạn mức tín dụng của khách hàng trước khi cho phép xử lý tiếp đơn hàng hoặc giao hàng gọi là ___.",
-          "acceptableAnswers": ["Credit Management", "credit management", "quản lý tín dụng"],
-          "explanation": "Credit Management kiểm tra hạn mức tín dụng (credit limit) của khách hàng tại các điểm kiểm soát như tạo đơn hàng, tạo delivery, PGI, giúp giảm rủi ro nợ xấu."
+          "explanation": "Các trường trong MSKA xác định tồn kho đặc biệt gắn với đơn hàng bán nào, dòng item nào, tại kho nào.",
+          "pairs": [
+            { "left": "SOBKZ", "right": "Chỉ số tồn kho đặc biệt (Special Stock Indicator), = 'E' cho sales order stock" },
+            { "left": "KALAB", "right": "Số lượng tồn kho khả dụng không hạn chế gắn với đơn hàng bán" },
+            { "left": "VBELN (trong MSKA)", "right": "Số đơn hàng bán mà tồn kho này gắn với" },
+            { "left": "POSNR (trong MSKA)", "right": "Số dòng item của đơn hàng bán mà tồn kho này gắn với" },
+            { "left": "LGORT", "right": "Mã kho hàng (Storage Location)" }
+          ]
         },
         {
           "id": "sd-business-advanced-08",
           "type": "matching",
           "difficulty": "advanced",
-          "explanation": "SD là mắt xích trung tâm kết nối nhiều phân hệ khác nhau trong SAP, mỗi liên kết phục vụ một mục đích nghiệp vụ cụ thể.",
+          "explanation": "Đây là các trường ít hiển nhiên hơn nhưng vẫn nằm trong keyFields của các bảng SD, mô tả trạng thái, cờ đánh dấu, hoặc số chứng từ tham chiếu.",
           "pairs": [
-            { "left": "SD -> MM", "right": "Kiểm tra tồn kho khả dụng (ATP) dựa trên MARD/MSKA trước khi xác nhận đơn hàng" },
-            { "left": "SD -> FI", "right": "Billing document tạo bút toán doanh thu (Revenue) và công nợ phải thu (AR) trong FI-GL" },
-            { "left": "SD -> CO", "right": "Dữ liệu doanh thu/chi phí bán hàng được chuyển vào Profitability Analysis (CO-PA) để phân tích lợi nhuận theo khách hàng/vật tư" },
-            { "left": "MM -> FI (qua PGI)", "right": "Xuất kho làm giảm giá trị tồn kho trên sổ sách và ghi nhận giá vốn hàng bán" }
+            { "left": "WBSTK (trong LIKP)", "right": "Trạng thái xuất kho tổng thể (Overall Goods Movement Status)" },
+            { "left": "FKSTO (trong VBRK)", "right": "Cờ đánh dấu hóa đơn đã bị hủy" },
+            { "left": "VGBEL (trong LIPS)", "right": "Số chứng từ tham chiếu - đơn hàng bán gốc" },
+            { "left": "KUNRG (trong VBRK)", "right": "Mã khách hàng nhận hóa đơn (Payer)" }
           ]
         }
       ]

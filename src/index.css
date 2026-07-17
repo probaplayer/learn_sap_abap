@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 :root {
+  color-scheme: light dark;
   --color-bg: #fff7e6;
   --color-panel: #ffffff;
   --color-text: #3c3c3c;
@@ -30,6 +31,15 @@ body {
 
 #root {
   min-height: 100svh;
+}
+
+/* Some browsers don't fully theme native <select>/<option> popups from
+   Tailwind classes alone; pin them to our own palette so the dropdown list
+   never renders unreadable (e.g. light text on a light popup) in dark mode. */
+select,
+select option {
+  background-color: var(--color-panel);
+  color: var(--color-text);
 }
 
 .md-content p {

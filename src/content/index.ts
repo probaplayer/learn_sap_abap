@@ -25,7 +25,7 @@ import sdTables from './sd/tables.json'
 import sdSyntax from './sd/quiz-syntax.json'
 import sdBusiness from './sd/quiz-business.json'
 
-export const MODULE_ORDER: ModuleId[] = ['mm', 'co', 'fi-gl', 'enterprise-structure', 'sd']
+export const MODULE_ORDER: ModuleId[] = ['enterprise-structure', 'mm', 'co', 'fi-gl', 'sd']
 
 export const MODULES: Record<ModuleId, ModuleInfo> = {
   mm: mmModule as ModuleInfo,

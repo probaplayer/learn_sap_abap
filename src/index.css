@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 :root {
+  font-size: 18px;
   color-scheme: light dark;
   --color-bg: #fff7e6;
   --color-panel: #ffffff;

@@ -9,6 +9,7 @@ import {
   isLessonUnlocked as isLessonUnlockedPure,
   levelForXp,
   recordAnswer as recordAnswerPure,
+  recordPracticeAnswer as recordPracticeAnswerPure,
 } from './progress'
 
 interface RecordAnswerArgs {
@@ -30,6 +31,7 @@ interface ProgressContextValue {
   progress: ProgressState
   level: number
   recordAnswer: (args: RecordAnswerArgs) => number
+  recordPracticeAnswer: (correct: boolean) => number
   completeLesson: (args: CompleteLessonArgs) => { isFirstCompletion: boolean; bonusXp: number; newlyEarnedBadges: string[] }
   isLessonUnlocked: (moduleId: string, track: Track, lessonIdsInOrder: string[], lessonId: string) => boolean
   reviewQuestionIds: (moduleId: string) => string[]
@@ -59,6 +61,12 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       level: levelForXp(progress.xp),
       recordAnswer: (args) => {
         const result = recordAnswerPure(latestRef.current, args)
+        latestRef.current = result.state
+        setProgress(result.state)
+        return result.xpGained
+      },
+      recordPracticeAnswer: (correct) => {
+        const result = recordPracticeAnswerPure(latestRef.current, { correct })
         latestRef.current = result.state
         setProgress(result.state)
         return result.xpGained

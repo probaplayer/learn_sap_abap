@@ -44,3 +44,18 @@ describe('ProgressContext under StrictMode', () => {
     expect(result.current.progress.completedLessons).toEqual(['mm:syntax:basic'])
   })
 })
+
+describe('recordPracticeAnswer', () => {
+  it('adds XP and returns the amount gained, without touching reviewPool', () => {
+    const { result } = renderHook(() => useProgress(), { wrapper })
+
+    let xpGained = -1
+    act(() => {
+      xpGained = result.current.recordPracticeAnswer(true)
+    })
+
+    expect(xpGained).toBe(10)
+    expect(result.current.progress.xp).toBe(10)
+    expect(result.current.progress.reviewPool).toEqual({})
+  })
+})

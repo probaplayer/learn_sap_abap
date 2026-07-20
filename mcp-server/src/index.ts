@@ -3,10 +3,13 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { z } from 'zod'
 import { getExercises, getQuizLessons, getTables, listModules, MODULE_ORDER } from './contentReaders.js'
 import { readProgressExport } from './progressExport.js'
+import { writePracticeSet } from './writePracticeSet.js'
+import type { QuizQuestion } from '../../src/content/types.js'
 
 const server = new McpServer({ name: 'sap-quest', version: '0.1.0' })
 
 const moduleIdEnum = z.enum(MODULE_ORDER)
+const looseQuestionSchema = z.record(z.string(), z.unknown())
 
 server.registerTool(
   'list_modules',
@@ -58,6 +61,31 @@ server.registerTool(
     inputSchema: { path: z.string().optional() },
   },
   async ({ path }) => ({ content: [{ type: 'text', text: JSON.stringify(readProgressExport(path), null, 2) }] }),
+)
+
+server.registerTool(
+  'write_practice_set',
+  {
+    title: 'Write practice set draft',
+    description: 'Ghi 1 bộ câu hỏi luyện tập mới vào src/content/generated (chưa commit)',
+    inputSchema: {
+      id: z.string(),
+      title: z.string(),
+      moduleId: moduleIdEnum,
+      note: z.string(),
+      questions: z.array(looseQuestionSchema),
+    },
+  },
+  async ({ id, title, moduleId, note, questions }) => {
+    const result = writePracticeSet({
+      id,
+      title,
+      moduleId,
+      note,
+      questions: questions as unknown as QuizQuestion[],
+    })
+    return { content: [{ type: 'text', text: `Đã ghi nháp tại ${result.filePath}` }] }
+  },
 )
 
 const transport = new StdioServerTransport()

@@ -37,6 +37,9 @@ export function ProgressHeader() {
         <Link to="/lab" className="text-sky-600 dark:text-sky-400 hover:underline" title="Code Lab">
           🧪 <span className="hidden sm:inline">Code Lab</span>
         </Link>
+        <Link to="/practice" className="text-sky-600 dark:text-sky-400 hover:underline" title="Luyện tập cá nhân hóa">
+          🎯 <span className="hidden sm:inline">Luyện tập</span>
+        </Link>
       </div>
     </header>
   )

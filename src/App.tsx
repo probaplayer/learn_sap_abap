@@ -8,6 +8,8 @@ import { WikiPage } from './routes/WikiPage'
 import { WikiDetailPage } from './routes/WikiDetailPage'
 import { LabPage } from './routes/LabPage'
 import { LabDetailPage } from './routes/LabDetailPage'
+import { PracticePage } from './routes/PracticePage'
+import { PracticeRunnerPage } from './routes/PracticeRunnerPage'
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
           <Route path="/wiki/:moduleId/:tableId" element={<WikiDetailPage />} />
           <Route path="/lab" element={<LabPage />} />
           <Route path="/lab/:exerciseId" element={<LabDetailPage />} />
+          <Route path="/practice" element={<PracticePage />} />
+          <Route path="/practice/:setId" element={<PracticeRunnerPage />} />
         </Routes>
       </HashRouter>
     </ProgressProvider>

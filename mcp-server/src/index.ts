@@ -2,6 +2,7 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { z } from 'zod'
 import { getExercises, getQuizLessons, getTables, listModules, MODULE_ORDER } from './contentReaders.js'
+import { readProgressExport } from './progressExport.js'
 
 const server = new McpServer({ name: 'sap-quest', version: '0.1.0' })
 
@@ -47,6 +48,16 @@ server.registerTool(
     inputSchema: {},
   },
   async () => ({ content: [{ type: 'text', text: JSON.stringify(getExercises(), null, 2) }] }),
+)
+
+server.registerTool(
+  'read_progress_export',
+  {
+    title: 'Read progress export',
+    description: 'Đọc file progress đã xuất từ web, kèm nội dung câu hỏi trong reviewPool',
+    inputSchema: { path: z.string().optional() },
+  },
+  async ({ path }) => ({ content: [{ type: 'text', text: JSON.stringify(readProgressExport(path), null, 2) }] }),
 )
 
 const transport = new StdioServerTransport()

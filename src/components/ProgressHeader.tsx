@@ -1,5 +1,16 @@
 import { Link } from 'react-router-dom'
 import { useProgress } from '../state/ProgressContext'
+import type { ProgressState } from '../state/types'
+
+function downloadProgressExport(progress: ProgressState) {
+  const blob = new Blob([JSON.stringify(progress, null, 2)], { type: 'application/json' })
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  link.download = 'sap-quest-progress.json'
+  link.click()
+  URL.revokeObjectURL(url)
+}
 
 export function ProgressHeader() {
   const { progress, level } = useProgress()
@@ -13,6 +24,13 @@ export function ProgressHeader() {
         <span title="Cấp độ">🏅 Lv.{level}</span>
         <span title="Tổng XP">⚡ {progress.xp}</span>
         <span title="Chuỗi ngày học liên tiếp">🔥 {progress.streak}</span>
+        <button
+          onClick={() => downloadProgressExport(progress)}
+          title="Xuất tiến trình học (dùng với MCP server + Claude Desktop)"
+          className="text-slate-500 dark:text-slate-400 hover:text-sky-600 dark:hover:text-sky-400"
+        >
+          ⬇️ <span className="hidden sm:inline">Xuất</span>
+        </button>
         <Link to="/wiki" className="text-sky-600 dark:text-sky-400 hover:underline" title="Wiki">
           📖 <span className="hidden sm:inline">Wiki</span>
         </Link>

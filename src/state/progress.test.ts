@@ -5,6 +5,7 @@ import {
   isLessonUnlocked,
   levelForXp,
   recordAnswer,
+  recordPracticeAnswer,
   updateStreak,
 } from './progress'
 
@@ -191,5 +192,24 @@ describe('completeLesson', () => {
     const businessDone = complete('business', 'advanced')
     expect(businessDone.newlyEarnedBadges).toContain('track-complete:mm:business')
     expect(businessDone.newlyEarnedBadges).toContain('module-master:mm')
+  })
+})
+
+describe('recordPracticeAnswer', () => {
+  it('adds XP on a correct answer without touching reviewPool/completedLessons/perfectLessons/badges', () => {
+    const result = recordPracticeAnswer(INITIAL_PROGRESS, { correct: true })
+    expect(result.xpGained).toBe(10)
+    expect(result.state.xp).toBe(10)
+    expect(result.state.reviewPool).toEqual({})
+    expect(result.state.completedLessons).toEqual([])
+    expect(result.state.perfectLessons).toEqual([])
+    expect(result.state.badges).toEqual([])
+  })
+
+  it('adds no XP on a wrong answer and does not add the question to reviewPool', () => {
+    const result = recordPracticeAnswer(INITIAL_PROGRESS, { correct: false })
+    expect(result.xpGained).toBe(0)
+    expect(result.state.xp).toBe(0)
+    expect(result.state.reviewPool).toEqual({})
   })
 })

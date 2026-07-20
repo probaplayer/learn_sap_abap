@@ -4,6 +4,7 @@ import type { Track } from '../content/types'
 export const XP_CORRECT_ANSWER = 10
 export const XP_REVIEW_CORRECT_ANSWER = 5
 export const XP_LESSON_FIRST_COMPLETE_BONUS = 20
+export const XP_PRACTICE_CORRECT_ANSWER = 10
 export const REVIEW_MASTERY_STREAK = 2
 export const STREAK_BADGE_THRESHOLDS = [7, 30] as const
 
@@ -75,6 +76,33 @@ export function recordAnswer(state: ProgressState, params: RecordAnswerParams): 
       xp: state.xp + xpGained,
       reviewPool: { ...state.reviewPool, [moduleId]: nextPool },
     },
+    xpGained,
+  }
+}
+
+export interface RecordPracticeAnswerParams {
+  correct: boolean
+}
+
+export interface RecordPracticeAnswerResult {
+  state: ProgressState
+  xpGained: number
+}
+
+/**
+ * XP-only counterpart to recordAnswer for ad hoc generated practice sets.
+ * Deliberately does not touch reviewPool: that pool is looked up by
+ * questionId through findQuestion(), which only searches the module's fixed
+ * lesson content, not content/generated/** — mixing generated-question ids
+ * into reviewPool would make them silently vanish from future review.
+ */
+export function recordPracticeAnswer(
+  state: ProgressState,
+  params: RecordPracticeAnswerParams,
+): RecordPracticeAnswerResult {
+  const xpGained = params.correct ? XP_PRACTICE_CORRECT_ANSWER : 0
+  return {
+    state: { ...state, xp: state.xp + xpGained },
     xpGained,
   }
 }

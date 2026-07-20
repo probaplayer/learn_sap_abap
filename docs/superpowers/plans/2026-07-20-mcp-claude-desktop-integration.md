@@ -661,8 +661,18 @@ git commit -m "Add personalized practice routes and navigation"
 - Create: `mcp-server/src/index.ts`
 
 **Interfaces:**
-- Consumes: nothing from the app repo yet (this task only reads `module.json` files)
-- Produces: `REPO_ROOT`, `CONTENT_DIR`, `GENERATED_DIR`, `defaultProgressExportPath()` from `paths.ts`; `MODULE_IDS`, `ModuleId`, `Track`, `listModules()` from `contentReaders.ts` — every later mcp-server task builds on these.
+- Consumes: `MODULE_ORDER`, `MODULES`, `QUIZ_TRACKS`, `TABLES` from `../../src/content/index.js`; `ModuleId`, `Track` types from `../../src/content/types.js` (both already exist in the app)
+- Produces: `REPO_ROOT`, `CONTENT_DIR`, `GENERATED_DIR`, `defaultProgressExportPath()` from `paths.ts`; `MODULE_ORDER`, `ModuleId`, `Track`, `listModules()`, `getQuizLessons()`, `getTables()`, `getExercises()` from `contentReaders.ts` — every later mcp-server task builds on these.
+
+A note on why `contentReaders.ts` mixes two strategies: `../../src/content/index.js` only does
+plain bare JSON imports (`import mmModule from './mm/module.json'`, no Vite-only syntax), and
+`tsx` resolves and executes that fine outside Vite — verified by running
+`npx tsx` against a throwaway script importing it before writing this task. `../../src/content/lab/index.js`,
+by contrast, imports `.abap` files with Vite's `?raw` suffix, which is meaningless outside Vite's
+bundler and throws `ERR_UNKNOWN_FILE_EXTENSION` under plain Node/tsx (also verified the same way).
+So `getQuizLessons`/`getTables`/`listModules` import the real app content module directly (no
+duplicated file-path logic), while `getExercises` reads `exercise.json` off disk with `fs`
+because it cannot go through `content/lab/index.ts`.
 
 - [ ] **Step 1: Create `mcp-server/package.json`**
 
@@ -736,26 +746,27 @@ export function defaultProgressExportPath(): string {
 import fs from 'node:fs'
 import path from 'node:path'
 import { CONTENT_DIR } from './paths.js'
+import { MODULE_ORDER, MODULES, QUIZ_TRACKS, TABLES } from '../../src/content/index.js'
+import type { ModuleId, Track } from '../../src/content/types.js'
 
-export const MODULE_IDS = ['mm', 'co', 'fi-gl', 'enterprise-structure', 'sd'] as const
-export type ModuleId = (typeof MODULE_IDS)[number]
-export type Track = 'syntax' | 'business'
-
-function readJson<T>(filePath: string): T {
-  return JSON.parse(fs.readFileSync(filePath, 'utf-8')) as T
-}
+export { MODULE_ORDER }
+export type { ModuleId, Track }
 
 export function listModules() {
-  return MODULE_IDS.map((id) => readJson(path.join(CONTENT_DIR, id, 'module.json')))
+  return MODULE_ORDER.map((id) => MODULES[id])
 }
 
 export function getQuizLessons(moduleId: ModuleId, track: Track) {
-  return readJson(path.join(CONTENT_DIR, moduleId, `quiz-${track}.json`))
+  return QUIZ_TRACKS[moduleId][track]
 }
 
 export function getTables(moduleId?: ModuleId) {
-  const ids = moduleId ? [moduleId] : MODULE_IDS
-  return ids.flatMap((id) => readJson<unknown[]>(path.join(CONTENT_DIR, id, 'tables.json')))
+  const ids = moduleId ? [moduleId] : MODULE_ORDER
+  return ids.flatMap((id) => TABLES[id])
+}
+
+function readJson<T>(filePath: string): T {
+  return JSON.parse(fs.readFileSync(filePath, 'utf-8')) as T
 }
 
 export function getExercises() {
@@ -815,7 +826,7 @@ git commit -m "Scaffold MCP server with list_modules tool"
 - Modify: `mcp-server/src/index.ts`
 
 **Interfaces:**
-- Consumes: `getQuizLessons`, `getTables`, `getExercises`, `MODULE_IDS` from `./contentReaders.js` (Task 7)
+- Consumes: `getQuizLessons`, `getTables`, `getExercises`, `MODULE_ORDER` from `./contentReaders.js` (Task 7)
 - Produces: nothing new for later tasks — this task only adds more registered tools.
 
 - [ ] **Step 1: Add the three tools to `mcp-server/src/index.ts`**
@@ -823,13 +834,13 @@ git commit -m "Scaffold MCP server with list_modules tool"
 Update the import line:
 
 ```typescript
-import { getExercises, getQuizLessons, getTables, listModules, MODULE_IDS } from './contentReaders.js'
+import { getExercises, getQuizLessons, getTables, listModules, MODULE_ORDER } from './contentReaders.js'
 ```
 
 Add `import { z } from 'zod'` at the top, and this constant right after the `server` declaration:
 
 ```typescript
-const moduleIdEnum = z.enum(MODULE_IDS)
+const moduleIdEnum = z.enum(MODULE_ORDER)
 ```
 
 Add the three tools after the `list_modules` registration:

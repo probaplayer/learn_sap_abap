@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { getExercises, getQuizLessons, getTables, listModules, MODULE_ORDER } from './contentReaders.js'
 import { readProgressExport } from './progressExport.js'
 import { writePracticeSet } from './writePracticeSet.js'
+import { publishPracticeSet } from './publishPracticeSet.js'
 import type { QuizQuestion } from '../../src/content/types.js'
 
 const server = new McpServer({ name: 'sap-quest', version: '0.1.0' })
@@ -85,6 +86,19 @@ server.registerTool(
       questions: questions as unknown as QuizQuestion[],
     })
     return { content: [{ type: 'text', text: `Đã ghi nháp tại ${result.filePath}` }] }
+  },
+)
+
+server.registerTool(
+  'publish_practice_set',
+  {
+    title: 'Publish practice set',
+    description: 'Validate + chạy test + commit & push bộ câu hỏi đã ghi lên main',
+    inputSchema: { id: z.string() },
+  },
+  async ({ id }) => {
+    const result = publishPracticeSet(id)
+    return { content: [{ type: 'text', text: `Đã publish, commit ${result.commitHash}` }] }
   },
 )
 

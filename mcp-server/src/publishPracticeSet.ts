@@ -21,6 +21,9 @@ export function publishPracticeSet(id: string): { commitHash: string } {
   }
 
   const set = JSON.parse(fs.readFileSync(filePath, 'utf-8')) as GeneratedSetFile
+  if (set.id !== id) {
+    throw new Error(`File nháp có id "${set.id}" không khớp với id "${id}" được yêu cầu`)
+  }
   const errors = set.questions.flatMap((q) => validateQuestion(q))
   if (errors.length > 0) {
     throw new Error(`File không hợp lệ, không publish:\n${errors.join('\n')}`)
@@ -32,9 +35,13 @@ export function publishPracticeSet(id: string): { commitHash: string } {
   }
 
   const relativePath = path.relative(REPO_ROOT, filePath).replace(/\\/g, '/')
-  execSync(`git add ${relativePath}`, { cwd: REPO_ROOT })
-  execSync(`git commit -m "Add generated practice set: ${id}"`, { cwd: REPO_ROOT })
-  execSync('git push origin main', { cwd: REPO_ROOT })
+  try {
+    execSync(`git add ${relativePath}`, { cwd: REPO_ROOT })
+    execSync(`git commit -m "Add generated practice set: ${id}"`, { cwd: REPO_ROOT })
+    execSync('git push origin main', { cwd: REPO_ROOT })
+  } catch (err) {
+    throw new Error(`Lỗi khi commit/push: ${(err as Error).message}`)
+  }
 
   const commitHash = execSync('git rev-parse HEAD', { cwd: REPO_ROOT, encoding: 'utf-8' }).trim()
   return { commitHash }

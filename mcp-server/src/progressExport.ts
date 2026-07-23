@@ -8,14 +8,12 @@ function readJson<T>(filePath: string): T {
 }
 
 function findQuestionInModule(moduleId: string, questionId: string) {
-  for (const track of ['syntax', 'business']) {
-    const file = readJson<{ lessons: { questions: { id: string }[] }[] }>(
-      path.join(CONTENT_DIR, moduleId, `quiz-${track}.json`),
-    )
-    for (const lesson of file.lessons) {
-      const found = lesson.questions.find((q) => q.id === questionId)
-      if (found) return found
-    }
+  const file = readJson<{ lessons: { questions: { id: string }[] }[] }>(
+    path.join(CONTENT_DIR, moduleId, 'quiz.json'),
+  )
+  for (const lesson of file.lessons) {
+    const found = lesson.questions.find((q) => q.id === questionId)
+    if (found) return found
   }
   return undefined
 }

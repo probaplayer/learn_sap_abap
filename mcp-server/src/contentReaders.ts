@@ -1,18 +1,18 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { CONTENT_DIR } from './paths.js'
-import { MODULE_ORDER, MODULES, QUIZ_TRACKS, TABLES } from '../../src/content/index.js'
-import type { ModuleId, Track } from '../../src/content/types.js'
+import { MODULE_ORDER, MODULES, QUIZ_LESSONS, TABLES } from '../../src/content/index.js'
+import type { ModuleId } from '../../src/content/types.js'
 
 export { MODULE_ORDER }
-export type { ModuleId, Track }
+export type { ModuleId }
 
 export function listModules() {
   return MODULE_ORDER.map((id) => MODULES[id])
 }
 
-export function getQuizLessons(moduleId: ModuleId, track: Track) {
-  return QUIZ_TRACKS[moduleId][track]
+export function getQuizLessons(moduleId: ModuleId) {
+  return QUIZ_LESSONS[moduleId]
 }
 
 export function getTables(moduleId?: ModuleId) {

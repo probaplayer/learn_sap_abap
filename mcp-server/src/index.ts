@@ -26,11 +26,11 @@ server.registerTool(
   'get_quiz_lessons',
   {
     title: 'Get quiz lessons',
-    description: 'Trả về toàn bộ lesson và câu hỏi hiện có của 1 module + track',
-    inputSchema: { moduleId: moduleIdEnum, track: z.enum(['syntax', 'business']) },
+    description: 'Trả về toàn bộ lesson và câu hỏi hiện có của 1 module',
+    inputSchema: { moduleId: moduleIdEnum },
   },
-  async ({ moduleId, track }) => ({
-    content: [{ type: 'text', text: JSON.stringify(getQuizLessons(moduleId, track), null, 2) }],
+  async ({ moduleId }) => ({
+    content: [{ type: 'text', text: JSON.stringify(getQuizLessons(moduleId), null, 2) }],
   }),
 )
 

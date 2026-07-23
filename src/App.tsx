@@ -19,7 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MapPage />} />
           <Route path="/module/:moduleId" element={<ModulePage />} />
-          <Route path="/lesson/:moduleId/:track/:lessonId" element={<LessonPage />} />
+          <Route path="/lesson/:moduleId/:lessonId" element={<LessonPage />} />
           <Route path="/wiki" element={<WikiPage />} />
           <Route path="/wiki/:moduleId/:tableId" element={<WikiDetailPage />} />
           <Route path="/lab" element={<LabPage />} />

@@ -1,12 +1,12 @@
 import { useMemo, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import type { ModuleId, QuizQuestion, Track } from '../content/types'
-import { MODULES, findQuestion, getAllLessonsByModuleTrack, getLesson } from '../content'
+import type { ModuleId, QuizQuestion } from '../content/types'
+import { MODULES, findQuestion, getAllLessonsByModule, getLesson } from '../content'
 import { useProgress } from '../state/ProgressContext'
 import { QuestionCard } from '../components/QuestionCard'
 
 export function LessonPage() {
-  const { moduleId, track, lessonId } = useParams<{ moduleId: ModuleId; track: Track; lessonId: string }>()
+  const { moduleId, lessonId } = useParams<{ moduleId: ModuleId; lessonId: string }>()
   const { reviewQuestionIds, recordAnswer, completeLesson } = useProgress()
 
   const isReview = lessonId === 'review'
@@ -18,19 +18,16 @@ export function LessonPage() {
         .map((qid) => findQuestion(moduleId, qid))
         .filter((q): q is QuizQuestion => Boolean(q))
     }
-    if (!track || !lessonId) return []
-    return getLesson(moduleId, track, lessonId)?.questions ?? []
+    if (!lessonId) return []
+    return getLesson(moduleId, lessonId)?.questions ?? []
     // reviewQuestionIds intentionally excluded: pool is only read once when the lesson starts
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [moduleId, track, lessonId, isReview])
+  }, [moduleId, lessonId, isReview])
 
   const [index, setIndex] = useState(0)
   const [finished, setFinished] = useState(false)
   const [summary, setSummary] = useState({ xpEarned: 0, mistakeCount: 0, newBadges: [] as string[] })
 
-  // Plain refs, not React state: they only need to be read once, when the
-  // lesson finishes, so there is no need to route every answer through a
-  // render cycle (and no risk of stale closures across batched updates).
   const mistakeCountRef = useRef(0)
   const xpEarnedRef = useRef(0)
 
@@ -66,13 +63,12 @@ export function LessonPage() {
     }
 
     let newBadges: string[] = []
-    if (!isReview && track && lessonId) {
+    if (!isReview && lessonId) {
       const result = completeLesson({
         moduleId: moduleId!,
-        track,
         lessonId,
         mistakeCount: mistakeCountRef.current,
-        lessonsByModuleTrack: getAllLessonsByModuleTrack(),
+        lessonsByModule: getAllLessonsByModule(),
       })
       xpEarnedRef.current += result.bonusXp
       newBadges = result.newlyEarnedBadges

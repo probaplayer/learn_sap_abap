@@ -2,9 +2,6 @@ import { Link } from 'react-router-dom'
 import { MODULE_ORDER, MODULES, getLessonIds } from '../content'
 import { lessonKey } from '../state/progress'
 import { useProgress } from '../state/ProgressContext'
-import type { Track } from '../content/types'
-
-const TRACKS: Track[] = ['syntax', 'business']
 
 // Alternating left/center/right alignment gives the single path its
 // Duolingo-style zigzag while staying simple flexbox (no SVG, no risk of
@@ -13,7 +10,7 @@ const ZIGZAG = ['self-center', 'self-start', 'self-end', 'self-start', 'self-end
 
 function useModuleProgress(moduleId: (typeof MODULE_ORDER)[number]) {
   const { progress } = useProgress()
-  const lessonIds = TRACKS.flatMap((track) => getLessonIds(moduleId, track).map((id) => lessonKey(moduleId, track, id)))
+  const lessonIds = getLessonIds(moduleId).map((id) => lessonKey(moduleId, id))
   const completed = lessonIds.filter((key) => progress.completedLessons.includes(key)).length
   return { completed, total: lessonIds.length }
 }
@@ -55,7 +52,7 @@ export function MapPage() {
 
   const suggestedNextId =
     MODULE_ORDER.find((id) => {
-      const lessonIds = TRACKS.flatMap((track) => getLessonIds(id, track).map((lid) => lessonKey(id, track, lid)))
+      const lessonIds = getLessonIds(id).map((lid) => lessonKey(id, lid))
       return lessonIds.some((key) => !progress.completedLessons.includes(key))
     }) ?? MODULE_ORDER[0]
 

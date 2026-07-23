@@ -10,7 +10,10 @@ import type { WriteModuleDraftInput } from './writeModuleDraft.js'
 import { writeLessonDraft } from './writeLessonDraft.js'
 import type { LessonDraftInput } from './writeLessonDraft.js'
 import { writeTableEntry } from './writeTableEntry.js'
+import { writeLabExerciseDraft } from './writeLabExerciseDraft.js'
+import { EXERCISE_CATEGORIES } from '../../src/content/lab/types.js'
 import type { QuizQuestion } from '../../src/content/types.js'
+import type { ExerciseMeta } from '../../src/content/lab/types.js'
 
 const server = new McpServer({ name: 'sap-quest', version: '0.1.0' })
 
@@ -30,6 +33,19 @@ const lessonSchema = z.object({
   difficulty: z.enum(['basic', 'intermediate', 'advanced']),
   title: z.string(),
   questions: z.array(looseQuestionSchema),
+})
+const exerciseMetaSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  category: z.enum(Object.keys(EXERCISE_CATEGORIES) as [string, ...string[]]),
+  difficulty: z.enum(['basic', 'intermediate', 'advanced']),
+  relatedExerciseIds: z.array(z.string()),
+  sourceFiles: z.array(z.string()),
+  problemStatement: z.string(),
+  concepts: z.array(z.string()),
+  tablesUsed: z.array(z.string()),
+  walkthrough: z.string(),
+  sampleOutput: z.string(),
 })
 
 server.registerTool(
@@ -177,6 +193,23 @@ server.registerTool(
   async ({ moduleId, table }) => {
     const result = writeTableEntry(moduleId, table)
     return { content: [{ type: 'text', text: `Đã ghi table vào ${result.filePath}` }] }
+  },
+)
+
+server.registerTool(
+  'write_lab_exercise_draft',
+  {
+    title: 'Write Code Lab exercise draft',
+    description: 'Tạo 1 bài tập Code Lab mới (exercise.json + file .abap) trong src/content/lab/<id>/, chưa commit',
+    inputSchema: {
+      id: z.string(),
+      exercise: exerciseMetaSchema,
+      sourceFiles: z.array(z.object({ filename: z.string(), content: z.string() })),
+    },
+  },
+  async ({ id, exercise, sourceFiles }) => {
+    const result = writeLabExerciseDraft({ id, exercise: exercise as ExerciseMeta, sourceFiles })
+    return { content: [{ type: 'text', text: `Đã tạo bài tập nháp tại ${result.dir}` }] }
   },
 )
 

@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import type { ProgressState } from './types'
-import type { Track } from '../content/types'
 import { loadProgress, saveProgress } from './storage'
 import {
   completeLesson as completeLessonPure,
@@ -21,10 +20,9 @@ interface RecordAnswerArgs {
 
 interface CompleteLessonArgs {
   moduleId: string
-  track: Track
   lessonId: string
   mistakeCount: number
-  lessonsByModuleTrack: Record<string, string[]>
+  lessonsByModule: Record<string, string[]>
 }
 
 interface ProgressContextValue {
@@ -33,7 +31,7 @@ interface ProgressContextValue {
   recordAnswer: (args: RecordAnswerArgs) => number
   recordPracticeAnswer: (correct: boolean) => number
   completeLesson: (args: CompleteLessonArgs) => { isFirstCompletion: boolean; bonusXp: number; newlyEarnedBadges: string[] }
-  isLessonUnlocked: (moduleId: string, track: Track, lessonIdsInOrder: string[], lessonId: string) => boolean
+  isLessonUnlocked: (moduleId: string, lessonIdsInOrder: string[], lessonId: string) => boolean
   reviewQuestionIds: (moduleId: string) => string[]
 }
 
@@ -81,8 +79,8 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
           newlyEarnedBadges: result.newlyEarnedBadges,
         }
       },
-      isLessonUnlocked: (moduleId, track, lessonIdsInOrder, lessonId) =>
-        isLessonUnlockedPure(progress, moduleId, track, lessonIdsInOrder, lessonId),
+      isLessonUnlocked: (moduleId, lessonIdsInOrder, lessonId) =>
+        isLessonUnlockedPure(progress, moduleId, lessonIdsInOrder, lessonId),
       reviewQuestionIds: (moduleId) => getReviewQuestionIds(progress, moduleId),
     }),
     [progress],

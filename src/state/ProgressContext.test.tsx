@@ -31,17 +31,16 @@ describe('ProgressContext under StrictMode', () => {
       result.current.recordAnswer({ moduleId: 'mm', questionId: 'q1', correct: true, isReview: false })
       const outcome = result.current.completeLesson({
         moduleId: 'mm',
-        track: 'syntax',
         lessonId: 'basic',
         mistakeCount: 0,
-        lessonsByModuleTrack: { 'mm:syntax': ['basic'] },
+        lessonsByModule: { mm: ['basic'] },
       })
       bonusXp = outcome.bonusXp
     })
 
     expect(bonusXp).toBe(20)
     expect(result.current.progress.xp).toBe(30)
-    expect(result.current.progress.completedLessons).toEqual(['mm:syntax:basic'])
+    expect(result.current.progress.completedLessons).toEqual(['mm:basic'])
   })
 })
 

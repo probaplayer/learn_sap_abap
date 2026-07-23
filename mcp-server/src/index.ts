@@ -5,12 +5,29 @@ import { getExercises, getQuizLessons, getTables, listModules, MODULE_ORDER } fr
 import { readProgressExport } from './progressExport.js'
 import { writePracticeSet } from './writePracticeSet.js'
 import { publishPracticeSet } from './publishPracticeSet.js'
+import { writeModuleDraft } from './writeModuleDraft.js'
+import type { WriteModuleDraftInput } from './writeModuleDraft.js'
 import type { QuizQuestion } from '../../src/content/types.js'
 
 const server = new McpServer({ name: 'sap-quest', version: '0.1.0' })
 
 const moduleIdEnum = z.enum(MODULE_ORDER)
 const looseQuestionSchema = z.record(z.string(), z.unknown())
+const tableFieldSchema = z.object({ field: z.string(), description: z.string() })
+const tableEntrySchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  purpose: z.string(),
+  whereUsed: z.string(),
+  keyFields: z.array(tableFieldSchema),
+  relatedTables: z.array(z.string()),
+})
+const lessonSchema = z.object({
+  id: z.string(),
+  difficulty: z.enum(['basic', 'intermediate', 'advanced']),
+  title: z.string(),
+  questions: z.array(looseQuestionSchema),
+})
 
 server.registerTool(
   'list_modules',
@@ -99,6 +116,38 @@ server.registerTool(
   async ({ id }) => {
     const result = publishPracticeSet(id)
     return { content: [{ type: 'text', text: `Đã publish, commit ${result.commitHash}` }] }
+  },
+)
+
+server.registerTool(
+  'write_module_draft',
+  {
+    title: 'Write new module draft',
+    description: 'Tạo 1 module SAP mới (module.json + tables.json + quiz.json) trong src/content/<id>/, chưa commit',
+    inputSchema: {
+      id: z.string(),
+      order: z.number(),
+      module: z.object({
+        name: z.string(),
+        shortName: z.string(),
+        icon: z.string(),
+        color: z.string(),
+        description: z.string(),
+        businessPurpose: z.string(),
+      }),
+      tables: z.array(tableEntrySchema),
+      lessons: z.array(lessonSchema),
+    },
+  },
+  async ({ id, order, module, tables, lessons }) => {
+    const result = writeModuleDraft({
+      id,
+      order,
+      module,
+      tables,
+      lessons: lessons as unknown as WriteModuleDraftInput['lessons'],
+    })
+    return { content: [{ type: 'text', text: `Đã tạo module nháp tại ${result.dir}` }] }
   },
 )
 

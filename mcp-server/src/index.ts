@@ -9,6 +9,7 @@ import { writeModuleDraft } from './writeModuleDraft.js'
 import type { WriteModuleDraftInput } from './writeModuleDraft.js'
 import { writeLessonDraft } from './writeLessonDraft.js'
 import type { LessonDraftInput } from './writeLessonDraft.js'
+import { writeTableEntry } from './writeTableEntry.js'
 import type { QuizQuestion } from '../../src/content/types.js'
 
 const server = new McpServer({ name: 'sap-quest', version: '0.1.0' })
@@ -163,6 +164,19 @@ server.registerTool(
   async ({ moduleId, lesson }) => {
     const result = writeLessonDraft(moduleId, lesson as unknown as LessonDraftInput)
     return { content: [{ type: 'text', text: `Đã thêm lesson vào ${result.filePath}` }] }
+  },
+)
+
+server.registerTool(
+  'write_table_entry',
+  {
+    title: 'Write table entry',
+    description: 'Thêm hoặc sửa 1 entry bảng wiki trong tables.json của module',
+    inputSchema: { moduleId: moduleIdEnum, table: tableEntrySchema },
+  },
+  async ({ moduleId, table }) => {
+    const result = writeTableEntry(moduleId, table)
+    return { content: [{ type: 'text', text: `Đã ghi table vào ${result.filePath}` }] }
   },
 )
 

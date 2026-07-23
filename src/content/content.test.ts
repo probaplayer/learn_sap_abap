@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { MODULE_ORDER, MODULES, QUIZ_LESSONS, TABLES } from './index'
-import { validateQuestion } from './validateQuestion'
+import { validateQuestion, validateTableEntry } from './validateQuestion'
 
 describe('content schema validation', () => {
   it('discovers all 5 known modules via the content directory scan', () => {
@@ -21,13 +21,14 @@ describe('content schema validation', () => {
     }
   })
 
-  it('every table entry belongs to its module and has key fields', () => {
+  it('every table entry is well-formed and belongs to its module', () => {
+    const allTableIds = new Set(MODULE_ORDER.flatMap((m) => TABLES[m].map((t) => t.id.toUpperCase())))
     for (const moduleId of MODULE_ORDER) {
       expect(TABLES[moduleId].length).toBeGreaterThan(0)
       for (const table of TABLES[moduleId]) {
         expect(table.module).toBe(moduleId)
-        expect(table.id.length).toBeGreaterThan(0)
-        expect(table.keyFields.length).toBeGreaterThan(0)
+        const errors = validateTableEntry(table, allTableIds)
+        expect(errors, `${moduleId}/${table.id}: ${errors.join('; ')}`).toEqual([])
       }
     }
   })
@@ -48,19 +49,6 @@ describe('content schema validation', () => {
 
           expect(allIds.has(q.id), `duplicate question id: ${q.id}`).toBe(false)
           allIds.add(q.id)
-        }
-      }
-    }
-  })
-
-  it('related tables reference tables that actually exist somewhere', () => {
-    const allTableIds = new Set(MODULE_ORDER.flatMap((m) => TABLES[m].map((t) => t.id.toUpperCase())))
-    for (const moduleId of MODULE_ORDER) {
-      for (const table of TABLES[moduleId]) {
-        for (const rid of table.relatedTables) {
-          expect(allTableIds.has(rid.toUpperCase()), `${moduleId}/${table.id} -> unknown related table ${rid}`).toBe(
-            true,
-          )
         }
       }
     }

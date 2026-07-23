@@ -1,4 +1,5 @@
-import type { QuizQuestion } from './types'
+import type { QuizQuestion, TableEntry } from './types'
+import type { ExerciseMeta } from './lab/types'
 
 export const VALID_DIFFICULTIES = ['basic', 'intermediate', 'advanced']
 export const VALID_QUESTION_TYPES = ['multiple-choice', 'true-false', 'fill-blank', 'matching']
@@ -35,6 +36,43 @@ export function validateQuestion(q: QuizQuestion): string[] {
         if (lefts.size !== q.pairs.length) errors.push(`[${q.id}] duplicate 'left' values in pairs`)
       }
       break
+  }
+  return errors
+}
+
+export function validateTableEntry(table: TableEntry, allKnownTableIds: Set<string>): string[] {
+  const errors: string[] = []
+  if (!table.id || table.id.trim().length === 0) errors.push('missing id')
+  if (!table.name || table.name.trim().length === 0) errors.push(`[${table.id}] missing name`)
+  if (!table.purpose || table.purpose.trim().length === 0) errors.push(`[${table.id}] missing purpose`)
+  if (!table.whereUsed || table.whereUsed.trim().length === 0) errors.push(`[${table.id}] missing whereUsed`)
+  if (!Array.isArray(table.keyFields) || table.keyFields.length === 0) {
+    errors.push(`[${table.id}] needs >=1 keyFields`)
+  }
+  for (const rid of table.relatedTables ?? []) {
+    if (!allKnownTableIds.has(rid.toUpperCase())) {
+      errors.push(`[${table.id}] unknown related table ${rid}`)
+    }
+  }
+  return errors
+}
+
+export function validateExerciseMeta(meta: ExerciseMeta, actualFilenames: string[]): string[] {
+  const errors: string[] = []
+  if (!meta.id || meta.id.trim().length === 0) errors.push('missing id')
+  if (!meta.title || meta.title.trim().length === 0) errors.push(`[${meta.id}] missing title`)
+  if (!meta.problemStatement || meta.problemStatement.trim().length === 0) {
+    errors.push(`[${meta.id}] missing problemStatement`)
+  }
+  if (!meta.walkthrough || meta.walkthrough.trim().length === 0) errors.push(`[${meta.id}] missing walkthrough`)
+  if (!meta.sampleOutput || meta.sampleOutput.trim().length === 0) errors.push(`[${meta.id}] missing sampleOutput`)
+  if (!Array.isArray(meta.concepts) || meta.concepts.length === 0) {
+    errors.push(`[${meta.id}] needs >=1 concepts`)
+  }
+  if (JSON.stringify(meta.sourceFiles) !== JSON.stringify(actualFilenames)) {
+    errors.push(
+      `[${meta.id}] sourceFiles ${JSON.stringify(meta.sourceFiles)} does not match actual files ${JSON.stringify(actualFilenames)}`,
+    )
   }
   return errors
 }

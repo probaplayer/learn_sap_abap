@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { EXERCISES } from './index'
 import { EXERCISE_CATEGORIES } from './types'
+import { validateExerciseMeta } from '../validateQuestion'
 
 const VALID_CATEGORIES = new Set(Object.keys(EXERCISE_CATEGORIES))
 const VALID_DIFFICULTIES = new Set(['basic', 'intermediate', 'advanced'])
@@ -19,22 +20,16 @@ describe('Code Lab content validation', () => {
     }
   })
 
-  it('sourceFiles matches the actual loaded files, and every file has non-empty code', () => {
+  it('every exercise metadata is well-formed and its files match sourceFiles', () => {
     for (const ex of EXERCISES) {
-      const loadedFilenames = ex.files.map((f) => f.filename)
-      expect(loadedFilenames, `${ex.id}: sourceFiles mismatch`).toEqual(ex.sourceFiles)
+      const errors = validateExerciseMeta(
+        ex,
+        ex.files.map((f) => f.filename),
+      )
+      expect(errors, `${ex.id}: ${errors.join('; ')}`).toEqual([])
       for (const file of ex.files) {
         expect(file.code.length, `${ex.id}/${file.filename} has empty source`).toBeGreaterThan(0)
       }
-    }
-  })
-
-  it('has non-empty problemStatement, walkthrough, sampleOutput, and at least one concept', () => {
-    for (const ex of EXERCISES) {
-      expect(ex.problemStatement.trim().length, `${ex.id}: empty problemStatement`).toBeGreaterThan(0)
-      expect(ex.walkthrough.trim().length, `${ex.id}: empty walkthrough`).toBeGreaterThan(0)
-      expect(ex.sampleOutput.trim().length, `${ex.id}: empty sampleOutput`).toBeGreaterThan(0)
-      expect(ex.concepts.length, `${ex.id}: no concepts listed`).toBeGreaterThan(0)
     }
   })
 

@@ -43,9 +43,9 @@ TypeScript modules (`resolveJsonModule` is on) and cast to the types in `src/con
 
 - `src/content/index.ts` is the single aggregation point for the 5 quiz modules (`mm`, `co`, `fi-gl`,
   `enterprise-structure`, `sd`). Each module directory has `module.json` (metadata), `tables.json` (wiki
-  entries), `quiz-syntax.json` and `quiz-business.json` (the two parallel learning tracks). **Every quiz
-  track file must have exactly 3 lessons of exactly 8 questions each** — this is enforced by
-  `src/content/content.test.ts`, not by any type system check.
+  entries), and `quiz.json` (the business-focused lesson list — there is no separate syntax track).
+  **Every module's `quiz.json` must have exactly 3 lessons of exactly 8 questions each** — this is
+  enforced by `src/content/content.test.ts`, not by any type system check.
 - `src/content/lab/index.ts` is the equivalent aggregation point for Code Lab: each exercise directory has
   `exercise.json` (metadata: problem statement, concepts, walkthrough, sample output) plus one or more
   `.abap` files imported with Vite's `?raw` suffix and wired together via the `build()` helper.

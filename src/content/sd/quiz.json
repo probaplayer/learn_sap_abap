@@ -1,6 +1,5 @@
 {
   "moduleId": "sd",
-  "track": "business",
   "lessons": [
     {
       "id": "basic",
@@ -34,7 +33,10 @@
           "type": "fill-blank",
           "difficulty": "basic",
           "prompt": "SD là viết tắt của Sales and ___.",
-          "acceptableAnswers": ["Distribution", "distribution"],
+          "acceptableAnswers": [
+            "Distribution",
+            "distribution"
+          ],
           "explanation": "SD = Sales and Distribution, phân hệ quản lý bán hàng và phân phối trong SAP."
         },
         {
@@ -64,7 +66,10 @@
           "type": "fill-blank",
           "difficulty": "basic",
           "prompt": "Trong bảng VBAK, trường lưu số chứng từ bán hàng (khóa chính) là ___.",
-          "acceptableAnswers": ["VBELN", "vbeln"],
+          "acceptableAnswers": [
+            "VBELN",
+            "vbeln"
+          ],
           "explanation": "VBELN (Sales Document Number) là khóa chính của bảng VBAK, xác định duy nhất một chứng từ bán hàng."
         },
         {
@@ -73,10 +78,22 @@
           "difficulty": "basic",
           "explanation": "Đây là các trường quan trọng trong header chứng từ bán hàng VBAK, mỗi trường lưu một thông tin cụ thể về đơn hàng.",
           "pairs": [
-            { "left": "VBELN", "right": "Số chứng từ bán hàng (khóa chính)" },
-            { "left": "AUART", "right": "Loại đơn hàng (Sales Document Type), vd OR = Standard Order" },
-            { "left": "VKORG", "right": "Tổ chức bán hàng (Sales Organization)" },
-            { "left": "KUNNR", "right": "Mã khách hàng đặt hàng (Sold-to Party)" }
+            {
+              "left": "VBELN",
+              "right": "Số chứng từ bán hàng (khóa chính)"
+            },
+            {
+              "left": "AUART",
+              "right": "Loại đơn hàng (Sales Document Type), vd OR = Standard Order"
+            },
+            {
+              "left": "VKORG",
+              "right": "Tổ chức bán hàng (Sales Organization)"
+            },
+            {
+              "left": "KUNNR",
+              "right": "Mã khách hàng đặt hàng (Sold-to Party)"
+            }
           ]
         },
         {
@@ -85,9 +102,18 @@
           "difficulty": "basic",
           "explanation": "Các trường còn lại trong VBAK bổ sung thông tin về kênh bán hàng, ngày lập chứng từ và giá trị của đơn hàng.",
           "pairs": [
-            { "left": "VTWEG", "right": "Kênh phân phối (Distribution Channel)" },
-            { "left": "AUDAT", "right": "Ngày lập chứng từ (Document Date)" },
-            { "left": "NETWR (trong VBAK)", "right": "Giá trị ròng của toàn bộ đơn hàng (Net Value)" }
+            {
+              "left": "VTWEG",
+              "right": "Kênh phân phối (Distribution Channel)"
+            },
+            {
+              "left": "AUDAT",
+              "right": "Ngày lập chứng từ (Document Date)"
+            },
+            {
+              "left": "NETWR (trong VBAK)",
+              "right": "Giá trị ròng của toàn bộ đơn hàng (Net Value)"
+            }
           ]
         }
       ]
@@ -146,7 +172,10 @@
           "type": "fill-blank",
           "difficulty": "intermediate",
           "prompt": "Bảng lưu dữ liệu chi tiết từng dòng item của chứng từ giao hàng, bao gồm vật tư và số lượng giao hàng thực tế, là bảng ___.",
-          "acceptableAnswers": ["LIPS", "lips"],
+          "acceptableAnswers": [
+            "LIPS",
+            "lips"
+          ],
           "explanation": "LIPS là bảng item của chứng từ giao hàng, lưu vật tư, số lượng giao thực tế (LFIMG) của từng dòng."
         },
         {
@@ -154,7 +183,10 @@
           "type": "fill-blank",
           "difficulty": "intermediate",
           "prompt": "Trong bảng LIKP, trường lưu ngày giao hàng theo kế hoạch (Delivery Date) là ___.",
-          "acceptableAnswers": ["LFDAT", "lfdat"],
+          "acceptableAnswers": [
+            "LFDAT",
+            "lfdat"
+          ],
           "explanation": "LFDAT là trường Delivery Date trong LIKP, thể hiện ngày giao hàng theo kế hoạch."
         },
         {
@@ -163,11 +195,26 @@
           "difficulty": "intermediate",
           "explanation": "Mỗi bảng lưu một loại dữ liệu cụ thể trong SD: VBAP/LIPS/VBRP là các bảng item tương ứng với công dụng riêng của từng bảng.",
           "pairs": [
-            { "left": "VBAP", "right": "Dữ liệu chi tiết từng dòng item của chứng từ bán hàng" },
-            { "left": "LIKP", "right": "Dữ liệu header của chứng từ giao hàng (outbound delivery)" },
-            { "left": "LIPS", "right": "Dữ liệu chi tiết từng dòng item của chứng từ giao hàng" },
-            { "left": "VBRK", "right": "Dữ liệu header của chứng từ hóa đơn (billing document)" },
-            { "left": "VBRP", "right": "Dữ liệu chi tiết từng dòng item của hóa đơn" }
+            {
+              "left": "VBAP",
+              "right": "Dữ liệu chi tiết từng dòng item của chứng từ bán hàng"
+            },
+            {
+              "left": "LIKP",
+              "right": "Dữ liệu header của chứng từ giao hàng (outbound delivery)"
+            },
+            {
+              "left": "LIPS",
+              "right": "Dữ liệu chi tiết từng dòng item của chứng từ giao hàng"
+            },
+            {
+              "left": "VBRK",
+              "right": "Dữ liệu header của chứng từ hóa đơn (billing document)"
+            },
+            {
+              "left": "VBRP",
+              "right": "Dữ liệu chi tiết từng dòng item của hóa đơn"
+            }
           ]
         },
         {
@@ -176,10 +223,22 @@
           "difficulty": "intermediate",
           "explanation": "Đây là các trường phổ biến, dễ đoán ý nghĩa trong các bảng item/header của SD.",
           "pairs": [
-            { "left": "MATNR (trong VBAP)", "right": "Mã vật tư (Material Number)" },
-            { "left": "WERKS (trong VBAP)", "right": "Nhà máy/plant giao hàng (Delivering Plant)" },
-            { "left": "KWMENG (trong VBAP)", "right": "Số lượng đặt hàng (Order Quantity)" },
-            { "left": "FKART (trong VBRK)", "right": "Loại hóa đơn (Billing Type), vd F2 = Invoice" }
+            {
+              "left": "MATNR (trong VBAP)",
+              "right": "Mã vật tư (Material Number)"
+            },
+            {
+              "left": "WERKS (trong VBAP)",
+              "right": "Nhà máy/plant giao hàng (Delivering Plant)"
+            },
+            {
+              "left": "KWMENG (trong VBAP)",
+              "right": "Số lượng đặt hàng (Order Quantity)"
+            },
+            {
+              "left": "FKART (trong VBRK)",
+              "right": "Loại hóa đơn (Billing Type), vd F2 = Invoice"
+            }
           ]
         }
       ]
@@ -238,7 +297,10 @@
           "type": "fill-blank",
           "difficulty": "advanced",
           "prompt": "Trong bảng MSKA, trường lưu số lượng tồn kho khả dụng gắn với đơn hàng bán là ___.",
-          "acceptableAnswers": ["KALAB", "kalab"],
+          "acceptableAnswers": [
+            "KALAB",
+            "kalab"
+          ],
           "explanation": "KALAB là trường số lượng tồn kho khả dụng (valuated unrestricted-use stock) trong MSKA."
         },
         {
@@ -246,7 +308,10 @@
           "type": "fill-blank",
           "difficulty": "advanced",
           "prompt": "Trong bảng LIKP, trường lưu ngày xuất kho thực tế (Actual Goods Issue Date) là ___.",
-          "acceptableAnswers": ["WADAT_IST", "wadat_ist"],
+          "acceptableAnswers": [
+            "WADAT_IST",
+            "wadat_ist"
+          ],
           "explanation": "WADAT_IST là trường Actual Goods Issue Date trong LIKP, khác với LFDAT là ngày giao hàng theo kế hoạch."
         },
         {
@@ -255,11 +320,26 @@
           "difficulty": "advanced",
           "explanation": "Các trường trong MSKA xác định tồn kho đặc biệt gắn với đơn hàng bán nào, dòng item nào, tại kho nào.",
           "pairs": [
-            { "left": "SOBKZ", "right": "Chỉ số tồn kho đặc biệt (Special Stock Indicator), = 'E' cho sales order stock" },
-            { "left": "KALAB", "right": "Số lượng tồn kho khả dụng không hạn chế gắn với đơn hàng bán" },
-            { "left": "VBELN (trong MSKA)", "right": "Số đơn hàng bán mà tồn kho này gắn với" },
-            { "left": "POSNR (trong MSKA)", "right": "Số dòng item của đơn hàng bán mà tồn kho này gắn với" },
-            { "left": "LGORT", "right": "Mã kho hàng (Storage Location)" }
+            {
+              "left": "SOBKZ",
+              "right": "Chỉ số tồn kho đặc biệt (Special Stock Indicator), = 'E' cho sales order stock"
+            },
+            {
+              "left": "KALAB",
+              "right": "Số lượng tồn kho khả dụng không hạn chế gắn với đơn hàng bán"
+            },
+            {
+              "left": "VBELN (trong MSKA)",
+              "right": "Số đơn hàng bán mà tồn kho này gắn với"
+            },
+            {
+              "left": "POSNR (trong MSKA)",
+              "right": "Số dòng item của đơn hàng bán mà tồn kho này gắn với"
+            },
+            {
+              "left": "LGORT",
+              "right": "Mã kho hàng (Storage Location)"
+            }
           ]
         },
         {
@@ -268,10 +348,22 @@
           "difficulty": "advanced",
           "explanation": "Đây là các trường ít hiển nhiên hơn nhưng vẫn nằm trong keyFields của các bảng SD, mô tả trạng thái, cờ đánh dấu, hoặc số chứng từ tham chiếu.",
           "pairs": [
-            { "left": "WBSTK (trong LIKP)", "right": "Trạng thái xuất kho tổng thể (Overall Goods Movement Status)" },
-            { "left": "FKSTO (trong VBRK)", "right": "Cờ đánh dấu hóa đơn đã bị hủy" },
-            { "left": "VGBEL (trong LIPS)", "right": "Số chứng từ tham chiếu - đơn hàng bán gốc" },
-            { "left": "KUNRG (trong VBRK)", "right": "Mã khách hàng nhận hóa đơn (Payer)" }
+            {
+              "left": "WBSTK (trong LIKP)",
+              "right": "Trạng thái xuất kho tổng thể (Overall Goods Movement Status)"
+            },
+            {
+              "left": "FKSTO (trong VBRK)",
+              "right": "Cờ đánh dấu hóa đơn đã bị hủy"
+            },
+            {
+              "left": "VGBEL (trong LIPS)",
+              "right": "Số chứng từ tham chiếu - đơn hàng bán gốc"
+            },
+            {
+              "left": "KUNRG (trong VBRK)",
+              "right": "Mã khách hàng nhận hóa đơn (Payer)"
+            }
           ]
         }
       ]

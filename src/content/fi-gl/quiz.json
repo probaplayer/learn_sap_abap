@@ -1,6 +1,5 @@
 {
   "moduleId": "fi-gl",
-  "track": "business",
   "lessons": [
     {
       "id": "basic",
@@ -57,7 +56,11 @@
           "difficulty": "basic",
           "explanation": "FI-GL (General Ledger) nghĩa là sổ cái tổng hợp, nơi tổng hợp mọi bút toán tài chính của doanh nghiệp.",
           "prompt": "FI-GL là phân hệ quản lý ___ tổng hợp của doanh nghiệp, phục vụ lập báo cáo tài chính.",
-          "acceptableAnswers": ["sổ cái", "sổ cái tổng hợp", "general ledger"]
+          "acceptableAnswers": [
+            "sổ cái",
+            "sổ cái tổng hợp",
+            "general ledger"
+          ]
         },
         {
           "id": "fi-gl-business-basic-06",
@@ -65,7 +68,9 @@
           "difficulty": "basic",
           "explanation": "T001 là bảng master data lưu thông tin company code - đơn vị hạch toán độc lập trong SAP.",
           "prompt": "Bảng ___ trong FI-GL lưu thông tin company code như tên công ty, chart of accounts và tiền tệ hạch toán.",
-          "acceptableAnswers": ["T001"]
+          "acceptableAnswers": [
+            "T001"
+          ]
         },
         {
           "id": "fi-gl-business-basic-07",
@@ -73,10 +78,22 @@
           "difficulty": "basic",
           "explanation": "Mỗi bảng trong FI-GL đảm nhận một vai trò riêng: SKA1 (chart of accounts), SKB1 (company code), SKAT (mô tả), T001 (company code master data).",
           "pairs": [
-            { "left": "SKA1", "right": "Lưu dữ liệu tài khoản GL cấp chart of accounts, dùng chung cho nhiều company code" },
-            { "left": "SKB1", "right": "Lưu dữ liệu tài khoản GL cấp company code, gồm tiền tệ và field status group" },
-            { "left": "SKAT", "right": "Lưu mô tả (tên gọi) của tài khoản GL theo từng ngôn ngữ" },
-            { "left": "T001", "right": "Lưu thông tin company code như tên công ty, chart of accounts, tiền tệ hạch toán" }
+            {
+              "left": "SKA1",
+              "right": "Lưu dữ liệu tài khoản GL cấp chart of accounts, dùng chung cho nhiều company code"
+            },
+            {
+              "left": "SKB1",
+              "right": "Lưu dữ liệu tài khoản GL cấp company code, gồm tiền tệ và field status group"
+            },
+            {
+              "left": "SKAT",
+              "right": "Lưu mô tả (tên gọi) của tài khoản GL theo từng ngôn ngữ"
+            },
+            {
+              "left": "T001",
+              "right": "Lưu thông tin company code như tên công ty, chart of accounts, tiền tệ hạch toán"
+            }
           ]
         },
         {
@@ -85,10 +102,22 @@
           "difficulty": "basic",
           "explanation": "Đây là các khái niệm nền tảng của FI-GL: chart of accounts, company code, sổ cái tổng hợp và báo cáo tài chính.",
           "pairs": [
-            { "left": "Chart of accounts", "right": "Hệ thống tài khoản GL dùng chung cho nhiều company code" },
-            { "left": "Company code", "right": "Đơn vị hạch toán tài chính độc lập trong SAP" },
-            { "left": "Sổ cái tổng hợp (General Ledger)", "right": "Nơi ghi nhận và tổng hợp toàn bộ bút toán tài chính" },
-            { "left": "Báo cáo tài chính", "right": "Kết quả đầu ra được lập dựa trên dữ liệu sổ cái GL" }
+            {
+              "left": "Chart of accounts",
+              "right": "Hệ thống tài khoản GL dùng chung cho nhiều company code"
+            },
+            {
+              "left": "Company code",
+              "right": "Đơn vị hạch toán tài chính độc lập trong SAP"
+            },
+            {
+              "left": "Sổ cái tổng hợp (General Ledger)",
+              "right": "Nơi ghi nhận và tổng hợp toàn bộ bút toán tài chính"
+            },
+            {
+              "left": "Báo cáo tài chính",
+              "right": "Kết quả đầu ra được lập dựa trên dữ liệu sổ cái GL"
+            }
           ]
         }
       ]
@@ -148,7 +177,9 @@
           "difficulty": "intermediate",
           "explanation": "BUKRS là mã company code, xác định tài khoản GL này thuộc công ty nào.",
           "prompt": "Field ___ trong bảng SKB1 đại diện cho mã company code.",
-          "acceptableAnswers": ["BUKRS"]
+          "acceptableAnswers": [
+            "BUKRS"
+          ]
         },
         {
           "id": "fi-gl-business-intermediate-06",
@@ -156,7 +187,9 @@
           "difficulty": "intermediate",
           "explanation": "KTOPL trong T001 cho biết company code đang sử dụng hệ thống tài khoản (chart of accounts) nào.",
           "prompt": "Field ___ trong bảng T001 xác định chart of accounts được gán cho company code đó.",
-          "acceptableAnswers": ["KTOPL"]
+          "acceptableAnswers": [
+            "KTOPL"
+          ]
         },
         {
           "id": "fi-gl-business-intermediate-07",
@@ -164,10 +197,22 @@
           "difficulty": "intermediate",
           "explanation": "Đây là các field cơ bản, dễ nhận biết trong các bảng FI-GL: SAKNR, BUKRS, KTOPL, WAERS.",
           "pairs": [
-            { "left": "SAKNR", "right": "Số tài khoản GL (G/L account number)" },
-            { "left": "BUKRS", "right": "Mã company code" },
-            { "left": "KTOPL", "right": "Chart of accounts - hệ thống tài khoản dùng chung" },
-            { "left": "WAERS", "right": "Loại tiền tệ của tài khoản/công ty" }
+            {
+              "left": "SAKNR",
+              "right": "Số tài khoản GL (G/L account number)"
+            },
+            {
+              "left": "BUKRS",
+              "right": "Mã company code"
+            },
+            {
+              "left": "KTOPL",
+              "right": "Chart of accounts - hệ thống tài khoản dùng chung"
+            },
+            {
+              "left": "WAERS",
+              "right": "Loại tiền tệ của tài khoản/công ty"
+            }
           ]
         },
         {
@@ -176,9 +221,18 @@
           "difficulty": "intermediate",
           "explanation": "Ba bảng lưu tài khoản GL ở các cấp độ khác nhau: chart of accounts (SKA1), company code (SKB1), và mô tả (SKAT).",
           "pairs": [
-            { "left": "SKA1", "right": "Dữ liệu tài khoản GL cấp chart of accounts" },
-            { "left": "SKB1", "right": "Dữ liệu tài khoản GL cấp company code" },
-            { "left": "SKAT", "right": "Mô tả tài khoản GL theo ngôn ngữ" }
+            {
+              "left": "SKA1",
+              "right": "Dữ liệu tài khoản GL cấp chart of accounts"
+            },
+            {
+              "left": "SKB1",
+              "right": "Dữ liệu tài khoản GL cấp company code"
+            },
+            {
+              "left": "SKAT",
+              "right": "Mô tả tài khoản GL theo ngôn ngữ"
+            }
           ]
         }
       ]
@@ -238,7 +292,9 @@
           "difficulty": "advanced",
           "explanation": "GVTYP xác định loại tài khoản P&L (loại chuyển kết quả kinh doanh) khi tài khoản đó không phải balance sheet account.",
           "prompt": "Field ___ trong bảng SKA1 xác định loại P&L statement account type khi tài khoản không phải balance sheet account.",
-          "acceptableAnswers": ["GVTYP"]
+          "acceptableAnswers": [
+            "GVTYP"
+          ]
         },
         {
           "id": "fi-gl-business-advanced-06",
@@ -246,7 +302,9 @@
           "difficulty": "advanced",
           "explanation": "XLOEV là deletion flag, đánh dấu tài khoản GL ở cấp company code đã được đề xuất xóa.",
           "prompt": "Field ___ trong bảng SKB1 là cờ đánh dấu tài khoản GL đã bị đánh dấu xóa (deletion flag).",
-          "acceptableAnswers": ["XLOEV"]
+          "acceptableAnswers": [
+            "XLOEV"
+          ]
         },
         {
           "id": "fi-gl-business-advanced-07",
@@ -254,11 +312,26 @@
           "difficulty": "advanced",
           "explanation": "Đây là các field kiểm soát nghiệp vụ ở mức chi tiết hơn trong SKA1 và SKB1: FSTAG, XLOEV, MITKZ, GVTYP, XBILK.",
           "pairs": [
-            { "left": "FSTAG", "right": "Field status group - quy định field bắt buộc/tùy chọn/ẩn khi ghi bút toán" },
-            { "left": "XLOEV", "right": "Cờ đánh dấu tài khoản đã bị đánh dấu xóa" },
-            { "left": "MITKZ", "right": "Chỉ báo tài khoản quản lý theo reconciliation account" },
-            { "left": "GVTYP", "right": "Loại P&L statement account type" },
-            { "left": "XBILK", "right": "Cờ đánh dấu tài khoản thuộc bảng cân đối kế toán" }
+            {
+              "left": "FSTAG",
+              "right": "Field status group - quy định field bắt buộc/tùy chọn/ẩn khi ghi bút toán"
+            },
+            {
+              "left": "XLOEV",
+              "right": "Cờ đánh dấu tài khoản đã bị đánh dấu xóa"
+            },
+            {
+              "left": "MITKZ",
+              "right": "Chỉ báo tài khoản quản lý theo reconciliation account"
+            },
+            {
+              "left": "GVTYP",
+              "right": "Loại P&L statement account type"
+            },
+            {
+              "left": "XBILK",
+              "right": "Cờ đánh dấu tài khoản thuộc bảng cân đối kế toán"
+            }
           ]
         },
         {
@@ -267,11 +340,26 @@
           "difficulty": "advanced",
           "explanation": "Các field này thuộc SKAT (SPRAS, TXT20, TXT50) và T001 (LAND1, BUTXT), ít hiển nhiên hơn nhưng vẫn quan trọng để tra cứu dữ liệu GL.",
           "pairs": [
-            { "left": "SPRAS", "right": "Mã ngôn ngữ của mô tả tài khoản" },
-            { "left": "TXT20", "right": "Mô tả ngắn của tài khoản (20 ký tự)" },
-            { "left": "TXT50", "right": "Mô tả dài của tài khoản (50 ký tự)" },
-            { "left": "LAND1", "right": "Mã quốc gia của công ty" },
-            { "left": "BUTXT", "right": "Tên công ty (company name)" }
+            {
+              "left": "SPRAS",
+              "right": "Mã ngôn ngữ của mô tả tài khoản"
+            },
+            {
+              "left": "TXT20",
+              "right": "Mô tả ngắn của tài khoản (20 ký tự)"
+            },
+            {
+              "left": "TXT50",
+              "right": "Mô tả dài của tài khoản (50 ký tự)"
+            },
+            {
+              "left": "LAND1",
+              "right": "Mã quốc gia của công ty"
+            },
+            {
+              "left": "BUTXT",
+              "right": "Tên công ty (company name)"
+            }
           ]
         }
       ]

@@ -1,6 +1,5 @@
 {
   "moduleId": "enterprise-structure",
-  "track": "business",
   "lessons": [
     {
       "id": "basic",
@@ -35,7 +34,10 @@
           "difficulty": "basic",
           "explanation": "Enterprise Structure là bộ khung tổ chức nền tảng của hệ thống SAP, nơi định nghĩa các đơn vị tổ chức mà mọi module nghiệp vụ khác đều dựa vào.",
           "prompt": "___ là bộ khung tổ chức nền tảng của hệ thống SAP, định nghĩa các đơn vị như Client, Company Code, Plant, Storage Location, Controlling Area và Valuation Area.",
-          "acceptableAnswers": ["Enterprise Structure", "enterprise structure"]
+          "acceptableAnswers": [
+            "Enterprise Structure",
+            "enterprise structure"
+          ]
         },
         {
           "id": "enterprise-structure-business-basic-04",
@@ -65,7 +67,10 @@
           "difficulty": "basic",
           "explanation": "BUKRS là khóa chính của bảng T001, đại diện cho mã Company Code.",
           "prompt": "Trong bảng T001, field ___ là khóa chính, đại diện cho mã Company Code.",
-          "acceptableAnswers": ["BUKRS", "bukrs"]
+          "acceptableAnswers": [
+            "BUKRS",
+            "bukrs"
+          ]
         },
         {
           "id": "enterprise-structure-business-basic-07",
@@ -73,10 +78,22 @@
           "difficulty": "basic",
           "explanation": "Mỗi bảng trong Enterprise Structure có công dụng riêng: T001 cho Company Code, T001K cho Valuation Area, T001W cho Plant, TKA02 cho Controlling Area.",
           "pairs": [
-            { "left": "T001", "right": "Master data Company Code - đại diện 1 pháp nhân độc lập, lập báo cáo tài chính riêng" },
-            { "left": "T001K", "right": "Master data Valuation Area - xác định cấp độ định giá vật tư" },
-            { "left": "T001W", "right": "Master data Plant - đại diện 1 địa điểm vận hành vật lý (nhà máy, kho, trung tâm phân phối)" },
-            { "left": "TKA02", "right": "Lưu quan hệ gán Company Code vào Controlling Area" }
+            {
+              "left": "T001",
+              "right": "Master data Company Code - đại diện 1 pháp nhân độc lập, lập báo cáo tài chính riêng"
+            },
+            {
+              "left": "T001K",
+              "right": "Master data Valuation Area - xác định cấp độ định giá vật tư"
+            },
+            {
+              "left": "T001W",
+              "right": "Master data Plant - đại diện 1 địa điểm vận hành vật lý (nhà máy, kho, trung tâm phân phối)"
+            },
+            {
+              "left": "TKA02",
+              "right": "Lưu quan hệ gán Company Code vào Controlling Area"
+            }
           ]
         },
         {
@@ -85,10 +102,22 @@
           "difficulty": "basic",
           "explanation": "Đây là các field cơ bản nhất của bảng T001, mô tả các thuộc tính chính của 1 Company Code.",
           "pairs": [
-            { "left": "BUKRS", "right": "Mã công ty (Company Code) - khóa chính" },
-            { "left": "BUTXT", "right": "Tên công ty (Company Name)" },
-            { "left": "WAERS", "right": "Đồng tiền hạch toán (Company Code Currency)" },
-            { "left": "KTOPL", "right": "Chart of Accounts (hệ thống tài khoản) sử dụng" }
+            {
+              "left": "BUKRS",
+              "right": "Mã công ty (Company Code) - khóa chính"
+            },
+            {
+              "left": "BUTXT",
+              "right": "Tên công ty (Company Name)"
+            },
+            {
+              "left": "WAERS",
+              "right": "Đồng tiền hạch toán (Company Code Currency)"
+            },
+            {
+              "left": "KTOPL",
+              "right": "Chart of Accounts (hệ thống tài khoản) sử dụng"
+            }
           ]
         }
       ]
@@ -148,7 +177,10 @@
           "difficulty": "intermediate",
           "explanation": "WERKS là khóa chính của bảng T001W, đại diện cho mã Plant.",
           "prompt": "Trong bảng T001W, field ___ là khóa chính, đại diện cho mã nhà máy (Plant).",
-          "acceptableAnswers": ["WERKS", "werks"]
+          "acceptableAnswers": [
+            "WERKS",
+            "werks"
+          ]
         },
         {
           "id": "enterprise-structure-business-intermediate-06",
@@ -156,7 +188,10 @@
           "difficulty": "intermediate",
           "explanation": "WAERS trong T001 lưu đồng tiền hạch toán mà Company Code sử dụng để lập báo cáo tài chính.",
           "prompt": "Trong bảng T001, field ___ lưu đồng tiền hạch toán (Currency) mà Company Code đó sử dụng để lập báo cáo tài chính.",
-          "acceptableAnswers": ["WAERS", "waers"]
+          "acceptableAnswers": [
+            "WAERS",
+            "waers"
+          ]
         },
         {
           "id": "enterprise-structure-business-intermediate-07",
@@ -164,10 +199,22 @@
           "difficulty": "intermediate",
           "explanation": "Mỗi bảng trong Enterprise Structure phục vụ 1 mục đích riêng: định giá vật tư, địa điểm vận hành, kế toán quản trị, hoặc hạch toán pháp lý.",
           "pairs": [
-            { "left": "T001K", "right": "Xác định cấp độ định giá vật tư (theo Plant hoặc theo Company Code)" },
-            { "left": "T001W", "right": "Định nghĩa địa điểm vận hành vật lý: nhà máy, kho, trung tâm phân phối" },
-            { "left": "TKA02", "right": "Lưu quan hệ gán Company Code vào Controlling Area, phục vụ kế toán quản trị" },
-            { "left": "T001", "right": "Định nghĩa Company Code - đơn vị pháp nhân độc lập, lập báo cáo tài chính riêng" }
+            {
+              "left": "T001K",
+              "right": "Xác định cấp độ định giá vật tư (theo Plant hoặc theo Company Code)"
+            },
+            {
+              "left": "T001W",
+              "right": "Định nghĩa địa điểm vận hành vật lý: nhà máy, kho, trung tâm phân phối"
+            },
+            {
+              "left": "TKA02",
+              "right": "Lưu quan hệ gán Company Code vào Controlling Area, phục vụ kế toán quản trị"
+            },
+            {
+              "left": "T001",
+              "right": "Định nghĩa Company Code - đơn vị pháp nhân độc lập, lập báo cáo tài chính riêng"
+            }
           ]
         },
         {
@@ -176,10 +223,22 @@
           "difficulty": "intermediate",
           "explanation": "Đây là các field mô tả thông tin cơ bản của 1 Plant trong bảng T001W.",
           "pairs": [
-            { "left": "WERKS", "right": "Mã nhà máy (Plant) - khóa chính" },
-            { "left": "NAME1", "right": "Tên nhà máy" },
-            { "left": "LAND1", "right": "Mã quốc gia (Country Key)" },
-            { "left": "ORT01", "right": "Thành phố" }
+            {
+              "left": "WERKS",
+              "right": "Mã nhà máy (Plant) - khóa chính"
+            },
+            {
+              "left": "NAME1",
+              "right": "Tên nhà máy"
+            },
+            {
+              "left": "LAND1",
+              "right": "Mã quốc gia (Country Key)"
+            },
+            {
+              "left": "ORT01",
+              "right": "Thành phố"
+            }
           ]
         }
       ]
@@ -239,7 +298,10 @@
           "difficulty": "advanced",
           "explanation": "KTOPL trong T001 lưu Chart of Accounts - hệ thống tài khoản mà Company Code đó sử dụng.",
           "prompt": "Trong bảng T001, field ___ lưu Chart of Accounts (hệ thống tài khoản) mà Company Code đó sử dụng.",
-          "acceptableAnswers": ["KTOPL", "ktopl"]
+          "acceptableAnswers": [
+            "KTOPL",
+            "ktopl"
+          ]
         },
         {
           "id": "enterprise-structure-business-advanced-06",
@@ -247,7 +309,10 @@
           "difficulty": "advanced",
           "explanation": "KOKRS cùng với BUKRS tạo thành khóa chính của bảng TKA02, đại diện cho mã Controlling Area.",
           "prompt": "Trong bảng TKA02, field ___ là mã Controlling Area, cùng với BUKRS tạo thành khóa chính của bảng.",
-          "acceptableAnswers": ["KOKRS", "kokrs"]
+          "acceptableAnswers": [
+            "KOKRS",
+            "kokrs"
+          ]
         },
         {
           "id": "enterprise-structure-business-advanced-07",
@@ -255,11 +320,26 @@
           "difficulty": "advanced",
           "explanation": "Đây là các field ít hiển nhiên hơn nhưng quan trọng để hiểu chi tiết cấu hình tài chính và định giá trong Enterprise Structure.",
           "pairs": [
-            { "left": "KTOPL", "right": "Chart of Accounts (hệ thống tài khoản) mà Company Code sử dụng" },
-            { "left": "PERIV", "right": "Fiscal Year Variant (biến thể năm tài chính) của Company Code" },
-            { "left": "BWMOD", "right": "Nhóm định giá dùng để xác định tài khoản tự động (Valuation Grouping Code)" },
-            { "left": "BWKEY", "right": "Mã Valuation Area - khóa chính bảng T001K, xác định cấp độ định giá vật tư" },
-            { "left": "KOKRS", "right": "Mã Controlling Area - khóa chính bảng TKA02" }
+            {
+              "left": "KTOPL",
+              "right": "Chart of Accounts (hệ thống tài khoản) mà Company Code sử dụng"
+            },
+            {
+              "left": "PERIV",
+              "right": "Fiscal Year Variant (biến thể năm tài chính) của Company Code"
+            },
+            {
+              "left": "BWMOD",
+              "right": "Nhóm định giá dùng để xác định tài khoản tự động (Valuation Grouping Code)"
+            },
+            {
+              "left": "BWKEY",
+              "right": "Mã Valuation Area - khóa chính bảng T001K, xác định cấp độ định giá vật tư"
+            },
+            {
+              "left": "KOKRS",
+              "right": "Mã Controlling Area - khóa chính bảng TKA02"
+            }
           ]
         },
         {
@@ -268,10 +348,22 @@
           "difficulty": "advanced",
           "explanation": "Mỗi bảng trong Enterprise Structure có 1 field khóa chính riêng, đại diện cho đơn vị tổ chức mà bảng đó định nghĩa.",
           "pairs": [
-            { "left": "BUKRS", "right": "Khóa chính của bảng T001, đại diện Company Code" },
-            { "left": "BWKEY", "right": "Khóa chính của bảng T001K, đại diện Valuation Area" },
-            { "left": "WERKS", "right": "Khóa chính của bảng T001W, đại diện Plant" },
-            { "left": "KOKRS", "right": "Khóa chính của bảng TKA02 (cùng BUKRS), đại diện Controlling Area" }
+            {
+              "left": "BUKRS",
+              "right": "Khóa chính của bảng T001, đại diện Company Code"
+            },
+            {
+              "left": "BWKEY",
+              "right": "Khóa chính của bảng T001K, đại diện Valuation Area"
+            },
+            {
+              "left": "WERKS",
+              "right": "Khóa chính của bảng T001W, đại diện Plant"
+            },
+            {
+              "left": "KOKRS",
+              "right": "Khóa chính của bảng TKA02 (cùng BUKRS), đại diện Controlling Area"
+            }
           ]
         }
       ]

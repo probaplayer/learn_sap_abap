@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { GENERATED_SETS } from './index'
 import { validateQuestion } from '../validateQuestion'
-import { MODULE_ORDER, QUIZ_TRACKS } from '../index'
+import { MODULE_ORDER, QUIZ_LESSONS } from '../index'
 
 describe('generated practice sets', () => {
   it('every set has a valid moduleId and at least one valid question', () => {
@@ -19,10 +19,8 @@ describe('generated practice sets', () => {
   it('generated question ids never collide with official quiz ids or each other', () => {
     const officialIds = new Set<string>()
     for (const moduleId of MODULE_ORDER) {
-      for (const track of ['syntax', 'business'] as const) {
-        for (const lesson of QUIZ_TRACKS[moduleId][track].lessons) {
-          for (const q of lesson.questions) officialIds.add(q.id)
-        }
+      for (const lesson of QUIZ_LESSONS[moduleId]) {
+        for (const q of lesson.questions) officialIds.add(q.id)
       }
     }
 

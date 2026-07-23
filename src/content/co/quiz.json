@@ -1,6 +1,5 @@
 {
   "moduleId": "co",
-  "track": "business",
   "lessons": [
     {
       "id": "basic",
@@ -57,7 +56,11 @@
           "difficulty": "basic",
           "explanation": "CO-PC (Product Costing) dùng để tính toán và phân tích giá thành sản xuất của vật tư thông qua cost estimate.",
           "prompt": "CO-PC (Product Costing) dùng để tính toán và phân tích ___ của vật tư.",
-          "acceptableAnswers": ["giá thành sản xuất", "giá thành", "giá thành sản phẩm"]
+          "acceptableAnswers": [
+            "giá thành sản xuất",
+            "giá thành",
+            "giá thành sản phẩm"
+          ]
         },
         {
           "id": "co-business-basic-06",
@@ -65,7 +68,11 @@
           "difficulty": "basic",
           "explanation": "KEKO là bảng header của cost estimate, mỗi dòng đại diện cho một lần tính giá thành của một vật tư.",
           "prompt": "KEKO là bảng ___ của cost estimate, mỗi dòng đại diện cho một lần tính giá thành của một vật tư.",
-          "acceptableAnswers": ["header", "thông tin tổng quan", "header (thông tin tổng quan)"]
+          "acceptableAnswers": [
+            "header",
+            "thông tin tổng quan",
+            "header (thông tin tổng quan)"
+          ]
         },
         {
           "id": "co-business-basic-07",
@@ -73,11 +80,26 @@
           "difficulty": "basic",
           "explanation": "Mỗi bảng trong CO có tên đầy đủ tương ứng: KEKO là header cost estimate, KEPH là cost component split, TKA02 là bảng gán controlling area, CSKS là master data cost center, CSKA là master data cost element.",
           "pairs": [
-            { "left": "KEKO", "right": "Product Costing Header - header của cost estimate" },
-            { "left": "KEPH", "right": "Cost Component Split - phân rã cost component" },
-            { "left": "TKA02", "right": "Controlling Area Assignment - gán controlling area" },
-            { "left": "CSKS", "right": "Cost Center Master - master data cost center" },
-            { "left": "CSKA", "right": "Cost Element Master - master data cost element" }
+            {
+              "left": "KEKO",
+              "right": "Product Costing Header - header của cost estimate"
+            },
+            {
+              "left": "KEPH",
+              "right": "Cost Component Split - phân rã cost component"
+            },
+            {
+              "left": "TKA02",
+              "right": "Controlling Area Assignment - gán controlling area"
+            },
+            {
+              "left": "CSKS",
+              "right": "Cost Center Master - master data cost center"
+            },
+            {
+              "left": "CSKA",
+              "right": "Cost Element Master - master data cost element"
+            }
           ]
         },
         {
@@ -86,10 +108,22 @@
           "difficulty": "basic",
           "explanation": "Đây là các khái niệm cơ bản gắn liền với bảng KEKO: cost estimate là bản ghi tính giá, lot size là số lượng cơ sở tính giá, trạng thái giải phóng đánh dấu cost estimate dùng làm giá chuẩn, khoảng thời gian hiệu lực xác định thời gian cost estimate còn giá trị sử dụng.",
           "pairs": [
-            { "left": "Cost estimate", "right": "Bản ghi tính giá thành của một vật tư, được lưu trong KEKO" },
-            { "left": "Lot size", "right": "Số lượng cơ sở mà cost estimate được tính, dùng để quy đổi ra đơn giá" },
-            { "left": "Trạng thái giải phóng", "right": "Đánh dấu cost estimate đã được duyệt để dùng làm giá chuẩn" },
-            { "left": "Khoảng thời gian hiệu lực", "right": "Thời gian mà cost estimate còn có giá trị sử dụng" }
+            {
+              "left": "Cost estimate",
+              "right": "Bản ghi tính giá thành của một vật tư, được lưu trong KEKO"
+            },
+            {
+              "left": "Lot size",
+              "right": "Số lượng cơ sở mà cost estimate được tính, dùng để quy đổi ra đơn giá"
+            },
+            {
+              "left": "Trạng thái giải phóng",
+              "right": "Đánh dấu cost estimate đã được duyệt để dùng làm giá chuẩn"
+            },
+            {
+              "left": "Khoảng thời gian hiệu lực",
+              "right": "Thời gian mà cost estimate còn có giá trị sử dụng"
+            }
           ]
         }
       ]
@@ -149,7 +183,11 @@
           "difficulty": "intermediate",
           "explanation": "KALNR là số cost estimate (costing number) - khóa định danh duy nhất cho một lần tính giá thành.",
           "prompt": "Trường KALNR là số ___, khóa định danh duy nhất cho một lần tính giá thành.",
-          "acceptableAnswers": ["cost estimate", "costing number", "số cost estimate"]
+          "acceptableAnswers": [
+            "cost estimate",
+            "costing number",
+            "số cost estimate"
+          ]
         },
         {
           "id": "co-business-intermediate-06",
@@ -157,7 +195,10 @@
           "difficulty": "intermediate",
           "explanation": "KOKRS là mã controlling area - đơn vị tổ chức quản trị chi phí trong hệ thống CO.",
           "prompt": "Trường KOKRS đại diện cho ___ - đơn vị tổ chức quản trị chi phí.",
-          "acceptableAnswers": ["controlling area", "mã controlling area"]
+          "acceptableAnswers": [
+            "controlling area",
+            "mã controlling area"
+          ]
         },
         {
           "id": "co-business-intermediate-07",
@@ -165,11 +206,26 @@
           "difficulty": "intermediate",
           "explanation": "Đây là các field dễ đoán nghĩa dựa theo tên gọi: KALNR là số cost estimate, KOKRS là mã controlling area, KOSTL là mã cost center, KSTAR là mã cost element, BUKRS là mã company code.",
           "pairs": [
-            { "left": "KALNR", "right": "Số cost estimate (costing number)" },
-            { "left": "KOKRS", "right": "Mã controlling area" },
-            { "left": "KOSTL", "right": "Mã cost center" },
-            { "left": "KSTAR", "right": "Mã cost element (cost element number)" },
-            { "left": "BUKRS", "right": "Mã company code" }
+            {
+              "left": "KALNR",
+              "right": "Số cost estimate (costing number)"
+            },
+            {
+              "left": "KOKRS",
+              "right": "Mã controlling area"
+            },
+            {
+              "left": "KOSTL",
+              "right": "Mã cost center"
+            },
+            {
+              "left": "KSTAR",
+              "right": "Mã cost element (cost element number)"
+            },
+            {
+              "left": "BUKRS",
+              "right": "Mã company code"
+            }
           ]
         },
         {
@@ -178,10 +234,22 @@
           "difficulty": "intermediate",
           "explanation": "KEPH phân rã giá thành thành các cost component, TKA02 gán controlling area với company code, CSKS lưu master data cost center, CSKA lưu master data cost element.",
           "pairs": [
-            { "left": "KEPH", "right": "Phân rã tổng giá thành của cost estimate thành các cost component (nguyên vật liệu, nhân công, overhead...)" },
-            { "left": "TKA02", "right": "Gán controlling area với company code để tổng hợp chi phí nhiều công ty" },
-            { "left": "CSKS", "right": "Lưu master data cost center - nơi chi phí phát sinh và được thu thập" },
-            { "left": "CSKA", "right": "Lưu master data cost element - khoản mục chi phí/doanh thu dùng trong CO" }
+            {
+              "left": "KEPH",
+              "right": "Phân rã tổng giá thành của cost estimate thành các cost component (nguyên vật liệu, nhân công, overhead...)"
+            },
+            {
+              "left": "TKA02",
+              "right": "Gán controlling area với company code để tổng hợp chi phí nhiều công ty"
+            },
+            {
+              "left": "CSKS",
+              "right": "Lưu master data cost center - nơi chi phí phát sinh và được thu thập"
+            },
+            {
+              "left": "CSKA",
+              "right": "Lưu master data cost element - khoản mục chi phí/doanh thu dùng trong CO"
+            }
           ]
         }
       ]
@@ -241,7 +309,12 @@
           "difficulty": "advanced",
           "explanation": "KST002 trong KEPH là cost component 2, đại diện cho cước phí/thuế nhập khẩu (freight/duty).",
           "prompt": "Trong bảng KEPH, cost component KST002 đại diện cho chi phí ___.",
-          "acceptableAnswers": ["cước phí/thuế nhập khẩu", "cước phí thuế nhập khẩu", "freight/duty", "cước phí thuế"]
+          "acceptableAnswers": [
+            "cước phí/thuế nhập khẩu",
+            "cước phí thuế nhập khẩu",
+            "freight/duty",
+            "cước phí thuế"
+          ]
         },
         {
           "id": "co-business-advanced-06",
@@ -249,7 +322,11 @@
           "difficulty": "advanced",
           "explanation": "VERAK trong bảng CSKS lưu thông tin về người chịu trách nhiệm (person responsible) của cost center đó.",
           "prompt": "Trường VERAK trong bảng CSKS lưu thông tin về ___.",
-          "acceptableAnswers": ["người chịu trách nhiệm cost center", "người chịu trách nhiệm", "person responsible"]
+          "acceptableAnswers": [
+            "người chịu trách nhiệm cost center",
+            "người chịu trách nhiệm",
+            "person responsible"
+          ]
         },
         {
           "id": "co-business-advanced-07",
@@ -257,10 +334,22 @@
           "difficulty": "advanced",
           "explanation": "LOSGR là lot size, BZOBJ là loại đối tượng tính giá, KALKA là loại costing, FREIG là cờ đánh dấu cost estimate đã giải phóng để dùng làm giá chuẩn.",
           "pairs": [
-            { "left": "LOSGR", "right": "Lot size - số lượng cơ sở mà cost estimate được tính" },
-            { "left": "BZOBJ", "right": "Loại đối tượng tính giá (costing object type)" },
-            { "left": "KALKA", "right": "Loại costing (costing type)" },
-            { "left": "FREIG", "right": "Cờ đánh dấu cost estimate đã được giải phóng để dùng làm giá chuẩn" }
+            {
+              "left": "LOSGR",
+              "right": "Lot size - số lượng cơ sở mà cost estimate được tính"
+            },
+            {
+              "left": "BZOBJ",
+              "right": "Loại đối tượng tính giá (costing object type)"
+            },
+            {
+              "left": "KALKA",
+              "right": "Loại costing (costing type)"
+            },
+            {
+              "left": "FREIG",
+              "right": "Cờ đánh dấu cost estimate đã được giải phóng để dùng làm giá chuẩn"
+            }
           ]
         },
         {
@@ -269,10 +358,22 @@
           "difficulty": "advanced",
           "explanation": "KST001 là chi phí nguyên vật liệu, KST002 là cước phí/thuế nhập khẩu, KST003 là nhân công biến đổi, KST006 là overhead biến đổi - các cost component trong bảng KEPH.",
           "pairs": [
-            { "left": "KST001", "right": "Chi phí nguyên vật liệu (material cost)" },
-            { "left": "KST002", "right": "Cước phí/thuế nhập khẩu (freight/duty)" },
-            { "left": "KST003", "right": "Nhân công biến đổi (labor variable)" },
-            { "left": "KST006", "right": "Overhead biến đổi (overhead variable)" }
+            {
+              "left": "KST001",
+              "right": "Chi phí nguyên vật liệu (material cost)"
+            },
+            {
+              "left": "KST002",
+              "right": "Cước phí/thuế nhập khẩu (freight/duty)"
+            },
+            {
+              "left": "KST003",
+              "right": "Nhân công biến đổi (labor variable)"
+            },
+            {
+              "left": "KST006",
+              "right": "Overhead biến đổi (overhead variable)"
+            }
           ]
         }
       ]

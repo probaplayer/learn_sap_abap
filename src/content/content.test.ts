@@ -1,8 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { MODULE_ORDER, MODULES, QUIZ_TRACKS, TABLES } from './index'
+import { MODULE_ORDER, MODULES, QUIZ_LESSONS, TABLES } from './index'
 import { validateQuestion } from './validateQuestion'
-
-const TRACKS = ['syntax', 'business'] as const
 
 describe('content schema validation', () => {
   it('every module has a module.json with matching id', () => {
@@ -24,26 +22,22 @@ describe('content schema validation', () => {
     }
   })
 
-  it('every track has 3 lessons of 8 questions each, all valid', () => {
+  it('every module has 3 lessons of 8 questions each, all valid', () => {
     const allIds = new Set<string>()
 
     for (const moduleId of MODULE_ORDER) {
-      for (const track of TRACKS) {
-        const file = QUIZ_TRACKS[moduleId][track]
-        expect(file.moduleId).toBe(moduleId)
-        expect(file.track).toBe(track)
-        expect(file.lessons.length).toBe(3)
+      const lessons = QUIZ_LESSONS[moduleId]
+      expect(lessons.length).toBe(3)
 
-        for (const lesson of file.lessons) {
-          expect(lesson.questions.length).toBe(8)
+      for (const lesson of lessons) {
+        expect(lesson.questions.length).toBe(8)
 
-          for (const q of lesson.questions) {
-            const errors = validateQuestion(q)
-            expect(errors, `${moduleId}/${track}/${lesson.id}: ${errors.join('; ')}`).toEqual([])
+        for (const q of lesson.questions) {
+          const errors = validateQuestion(q)
+          expect(errors, `${moduleId}/${lesson.id}: ${errors.join('; ')}`).toEqual([])
 
-            expect(allIds.has(q.id), `duplicate question id: ${q.id}`).toBe(false)
-            allIds.add(q.id)
-          }
+          expect(allIds.has(q.id), `duplicate question id: ${q.id}`).toBe(false)
+          allIds.add(q.id)
         }
       }
     }

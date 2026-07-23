@@ -1,6 +1,5 @@
 {
   "moduleId": "mm",
-  "track": "business",
   "lessons": [
     {
       "id": "basic",
@@ -57,7 +56,11 @@
           "difficulty": "basic",
           "explanation": "MM (Materials Management) là phân hệ quản lý dữ liệu vật tư, tồn kho và mua hàng trong SAP.",
           "prompt": "Phân hệ ___ trong SAP quản lý dữ liệu vật tư, theo dõi tồn kho và hỗ trợ quy trình mua hàng.",
-          "acceptableAnswers": ["MM", "mm", "Materials Management"]
+          "acceptableAnswers": [
+            "MM",
+            "mm",
+            "Materials Management"
+          ]
         },
         {
           "id": "mm-business-basic-06",
@@ -65,7 +68,10 @@
           "difficulty": "basic",
           "explanation": "MARA (General Material Data) là bảng lưu dữ liệu chung của vật tư, mỗi vật tư chỉ có đúng 1 dòng trong bảng này.",
           "prompt": "Bảng ___ lưu dữ liệu chung của vật tư (material master), mỗi vật tư chỉ có đúng 1 dòng, không phân biệt theo nhà máy.",
-          "acceptableAnswers": ["MARA", "mara"]
+          "acceptableAnswers": [
+            "MARA",
+            "mara"
+          ]
         },
         {
           "id": "mm-business-basic-07",
@@ -73,10 +79,22 @@
           "difficulty": "basic",
           "explanation": "MM quản lý dữ liệu vật tư (material master), theo dõi tồn kho theo nhà máy/kho hàng, hỗ trợ quy trình mua hàng và lưu trữ dữ liệu định giá vật tư.",
           "pairs": [
-            { "left": "Material master", "right": "Dữ liệu vật tư (đặc điểm, phân loại) được MM quản lý" },
-            { "left": "Tồn kho (Inventory)", "right": "Theo dõi số lượng vật tư theo từng nhà máy và kho hàng" },
-            { "left": "Mua hàng (Procurement)", "right": "Hỗ trợ quy trình từ tạo yêu cầu mua đến nhận hàng" },
-            { "left": "Định giá (Valuation)", "right": "Lưu trữ giá chuẩn và giá trị tồn kho của vật tư" }
+            {
+              "left": "Material master",
+              "right": "Dữ liệu vật tư (đặc điểm, phân loại) được MM quản lý"
+            },
+            {
+              "left": "Tồn kho (Inventory)",
+              "right": "Theo dõi số lượng vật tư theo từng nhà máy và kho hàng"
+            },
+            {
+              "left": "Mua hàng (Procurement)",
+              "right": "Hỗ trợ quy trình từ tạo yêu cầu mua đến nhận hàng"
+            },
+            {
+              "left": "Định giá (Valuation)",
+              "right": "Lưu trữ giá chuẩn và giá trị tồn kho của vật tư"
+            }
           ]
         },
         {
@@ -85,10 +103,22 @@
           "difficulty": "basic",
           "explanation": "Bốn bảng vật tư cơ bản của MM tổ chức dữ liệu theo các khía cạnh khác nhau: dữ liệu chung, dữ liệu theo nhà máy, tồn kho theo kho hàng, và mô tả vật tư.",
           "pairs": [
-            { "left": "MARA", "right": "Dữ liệu chung của vật tư, không phân biệt theo nhà máy" },
-            { "left": "MARC", "right": "Dữ liệu vật tư theo từng nhà máy (thông số MRP, lead time)" },
-            { "left": "MARD", "right": "Số lượng tồn kho vật tư theo nhà máy và kho hàng" },
-            { "left": "MAKT", "right": "Mô tả (tên gọi) của vật tư theo từng ngôn ngữ" }
+            {
+              "left": "MARA",
+              "right": "Dữ liệu chung của vật tư, không phân biệt theo nhà máy"
+            },
+            {
+              "left": "MARC",
+              "right": "Dữ liệu vật tư theo từng nhà máy (thông số MRP, lead time)"
+            },
+            {
+              "left": "MARD",
+              "right": "Số lượng tồn kho vật tư theo nhà máy và kho hàng"
+            },
+            {
+              "left": "MAKT",
+              "right": "Mô tả (tên gọi) của vật tư theo từng ngôn ngữ"
+            }
           ]
         }
       ]
@@ -148,7 +178,10 @@
           "difficulty": "intermediate",
           "explanation": "WERKS là mã nhà máy (Plant), xuất hiện trong nhiều bảng của MM như MARC, MARD, T001W để xác định dữ liệu thuộc nhà máy nào.",
           "prompt": "Field ___ là mã nhà máy (Plant), xuất hiện trong các bảng MARC, MARD và T001W.",
-          "acceptableAnswers": ["WERKS", "werks"]
+          "acceptableAnswers": [
+            "WERKS",
+            "werks"
+          ]
         },
         {
           "id": "mm-business-intermediate-06",
@@ -156,7 +189,10 @@
           "difficulty": "intermediate",
           "explanation": "MATNR (Material Number) là mã vật tư, đóng vai trò khóa chính để nhận diện từng vật tư trong các bảng MM.",
           "prompt": "Field ___ là mã vật tư (Material Number), đóng vai trò khóa chính nhận diện từng vật tư trong các bảng MM.",
-          "acceptableAnswers": ["MATNR", "matnr"]
+          "acceptableAnswers": [
+            "MATNR",
+            "matnr"
+          ]
         },
         {
           "id": "mm-business-intermediate-07",
@@ -164,11 +200,26 @@
           "difficulty": "intermediate",
           "explanation": "Đây là các field cơ bản, có ý nghĩa dễ đoán qua tên gọi tiếng Anh, thường gặp trong các bảng vật tư của MM.",
           "pairs": [
-            { "left": "MATNR", "right": "Mã vật tư (Material Number)" },
-            { "left": "WERKS", "right": "Mã nhà máy (Plant)" },
-            { "left": "LGORT", "right": "Mã kho hàng (Storage Location)" },
-            { "left": "MEINS", "right": "Đơn vị tính cơ bản (Base Unit of Measure)" },
-            { "left": "MATKL", "right": "Nhóm vật tư (Material Group)" }
+            {
+              "left": "MATNR",
+              "right": "Mã vật tư (Material Number)"
+            },
+            {
+              "left": "WERKS",
+              "right": "Mã nhà máy (Plant)"
+            },
+            {
+              "left": "LGORT",
+              "right": "Mã kho hàng (Storage Location)"
+            },
+            {
+              "left": "MEINS",
+              "right": "Đơn vị tính cơ bản (Base Unit of Measure)"
+            },
+            {
+              "left": "MATKL",
+              "right": "Nhóm vật tư (Material Group)"
+            }
           ]
         },
         {
@@ -177,10 +228,22 @@
           "difficulty": "intermediate",
           "explanation": "MARC, MARD, MBEW và T001W mỗi bảng phụ trách một khía cạnh riêng của dữ liệu vật tư: kế hoạch theo nhà máy, tồn kho, định giá và master data nhà máy.",
           "pairs": [
-            { "left": "MARC", "right": "Thông số MRP, lead time và nhóm mua hàng theo từng nhà máy" },
-            { "left": "MARD", "right": "Tồn kho khả dụng, tồn kho phong tỏa theo nhà máy/kho hàng" },
-            { "left": "MBEW", "right": "Giá chuẩn, giá trị tồn kho theo sổ sách của vật tư" },
-            { "left": "T001W", "right": "Tên, địa chỉ, mã quốc gia của từng nhà máy" }
+            {
+              "left": "MARC",
+              "right": "Thông số MRP, lead time và nhóm mua hàng theo từng nhà máy"
+            },
+            {
+              "left": "MARD",
+              "right": "Tồn kho khả dụng, tồn kho phong tỏa theo nhà máy/kho hàng"
+            },
+            {
+              "left": "MBEW",
+              "right": "Giá chuẩn, giá trị tồn kho theo sổ sách của vật tư"
+            },
+            {
+              "left": "T001W",
+              "right": "Tên, địa chỉ, mã quốc gia của từng nhà máy"
+            }
           ]
         }
       ]
@@ -240,7 +303,10 @@
           "difficulty": "advanced",
           "explanation": "SALK3 (Value of Total Valuated Stock) là field trong MBEW lưu giá trị tồn kho theo sổ sách của vật tư.",
           "prompt": "Field ___ trong bảng MBEW lưu giá trị tồn kho theo sổ sách (Value of Total Valuated Stock) của vật tư.",
-          "acceptableAnswers": ["SALK3", "salk3"]
+          "acceptableAnswers": [
+            "SALK3",
+            "salk3"
+          ]
         },
         {
           "id": "mm-business-advanced-06",
@@ -248,7 +314,10 @@
           "difficulty": "advanced",
           "explanation": "DISPO (MRP Controller) là field trong MARC cho biết người phụ trách lập kế hoạch MRP cho vật tư tại nhà máy đó.",
           "prompt": "Field ___ trong bảng MARC cho biết người phụ trách lập kế hoạch MRP (MRP Controller) của vật tư tại nhà máy.",
-          "acceptableAnswers": ["DISPO", "dispo"]
+          "acceptableAnswers": [
+            "DISPO",
+            "dispo"
+          ]
         },
         {
           "id": "mm-business-advanced-07",
@@ -256,11 +325,26 @@
           "difficulty": "advanced",
           "explanation": "Đây là các field định giá trong bảng MBEW, mang ý nghĩa chuyên biệt hơn so với các field cơ bản như MATNR hay WERKS.",
           "pairs": [
-            { "left": "STPRS", "right": "Giá chuẩn (Standard Price) của vật tư" },
-            { "left": "PEINH", "right": "Đơn vị giá (Price Unit)" },
-            { "left": "SALK3", "right": "Giá trị tồn kho theo sổ sách" },
-            { "left": "LBKUM", "right": "Số lượng tồn kho định giá" },
-            { "left": "BWKEY", "right": "Mã khu vực định giá (Valuation Area)" }
+            {
+              "left": "STPRS",
+              "right": "Giá chuẩn (Standard Price) của vật tư"
+            },
+            {
+              "left": "PEINH",
+              "right": "Đơn vị giá (Price Unit)"
+            },
+            {
+              "left": "SALK3",
+              "right": "Giá trị tồn kho theo sổ sách"
+            },
+            {
+              "left": "LBKUM",
+              "right": "Số lượng tồn kho định giá"
+            },
+            {
+              "left": "BWKEY",
+              "right": "Mã khu vực định giá (Valuation Area)"
+            }
           ]
         },
         {
@@ -269,11 +353,26 @@
           "difficulty": "advanced",
           "explanation": "Đây là các field ít hiển nhiên hơn trong MARC và MARA, liên quan đến lập kế hoạch, mua hàng và thuộc tính vật lý của vật tư.",
           "pairs": [
-            { "left": "DISMM", "right": "Loại lập kế hoạch MRP (MRP Type)" },
-            { "left": "PLIFZ", "right": "Thời gian giao hàng dự kiến (Planned Delivery Time)" },
-            { "left": "EKGRP", "right": "Nhóm mua hàng (Purchasing Group)" },
-            { "left": "BRGEW", "right": "Trọng lượng gộp (Gross Weight)" },
-            { "left": "SPART", "right": "Lĩnh vực kinh doanh (Division)" }
+            {
+              "left": "DISMM",
+              "right": "Loại lập kế hoạch MRP (MRP Type)"
+            },
+            {
+              "left": "PLIFZ",
+              "right": "Thời gian giao hàng dự kiến (Planned Delivery Time)"
+            },
+            {
+              "left": "EKGRP",
+              "right": "Nhóm mua hàng (Purchasing Group)"
+            },
+            {
+              "left": "BRGEW",
+              "right": "Trọng lượng gộp (Gross Weight)"
+            },
+            {
+              "left": "SPART",
+              "right": "Lĩnh vực kinh doanh (Division)"
+            }
           ]
         }
       ]

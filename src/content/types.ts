@@ -1,5 +1,4 @@
 export type Difficulty = 'basic' | 'intermediate' | 'advanced'
-export type Track = 'syntax' | 'business'
 export type ModuleId = 'mm' | 'co' | 'fi-gl' | 'enterprise-structure' | 'sd'
 
 export interface ModuleInfo {
@@ -75,8 +74,7 @@ export interface Lesson {
   questions: QuizQuestion[]
 }
 
-export interface QuizTrackFile {
+export interface QuizFile {
   moduleId: ModuleId
-  track: Track
   lessons: Lesson[]
 }

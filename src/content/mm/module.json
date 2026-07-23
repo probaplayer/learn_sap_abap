@@ -5,5 +5,6 @@
   "icon": "📦",
   "color": "#58cc02",
   "description": "MM là phân hệ quản lý vật tư của SAP, phụ trách toàn bộ vòng đời dữ liệu vật tư: master data, mua hàng, tồn kho và định giá.",
-  "businessPurpose": "MM (Materials Management) quản lý dữ liệu vật tư (material master), theo dõi tồn kho theo từng nhà máy (plant) và kho hàng (storage location), hỗ trợ quy trình mua hàng (procurement) từ tạo yêu cầu mua đến nhận hàng. MM lưu trữ định giá vật tư (giá chuẩn, giá trị tồn kho) trong bảng MBEW, dữ liệu này được CO (Controlling) sử dụng để tính giá thành sản phẩm và được FI (Financial Accounting) sử dụng để ghi nhận giá trị hàng tồn kho trên sổ sách. Vì vậy MM là mắt xích quan trọng kết nối chuỗi cung ứng vật lý (nhập/xuất kho) với kế toán tài chính và kế toán quản trị."
+  "businessPurpose": "MM (Materials Management) quản lý dữ liệu vật tư (material master), theo dõi tồn kho theo từng nhà máy (plant) và kho hàng (storage location), hỗ trợ quy trình mua hàng (procurement) từ tạo yêu cầu mua đến nhận hàng. MM lưu trữ định giá vật tư (giá chuẩn, giá trị tồn kho) trong bảng MBEW, dữ liệu này được CO (Controlling) sử dụng để tính giá thành sản phẩm và được FI (Financial Accounting) sử dụng để ghi nhận giá trị hàng tồn kho trên sổ sách. Vì vậy MM là mắt xích quan trọng kết nối chuỗi cung ứng vật lý (nhập/xuất kho) với kế toán tài chính và kế toán quản trị.",
+  "order": 2
 }

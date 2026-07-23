@@ -3,6 +3,7 @@ export type ModuleId = 'mm' | 'co' | 'fi-gl' | 'enterprise-structure' | 'sd'
 
 export interface ModuleInfo {
   id: ModuleId
+  order: number
   name: string
   shortName: string
   icon: string

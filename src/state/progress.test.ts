@@ -28,15 +28,15 @@ describe('isLessonUnlocked', () => {
   const order = ['basic', 'intermediate', 'advanced']
 
   it('always unlocks the first lesson', () => {
-    expect(isLessonUnlocked(INITIAL_PROGRESS, 'mm', 'syntax', order, 'basic')).toBe(true)
+    expect(isLessonUnlocked(INITIAL_PROGRESS, 'mm', order, 'basic')).toBe(true)
   })
 
   it('locks the next lesson until the previous one is completed', () => {
-    expect(isLessonUnlocked(INITIAL_PROGRESS, 'mm', 'syntax', order, 'intermediate')).toBe(false)
+    expect(isLessonUnlocked(INITIAL_PROGRESS, 'mm', order, 'intermediate')).toBe(false)
 
-    const withBasicDone = { ...INITIAL_PROGRESS, completedLessons: ['mm:syntax:basic'] }
-    expect(isLessonUnlocked(withBasicDone, 'mm', 'syntax', order, 'intermediate')).toBe(true)
-    expect(isLessonUnlocked(withBasicDone, 'mm', 'syntax', order, 'advanced')).toBe(false)
+    const withBasicDone = { ...INITIAL_PROGRESS, completedLessons: ['mm:basic'] }
+    expect(isLessonUnlocked(withBasicDone, 'mm', order, 'intermediate')).toBe(true)
+    expect(isLessonUnlocked(withBasicDone, 'mm', order, 'advanced')).toBe(false)
   })
 })
 
@@ -111,87 +111,74 @@ describe('updateStreak', () => {
 })
 
 describe('completeLesson', () => {
-  const lessonsByModuleTrack = {
-    'mm:syntax': ['basic', 'intermediate', 'advanced'],
-    'mm:business': ['basic', 'intermediate', 'advanced'],
+  const lessonsByModule = {
+    mm: ['basic', 'intermediate', 'advanced'],
   }
 
   it('awards a first-completion bonus and marks the lesson done', () => {
     const result = completeLesson(INITIAL_PROGRESS, {
       moduleId: 'mm',
-      track: 'syntax',
       lessonId: 'basic',
       mistakeCount: 1,
-      lessonsByModuleTrack,
+      lessonsByModule,
       today: new Date('2026-07-17T10:00:00'),
     })
     expect(result.isFirstCompletion).toBe(true)
     expect(result.bonusXp).toBe(20)
-    expect(result.state.completedLessons).toContain('mm:syntax:basic')
+    expect(result.state.completedLessons).toContain('mm:basic')
     expect(result.state.perfectLessons).toEqual([])
   })
 
   it('does not award a bonus or duplicate on repeat completion', () => {
     const first = completeLesson(INITIAL_PROGRESS, {
       moduleId: 'mm',
-      track: 'syntax',
       lessonId: 'basic',
       mistakeCount: 0,
-      lessonsByModuleTrack,
+      lessonsByModule,
       today: new Date('2026-07-17T10:00:00'),
     })
     const second = completeLesson(first.state, {
       moduleId: 'mm',
-      track: 'syntax',
       lessonId: 'basic',
       mistakeCount: 2,
-      lessonsByModuleTrack,
+      lessonsByModule,
       today: new Date('2026-07-18T10:00:00'),
     })
     expect(second.isFirstCompletion).toBe(false)
     expect(second.bonusXp).toBe(0)
-    expect(second.state.completedLessons.filter((k) => k === 'mm:syntax:basic')).toHaveLength(1)
+    expect(second.state.completedLessons.filter((k) => k === 'mm:basic')).toHaveLength(1)
   })
 
   it('records a perfect-lesson badge when there are no mistakes', () => {
     const result = completeLesson(INITIAL_PROGRESS, {
       moduleId: 'mm',
-      track: 'syntax',
       lessonId: 'basic',
       mistakeCount: 0,
-      lessonsByModuleTrack,
+      lessonsByModule,
       today: new Date('2026-07-17T10:00:00'),
     })
-    expect(result.state.perfectLessons).toContain('mm:syntax:basic')
-    expect(result.newlyEarnedBadges).toContain('perfect-lesson:mm:syntax:basic')
+    expect(result.state.perfectLessons).toContain('mm:basic')
+    expect(result.newlyEarnedBadges).toContain('perfect-lesson:mm:basic')
   })
 
-  it('awards track-complete and module-master badges once both tracks finish', () => {
+  it('awards a module-complete badge once every lesson in the module is done', () => {
     let state = INITIAL_PROGRESS
-    const complete = (track: 'syntax' | 'business', lessonId: string) => {
+    const complete = (lessonId: string) => {
       const r = completeLesson(state, {
         moduleId: 'mm',
-        track,
         lessonId,
         mistakeCount: 3,
-        lessonsByModuleTrack,
+        lessonsByModule,
         today: new Date('2026-07-17T10:00:00'),
       })
       state = r.state
       return r
     }
 
-    complete('syntax', 'basic')
-    complete('syntax', 'intermediate')
-    const syntaxDone = complete('syntax', 'advanced')
-    expect(syntaxDone.newlyEarnedBadges).toContain('track-complete:mm:syntax')
-    expect(syntaxDone.newlyEarnedBadges).not.toContain('module-master:mm')
-
-    complete('business', 'basic')
-    complete('business', 'intermediate')
-    const businessDone = complete('business', 'advanced')
-    expect(businessDone.newlyEarnedBadges).toContain('track-complete:mm:business')
-    expect(businessDone.newlyEarnedBadges).toContain('module-master:mm')
+    complete('basic')
+    complete('intermediate')
+    const allDone = complete('advanced')
+    expect(allDone.newlyEarnedBadges).toContain('module-complete:mm')
   })
 })
 

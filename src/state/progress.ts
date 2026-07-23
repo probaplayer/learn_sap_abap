@@ -1,5 +1,4 @@
 import type { ProgressState } from './types'
-import type { Track } from '../content/types'
 
 export const XP_CORRECT_ANSWER = 10
 export const XP_REVIEW_CORRECT_ANSWER = 5
@@ -8,8 +7,8 @@ export const XP_PRACTICE_CORRECT_ANSWER = 10
 export const REVIEW_MASTERY_STREAK = 2
 export const STREAK_BADGE_THRESHOLDS = [7, 30] as const
 
-export function lessonKey(moduleId: string, track: Track, lessonId: string): string {
-  return `${moduleId}:${track}:${lessonId}`
+export function lessonKey(moduleId: string, lessonId: string): string {
+  return `${moduleId}:${lessonId}`
 }
 
 export function levelForXp(xp: number): number {
@@ -19,13 +18,12 @@ export function levelForXp(xp: number): number {
 export function isLessonUnlocked(
   state: ProgressState,
   moduleId: string,
-  track: Track,
   lessonIdsInOrder: string[],
   lessonId: string,
 ): boolean {
   const idx = lessonIdsInOrder.indexOf(lessonId)
   if (idx <= 0) return true
-  const prevKey = lessonKey(moduleId, track, lessonIdsInOrder[idx - 1])
+  const prevKey = lessonKey(moduleId, lessonIdsInOrder[idx - 1])
   return state.completedLessons.includes(prevKey)
 }
 
@@ -129,25 +127,14 @@ export function updateStreak(state: ProgressState, today: Date): ProgressState {
 
 export function computeEarnedBadges(
   state: ProgressState,
-  lessonsByModuleTrack: Record<string, string[]>,
+  lessonsByModule: Record<string, string[]>,
 ): string[] {
   const badges = new Set(state.badges)
-  const completeTracksByModule: Record<string, Set<Track>> = {}
 
-  for (const [key, lessonIds] of Object.entries(lessonsByModuleTrack)) {
+  for (const [moduleId, lessonIds] of Object.entries(lessonsByModule)) {
     if (lessonIds.length === 0) continue
-    const [moduleId, track] = key.split(':') as [string, Track]
-    const allDone = lessonIds.every((id) => state.completedLessons.includes(lessonKey(moduleId, track, id)))
-    if (!allDone) continue
-    badges.add(`track-complete:${moduleId}:${track}`)
-    completeTracksByModule[moduleId] ??= new Set()
-    completeTracksByModule[moduleId].add(track)
-  }
-
-  for (const [moduleId, tracks] of Object.entries(completeTracksByModule)) {
-    if (tracks.has('syntax') && tracks.has('business')) {
-      badges.add(`module-master:${moduleId}`)
-    }
+    const allDone = lessonIds.every((id) => state.completedLessons.includes(lessonKey(moduleId, id)))
+    if (allDone) badges.add(`module-complete:${moduleId}`)
   }
 
   for (const lid of state.perfectLessons) {
@@ -163,10 +150,9 @@ export function computeEarnedBadges(
 
 export interface CompleteLessonParams {
   moduleId: string
-  track: Track
   lessonId: string
   mistakeCount: number
-  lessonsByModuleTrack: Record<string, string[]>
+  lessonsByModule: Record<string, string[]>
   today?: Date
 }
 
@@ -178,8 +164,8 @@ export interface CompleteLessonResult {
 }
 
 export function completeLesson(state: ProgressState, params: CompleteLessonParams): CompleteLessonResult {
-  const { moduleId, track, lessonId, mistakeCount, lessonsByModuleTrack, today = new Date() } = params
-  const key = lessonKey(moduleId, track, lessonId)
+  const { moduleId, lessonId, mistakeCount, lessonsByModule, today = new Date() } = params
+  const key = lessonKey(moduleId, lessonId)
   const isFirstCompletion = !state.completedLessons.includes(key)
   const bonusXp = isFirstCompletion ? XP_LESSON_FIRST_COMPLETE_BONUS : 0
 
@@ -196,7 +182,7 @@ export function completeLesson(state: ProgressState, params: CompleteLessonParam
   next = updateStreak(next, today)
 
   const badgesBefore = new Set(next.badges)
-  const allBadges = computeEarnedBadges(next, lessonsByModuleTrack)
+  const allBadges = computeEarnedBadges(next, lessonsByModule)
   const newlyEarnedBadges = allBadges.filter((b) => !badgesBefore.has(b))
   next = { ...next, badges: allBadges }
 

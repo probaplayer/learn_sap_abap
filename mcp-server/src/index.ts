@@ -7,6 +7,8 @@ import { writePracticeSet } from './writePracticeSet.js'
 import { publishPracticeSet } from './publishPracticeSet.js'
 import { writeModuleDraft } from './writeModuleDraft.js'
 import type { WriteModuleDraftInput } from './writeModuleDraft.js'
+import { writeLessonDraft } from './writeLessonDraft.js'
+import type { LessonDraftInput } from './writeLessonDraft.js'
 import type { QuizQuestion } from '../../src/content/types.js'
 
 const server = new McpServer({ name: 'sap-quest', version: '0.1.0' })
@@ -148,6 +150,19 @@ server.registerTool(
       lessons: lessons as unknown as WriteModuleDraftInput['lessons'],
     })
     return { content: [{ type: 'text', text: `Đã tạo module nháp tại ${result.dir}` }] }
+  },
+)
+
+server.registerTool(
+  'write_lesson_draft',
+  {
+    title: 'Write lesson draft',
+    description: 'Thêm 1 lesson mới (đúng 8 câu) vào quiz.json của module đang có',
+    inputSchema: { moduleId: moduleIdEnum, lesson: lessonSchema },
+  },
+  async ({ moduleId, lesson }) => {
+    const result = writeLessonDraft(moduleId, lesson as unknown as LessonDraftInput)
+    return { content: [{ type: 'text', text: `Đã thêm lesson vào ${result.filePath}` }] }
   },
 )
 

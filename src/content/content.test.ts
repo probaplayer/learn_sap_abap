@@ -3,11 +3,21 @@ import { MODULE_ORDER, MODULES, QUIZ_LESSONS, TABLES } from './index'
 import { validateQuestion } from './validateQuestion'
 
 describe('content schema validation', () => {
-  it('every module has a module.json with matching id', () => {
+  it('discovers all 5 known modules via the content directory scan', () => {
+    expect(MODULE_ORDER.length).toBe(5)
+    expect(new Set(MODULE_ORDER)).toEqual(new Set(['mm', 'co', 'fi-gl', 'enterprise-structure', 'sd']))
+  })
+
+  it('every module has a module.json with matching id and a unique order', () => {
+    const seenOrders = new Set<number>()
     for (const moduleId of MODULE_ORDER) {
       expect(MODULES[moduleId].id).toBe(moduleId)
       expect(MODULES[moduleId].name.length).toBeGreaterThan(0)
       expect(MODULES[moduleId].businessPurpose.length).toBeGreaterThan(0)
+      expect(seenOrders.has(MODULES[moduleId].order), `duplicate order value: ${MODULES[moduleId].order}`).toBe(
+        false,
+      )
+      seenOrders.add(MODULES[moduleId].order)
     }
   })
 
@@ -22,12 +32,12 @@ describe('content schema validation', () => {
     }
   })
 
-  it('every module has 3 lessons of 8 questions each, all valid', () => {
+  it('every module has at least 3 lessons of 8 questions each, all valid', () => {
     const allIds = new Set<string>()
 
     for (const moduleId of MODULE_ORDER) {
       const lessons = QUIZ_LESSONS[moduleId]
-      expect(lessons.length).toBe(3)
+      expect(lessons.length).toBeGreaterThanOrEqual(3)
 
       for (const lesson of lessons) {
         expect(lesson.questions.length).toBe(8)

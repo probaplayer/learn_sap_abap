@@ -1,50 +1,28 @@
 import type { ModuleId, ModuleInfo, TableEntry, QuizFile, Lesson, QuizQuestion } from './types'
 
-import mmModule from './mm/module.json'
-import mmTables from './mm/tables.json'
-import mmQuiz from './mm/quiz.json'
+const moduleFiles = import.meta.glob('./*/module.json', { eager: true }) as Record<string, { default: ModuleInfo }>
+const tableFiles = import.meta.glob('./*/tables.json', { eager: true }) as Record<string, { default: TableEntry[] }>
+const quizFiles = import.meta.glob('./*/quiz.json', { eager: true }) as Record<string, { default: QuizFile }>
 
-import coModule from './co/module.json'
-import coTables from './co/tables.json'
-import coQuiz from './co/quiz.json'
-
-import fiGlModule from './fi-gl/module.json'
-import fiGlTables from './fi-gl/tables.json'
-import fiGlQuiz from './fi-gl/quiz.json'
-
-import esModule from './enterprise-structure/module.json'
-import esTables from './enterprise-structure/tables.json'
-import esQuiz from './enterprise-structure/quiz.json'
-
-import sdModule from './sd/module.json'
-import sdTables from './sd/tables.json'
-import sdQuiz from './sd/quiz.json'
-
-export const MODULE_ORDER: ModuleId[] = ['enterprise-structure', 'mm', 'co', 'fi-gl', 'sd']
-
-export const MODULES: Record<ModuleId, ModuleInfo> = {
-  mm: mmModule as ModuleInfo,
-  co: coModule as ModuleInfo,
-  'fi-gl': fiGlModule as ModuleInfo,
-  'enterprise-structure': esModule as ModuleInfo,
-  sd: sdModule as ModuleInfo,
+// import.meta.glob keys look like "./mm/module.json" — the module id is the path segment
+// right after "./".
+function idFromGlobKey(key: string): ModuleId {
+  return key.split('/')[1]
 }
 
-export const TABLES: Record<ModuleId, TableEntry[]> = {
-  mm: mmTables as TableEntry[],
-  co: coTables as TableEntry[],
-  'fi-gl': fiGlTables as TableEntry[],
-  'enterprise-structure': esTables as TableEntry[],
-  sd: sdTables as TableEntry[],
-}
+export const MODULES: Record<ModuleId, ModuleInfo> = Object.fromEntries(
+  Object.entries(moduleFiles).map(([key, mod]) => [idFromGlobKey(key), mod.default]),
+)
 
-export const QUIZ_LESSONS: Record<ModuleId, Lesson[]> = {
-  mm: (mmQuiz as QuizFile).lessons,
-  co: (coQuiz as QuizFile).lessons,
-  'fi-gl': (fiGlQuiz as QuizFile).lessons,
-  'enterprise-structure': (esQuiz as QuizFile).lessons,
-  sd: (sdQuiz as QuizFile).lessons,
-}
+export const TABLES: Record<ModuleId, TableEntry[]> = Object.fromEntries(
+  Object.entries(tableFiles).map(([key, tables]) => [idFromGlobKey(key), tables.default]),
+)
+
+export const QUIZ_LESSONS: Record<ModuleId, Lesson[]> = Object.fromEntries(
+  Object.entries(quizFiles).map(([key, quiz]) => [idFromGlobKey(key), quiz.default.lessons]),
+)
+
+export const MODULE_ORDER: ModuleId[] = Object.keys(MODULES).sort((a, b) => MODULES[a].order - MODULES[b].order)
 
 export function getAllTables(): TableEntry[] {
   return MODULE_ORDER.flatMap((id) => TABLES[id])

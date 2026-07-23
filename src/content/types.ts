@@ -1,5 +1,5 @@
 export type Difficulty = 'basic' | 'intermediate' | 'advanced'
-export type ModuleId = 'mm' | 'co' | 'fi-gl' | 'enterprise-structure' | 'sd'
+export type ModuleId = string
 
 export interface ModuleInfo {
   id: ModuleId

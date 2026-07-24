@@ -11,6 +11,8 @@ import type { WriteModuleDraftInput } from './writeModuleDraft.js'
 import { updateModuleInfo } from './updateModuleInfo.js'
 import { writeLessonDraft } from './writeLessonDraft.js'
 import type { LessonDraftInput } from './writeLessonDraft.js'
+import { updateLessonDraft } from './updateLessonDraft.js'
+import type { UpdateLessonDraftInput } from './updateLessonDraft.js'
 import { writeTableEntry } from './writeTableEntry.js'
 import { writeLabExerciseDraft } from './writeLabExerciseDraft.js'
 import { EXERCISE_CATEGORIES } from '../../src/content/lab/types.js'
@@ -204,6 +206,19 @@ server.registerTool(
   async ({ moduleId, lesson }) => {
     const result = writeLessonDraft(moduleId, lesson as unknown as LessonDraftInput)
     return { content: [{ type: 'text', text: `Đã thêm lesson vào ${result.filePath}` }] }
+  },
+)
+
+server.registerTool(
+  'update_lesson_draft',
+  {
+    title: 'Update lesson draft',
+    description: 'Thay toàn bộ nội dung 1 lesson đã có (đúng 8 câu) trong quiz.json của module, theo lesson.id',
+    inputSchema: { moduleId: moduleIdEnum, lesson: lessonSchema },
+  },
+  async ({ moduleId, lesson }) => {
+    const result = updateLessonDraft(moduleId, lesson as unknown as UpdateLessonDraftInput)
+    return { content: [{ type: 'text', text: `Đã cập nhật lesson trong ${result.filePath}` }] }
   },
 )
 

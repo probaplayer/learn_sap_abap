@@ -57,3 +57,12 @@ Khởi động lại Claude Desktop sau khi lưu file.
 | `write_table_entry(moduleId, table)` | Thêm/sửa 1 entry bảng wiki |
 | `write_lab_exercise_draft(id, exercise, sourceFiles)` | Tạo 1 bài tập Code Lab mới |
 | `publish_content(commitMessage)` | Chạy **toàn bộ** test suite + commit + push nội dung module/lesson/wiki/exercise lên `main` |
+
+## Lưu ý về `tsc --noEmit`
+
+Chạy `npx tsc --noEmit` trong thư mục này hiện báo 3 lỗi, cả 3 đều ở `../src/content/validateQuestion.ts`
+(2 lỗi thiếu phần mở rộng `.js` trong import + 1 lỗi implicit-any). Đây là hệ quả của việc cấu hình
+`moduleResolution: nodenext` của `mcp-server` không khớp với kiểu import bundler-style ở phía app khi file
+này import chéo sang `../src/content/**`. Các lỗi này chỉ mang tính hiển thị (cosmetic) — không ảnh hưởng
+runtime, vì `tsx` vẫn resolve đúng các đường dẫn này khi chạy thực tế. Đây là giới hạn đã biết và được
+chấp nhận, không phải là regression.

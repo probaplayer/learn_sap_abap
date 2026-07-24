@@ -41,20 +41,23 @@ Everything module/quiz/exercise-related lives under `src/content/**` as JSON fil
 TypeScript modules (`resolveJsonModule` is on) and cast to the types in `src/content/types.ts` /
 `src/content/lab/types.ts`. There is no CMS and no runtime fetch — content is bundled at build time.
 
-- `src/content/index.ts` is the single aggregation point for the 5 quiz modules (`mm`, `co`, `fi-gl`,
+- `src/content/index.ts` auto-discovers the quiz modules via Vite's `import.meta.glob('./*/module.json', ...)`
+  (and matching globs for `tables.json` / `quiz.json`) — there are 5 today (`mm`, `co`, `fi-gl`,
   `enterprise-structure`, `sd`). Each module directory has `module.json` (metadata), `tables.json` (wiki
   entries), and `quiz.json` (the business-focused lesson list — there is no separate syntax track).
-  **Every module's `quiz.json` must have exactly 3 lessons of exactly 8 questions each** — this is
+  **Every module's `quiz.json` must have at least 3 lessons of exactly 8 questions each** — this is
   enforced by `src/content/content.test.ts`, not by any type system check.
-- `src/content/lab/index.ts` is the equivalent aggregation point for Code Lab: each exercise directory has
-  `exercise.json` (metadata: problem statement, concepts, walkthrough, sample output) plus one or more
-  `.abap` files imported with Vite's `?raw` suffix and wired together via the `build()` helper.
+- `src/content/lab/index.ts` is the equivalent auto-discovery point for Code Lab, globbing
+  `./*/exercise.json` and `./*/files/*.abap`: each exercise directory has `exercise.json` (metadata:
+  problem statement, concepts, walkthrough, sample output) plus one or more `.abap` files imported with
+  Vite's `?raw` suffix and wired together via the same module.
   `src/content/lab/lab.test.ts` enforces invariants such as exercise count, `sourceFiles` matching the
   actually-loaded files, and every `sampleOutput` carrying a disclaimer that it's illustrative, not a real
   SAP run.
-- **When adding a new module or exercise, you must also register it** in the relevant `index.ts` aggregator
-  (imports are explicit, not directory-scanned) — the content tests will fail loudly if something is
-  missing or malformed, so run them after any content change.
+- **Adding a new module or exercise means dropping files into a new `src/content/<id>/` (or
+  `src/content/lab/<id>/`) directory** — there is no `index.ts` aggregator to hand-edit, both are
+  glob-discovered automatically. The content tests still enforce validity (shape, question count, unique
+  ids, etc.), so run them after any content change.
 
 ### Progress state: pure functions + a thin React wrapper
 
@@ -74,14 +77,14 @@ State logic is deliberately split so the rules are unit-testable without React:
 
 The review pool implements simple spaced repetition: a wrong answer adds a question to
 `reviewPool[moduleId]` at streak 0; correct answers during review increment the streak; reaching
-`REVIEW_MASTERY_STREAK` (2) removes it from the pool. Lessons only unlock in order within a track
-(`isLessonUnlocked`), keyed by `lessonKey(moduleId, track, lessonId)`.
+`REVIEW_MASTERY_STREAK` (2) removes it from the pool. Lessons only unlock in order within a module's
+lesson list (`isLessonUnlocked`), keyed by `lessonKey(moduleId, lessonId)` — there is no track segment.
 
 ### Routing
 
 `HashRouter` with routes defined in `App.tsx`: module list (`/`) → module detail (`/module/:moduleId`) →
-lesson/quiz runner (`/lesson/:moduleId/:track/:lessonId`, where `lessonId === 'review'` is the special
-spaced-repetition track) and a parallel Wiki (`/wiki`, `/wiki/:moduleId/:tableId`) and Code Lab
+lesson/quiz runner (`/lesson/:moduleId/:lessonId`, where `lessonId === 'review'` is the special
+spaced-repetition lesson) and a parallel Wiki (`/wiki`, `/wiki/:moduleId/:tableId`) and Code Lab
 (`/lab`, `/lab/:exerciseId`) section. Tables in the Wiki and tables/exercises referenced from Code Lab
 cross-link to each other (`findTableAnyModule` in `src/content/index.ts`).
 

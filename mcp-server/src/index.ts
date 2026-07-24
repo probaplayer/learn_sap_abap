@@ -8,6 +8,7 @@ import { publishPracticeSet } from './publishPracticeSet.js'
 import { publishContent } from './publishContent.js'
 import { writeModuleDraft } from './writeModuleDraft.js'
 import type { WriteModuleDraftInput } from './writeModuleDraft.js'
+import { updateModuleInfo } from './updateModuleInfo.js'
 import { writeLessonDraft } from './writeLessonDraft.js'
 import type { LessonDraftInput } from './writeLessonDraft.js'
 import { writeTableEntry } from './writeTableEntry.js'
@@ -28,6 +29,15 @@ const tableEntrySchema = z.object({
   whereUsed: z.string(),
   keyFields: z.array(tableFieldSchema),
   relatedTables: z.array(z.string()),
+})
+const moduleInfoSchema = z.object({
+  name: z.string(),
+  shortName: z.string(),
+  icon: z.string(),
+  color: z.string(),
+  description: z.string(),
+  businessPurpose: z.string(),
+  order: z.number(),
 })
 const lessonSchema = z.object({
   id: z.string(),
@@ -168,6 +178,19 @@ server.registerTool(
       lessons: lessons as unknown as WriteModuleDraftInput['lessons'],
     })
     return { content: [{ type: 'text', text: `Đã tạo module nháp tại ${result.dir}` }] }
+  },
+)
+
+server.registerTool(
+  'update_module_info',
+  {
+    title: 'Update module info',
+    description: 'Sửa metadata (name/shortName/icon/color/description/businessPurpose/order) của 1 module SAP đã có, không đổi id',
+    inputSchema: { id: z.string(), module: moduleInfoSchema },
+  },
+  async ({ id, module }) => {
+    const result = updateModuleInfo({ id, module })
+    return { content: [{ type: 'text', text: `Đã cập nhật ${result.filePath}` }] }
   },
 )
 

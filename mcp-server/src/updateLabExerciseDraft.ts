@@ -11,6 +11,9 @@ export interface UpdateLabExerciseDraftInput {
 }
 
 export function updateLabExerciseDraft(input: UpdateLabExerciseDraftInput): { dir: string } {
+  if (!/^[a-z0-9-]+$/.test(input.id)) {
+    throw new Error(`id "${input.id}" không hợp lệ — chỉ dùng chữ thường, số, dấu gạch ngang`)
+  }
   const dir = path.join(CONTENT_DIR, 'lab', input.id)
   if (!fs.existsSync(dir)) {
     throw new Error(`Không tìm thấy ${dir} — bài tập "${input.id}" không tồn tại`)

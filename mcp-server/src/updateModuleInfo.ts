@@ -27,7 +27,16 @@ export function updateModuleInfo(input: UpdateModuleInfoInput): { filePath: stri
     throw new Error(`order ${input.module.order} đã được dùng bởi module khác`)
   }
 
-  const moduleJson = { id: input.id, ...input.module }
+  const moduleJson = {
+    id: input.id,
+    order: input.module.order,
+    name: input.module.name,
+    shortName: input.module.shortName,
+    icon: input.module.icon,
+    color: input.module.color,
+    description: input.module.description,
+    businessPurpose: input.module.businessPurpose,
+  }
   fs.writeFileSync(filePath, JSON.stringify(moduleJson, null, 2) + '\n', 'utf-8')
   return { filePath }
 }

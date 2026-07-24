@@ -15,6 +15,7 @@ import { updateLessonDraft } from './updateLessonDraft.js'
 import type { UpdateLessonDraftInput } from './updateLessonDraft.js'
 import { writeTableEntry } from './writeTableEntry.js'
 import { writeLabExerciseDraft } from './writeLabExerciseDraft.js'
+import { updateLabExerciseDraft } from './updateLabExerciseDraft.js'
 import { EXERCISE_CATEGORIES } from '../../src/content/lab/types.js'
 import type { QuizQuestion } from '../../src/content/types.js'
 import type { ExerciseMeta } from '../../src/content/lab/types.js'
@@ -249,6 +250,23 @@ server.registerTool(
   async ({ id, exercise, sourceFiles }) => {
     const result = writeLabExerciseDraft({ id, exercise: exercise as ExerciseMeta, sourceFiles })
     return { content: [{ type: 'text', text: `Đã tạo bài tập nháp tại ${result.dir}` }] }
+  },
+)
+
+server.registerTool(
+  'update_lab_exercise_draft',
+  {
+    title: 'Update Code Lab exercise draft',
+    description: 'Thay toàn bộ 1 bài tập Code Lab đã có (exercise.json + toàn bộ file .abap) trong src/content/lab/<id>/',
+    inputSchema: {
+      id: z.string(),
+      exercise: exerciseMetaSchema,
+      sourceFiles: z.array(z.object({ filename: z.string(), content: z.string() })),
+    },
+  },
+  async ({ id, exercise, sourceFiles }) => {
+    const result = updateLabExerciseDraft({ id, exercise: exercise as ExerciseMeta, sourceFiles })
+    return { content: [{ type: 'text', text: `Đã cập nhật bài tập tại ${result.dir}` }] }
   },
 )
 

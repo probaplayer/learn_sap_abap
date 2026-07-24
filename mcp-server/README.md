@@ -46,9 +46,14 @@ Khởi động lại Claude Desktop sau khi lưu file.
 | Tool | Việc làm |
 |---|---|
 | `list_modules` | 5 module SAP Quest |
-| `get_quiz_lessons(moduleId, track)` | Toàn bộ lesson/câu hỏi hiện có |
+| `get_quiz_lessons(moduleId)` | Toàn bộ lesson/câu hỏi hiện có |
 | `get_tables(moduleId?)` | Bảng wiki nghiệp vụ |
 | `get_exercises()` | Metadata bài tập Code Lab |
 | `read_progress_export(path?)` | Tiến trình học đã xuất, kèm câu hỏi trong reviewPool |
-| `write_practice_set(id, title, moduleId, note, questions)` | Ghi bộ câu hỏi nháp |
-| `publish_practice_set(id)` | Validate + test + commit + push lên `main` |
+| `write_practice_set(id, title, moduleId, note, questions)` | Ghi bộ câu hỏi nháp (ôn tập tạm) |
+| `publish_practice_set(id)` | Validate + test hẹp + commit + push bộ câu hỏi ôn tập tạm |
+| `write_module_draft(id, order, module, tables, lessons)` | Tạo 1 module SAP mới (module.json + tables.json + quiz.json), chưa commit |
+| `write_lesson_draft(moduleId, lesson)` | Thêm 1 lesson (đúng 8 câu) vào module đang có |
+| `write_table_entry(moduleId, table)` | Thêm/sửa 1 entry bảng wiki |
+| `write_lab_exercise_draft(id, exercise, sourceFiles)` | Tạo 1 bài tập Code Lab mới |
+| `publish_content(commitMessage)` | Chạy **toàn bộ** test suite + commit + push nội dung module/lesson/wiki/exercise lên `main` |

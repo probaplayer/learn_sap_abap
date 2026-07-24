@@ -5,6 +5,7 @@ import { getExercises, getQuizLessons, getTables, listModules, MODULE_ORDER } fr
 import { readProgressExport } from './progressExport.js'
 import { writePracticeSet } from './writePracticeSet.js'
 import { publishPracticeSet } from './publishPracticeSet.js'
+import { publishContent } from './publishContent.js'
 import { writeModuleDraft } from './writeModuleDraft.js'
 import type { WriteModuleDraftInput } from './writeModuleDraft.js'
 import { writeLessonDraft } from './writeLessonDraft.js'
@@ -210,6 +211,19 @@ server.registerTool(
   async ({ id, exercise, sourceFiles }) => {
     const result = writeLabExerciseDraft({ id, exercise: exercise as ExerciseMeta, sourceFiles })
     return { content: [{ type: 'text', text: `Đã tạo bài tập nháp tại ${result.dir}` }] }
+  },
+)
+
+server.registerTool(
+  'publish_content',
+  {
+    title: 'Publish content',
+    description: 'Chạy toàn bộ test suite, nếu pass thì commit + push nội dung src/content lên main',
+    inputSchema: { commitMessage: z.string() },
+  },
+  async ({ commitMessage }) => {
+    const result = publishContent(commitMessage)
+    return { content: [{ type: 'text', text: `Đã publish, commit ${result.commitHash}` }] }
   },
 )
 

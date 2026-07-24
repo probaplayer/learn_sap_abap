@@ -21,7 +21,9 @@ export function publishContent(commitMessage: string): { commitHash: string } {
 
 function runFullTestSuite(): { success: boolean; output: string } {
   try {
-    const output = execFileSync('npx', ['vitest', 'run'], { cwd: REPO_ROOT, encoding: 'utf-8' })
+    // shell: true is required so Windows can resolve the `npx.cmd` shim (execFileSync cannot
+    // invoke it directly). Safe here: args are fixed literals, no free-form/user-controlled text.
+    const output = execFileSync('npx', ['vitest', 'run'], { cwd: REPO_ROOT, encoding: 'utf-8', shell: true })
     return { success: true, output }
   } catch (err) {
     const execErr = err as { stdout?: string; message: string }

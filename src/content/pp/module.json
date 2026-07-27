@@ -1,0 +1,10 @@
+{
+  "id": "pp",
+  "order": 7,
+  "name": "Production Planning (PP)",
+  "shortName": "PP",
+  "icon": "🏭",
+  "color": "#00b894",
+  "description": "PP là phân hệ hoạch định sản xuất của SAP, quản lý BOM (danh sách vật tư thành phần), Routing (trình tự gia công) và Production Order (lệnh sản xuất), kết nối chặt chẽ với MM (xuất/nhập kho) và CO-PC (tập hợp chi phí thực tế).",
+  "businessPurpose": "PP (Production Planning) quản lý dữ liệu kỹ thuật sản xuất và quy trình lịch trình/thực hiện sản xuất. BOM (Bill of Material, lưu ở STKO/STPO, liên kết với vật tư qua MAST) liệt kê các thành phần cần để sản xuất ra 1 vật tư, trong khi Routing (PLKO/PLPO) mô tả trình tự các bước gia công và work center thực hiện. Khi tạo Production Order (AFKO là header, AFPO là item), hệ thống tự động xác định BOM và Routing phù hợp, sinh ra nhu cầu vật tư (reservation, lưu ở RESB) cho từng thành phần cần xuất kho. PP tích hợp chặt với MM: xuất kho component qua movement type 261 làm giảm tồn kho (MARD/MSKA), còn nhập kho thành phẩm sau sản xuất dùng movement type 101. Đồng thời, Production Order đóng vai trò cost object trong CO-PC: chi phí thực tế (nguyên vật liệu, nhân công, overhead) được tập hợp trên order và được settlement (quyết toán) để so sánh với standard cost từ cost estimate (KEKO/KEPH), giúp doanh nghiệp phát hiện chênh lệch giữa chi phí thực tế và chi phí kế hoạch. Trạng thái Production Order (Created, Released, Technically Completed, Delivered) kiểm soát việc có thể xuất kho, xác nhận sản xuất, hay phát sinh chi phí mới hay không. Vì vậy, PP là mắt xích trung tâm kết nối kế hoạch sản xuất, quản lý tồn kho (MM) và tính giá thành (CO-PC)."
+}

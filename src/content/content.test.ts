@@ -3,10 +3,10 @@ import { MODULE_ORDER, MODULES, QUIZ_LESSONS, TABLES } from './index'
 import { validateQuestion, validateTableEntry } from './validateQuestion'
 
 describe('content schema validation', () => {
-  it('discovers all 6 known modules via the content directory scan', () => {
-    expect(MODULE_ORDER.length).toBe(6)
+  it('discovers all 7 known modules via the content directory scan', () => {
+    expect(MODULE_ORDER.length).toBe(7)
     expect(new Set(MODULE_ORDER)).toEqual(
-      new Set(['mm', 'co', 'fi-gl', 'enterprise-structure', 'sd', 'fi-ap']),
+      new Set(['mm', 'co', 'fi-gl', 'enterprise-structure', 'sd', 'fi-ap', 'pp']),
     )
   })
 

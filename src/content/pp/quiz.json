@@ -1,0 +1,363 @@
+{
+  "moduleId": "pp",
+  "lessons": [
+    {
+      "id": "basic",
+      "difficulty": "basic",
+      "title": "PP Cơ bản: BOM và Routing",
+      "questions": [
+        {
+          "answerIndex": 1,
+          "difficulty": "basic",
+          "explanation": "BOM (Bill of Material) liệt kê các vật tư/thành phần cần để sản xuất ra 1 sản phẩm, là dữ liệu nền tảng cho cả PP và CO-PC (tính giá thành nguyên vật liệu).",
+          "id": "pp-basic-01",
+          "options": [
+            "Danh sách khách hàng mua sản phẩm",
+            "Danh sách các vật tư/thành phần cấu thành nên 1 sản phẩm",
+            "Danh sách nhà cung cấp nguyên vật liệu",
+            "Danh sách nhân viên tham gia sản xuất"
+          ],
+          "question": "BOM (Bill of Material) trong SAP PP thể hiện thông tin gì?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 1,
+          "difficulty": "basic",
+          "explanation": "MAST là bảng liên kết giữa vật tư (MATNR), plant (WERKS) và số BOM (STLNR), cho biết vật tư nào dùng BOM nào tại plant nào.",
+          "id": "pp-basic-02",
+          "options": [
+            "Lưu thông tin khách hàng",
+            "Liên kết vật tư (Material) với số BOM (Bill of Material) tại từng Plant",
+            "Lưu thông tin work center",
+            "Lưu lịch sử thay đổi giá vật tư"
+          ],
+          "question": "Bảng MAST trong PP có vai trò gì?",
+          "type": "multiple-choice"
+        },
+        {
+          "answer": true,
+          "difficulty": "basic",
+          "explanation": "Đúng, STPO lưu chi tiết từng dòng thành phần (component) của một BOM, bao gồm mã vật tư thành phần (IDNRK) và số lượng cần (MENGE).",
+          "id": "pp-basic-03",
+          "statement": "STPO lưu chi tiết từng thành phần (component item) trong một BOM, gồm vật tư thành phần và số lượng.",
+          "type": "true-false"
+        },
+        {
+          "answer": false,
+          "difficulty": "basic",
+          "explanation": "Sai, Routing (PLKO/PLPO) mới là nơi mô tả trình tự các bước gia công và work center sử dụng; BOM chỉ liệt kê vật tư/thành phần cần dùng.",
+          "id": "pp-basic-04",
+          "statement": "BOM (Bill of Material) mô tả trình tự các bước gia công và work center sử dụng để sản xuất sản phẩm.",
+          "type": "true-false"
+        },
+        {
+          "acceptableAnswers": [
+            "Routing"
+          ],
+          "difficulty": "basic",
+          "explanation": "Routing mô tả trình tự các bước gia công (operation), work center thực hiện, và thời gian tiêu chuẩn để sản xuất 1 vật tư.",
+          "id": "pp-basic-05",
+          "prompt": "___ là khái niệm mô tả trình tự các bước gia công và work center cần để sản xuất ra 1 vật tư.",
+          "type": "fill-blank"
+        },
+        {
+          "acceptableAnswers": [
+            "IDNRK"
+          ],
+          "difficulty": "basic",
+          "explanation": "IDNRK là trường lưu mã vật tư thành phần (component material number) trong mỗi dòng BOM item.",
+          "id": "pp-basic-06",
+          "prompt": "Trường ___ trong bảng STPO lưu mã vật tư thành phần (component) của dòng BOM đó.",
+          "type": "fill-blank"
+        },
+        {
+          "difficulty": "basic",
+          "explanation": "Mỗi bảng đảm nhiệm một vai trò riêng trong cấu trúc BOM và Routing của PP.",
+          "id": "pp-basic-07",
+          "pairs": [
+            {
+              "left": "MAST",
+              "right": "Liên kết vật tư với số BOM tại từng Plant"
+            },
+            {
+              "left": "STPO",
+              "right": "Chi tiết từng thành phần (component) trong 1 BOM"
+            },
+            {
+              "left": "PLKO",
+              "right": "Header nhóm Routing (task list group), liên kết với Plant"
+            },
+            {
+              "left": "PLPO",
+              "right": "Chi tiết từng bước gia công (operation) và work center trong Routing"
+            }
+          ],
+          "type": "matching"
+        },
+        {
+          "difficulty": "basic",
+          "explanation": "Đây là các khái niệm nền tảng của PP liên quan đến dữ liệu kỹ thuật sản xuất.",
+          "id": "pp-basic-08",
+          "pairs": [
+            {
+              "left": "BOM (Bill of Material)",
+              "right": "Danh sách vật tư/thành phần cầu thành 1 sản phẩm"
+            },
+            {
+              "left": "Routing",
+              "right": "Trình tự các bước gia công và work center sử dụng"
+            },
+            {
+              "left": "Work Center",
+              "right": "Nơi thực hiện một bước gia công cụ thể trong Routing"
+            },
+            {
+              "left": "Component",
+              "right": "Vật tư thành phần được tiêu thụ để tạo ra sản phẩm chính"
+            }
+          ],
+          "type": "matching"
+        }
+      ]
+    },
+    {
+      "id": "intermediate",
+      "difficulty": "intermediate",
+      "title": "PP Trung cấp: Cấu trúc Production Order (AFKO/AFPO)",
+      "questions": [
+        {
+          "answerIndex": 1,
+          "difficulty": "intermediate",
+          "explanation": "AFKO lưu header của Production Order: số lệnh sản xuất, số lượng tổng (GAMNG), ngày hoàn thành (GLTRP), routing tham chiếu.",
+          "id": "pp-intermediate-01",
+          "options": [
+            "MAST",
+            "AFKO",
+            "STPO",
+            "PLPO"
+          ],
+          "question": "Bảng nào lưu header của Production Order (lệnh sản xuất), bao gồm số lượng tổng và ngày hoàn thành?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 1,
+          "difficulty": "intermediate",
+          "explanation": "AFPO lưu chi tiết từng dòng Production Order, bao gồm vật tư sẽ được sản xuất (MATNR) và plant sản xuất (PWERK).",
+          "id": "pp-intermediate-02",
+          "options": [
+            "Lưu thông tin work center",
+            "Lưu chi tiết item của Production Order, gồm vật tư sản xuất và plant",
+            "Lưu thông tin BOM header",
+            "Lưu thông tin vendor"
+          ],
+          "question": "Bảng AFPO dùng để lưu trữ thông tin gì?",
+          "type": "multiple-choice"
+        },
+        {
+          "answer": true,
+          "difficulty": "intermediate",
+          "explanation": "Đúng, khi tạo Production Order (ví dụ CO01), hệ thống tự động gán BOM và Routing dựa trên vật tư cần sản xuất, sinh ra danh sách component cần reservation và các bước gia công tương ứng.",
+          "id": "pp-intermediate-03",
+          "statement": "Khi tạo Production Order, hệ thống tự động xác định BOM và Routing dựa trên vật tư cần sản xuất.",
+          "type": "true-false"
+        },
+        {
+          "answer": false,
+          "difficulty": "intermediate",
+          "explanation": "Sai, RESB lưu phản ánh nhu cầu vật tư (reservation) từ BOM sang cho từng Production Order cụ thể, không phải thay thế hoàn toàn cho STPO (STPO vẫn là dữ liệu gốc của BOM).",
+          "id": "pp-intermediate-04",
+          "statement": "RESB thay thế hoàn toàn cho STPO và không còn liên quan gì đến dữ liệu BOM gốc.",
+          "type": "true-false"
+        },
+        {
+          "acceptableAnswers": [
+            "GLTRP"
+          ],
+          "difficulty": "intermediate",
+          "explanation": "GLTRP (Basic Finish Date) trong AFKO xác định ngày hoàn thành dự kiến của Production Order.",
+          "id": "pp-intermediate-05",
+          "prompt": "Trường ___ trong bảng AFKO xác định ngày hoàn thành cơ bản (Basic Finish Date) của Production Order.",
+          "type": "fill-blank"
+        },
+        {
+          "acceptableAnswers": [
+            "RESB"
+          ],
+          "difficulty": "intermediate",
+          "explanation": "RESB lưu nhu cầu vật tư (reservation) sinh ra từ BOM khi tạo Production Order, dùng để theo dõi và xuất kho nguyên vật liệu.",
+          "id": "pp-intermediate-06",
+          "prompt": "Bảng ___ lưu nhu cầu vật tư (reservation) được sinh ra từ BOM cho một Production Order cụ thể.",
+          "type": "fill-blank"
+        },
+        {
+          "difficulty": "intermediate",
+          "explanation": "AFKO và AFPO là cặp bảng header-item của Production Order, tương tự cấu trúc VBAK-VBAP bên SD.",
+          "id": "pp-intermediate-07",
+          "pairs": [
+            {
+              "left": "AFKO",
+              "right": "Header Production Order: số lệnh, số lượng tổng, ngày hoàn thành, routing tham chiếu"
+            },
+            {
+              "left": "AFPO",
+              "right": "Item của Production Order: vật tư sản xuất và plant sản xuất"
+            },
+            {
+              "left": "RESB",
+              "right": "Nhu cầu vật tư (reservation) sinh ra từ BOM cho lệnh sản xuất"
+            },
+            {
+              "left": "GAMNG",
+              "right": "Trường trong AFKO lưu số lượng tổng cần sản xuất"
+            }
+          ],
+          "type": "matching"
+        },
+        {
+          "difficulty": "intermediate",
+          "explanation": "Đây là các khái niệm liên quan đến cấu trúc và vận hành Production Order.",
+          "id": "pp-intermediate-08",
+          "pairs": [
+            {
+              "left": "Production Order",
+              "right": "Lệnh sản xuất xác định vật tư, số lượng và thời gian cần sản xuất"
+            },
+            {
+              "left": "CO01",
+              "right": "Giao dịch tạo mới Production Order trong SAP"
+            },
+            {
+              "left": "PWERK",
+              "right": "Trường trong AFPO xác định plant sản xuất"
+            },
+            {
+              "left": "Reservation",
+              "right": "Nhu cầu vật tư component cần xuất kho để sản xuất"
+            }
+          ],
+          "type": "matching"
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "difficulty": "advanced",
+      "title": "PP Nâng cao: Goods Movement, Settlement và Tích hợp CO-PC",
+      "questions": [
+        {
+          "answerIndex": 1,
+          "difficulty": "advanced",
+          "explanation": "Movement type 261 là goods issue xuất kho nguyên vật liệu/component cho Production Order, giảm tồn kho và tiatêu thụ vào lệnh sản xuất tương ứng.",
+          "id": "pp-advanced-01",
+          "options": [
+            "101 - Goods receipt cho Purchase Order",
+            "261 - Goods issue cho Production Order",
+            "601 - Goods issue cho Sales Order",
+            "311 - Chuyển kho nội bộ"
+          ],
+          "question": "Movement type nào thường dùng để xuất kho component cho Production Order?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 1,
+          "difficulty": "advanced",
+          "explanation": "Production Order đóng vai trò cost object/cost collector trong CO-PC, tập hợp chi phí thực tế (nguyên vật liệu xuất kho, nhân công, overhead) để so sánh với standard cost từ cost estimate.",
+          "id": "pp-advanced-02",
+          "options": [
+            "Không liên quan gì đến CO-PC",
+            "Là cost object tập hợp chi phí thực tế để so sánh với standard cost",
+            "Chỉ dùng để lưu trữ thông tin khách hàng",
+            "Thay thế hoàn toàn cost estimate trong KEKO"
+          ],
+          "question": "Production Order liên kết như thế nào với CO-PC (Product Costing)?",
+          "type": "multiple-choice"
+        },
+        {
+          "answer": true,
+          "difficulty": "advanced",
+          "explanation": "Đúng, khi Production Order hoàn thành và có goods receipt (movement 101), giá trị thành phẩm nhập kho được định giá theo standard cost, sau đó chi phí thực tế phát sinh trên order sẽ được settlement (quyết toán) để xử lý chênh lệch.",
+          "id": "pp-advanced-03",
+          "statement": "Khi Production Order hoàn thành, chi phí thực tế tập hợp trên order cần được settlement để xử lý chênh lệch so với standard cost.",
+          "type": "true-false"
+        },
+        {
+          "answer": false,
+          "difficulty": "advanced",
+          "explanation": "Sai, trạng thái Production Order (ví dụ REL - Released, TECO - Technically Completed, DLV - Delivered) là yếu tố quan trọng kiểm soát việc có thể thực hiện goods issue/confirmation hay không.",
+          "id": "pp-advanced-04",
+          "statement": "Trạng thái của Production Order (Released, Technically Completed...) không ảnh hưởng đến việc có thể xuất kho hoặc xác nhận sản xuất hay không.",
+          "type": "true-false"
+        },
+        {
+          "acceptableAnswers": [
+            "101"
+          ],
+          "difficulty": "advanced",
+          "explanation": "Movement type 101 là goods receipt, dùng để nhập kho thành phẩm sau khi Production Order hoàn thành sản xuất.",
+          "id": "pp-advanced-05",
+          "prompt": "Movement type ___ dùng để nhập kho thành phẩm sau khi hoàn thành Production Order.",
+          "type": "fill-blank"
+        },
+        {
+          "acceptableAnswers": [
+            "Settlement",
+            "quyết toán"
+          ],
+          "difficulty": "advanced",
+          "explanation": "Settlement là quy trình chuyển/phân bổ chi phí thực tế tập hợp trên Production Order sang tài khoản giá vốn hoặc cost object khác, xử lý chênh lệch với standard cost.",
+          "id": "pp-advanced-06",
+          "prompt": "Quy trình ___ chuyển chi phí thực tế tập hợp trên Production Order sang tài khoản giá vốn, xử lý chênh lệch với standard cost.",
+          "type": "fill-blank"
+        },
+        {
+          "difficulty": "advanced",
+          "explanation": "Đây là các khái niệm tích hợp PP với MM (goods movement) và CO-PC (settlement).",
+          "id": "pp-advanced-07",
+          "pairs": [
+            {
+              "left": "261",
+              "right": "Movement type xuất kho component cho Production Order"
+            },
+            {
+              "left": "101",
+              "right": "Movement type nhập kho thành phẩm sau sản xuất"
+            },
+            {
+              "left": "Settlement",
+              "right": "Quy trình phân bổ chi phí thực tế từ Production Order"
+            },
+            {
+              "left": "Cost Object",
+              "right": "Vai trò của Production Order trong CO-PC để tập hợp chi phí"
+            }
+          ],
+          "type": "matching"
+        },
+        {
+          "difficulty": "advanced",
+          "explanation": "Các trạng thái này kiểm soát việc Production Order có thể thực hiện các bước tiếp theo hay không.",
+          "id": "pp-advanced-08",
+          "pairs": [
+            {
+              "left": "REL",
+              "right": "Released - lệnh sản xuất đã được giải phóng, cho phép xuất kho và xác nhận"
+            },
+            {
+              "left": "TECO",
+              "right": "Technically Completed - đã hoàn thành về mặt kỹ thuật, không còn phát sinh chi phí mới"
+            },
+            {
+              "left": "DLV",
+              "right": "Delivered - đã nhập kho đủ số lượng thành phẩm theo kế hoạch"
+            },
+            {
+              "left": "CRTD",
+              "right": "Created - lệnh sản xuất vừa được tạo, chưa released"
+            }
+          ],
+          "type": "matching"
+        }
+      ]
+    }
+  ]
+}

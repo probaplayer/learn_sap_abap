@@ -1,0 +1,198 @@
+[
+  {
+    "id": "mast",
+    "name": "MAST - Material to BOM Link",
+    "purpose": "Liên kết vật tư với số BOM tương ứng tại từng Plant, cho biết vật tư nào sử dụng BOM nào.",
+    "whereUsed": "Được tham chiếu khi tạo Production Order để xác định BOM phù hợp với vật tư cần sản xuất.",
+    "keyFields": [
+      {
+        "field": "MATNR",
+        "description": "Mã vật tư (Material Number)"
+      },
+      {
+        "field": "WERKS",
+        "description": "Plant"
+      },
+      {
+        "field": "STLAN",
+        "description": "Loại sử dụng BOM (BOM Usage)"
+      },
+      {
+        "field": "STLNR",
+        "description": "Số BOM (Bill of Material Number)"
+      }
+    ],
+    "relatedTables": [
+      "stpo",
+      "afko"
+    ],
+    "module": "pp"
+  },
+  {
+    "id": "stpo",
+    "name": "STPO - BOM Item",
+    "purpose": "Lưu chi tiết từng thành phần (component) cầu thành 1 BOM, gồm vật tư thành phần và số lượng cần cho 1 đơn vị thành phẩm.",
+    "whereUsed": "Là nguồn dữ liệu gốc để sinh reservation (RESB) khi tạo Production Order.",
+    "keyFields": [
+      {
+        "field": "STLNR",
+        "description": "Số BOM (liên kết MAST)"
+      },
+      {
+        "field": "STLKN",
+        "description": "Số dòng item trong BOM"
+      },
+      {
+        "field": "IDNRK",
+        "description": "Mã vật tư thành phần (Component Material)"
+      },
+      {
+        "field": "MENGE",
+        "description": "Số lượng cần dùng"
+      }
+    ],
+    "relatedTables": [
+      "mast",
+      "resb"
+    ],
+    "module": "pp"
+  },
+  {
+    "id": "plko",
+    "name": "PLKO - Routing Group Header",
+    "purpose": "Lưu header của nhóm Routing (task list group), xác định plant và loại routing.",
+    "whereUsed": "Được tham chiếu khi tạo Production Order để xác định trình tự gia công phù hợp.",
+    "keyFields": [
+      {
+        "field": "PLNTY",
+        "description": "Loại task list (Routing Type)"
+      },
+      {
+        "field": "PLNNR",
+        "description": "Số nhóm Routing (Group Counter)"
+      },
+      {
+        "field": "WERKS",
+        "description": "Plant"
+      }
+    ],
+    "relatedTables": [
+      "plpo"
+    ],
+    "module": "pp"
+  },
+  {
+    "id": "plpo",
+    "name": "PLPO - Routing Operation",
+    "purpose": "Lưu chi tiết từng bước gia công (operation) trong Routing, gồm work center thực hiện và thời gian tiêu chuẩn.",
+    "whereUsed": "Xác định các bước xác nhận sản xuất (confirmation) khi thực hiện Production Order.",
+    "keyFields": [
+      {
+        "field": "PLNNR",
+        "description": "Số nhóm Routing (liên kết PLKO)"
+      },
+      {
+        "field": "VORNR",
+        "description": "Số bước gia công (Operation Number)"
+      },
+      {
+        "field": "ARBPL",
+        "description": "Work Center thực hiện"
+      },
+      {
+        "field": "STEUS",
+        "description": "Khóa điều khiển (Control Key)"
+      }
+    ],
+    "relatedTables": [
+      "plko"
+    ],
+    "module": "pp"
+  },
+  {
+    "id": "afko",
+    "name": "AFKO - Production Order Header",
+    "purpose": "Lưu header của Production Order: số lệnh, số lượng tổng, ngày hoàn thành, routing tham chiếu.",
+    "whereUsed": "Sinh ra khi tạo Production Order qua CO01/CO40; là cơ sở để lập kế hoạch sản xuất và tập hợp chi phí cho CO-PC.",
+    "keyFields": [
+      {
+        "field": "AUFNR",
+        "description": "Số lệnh sản xuất (Order Number)"
+      },
+      {
+        "field": "GAMNG",
+        "description": "Số lượng tổng cần sản xuất"
+      },
+      {
+        "field": "GLTRP",
+        "description": "Ngày hoàn thành cơ bản (Basic Finish Date)"
+      },
+      {
+        "field": "PLNNR",
+        "description": "Số nhóm Routing tham chiếu"
+      }
+    ],
+    "relatedTables": [
+      "afpo",
+      "mast"
+    ],
+    "module": "pp"
+  },
+  {
+    "id": "afpo",
+    "name": "AFPO - Production Order Item",
+    "purpose": "Lưu chi tiết item của Production Order: vật tư sẽ được sản xuất và plant thực hiện sản xuất.",
+    "whereUsed": "Dùng để xác định thành phẩm sẽ nhập kho (movement 101) sau khi hoàn thành Production Order.",
+    "keyFields": [
+      {
+        "field": "AUFNR",
+        "description": "Số lệnh sản xuất (liên kết AFKO)"
+      },
+      {
+        "field": "POSNR",
+        "description": "Số item"
+      },
+      {
+        "field": "MATNR",
+        "description": "Mã vật tư sẽ được sản xuất"
+      },
+      {
+        "field": "PWERK",
+        "description": "Plant sản xuất"
+      }
+    ],
+    "relatedTables": [
+      "afko"
+    ],
+    "module": "pp"
+  },
+  {
+    "id": "resb",
+    "name": "RESB - Reservation / Dependent Requirements",
+    "purpose": "Lưu nhu cầu vật tư (reservation) sinh ra từ BOM cho từng Production Order cụ thể, dùng để theo dõi và thực hiện xuất kho nguyên vật liệu.",
+    "whereUsed": "Được dùng khi thực hiện goods issue (movement 261) cho Production Order để xuất kho component.",
+    "keyFields": [
+      {
+        "field": "AUFNR",
+        "description": "Số lệnh sản xuất liên quan"
+      },
+      {
+        "field": "MATNR",
+        "description": "Mã vật tư cần xuất kho (Component)"
+      },
+      {
+        "field": "BDMNG",
+        "description": "Số lượng cần xuất (Requirement Quantity)"
+      },
+      {
+        "field": "KZEAR",
+        "description": "Đã được xuất kho hay chưa (Final Issue Flag)"
+      }
+    ],
+    "relatedTables": [
+      "stpo",
+      "afko"
+    ],
+    "module": "pp"
+  }
+]

@@ -1,0 +1,364 @@
+{
+  "moduleId": "fi-ap",
+  "lessons": [
+    {
+      "id": "basic",
+      "difficulty": "basic",
+      "title": "FI-AP Cơ bản: Vendor Master và khái niệm nền tảng",
+      "questions": [
+        {
+          "id": "fi-ap-basic-01",
+          "type": "multiple-choice",
+          "difficulty": "basic",
+          "question": "Vendor master data được chia thành mấy cấp lưu trữ chính trong SAP?",
+          "options": [
+            "1 cấp: chỉ General Data",
+            "2 cấp: General Data (LFA1) và Company Code Data (LFB1)",
+            "3 cấp: General, Company Code, và Plant Data",
+            "Vendor master không phân cấp"
+          ],
+          "answerIndex": 1,
+          "explanation": "LFA1 lưu dữ liệu chung (Client-level) như tên, địa chỉ; LFB1 lưu dữ liệu riêng theo từng Company Code như tài khoản đối ứng và điều khoản thanh toán."
+        },
+        {
+          "id": "fi-ap-basic-02",
+          "type": "multiple-choice",
+          "difficulty": "basic",
+          "question": "Trường AKONT trong bảng LFB1 dùng để làm gì?",
+          "options": [
+            "Lưu số điện thoại nhà cung cấp",
+            "Xác định tài khoản GL đối ứng (reconciliation account) cho công nợ phải trả",
+            "Lưu mã số thuế",
+            "Xác định plant mặc định"
+          ],
+          "answerIndex": 1,
+          "explanation": "AKONT (Reconciliation Account) là tài khoản GL sẽ tự động được cập nhật trên sổ cái tổng hợp mỗi khi có bút toán công nợ phát sinh với vendor đó."
+        },
+        {
+          "id": "fi-ap-basic-03",
+          "type": "true-false",
+          "difficulty": "basic",
+          "statement": "Bảng LFA1 lưu dữ liệu vendor dùng chung cho mọi Company Code, còn LFB1 lưu dữ liệu riêng theo từng Company Code.",
+          "answer": true,
+          "explanation": "Đúng, đây chính là nguyên tắc phân cấp General Data (LFA1) và Company Code Data (LFB1) của vendor master."
+        },
+        {
+          "id": "fi-ap-basic-04",
+          "type": "true-false",
+          "difficulty": "basic",
+          "statement": "3-way match là đối chiếu giữa Vendor Master, Material Master và Customer Master.",
+          "answer": false,
+          "explanation": "Sai, 3-way match thực chất là đối chiếu giữa Purchase Order, Goods Receipt và Invoice để đảm bảo số lượng/giá trị khớp nhau."
+        },
+        {
+          "id": "fi-ap-basic-05",
+          "type": "fill-blank",
+          "difficulty": "basic",
+          "prompt": "Bảng ___ lưu dữ liệu chung (General Data) của nhà cung cấp, dùng chung cho mọi Company Code.",
+          "acceptableAnswers": [
+            "LFA1"
+          ],
+          "explanation": "LFA1 là bảng lưu General Data của vendor ở cấp Client, gồm tên, địa chỉ, mã số thuế."
+        },
+        {
+          "id": "fi-ap-basic-06",
+          "type": "fill-blank",
+          "difficulty": "basic",
+          "prompt": "Giao dịch ___ dùng để tạo mới vendor master với đầy đủ view General, Company Code và Purchasing.",
+          "acceptableAnswers": [
+            "XK01"
+          ],
+          "explanation": "XK01 là giao dịch tích hợp tạo vendor với cả 3 view: General, Company Code, và Purchasing."
+        },
+        {
+          "id": "fi-ap-basic-07",
+          "type": "matching",
+          "difficulty": "basic",
+          "pairs": [
+            {
+              "left": "LFA1",
+              "right": "Dữ liệu chung của vendor (tên, địa chỉ, mã số thuế) ở cấp Client"
+            },
+            {
+              "left": "LFB1",
+              "right": "Dữ liệu vendor riêng theo Company Code (tài khoản đối ứng, điều khoản thanh toán)"
+            },
+            {
+              "left": "AKONT",
+              "right": "Field trong LFB1 xác định tài khoản GL đối ứng công nợ"
+            },
+            {
+              "left": "ZTERM",
+              "right": "Field trong LFB1 quy định điều khoản thanh toán của vendor"
+            }
+          ],
+          "explanation": "Vendor master được tổ chức theo nhiều view khác nhau, mỗi bảng phục vụ một khía cạnh nghiệp vụ riêng."
+        },
+        {
+          "id": "fi-ap-basic-08",
+          "type": "matching",
+          "difficulty": "basic",
+          "pairs": [
+            {
+              "left": "Vendor Master",
+              "right": "Dữ liệu tổng thể về nhà cung cấp"
+            },
+            {
+              "left": "Reconciliation Account",
+              "right": "Tài khoản GL tự động cập nhật khi có bút toán công nợ với vendor"
+            },
+            {
+              "left": "Payment Terms (ZTERM)",
+              "right": "Điều khoản quy định thời hạn và chiết khấu thanh toán cho vendor"
+            },
+            {
+              "left": "3-way match",
+              "right": "Đối chiếu Purchase Order, Goods Receipt và Invoice trước khi ghi nhận công nợ"
+            }
+          ],
+          "explanation": "Đây là các khái niệm nền tảng của FI-AP: vendor master, reconciliation account, payment terms, và cơ chế kiểm soát 3-way match."
+        }
+      ]
+    },
+    {
+      "id": "intermediate",
+      "difficulty": "intermediate",
+      "title": "FI-AP Trung cấp: Invoice Verification (MIRO) và RBKP/RSEG",
+      "questions": [
+        {
+          "id": "fi-ap-intermediate-01",
+          "type": "multiple-choice",
+          "difficulty": "intermediate",
+          "question": "Khi thực hiện MIRO, hệ thống tham chiếu đến Purchase Order thông qua trường nào trong RSEG?",
+          "options": [
+            "LIFNR và BUKRS",
+            "EBELN và EBELP",
+            "MATNR và WERKS",
+            "VBELN và POSNR"
+          ],
+          "answerIndex": 1,
+          "explanation": "RSEG lưu EBELN (số Purchase Order) và EBELP (số dòng PO Item) để liên kết hóa đơn với đơn đặt hàng gốc, phục vụ 3-way match."
+        },
+        {
+          "id": "fi-ap-intermediate-02",
+          "type": "multiple-choice",
+          "difficulty": "intermediate",
+          "question": "Header của hóa đơn mua hàng nhập qua MIRO được lưu ở bảng nào?",
+          "options": [
+            "BKPF",
+            "RBKP",
+            "VBRK",
+            "EKKO"
+          ],
+          "answerIndex": 1,
+          "explanation": "RBKP lưu header của Invoice Receipt Document (hóa đơn logistics invoice verification), còn RSEG lưu chi tiết dòng tham chiếu đến Purchase Order item."
+        },
+        {
+          "id": "fi-ap-intermediate-03",
+          "type": "true-false",
+          "difficulty": "intermediate",
+          "statement": "Khi MIRO được lưu thành công, hệ thống chỉ tạo RBKP/RSEG mà không tạo ra chứng từ kế toán FI nào.",
+          "answer": false,
+          "explanation": "Sai, MIRO tự động sinh cả Invoice Receipt Document (RBKP/RSEG) và chứng từ kế toán FI tương ứng (BKPF/BSEG) để ghi nhận công nợ phải trả."
+        },
+        {
+          "id": "fi-ap-intermediate-04",
+          "type": "true-false",
+          "difficulty": "intermediate",
+          "statement": "Park Document trong MIRO cho phép lưu tạm hóa đơn mà chưa ảnh hưởng đến sổ sách kế toán.",
+          "answer": true,
+          "explanation": "Đúng, Park Document dùng để lưu tạm thời, giúp kiểm tra/phê duyệt trước khi hạch toán chính thức (Post)."
+        },
+        {
+          "id": "fi-ap-intermediate-05",
+          "type": "fill-blank",
+          "difficulty": "intermediate",
+          "prompt": "Trường ___ trong bảng RBKP thể hiện trạng thái của chứng từ Invoice Document (đã hạch toán, park, hay đã hủy).",
+          "acceptableAnswers": [
+            "RBSTAT"
+          ],
+          "explanation": "RBSTAT (Invoice Document Status) cho biết chứng từ đang ở trạng thái nào."
+        },
+        {
+          "id": "fi-ap-intermediate-06",
+          "type": "fill-blank",
+          "difficulty": "intermediate",
+          "prompt": "Nếu số lượng hóa đơn không khớp với số lượng đã Goods Receipt, hệ thống thường đặt ___ để ngăn thanh toán cho đến khi được xác minh.",
+          "acceptableAnswers": [
+            "Payment Block",
+            "block thanh toán"
+          ],
+          "explanation": "Khi phát hiện chênh lệch (variance), hệ thống thường đặt Payment Block để chờ xác minh trước khi cho phép thanh toán."
+        },
+        {
+          "id": "fi-ap-intermediate-07",
+          "type": "matching",
+          "difficulty": "intermediate",
+          "pairs": [
+            {
+              "left": "RBKP",
+              "right": "Header của Invoice Receipt Document, lưu số hóa đơn, ngày hóa đơn, trạng thái"
+            },
+            {
+              "left": "RSEG",
+              "right": "Chi tiết dòng hóa đơn, tham chiếu Purchase Order item để đối chiếu 3-way match"
+            },
+            {
+              "left": "EBELN/EBELP",
+              "right": "Trường trong RSEG tham chiếu đến số Purchase Order và số dòng item"
+            },
+            {
+              "left": "RBSTAT",
+              "right": "Trạng thái chứng từ Invoice Document trong RBKP"
+            }
+          ],
+          "explanation": "RBKP và RSEG là cặp bảng header-detail của Invoice Verification, tương tự cấu trúc BKPF-BSEG bên kế toán."
+        },
+        {
+          "id": "fi-ap-intermediate-08",
+          "type": "matching",
+          "difficulty": "intermediate",
+          "pairs": [
+            {
+              "left": "3-way match",
+              "right": "Đối chiếu Purchase Order, Goods Receipt và Invoice trước khi thanh toán"
+            },
+            {
+              "left": "Price variance",
+              "right": "Chênh lệch giá giữa hóa đơn và Purchase Order, có thể hạch toán vào tài khoản Price Difference"
+            },
+            {
+              "left": "Quantity variance",
+              "right": "Chênh lệch số lượng giữa hóa đơn và Goods Receipt, thường gây block thanh toán"
+            },
+            {
+              "left": "Park Document",
+              "right": "Lưu tạm hóa đơn trước khi hạch toán chính thức, chưa ảnh hưởng sổ sách"
+            }
+          ],
+          "explanation": "Đây là các khái niệm kiểm soát chênh lệch và quy trình xử lý trong Invoice Verification (MIRO)."
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "difficulty": "advanced",
+      "title": "FI-AP Nâng cao: Thanh toán tự động (F110) và Clearing",
+      "questions": [
+        {
+          "id": "fi-ap-advanced-01",
+          "type": "multiple-choice",
+          "difficulty": "advanced",
+          "question": "Giao dịch F110 trong SAP dùng để làm gì?",
+          "options": [
+            "Tạo vendor master mới",
+            "Thực hiện thanh toán tự động hàng loạt (Automatic Payment Run) cho các hóa đơn đến hạn",
+            "Tạo Purchase Order",
+            "Chạy costing run cho sản phẩm"
+          ],
+          "answerIndex": 1,
+          "explanation": "F110 (Automatic Payment Transactions) quét các khoản mở trong BSIK đến hạn thanh toán (dựa vào NETDT) và tạo đề xuất/thực hiện thanh toán hàng loạt cho nhiều vendor cùng lúc."
+        },
+        {
+          "id": "fi-ap-advanced-02",
+          "type": "multiple-choice",
+          "difficulty": "advanced",
+          "question": "Reconciliation Account (AKONT) trong LFB1 có đặc điểm gì quan trọng khi hạch toán trực tiếp?",
+          "options": [
+            "Có thể hạch toán trực tiếp bình thường như tài khoản GL khác",
+            "Không được hạch toán trực tiếp (postings không cho phép) - chỉ được cập nhật tự động thông qua bút toán vendor sub-ledger",
+            "Chỉ dùng cho báo cáo, không lưu giá trị thực",
+            "Có thể xóa bỏ bất kỳ lúc nào"
+          ],
+          "answerIndex": 1,
+          "explanation": "Reconciliation Account được đánh dấu là không cho phép hạch toán trực tiếp; chỉ được cập nhật tự động khi có bút toán ở sub-ledger (vendor) tương ứng, đảm bảo số dư sub-ledger và GL luôn khớp nhau."
+        },
+        {
+          "id": "fi-ap-advanced-03",
+          "type": "true-false",
+          "difficulty": "advanced",
+          "statement": "Sau khi F110 thực hiện thanh toán thành công, dòng open item tương ứng sẽ chuyển từ BSIK sang BSAK.",
+          "answer": true,
+          "explanation": "Đúng, khi thanh toán được thực hiện, dòng bút toán công nợ (open item) được 'clear' với dòng thanh toán, chuyển từ index BSIK sang BSAK."
+        },
+        {
+          "id": "fi-ap-advanced-04",
+          "type": "true-false",
+          "difficulty": "advanced",
+          "statement": "Nếu vendor có Payment Block trong LFB1, hóa đơn của vendor đó vẫn được đưa vào đợt thanh toán F110 như bình thường.",
+          "answer": false,
+          "explanation": "Sai, Payment Block ngăn không cho invoice của vendor đó được đưa vào Payment Proposal của F110, thường dùng khi có tranh chấp hoặc đang chờ xác minh."
+        },
+        {
+          "id": "fi-ap-advanced-05",
+          "type": "fill-blank",
+          "difficulty": "advanced",
+          "prompt": "Chức năng ___ (ví dụ giao dịch FBRA) cho phép đưa một khoản đã clear trở lại trạng thái mở khi cần hủy thanh toán nhầm.",
+          "acceptableAnswers": [
+            "Reset Cleared Items",
+            "FBRA"
+          ],
+          "explanation": "FBRA (Reset Cleared Items) cho phép đảo ngược trạng thái clearing, đưa khoản từ BSAK trở lại BSIK để xử lý lại."
+        },
+        {
+          "id": "fi-ap-advanced-06",
+          "type": "fill-blank",
+          "difficulty": "advanced",
+          "prompt": "Bảng ___ là index open items giúp F110 xác định nhanh hóa đơn nào của vendor cần được đưa vào đợt thanh toán.",
+          "acceptableAnswers": [
+            "BSIK"
+          ],
+          "explanation": "BSIK là bảng index các khoản công nợ phải trả chưa thanh toán, được F110 quét để lập Payment Proposal."
+        },
+        {
+          "id": "fi-ap-advanced-07",
+          "type": "matching",
+          "difficulty": "advanced",
+          "pairs": [
+            {
+              "left": "F110",
+              "right": "Giao dịch thực hiện thanh toán tự động hàng loạt cho các open items đến hạn"
+            },
+            {
+              "left": "BSIK → BSAK",
+              "right": "Chuyển đổi trạng thái open item sang cleared item sau khi thanh toán"
+            },
+            {
+              "left": "Payment Block",
+              "right": "Cờ ngăn hóa đơn của vendor được đưa vào đợt thanh toán"
+            },
+            {
+              "left": "FBRA",
+              "right": "Giao dịch Reset Cleared Items, đảo ngược trạng thái clearing"
+            }
+          ],
+          "explanation": "Đây là các khái niệm cốt lõi của quy trình thanh toán tự động và clearing trong FI-AP."
+        },
+        {
+          "id": "fi-ap-advanced-08",
+          "type": "matching",
+          "difficulty": "advanced",
+          "pairs": [
+            {
+              "left": "Reconciliation Account",
+              "right": "Tài khoản GL không cho hạch toán trực tiếp, chỉ cập nhật qua bút toán vendor sub-ledger"
+            },
+            {
+              "left": "NETDT",
+              "right": "Trường trong BSIK xác định ngày đến hạn thanh toán (Net Due Date)"
+            },
+            {
+              "left": "Payment Proposal",
+              "right": "Danh sách đề xuất thanh toán do F110 tạo ra trước khi thực hiện chính thức"
+            },
+            {
+              "left": "Open item index",
+              "right": "Vai trò của BSIK, tách biệt khỏi BSEG để truy vấn nhanh theo trạng thái"
+            }
+          ],
+          "explanation": "Các khái niệm này liên quan chặt chẽ đến cơ chế kiểm soát và tối ưu truy vấn trong quy trình thanh toán FI-AP."
+        }
+      ]
+    }
+  ]
+}

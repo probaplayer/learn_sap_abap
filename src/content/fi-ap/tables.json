@@ -1,0 +1,214 @@
+[
+  {
+    "id": "lfa1",
+    "name": "LFA1 - Vendor Master (General Data)",
+    "purpose": "Lưu dữ liệu chung của nhà cung cấp ở cấp Client, dùng chung cho mọi Company Code: tên, địa chỉ, mã số thuế, ngôn ngữ giao dịch.",
+    "whereUsed": "Tạo/hiển thị vendor master qua XK01/XK03 hoặc FK01/FK03; là bảng gốc tham chiếu bởi mọi giao dịch mua hàng và công nợ.",
+    "keyFields": [
+      {
+        "field": "LIFNR",
+        "description": "Mã số nhà cung cấp (Vendor Number) - khóa chính"
+      },
+      {
+        "field": "NAME1",
+        "description": "Tên nhà cung cấp"
+      },
+      {
+        "field": "LAND1",
+        "description": "Mã quốc gia"
+      },
+      {
+        "field": "STCD1",
+        "description": "Mã số thuế (Tax Number 1)"
+      }
+    ],
+    "relatedTables": [
+      "lfb1",
+      "bseg"
+    ],
+    "module": "fi-ap"
+  },
+  {
+    "id": "lfb1",
+    "name": "LFB1 - Vendor Master (Company Code Data)",
+    "purpose": "Lưu dữ liệu nhà cung cấp riêng theo từng Company Code: tài khoản đối ứng (reconciliation account), điều khoản thanh toán, khối thanh toán.",
+    "whereUsed": "Phần Company Code Data khi tạo vendor qua XK01/FK01; quyết định tài khoản GL nào sẽ được cập nhật tự động khi ghi nhận công nợ với vendor này.",
+    "keyFields": [
+      {
+        "field": "LIFNR",
+        "description": "Mã số nhà cung cấp"
+      },
+      {
+        "field": "BUKRS",
+        "description": "Company Code"
+      },
+      {
+        "field": "AKONT",
+        "description": "Reconciliation Account - tài khoản GL đối ứng công nợ phải trả"
+      },
+      {
+        "field": "ZTERM",
+        "description": "Điều khoản thanh toán (Payment Terms)"
+      }
+    ],
+    "relatedTables": [
+      "lfa1",
+      "bseg"
+    ],
+    "module": "fi-ap"
+  },
+  {
+    "id": "rbkp",
+    "name": "RBKP - Document Header: Invoice Receipt",
+    "purpose": "Lưu header của hóa đơn mua hàng được xử lý qua Invoice Verification (MIRO), bao gồm số hóa đơn, ngày hóa đơn, trạng thái đã hạch toán.",
+    "whereUsed": "Sinh ra khi thực hiện MIRO/MIR7 để nhập hóa đơn của nhà cung cấp dựa trên Purchase Order và Goods Receipt.",
+    "keyFields": [
+      {
+        "field": "BELNR",
+        "description": "Số chứng từ Invoice Document (Document Number)"
+      },
+      {
+        "field": "GJAHR",
+        "description": "Năm tài chính (Fiscal Year)"
+      },
+      {
+        "field": "LIFNR",
+        "description": "Mã số nhà cung cấp trên hóa đơn"
+      },
+      {
+        "field": "RBSTAT",
+        "description": "Trạng thái chứng từ (Invoice Document Status)"
+      }
+    ],
+    "relatedTables": [
+      "rseg",
+      "bkpf",
+      "lfa1"
+    ],
+    "module": "fi-ap"
+  },
+  {
+    "id": "rseg",
+    "name": "RSEG - Line Item: Invoice Receipt",
+    "purpose": "Lưu chi tiết dòng hóa đơn (số lượng, giá trị, tham chiếu Purchase Order/Goods Receipt) dùng để đối chiếu 3-way match.",
+    "whereUsed": "Tự động tạo khi lưu MIRO; mỗi dòng tham chiếu đến 1 Purchase Order item để kiểm tra khớp số lượng/giá trị.",
+    "keyFields": [
+      {
+        "field": "BELNR",
+        "description": "Số chứng từ Invoice Document (liên kết RBKP)"
+      },
+      {
+        "field": "EBELN",
+        "description": "Số Purchase Order được tham chiếu"
+      },
+      {
+        "field": "EBELP",
+        "description": "Số dòng Purchase Order Item"
+      },
+      {
+        "field": "WRBTR",
+        "description": "Giá trị hóa đơn theo đồng tiền chứng từ"
+      }
+    ],
+    "relatedTables": [
+      "rbkp"
+    ],
+    "module": "fi-ap"
+  },
+  {
+    "id": "bkpf",
+    "name": "BKPF - Accounting Document Header",
+    "purpose": "Lưu header của mọi chứng từ kế toán trong FI, bao gồm cả bút toán công nợ phải trả phát sinh từ Invoice Verification hoặc bút toán thủ công (FB60).",
+    "whereUsed": "Sinh ra bởi mọi giao dịch hạch toán FI: MIRO, FB60 (nhập hóa đơn thủ công), F-53/F110 (thanh toán).",
+    "keyFields": [
+      {
+        "field": "BUKRS",
+        "description": "Company Code"
+      },
+      {
+        "field": "BELNR",
+        "description": "Số chứng từ kế toán (Document Number)"
+      },
+      {
+        "field": "GJAHR",
+        "description": "Năm tài chính"
+      },
+      {
+        "field": "BLART",
+        "description": "Loại chứng từ (Document Type, vd: KR - Vendor Invoice)"
+      }
+    ],
+    "relatedTables": [
+      "bseg",
+      "rbkp"
+    ],
+    "module": "fi-ap"
+  },
+  {
+    "id": "bseg",
+    "name": "BSEG - Accounting Document Segment (Line Item)",
+    "purpose": "Lưu chi tiết từng dòng bút toán kế toán: tài khoản GL/vendor, số tiền, ngày đến hạn thanh toán, trạng thái đã/chưa thanh toán.",
+    "whereUsed": "Chi tiết dòng của mọi chứng từ FI; dòng với KOART = K (Vendor) thể hiện công nợ phải trả, liên kết BSIK để truy vấn nhanh.",
+    "keyFields": [
+      {
+        "field": "BUKRS",
+        "description": "Company Code"
+      },
+      {
+        "field": "BELNR",
+        "description": "Số chứng từ (liên kết BKPF)"
+      },
+      {
+        "field": "BUZEI",
+        "description": "Số dòng bút toán (Line Item Number)"
+      },
+      {
+        "field": "KOART",
+        "description": "Loại tài khoản (Account Type: K = Vendor, S = GL)"
+      },
+      {
+        "field": "LIFNR",
+        "description": "Mã số nhà cung cấp (khi KOART = K)"
+      },
+      {
+        "field": "DMBTR",
+        "description": "Số tiền theo đồng tiền nội bộ (Local Currency)"
+      }
+    ],
+    "relatedTables": [
+      "bkpf",
+      "lfa1",
+      "bsik"
+    ],
+    "module": "fi-ap"
+  },
+  {
+    "id": "bsik",
+    "name": "BSIK - Vendor Open Items Index",
+    "purpose": "Bảng chỉ mục (index table) giúp truy vấn nhanh các khoản công nợ phải trả CHƯA thanh toán (open items) theo vendor, không cần quét toàn bộ BSEG.",
+    "whereUsed": "Dùng trong các báo cáo công nợ (FBL1N), quy trình thanh toán tự động (F110) để xác định hóa đơn nào cần thanh toán.",
+    "keyFields": [
+      {
+        "field": "BUKRS",
+        "description": "Company Code"
+      },
+      {
+        "field": "LIFNR",
+        "description": "Mã số nhà cung cấp"
+      },
+      {
+        "field": "BELNR",
+        "description": "Số chứng từ"
+      },
+      {
+        "field": "NETDT",
+        "description": "Ngày đến hạn thanh toán (Net Due Date)"
+      }
+    ],
+    "relatedTables": [
+      "bseg",
+      "lfa1"
+    ],
+    "module": "fi-ap"
+  }
+]

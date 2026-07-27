@@ -1,0 +1,10 @@
+{
+  "id": "fi-ap",
+  "order": 6,
+  "name": "Financial Accounting - Accounts Payable (FI-AP)",
+  "shortName": "FI-AP",
+  "icon": "💸",
+  "color": "#e84393",
+  "description": "FI-AP là phân hệ kế toán công nợ phải trả trong SAP FI, quản lý toàn bộ quan hệ với nhà cung cấp: từ vendor master, hóa đơn mua hàng, đối chiếu 3-way match với MM cho đến thanh toán và theo dõi công nợ.",
+  "businessPurpose": "FI-AP (Accounts Payable) quản lý vendor master data ở hai cấp: cấp General/Client (bảng LFA1 - tên, địa chỉ, mã số thuế) và cấp Company Code (bảng LFB1 - tài khoản GL đối ứng công nợ - reconciliation account, điều khoản thanh toán). Khi hàng được nhận (Goods Receipt trong MM) và hóa đơn được xử lý qua Invoice Verification (MIRO, header lưu ở RBKP, chi tiết ở RSEG), hệ thống thực hiện 3-way match giữa Purchase Order, Goods Receipt và Invoice để đảm bảo số lượng/giá trị khớp nhau trước khi ghi nhận công nợ. Mỗi bút toán kế toán phát sinh được lưu ở BKPF (header) và BSEG (line item chi tiết, chứa tài khoản GL, số tiền, ngày đến hạn), trong khi BSIK là index giúp truy vấn nhanh các khoản mở (open items) theo vendor. FI-AP liên kết trực tiếp với MM (nhận hàng, hóa đơn mua) và FI-GL (reconciliation account tự động cập nhật sổ cái tổng hợp khi có bút toán công nợ), giúp doanh nghiệp kiểm soát dòng tiền ra và quan hệ với nhà cung cấp một cách chính xác, minh bạch."
+}

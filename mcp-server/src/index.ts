@@ -16,6 +16,7 @@ import type { UpdateLessonDraftInput } from './updateLessonDraft.js'
 import { writeTableEntry } from './writeTableEntry.js'
 import { writeLabExerciseDraft } from './writeLabExerciseDraft.js'
 import { updateLabExerciseDraft } from './updateLabExerciseDraft.js'
+import { deleteModule } from './deleteModule.js'
 import { EXERCISE_CATEGORIES } from '../../src/content/lab/types.js'
 import type { QuizQuestion } from '../../src/content/types.js'
 import type { ExerciseMeta } from '../../src/content/lab/types.js'
@@ -267,6 +268,22 @@ server.registerTool(
   async ({ id, exercise, sourceFiles }) => {
     const result = updateLabExerciseDraft({ id, exercise: exercise as ExerciseMeta, sourceFiles })
     return { content: [{ type: 'text', text: `Đã cập nhật bài tập tại ${result.dir}` }] }
+  },
+)
+
+server.registerTool(
+  'delete_module',
+  {
+    title: 'Delete module',
+    description:
+      'Xóa hẳn 1 module SAP đã có (module.json/tables.json/quiz.json) khỏi src/content/<id>/, chưa commit. ' +
+      'Chặn nếu module khác có table relatedTables trỏ vào table của module này, hoặc có bộ luyện tập ' +
+      'generated đang tham chiếu moduleId này — lỗi sẽ liệt kê chính xác nơi đang tham chiếu.',
+    inputSchema: { id: z.string() },
+  },
+  async ({ id }) => {
+    const result = deleteModule(id)
+    return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] }
   },
 )
 

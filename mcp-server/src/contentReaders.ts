@@ -32,7 +32,9 @@ export const MODULE_ORDER: ModuleId[] = listModuleIds().sort(
 )
 
 export function listModules() {
-  return MODULE_ORDER.map((id) => readModule(id))
+  // Read dynamically to catch modules created after MCP server startup (e.g., in smoke tests)
+  const ids = listModuleIds().sort((a, b) => readModule(a).order - readModule(b).order)
+  return ids.map((id) => readModule(id))
 }
 
 export function getQuizLessons(moduleId: ModuleId) {
@@ -41,7 +43,7 @@ export function getQuizLessons(moduleId: ModuleId) {
 }
 
 export function getTables(moduleId?: ModuleId) {
-  const ids = moduleId ? [moduleId] : MODULE_ORDER
+  const ids = moduleId ? [moduleId] : listModuleIds().sort((a, b) => readModule(a).order - readModule(b).order)
   return ids.flatMap((id) => readJson<unknown[]>(path.join(CONTENT_DIR, id, 'tables.json')))
 }
 

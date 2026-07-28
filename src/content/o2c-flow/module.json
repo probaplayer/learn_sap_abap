@@ -1,0 +1,10 @@
+{
+  "id": "o2c-flow",
+  "order": 10,
+  "name": "End-to-End Sales Process Flow (Order-to-Cash)",
+  "shortName": "O2C Flow",
+  "icon": "🛒",
+  "color": "#6c5ce7",
+  "description": "Module tích hợp hướng dẫn xây dựng toàn bộ quy trình bán hàng Order-to-Cash (O2C) cho một doanh nghiệp bán hàng: từ Sales Order, Delivery, Billing, đến thu tiền, kết nối kiến thức SD - MM - FI-AR thành 1 chuỗi xuyên suốt thực tế.",
+  "businessPurpose": "Module này hướng dẫn xây dựng quy trình bán hàng end-to-end (Order-to-Cash - O2C) cho một doanh nghiệp bán hàng hoàn chỉnh trong SAP, kết nối các kiến thức từ SD, MM và FI-AR đã học thành 1 chuỗi xuyên suốt. Quy trình bắt đầu từ Sales Order (VBAK/VBAP, tạo qua VA01) ghi nhận nhu cầu của khách hàng, trải qua kiểm tra hạn mức tín dụng (Credit Management từ FI-AR) và kiểm tra tồn kho khả dụng (Availability Check từ MM). Sau khi đơn hàng được chấp nhận, Outbound Delivery (LIKP/LIPS, tạo qua VL01N) được tạo để chuẩn bị giao hàng, và Post Goods Issue sẽ giảm tồn kho đồng thời hạch toán giá vốn hàng bán (COGS). Bước tiếp theo, Billing Document (VBRK/VBRP, tạo qua VF01) sinh ra hóa đơn bán hàng, và khi được release to accounting, hệ thống tự động tạo chứng từ kế toán FI ghi nhận doanh thu và công nợ phải thu (tích hợp chặt với FI-AR qua BSID/BSAD). Xuyên suốt toàn bộ chuỗi này, bảng VBFA (Document Flow) ghi nhận mối quan hệ giữa từng chứng từ trước và sau, cho phép truy vết toàn bộ lịch sử từ Sales Order đến khi thu được tiền. Module này giúp người học hiểu cách các phân hệ SD, MM và FI phối hợp với nhau trong một quy trình kinh doanh thực tế, thay vì chỉ học từng module riêng lẻ."
+}

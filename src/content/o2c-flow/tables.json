@@ -1,0 +1,191 @@
+[
+  {
+    "id": "vbak",
+    "name": "VBAK - Sales Order Header",
+    "purpose": "Lưu header của Sales Order: số đơn hàng, khách hàng đặt hàng, sales organization.",
+    "whereUsed": "Tạo qua VA01, là bước đầu tiên của quy trình O2C, tham chiếu bởi Delivery và Billing sau này.",
+    "keyFields": [
+      {
+        "field": "VBELN",
+        "description": "Số đơn hàng (Sales Document Number)"
+      },
+      {
+        "field": "KUNNR",
+        "description": "Mã khách hàng đặt hàng"
+      },
+      {
+        "field": "VKORG",
+        "description": "Sales Organization"
+      },
+      {
+        "field": "ERDAT",
+        "description": "Ngày tạo đơn hàng"
+      }
+    ],
+    "relatedTables": [
+      "vbap",
+      "vbfa"
+    ],
+    "module": "o2c-flow"
+  },
+  {
+    "id": "vbap",
+    "name": "VBAP - Sales Order Item",
+    "purpose": "Lưu chi tiết item của Sales Order: vật tư đặt hàng và số lượng.",
+    "whereUsed": "Dùng để xác định vật tư/số lượng cần giao khi tạo Outbound Delivery.",
+    "keyFields": [
+      {
+        "field": "VBELN",
+        "description": "Số đơn hàng (liên kết VBAK)"
+      },
+      {
+        "field": "POSNR",
+        "description": "Số dòng item"
+      },
+      {
+        "field": "MATNR",
+        "description": "Mã vật tư được đặt"
+      },
+      {
+        "field": "KWMENG",
+        "description": "Số lượng đặt hàng"
+      }
+    ],
+    "relatedTables": [
+      "vbak"
+    ],
+    "module": "o2c-flow"
+  },
+  {
+    "id": "likp",
+    "name": "LIKP - Delivery Header",
+    "purpose": "Lưu header của Outbound Delivery: số phiếu giao hàng, ngày giao hàng, khách hàng nhận hàng.",
+    "whereUsed": "Tạo qua VL01N từ Sales Order; sau khi Post Goods Issue sẽ làm cơ sở tạo Billing Document.",
+    "keyFields": [
+      {
+        "field": "VBELN",
+        "description": "Số phiếu giao hàng (Delivery Number)"
+      },
+      {
+        "field": "LFDAT",
+        "description": "Ngày giao hàng thực tế (Actual Goods Movement Date)"
+      },
+      {
+        "field": "KUNNR",
+        "description": "Mã khách hàng nhận hàng"
+      }
+    ],
+    "relatedTables": [
+      "lips",
+      "vbfa"
+    ],
+    "module": "o2c-flow"
+  },
+  {
+    "id": "lips",
+    "name": "LIPS - Delivery Item",
+    "purpose": "Lưu chi tiết item của Outbound Delivery: vật tư và số lượng giao thực tế.",
+    "whereUsed": "Dùng khi Post Goods Issue để giảm tồn kho và khi tạo Billing Document để xác định số lượng tính tiền.",
+    "keyFields": [
+      {
+        "field": "VBELN",
+        "description": "Số phiếu giao hàng (liên kết LIKP)"
+      },
+      {
+        "field": "POSNR",
+        "description": "Số dòng item"
+      },
+      {
+        "field": "MATNR",
+        "description": "Mã vật tư giao"
+      },
+      {
+        "field": "LFIMG",
+        "description": "Số lượng giao thực tế"
+      }
+    ],
+    "relatedTables": [
+      "likp"
+    ],
+    "module": "o2c-flow"
+  },
+  {
+    "id": "vbrk",
+    "name": "VBRK - Billing Document Header",
+    "purpose": "Lưu header của Billing Document: số chứng từ, ngày lập hóa đơn, giá trị thuần.",
+    "whereUsed": "Tạo qua VF01 từ Outbound Delivery; khi release to accounting sẽ sinh chứng từ FI ghi nhận doanh thu và công nợ phải thu.",
+    "keyFields": [
+      {
+        "field": "VBELN",
+        "description": "Số chứng từ Billing (Billing Document Number)"
+      },
+      {
+        "field": "FKDAT",
+        "description": "Ngày lập hóa đơn (Billing Date)"
+      },
+      {
+        "field": "NETWR",
+        "description": "Giá trị thuần của toàn bộ hóa đơn"
+      }
+    ],
+    "relatedTables": [
+      "vbrp",
+      "vbfa"
+    ],
+    "module": "o2c-flow"
+  },
+  {
+    "id": "vbrp",
+    "name": "VBRP - Billing Document Item",
+    "purpose": "Lưu chi tiết item của Billing Document: vật tư và giá trị tính tiền cho từng dòng.",
+    "whereUsed": "Dùng để xác định doanh thu ghi nhận vào từng tài khoản GL khi release to accounting.",
+    "keyFields": [
+      {
+        "field": "VBELN",
+        "description": "Số chứng từ Billing (liên kết VBRK)"
+      },
+      {
+        "field": "POSNR",
+        "description": "Số dòng item"
+      },
+      {
+        "field": "MATNR",
+        "description": "Mã vật tư được tính tiền"
+      },
+      {
+        "field": "NETWR",
+        "description": "Giá trị thuần của dòng hàng"
+      }
+    ],
+    "relatedTables": [
+      "vbrk"
+    ],
+    "module": "o2c-flow"
+  },
+  {
+    "id": "vbfa",
+    "name": "VBFA - Sales Document Flow",
+    "purpose": "Lưu mối quan hệ giữa chứng từ trước và chứng từ sau trong toàn bộ chuỗi Order-to-Cash (Sales Order → Delivery → Billing).",
+    "whereUsed": "Dùng để truy vết toàn bộ lịch sử chứng từ (Document Flow) từ 1 Sales Order đến tất cả Delivery và Billing liên quan.",
+    "keyFields": [
+      {
+        "field": "VBELV",
+        "description": "Số chứng từ trước (Preceding Document)"
+      },
+      {
+        "field": "VBELN",
+        "description": "Số chứng từ sau (Subsequent Document)"
+      },
+      {
+        "field": "VBTYP_N",
+        "description": "Loại chứng từ (Document Category)"
+      }
+    ],
+    "relatedTables": [
+      "vbak",
+      "likp",
+      "vbrk"
+    ],
+    "module": "o2c-flow"
+  }
+]

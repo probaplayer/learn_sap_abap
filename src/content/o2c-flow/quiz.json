@@ -1,0 +1,364 @@
+{
+  "moduleId": "o2c-flow",
+  "lessons": [
+    {
+      "id": "basic",
+      "difficulty": "basic",
+      "title": "O2C Cơ bản: Tổng quan Quy trình Bán hàng",
+      "questions": [
+        {
+          "answerIndex": 1,
+          "difficulty": "basic",
+          "explanation": "Quy trình Order-to-Cash (O2C) gồm: Sales Order → Outbound Delivery → Post Goods Issue → Billing → Thu tiền, là chuỗi chuẩn của một doanh nghiệp bán hàng trong SAP.",
+          "id": "o2c-basic-01",
+          "options": [
+            "Purchase Requisition → Purchase Order → Goods Receipt → Invoice Verification",
+            "Sales Order → Outbound Delivery → Post Goods Issue → Billing → Thu tiền",
+            "BOM → Routing → Production Order → Goods Receipt",
+            "Asset Acquisition → Depreciation → Retirement"
+          ],
+          "question": "Quy trình Order-to-Cash (O2C) chuẩn của một doanh nghiệp bán hàng gồm những bước nào theo thứ tự?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 1,
+          "difficulty": "basic",
+          "explanation": "VBAK lưu header của Sales Order: số đơn hàng, khách hàng đặt hàng (KUNNR), Sales Organization (VKORG).",
+          "id": "o2c-basic-02",
+          "options": [
+            "Lưu thông tin BOM của sản phẩm",
+            "Lưu header của Sales Order: số đơn hàng, khách hàng, Sales Organization",
+            "Lưu thông tin vendor cung cấp",
+            "Lưu chi tiết khấu hao tài sản"
+          ],
+          "question": "Bảng VBAK trong quy trình bán hàng dùng để lưu trữ thông tin gì?",
+          "type": "multiple-choice"
+        },
+        {
+          "answer": true,
+          "difficulty": "basic",
+          "explanation": "Đúng, VA01 là giao dịch tạo Sales Order - bước đầu tiên trong quy trình Order-to-Cash.",
+          "id": "o2c-basic-03",
+          "statement": "Giao dịch VA01 dùng để tạo mới Sales Order, là bước đầu tiên của quy trình Order-to-Cash.",
+          "type": "true-false"
+        },
+        {
+          "answer": false,
+          "difficulty": "basic",
+          "explanation": "Sai, Outbound Delivery (VL01N) phải được tạo từ Sales Order trước đó; không thể tạo billing trực tiếp mà bỏ qua bước giao hàng trong quy trình bán hàng tiêu chuẩn có hàng hóa vật lý.",
+          "id": "o2c-basic-04",
+          "statement": "Có thể tạo Billing Document trực tiếp từ Sales Order mà không cần qua bước Outbound Delivery, kể cả khi bán hàng hóa vật lý.",
+          "type": "true-false"
+        },
+        {
+          "acceptableAnswers": [
+            "LIKP"
+          ],
+          "difficulty": "basic",
+          "explanation": "LIKP là bảng lưu header của Outbound Delivery, bao gồm ngày giao hàng và khách hàng nhận hàng.",
+          "id": "o2c-basic-05",
+          "prompt": "Bảng ___ lưu header của Outbound Delivery (phiếu giao hàng).",
+          "type": "fill-blank"
+        },
+        {
+          "acceptableAnswers": [
+            "VL01N"
+          ],
+          "difficulty": "basic",
+          "explanation": "VL01N là giao dịch tạo Outbound Delivery từ Sales Order đã tạo trước đó.",
+          "id": "o2c-basic-06",
+          "prompt": "Giao dịch ___ dùng để tạo Outbound Delivery từ Sales Order.",
+          "type": "fill-blank"
+        },
+        {
+          "difficulty": "basic",
+          "explanation": "Mỗi bước trong O2C sinh ra 1 cặp bảng header-item riêng.",
+          "id": "o2c-basic-07",
+          "pairs": [
+            {
+              "left": "VBAK/VBAP",
+              "right": "Header/Item của Sales Order"
+            },
+            {
+              "left": "LIKP/LIPS",
+              "right": "Header/Item của Outbound Delivery"
+            },
+            {
+              "left": "VBRK/VBRP",
+              "right": "Header/Item của Billing Document"
+            },
+            {
+              "left": "VA01",
+              "right": "Giao dịch tạo Sales Order"
+            }
+          ],
+          "type": "matching"
+        },
+        {
+          "difficulty": "basic",
+          "explanation": "Đây là các bước nền tảng trong quy trình bán hàng end-to-end.",
+          "id": "o2c-basic-08",
+          "pairs": [
+            {
+              "left": "Sales Order",
+              "right": "Đơn hàng ghi nhận nhu cầu của khách hàng"
+            },
+            {
+              "left": "Outbound Delivery",
+              "right": "Phiếu giao hàng, chuẩn bị và xuất hàng cho khách"
+            },
+            {
+              "left": "Billing Document",
+              "right": "Hóa đơn bán hàng, sinh ra công nợ phải thu"
+            },
+            {
+              "left": "Post Goods Issue",
+              "right": "Bước xuất kho thực tế khi giao hàng cho khách"
+            }
+          ],
+          "type": "matching"
+        }
+      ]
+    },
+    {
+      "id": "intermediate",
+      "difficulty": "intermediate",
+      "title": "O2C Trung cấp: Billing và Tích hợp Kế toán",
+      "questions": [
+        {
+          "answerIndex": 1,
+          "difficulty": "intermediate",
+          "explanation": "VF01 là giao dịch tạo Billing Document từ Outbound Delivery đã Post Goods Issue, sinh ra hóa đơn bán hàng cho khách hàng.",
+          "id": "o2c-intermediate-01",
+          "options": [
+            "VA01",
+            "VF01",
+            "MIRO",
+            "F110"
+          ],
+          "question": "Giao dịch nào dùng để tạo Billing Document từ Outbound Delivery đã Post Goods Issue?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 1,
+          "difficulty": "intermediate",
+          "explanation": "Khi Billing Document được release to accounting, hệ thống tự động sinh chứng từ kế toán FI ghi nhận doanh thu (Credit GL doanh thu) và công nợ phải thu (Debit Customer), liên kết chặt với FI-AR.",
+          "id": "o2c-intermediate-02",
+          "options": [
+            "Không ảnh hưởng gì đến FI",
+            "Tự động sinh chứng từ kế toán FI, ghi nhận doanh thu và công nợ phải thu (tích hợp FI-AR)",
+            "Chỉ cập nhật tồn kho, không tạo bút toán kế toán",
+            "Tự động tạo Purchase Order mới"
+          ],
+          "question": "Khi Billing Document được release to accounting, điều gì xảy ra?",
+          "type": "multiple-choice"
+        },
+        {
+          "answer": true,
+          "difficulty": "intermediate",
+          "explanation": "Đúng, Credit Management (từ FI-AR) kiểm tra hạn mức tín dụng của khách hàng tại thời điểm tạo Sales Order, có thể block đơn hàng nếu vượt hạn mức.",
+          "id": "o2c-intermediate-03",
+          "statement": "Hệ thống có thể tự động kiểm tra hạn mức tín dụng của khách hàng ngay tại thời điểm tạo Sales Order.",
+          "type": "true-false"
+        },
+        {
+          "answer": false,
+          "difficulty": "intermediate",
+          "explanation": "Sai, khi Post Goods Issue (PGI) trong Outbound Delivery, hệ thống tự động sinh material document (MM) và giảm tồn kho, đồng thời có thể tự động hạch toán giá vốn hàng bán (COGS) vào FI.",
+          "id": "o2c-intermediate-04",
+          "statement": "Post Goods Issue (PGI) chỉ là thao tác cập nhật trạng thái, không sinh ra bất kỳ material document hay bút toán kế toán nào.",
+          "type": "true-false"
+        },
+        {
+          "acceptableAnswers": [
+            "VF01"
+          ],
+          "difficulty": "intermediate",
+          "explanation": "VF01 là giao dịch tạo Billing Document từ Outbound Delivery.",
+          "id": "o2c-intermediate-05",
+          "prompt": "Giao dịch ___ dùng để tạo Billing Document (hóa đơn bán hàng) từ Outbound Delivery.",
+          "type": "fill-blank"
+        },
+        {
+          "acceptableAnswers": [
+            "Release to Accounting",
+            "release to accounting"
+          ],
+          "difficulty": "intermediate",
+          "explanation": "Release to Accounting là bước tự động chuyển giá trị từ Billing Document sang chứng từ kế toán FI.",
+          "id": "o2c-intermediate-06",
+          "prompt": "Bước ___ chuyển giá trị từ Billing Document sang chứng từ kế toán FI, sinh ra công nợ phải thu.",
+          "type": "fill-blank"
+        },
+        {
+          "difficulty": "intermediate",
+          "explanation": "Mỗi bước trong O2C liên kết với module khác nhau trong SAP.",
+          "id": "o2c-intermediate-07",
+          "pairs": [
+            {
+              "left": "VF01",
+              "right": "Tạo Billing Document từ Outbound Delivery"
+            },
+            {
+              "left": "Release to Accounting",
+              "right": "Sinh chứng từ FI ghi nhận doanh thu và công nợ phải thu"
+            },
+            {
+              "left": "Credit Management",
+              "right": "Kiểm tra hạn mức tín dụng khi tạo Sales Order"
+            },
+            {
+              "left": "Post Goods Issue",
+              "right": "Sinh material document và có thể hạch toán giá vốn hàng bán"
+            }
+          ],
+          "type": "matching"
+        },
+        {
+          "difficulty": "intermediate",
+          "explanation": "Đây là các điểm tích hợp chính giữa SD, MM và FI trong quy trình bán hàng.",
+          "id": "o2c-intermediate-08",
+          "pairs": [
+            {
+              "left": "Availability Check",
+              "right": "Kiểm tra tồn kho khả dụng khi tạo Sales Order/Delivery"
+            },
+            {
+              "left": "COGS (Cost of Goods Sold)",
+              "right": "Giá vốn hàng bán được hạch toán khi Post Goods Issue"
+            },
+            {
+              "left": "Revenue Recognition",
+              "right": "Ghi nhận doanh thu vào GL khi billing document được release"
+            },
+            {
+              "left": "Customer Account",
+              "right": "Tài khoản phản ánh công nợ phải thu, cập nhật sau billing"
+            }
+          ],
+          "type": "matching"
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "difficulty": "advanced",
+      "title": "O2C Nâng cao: Document Flow (VBFA) và Tích hợp Toàn trình",
+      "questions": [
+        {
+          "answerIndex": 1,
+          "difficulty": "advanced",
+          "explanation": "VBFA là bảng Document Flow, lưu mối quan hệ giữa chứng từ trước (predecessor, VBELV) và chứng từ sau (successor, VBELN) trong toàn bộ chuỗi O2C.",
+          "id": "o2c-advanced-01",
+          "options": [
+            "Lưu thông tin giá bán của từng khách hàng",
+            "Lưu mối quan hệ chứng từ trước-sau (Document Flow) xuyên suốt Sales Order → Delivery → Billing",
+            "Lưu thông tin BOM của sản phẩm",
+            "Lưu thông tin khấu hao tài sản"
+          ],
+          "question": "Bảng VBFA có vai trò gì quan trọng trong việc theo dõi chuỗi quy trình bán hàng?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 1,
+          "difficulty": "advanced",
+          "explanation": "Nếu khách hàng vượt hạn mức tín dụng, Sales Order có thể bị block (credit block) và không thể tiếp tục tạo Delivery cho đến khi được phê duyệt hoặc thanh toán bớt công nợ.",
+          "id": "o2c-advanced-02",
+          "options": [
+            "Đơn hàng vẫn tiếp tục bình thường không bị ảnh hưởng",
+            "Sales Order có thể bị credit block, ngăn không cho tạo Delivery cho đến khi được xử lý",
+            "Hệ thống tự động hủy Sales Order",
+            "Hệ thống tự động tăng hạn mức tín dụng cho khách hàng"
+          ],
+          "question": "Nếu khách hàng vượt hạn mức tín dụng khi tạo Sales Order, điều gì sẽ xảy ra với quy trình?",
+          "type": "multiple-choice"
+        },
+        {
+          "answer": true,
+          "difficulty": "advanced",
+          "explanation": "Đúng, VBTYP_N trong VBFA cho biết loại chứng từ (Sales Order, Delivery, Billing...), giúp phân biệt các bước khác nhau trong chuỗi liên kết.",
+          "id": "o2c-advanced-03",
+          "statement": "Trường VBTYP_N trong VBFA cho biết loại chứng từ (document category) của từng bước trong chuỗi O2C.",
+          "type": "true-false"
+        },
+        {
+          "answer": false,
+          "difficulty": "advanced",
+          "explanation": "Sai, một Sales Order có thể sinh ra nhiều Delivery (giao hàng từng phần - partial delivery), và mỗi Delivery cũng có thể liên quan đến nhiều Billing Document, VBFA ghi nhận tất cả các mối quan hệ này.",
+          "id": "o2c-advanced-04",
+          "statement": "Một Sales Order luôn chỉ có duy nhất 1 Delivery và 1 Billing Document tương ứng, không thể có nhiều hơn.",
+          "type": "true-false"
+        },
+        {
+          "acceptableAnswers": [
+            "VBFA"
+          ],
+          "difficulty": "advanced",
+          "explanation": "VBFA là bảng Document Flow, cho phép truy vết ngược/xuôi toàn bộ chuỗi chứng từ từ Sales Order đến Billing.",
+          "id": "o2c-advanced-05",
+          "prompt": "Bảng ___ cho phép truy vết toàn bộ chuỗi chứng từ (Document Flow) từ Sales Order đến Delivery và Billing.",
+          "type": "fill-blank"
+        },
+        {
+          "acceptableAnswers": [
+            "Credit Block",
+            "credit block"
+          ],
+          "difficulty": "advanced",
+          "explanation": "Credit Block ngăn không cho Sales Order tiếp tục sang bước Delivery nếu khách hàng vượt hạn mức tín dụng.",
+          "id": "o2c-advanced-06",
+          "prompt": "___ là cơ chế ngăn Sales Order tiếp tục sang Delivery khi khách hàng vượt hạn mức tín dụng.",
+          "type": "fill-blank"
+        },
+        {
+          "difficulty": "advanced",
+          "explanation": "Đây là các khái niệm kiểm soát và truy vết toàn bộ chuỗi quy trình bán hàng nâng cao.",
+          "id": "o2c-advanced-07",
+          "pairs": [
+            {
+              "left": "VBFA",
+              "right": "Document Flow - liên kết chứng từ trước/sau xuyên suốt O2C"
+            },
+            {
+              "left": "Credit Block",
+              "right": "Chặn Sales Order khi vượt hạn mức tín dụng"
+            },
+            {
+              "left": "Partial Delivery",
+              "right": "Một Sales Order có thể sinh nhiều Delivery"
+            },
+            {
+              "left": "VBTYP_N",
+              "right": "Trường xác định loại chứng từ trong VBFA"
+            }
+          ],
+          "type": "matching"
+        },
+        {
+          "difficulty": "advanced",
+          "explanation": "Các bước này thể hiện cách toàn bộ các module SD-MM-FI phối hợp trong 1 quy trình thực tế.",
+          "id": "o2c-advanced-08",
+          "pairs": [
+            {
+              "left": "SD (VA01, VL01N, VF01)",
+              "right": "Quản lý đơn hàng, giao hàng và xuất hóa đơn"
+            },
+            {
+              "left": "MM (Goods Issue)",
+              "right": "Giảm tồn kho khi Post Goods Issue, hạch toán giá vốn"
+            },
+            {
+              "left": "FI-AR (BSID/BSAD)",
+              "right": "Theo dõi công nợ phải thu sinh ra từ billing và thu tiền"
+            },
+            {
+              "left": "FI-GL",
+              "right": "Ghi nhận doanh thu và giá vốn vào sổ cái tổng hợp"
+            }
+          ],
+          "type": "matching"
+        }
+      ]
+    }
+  ]
+}

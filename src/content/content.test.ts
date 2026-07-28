@@ -52,7 +52,7 @@ describe('content schema validation', () => {
       expect(lessons.length).toBeGreaterThanOrEqual(3)
 
       for (const lesson of lessons) {
-        expect(lesson.questions.length).toBe(8)
+        expect(lesson.questions.length).toBeGreaterThanOrEqual(8)
 
         for (const q of lesson.questions) {
           const errors = validateQuestion(q)

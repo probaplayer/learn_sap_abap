@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { CONTENT_DIR } from './paths.js'
 import { validateQuestion } from '../../src/content/validateQuestion.js'
+import { requireMultipleChoice } from './requireMultipleChoice.js'
 import type { QuizQuestion } from '../../src/content/types.js'
 
 export interface LessonDraftInput {
@@ -16,9 +17,10 @@ export function writeLessonDraft(moduleId: string, lesson: LessonDraftInput): { 
   if (!fs.existsSync(filePath)) {
     throw new Error(`Không tìm thấy ${filePath} — module "${moduleId}" không tồn tại`)
   }
-  if (lesson.questions.length !== 8) {
-    throw new Error(`Lesson cần đúng 8 câu hỏi, hiện có ${lesson.questions.length}`)
+  if (lesson.questions.length < 8) {
+    throw new Error(`Lesson cần tối thiểu 8 câu hỏi, hiện có ${lesson.questions.length}`)
   }
+  requireMultipleChoice(lesson.questions)
   const errors = lesson.questions.flatMap((q) => validateQuestion(q))
   if (errors.length > 0) {
     throw new Error(`Câu hỏi không hợp lệ:\n${errors.join('\n')}`)

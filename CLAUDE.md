@@ -45,7 +45,7 @@ TypeScript modules (`resolveJsonModule` is on) and cast to the types in `src/con
   (and matching globs for `tables.json` / `quiz.json`) — there are 5 today (`mm`, `co`, `fi-gl`,
   `enterprise-structure`, `sd`). Each module directory has `module.json` (metadata), `tables.json` (wiki
   entries), and `quiz.json` (the business-focused lesson list — there is no separate syntax track).
-  **Every module's `quiz.json` must have at least 3 lessons of exactly 8 questions each** — this is
+  **Every module's `quiz.json` must have at least 3 lessons of at least 8 questions each** — this is
   enforced by `src/content/content.test.ts`, not by any type system check.
 - `src/content/lab/index.ts` is the equivalent auto-discovery point for Code Lab, globbing
   `./*/exercise.json` and `./*/files/*.abap`: each exercise directory has `exercise.json` (metadata:

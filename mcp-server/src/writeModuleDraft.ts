@@ -3,6 +3,7 @@ import path from 'node:path'
 import { CONTENT_DIR } from './paths.js'
 import { getAllTables } from './contentReaders.js'
 import { validateQuestion, validateTableEntry } from '../../src/content/validateQuestion.js'
+import { requireMultipleChoice } from './requireMultipleChoice.js'
 import type { QuizQuestion, TableEntry } from '../../src/content/types.js'
 
 export interface WriteModuleDraftInput {
@@ -32,9 +33,10 @@ export function writeModuleDraft(input: WriteModuleDraftInput): { dir: string } 
     throw new Error(`Module cần ít nhất 3 lesson, hiện có ${input.lessons.length}`)
   }
   for (const lesson of input.lessons) {
-    if (lesson.questions.length !== 8) {
-      throw new Error(`Lesson "${lesson.id}" cần đúng 8 câu hỏi, hiện có ${lesson.questions.length}`)
+    if (lesson.questions.length < 8) {
+      throw new Error(`Lesson "${lesson.id}" cần tối thiểu 8 câu hỏi, hiện có ${lesson.questions.length}`)
     }
+    requireMultipleChoice(lesson.questions)
     const errors = lesson.questions.flatMap((q) => validateQuestion(q))
     if (errors.length > 0) {
       throw new Error(`Lesson "${lesson.id}" có câu hỏi không hợp lệ:\n${errors.join('\n')}`)

@@ -21,6 +21,7 @@ import { deleteLesson } from './deleteLesson.js'
 import { addQuestion } from './addQuestion.js'
 import { updateQuestion } from './updateQuestion.js'
 import { deleteQuestion } from './deleteQuestion.js'
+import { reorderModules } from './reorderModules.js'
 import { EXERCISE_CATEGORIES } from '../../src/content/lab/types.js'
 import type { QuizQuestion } from '../../src/content/types.js'
 import type { ExerciseMeta } from '../../src/content/lab/types.js'
@@ -349,6 +350,21 @@ server.registerTool(
   },
   async ({ moduleId, lessonId, questionId }) => {
     const result = deleteQuestion(moduleId, lessonId, questionId)
+    return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] }
+  },
+)
+
+server.registerTool(
+  'reorder_modules',
+  {
+    title: 'Reorder modules',
+    description:
+      'Gán lại order hiển thị cho toàn bộ module theo 1 danh sách id mới, chưa commit. orderedIds phải là ' +
+      'hoán vị chính xác của toàn bộ module id hiện có (gọi list_modules trước nếu chưa chắc danh sách).',
+    inputSchema: { orderedIds: z.array(z.string()) },
+  },
+  async ({ orderedIds }) => {
+    const result = reorderModules(orderedIds)
     return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] }
   },
 )

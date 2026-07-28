@@ -64,6 +64,7 @@ Khởi động lại Claude Desktop sau khi lưu file.
 | `add_question(moduleId, lessonId, question)` | Thêm 1 câu multiple-choice vào cuối lesson, chặn type khác hoặc id trùng toàn hệ thống |
 | `update_question(moduleId, lessonId, questionId, question)` | Thay nội dung 1 câu hỏi theo id, giữ vị trí, không đổi id được |
 | `delete_question(moduleId, lessonId, questionId)` | Xóa 1 câu hỏi khỏi lesson, chặn nếu lesson sẽ còn dưới 8 câu |
+| `reorder_modules(orderedIds)` | Gán lại order hiển thị cho toàn bộ module theo 1 danh sách id mới |
 | `publish_content(commitMessage)` | Commit + push nội dung module/lesson/wiki/exercise lên `main` (không tự chạy test — chạy `npx vitest run` thủ công trước khi gọi tool này) |
 
 ## Lưu ý về `tsc --noEmit`

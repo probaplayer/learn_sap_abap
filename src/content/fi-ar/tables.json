@@ -1,0 +1,209 @@
+[
+  {
+    "id": "kna1",
+    "name": "KNA1 - Customer Master (General Data)",
+    "purpose": "Lưu dữ liệu chung của khách hàng ở cấp Client, dùng chung cho mọi Company Code và Sales Area: tên, địa chỉ, mã số thuế.",
+    "whereUsed": "Tạo/hiển thị customer master qua XD01/XD03 hoặc FD01/FD03; là bảng gốc tham chiếu bởi mọi giao dịch bán hàng và công nợ.",
+    "keyFields": [
+      {
+        "field": "KUNNR",
+        "description": "Mã số khách hàng (Customer Number) - khóa chính"
+      },
+      {
+        "field": "NAME1",
+        "description": "Tên khách hàng"
+      },
+      {
+        "field": "LAND1",
+        "description": "Mã quốc gia"
+      },
+      {
+        "field": "STCD1",
+        "description": "Mã số thuế (Tax Number 1)"
+      }
+    ],
+    "relatedTables": [
+      "knb1",
+      "bseg"
+    ],
+    "module": "fi-ar"
+  },
+  {
+    "id": "knb1",
+    "name": "KNB1 - Customer Master (Company Code Data)",
+    "purpose": "Lưu dữ liệu khách hàng riêng theo từng Company Code: tài khoản đối ứng (reconciliation account), điều khoản thanh toán.",
+    "whereUsed": "Phần Company Code Data khi tạo customer qua XD01/FD01; quyết định tài khoản GL nào sẽ được cập nhật tự động khi ghi nhận công nợ với khách hàng này.",
+    "keyFields": [
+      {
+        "field": "KUNNR",
+        "description": "Mã số khách hàng"
+      },
+      {
+        "field": "BUKRS",
+        "description": "Company Code"
+      },
+      {
+        "field": "AKONT",
+        "description": "Reconciliation Account - tài khoản GL đối ứng công nợ phải thu"
+      },
+      {
+        "field": "ZTERM",
+        "description": "Điều khoản thanh toán (Payment Terms)"
+      }
+    ],
+    "relatedTables": [
+      "kna1",
+      "bseg"
+    ],
+    "module": "fi-ar"
+  },
+  {
+    "id": "bkpf",
+    "name": "BKPF - Accounting Document Header",
+    "purpose": "Lưu header của mọi chứng từ kế toán trong FI, bao gồm cả bút toán công nợ phải thu phát sinh từ billing document hoặc bút toán thủ công (FB70).",
+    "whereUsed": "Sinh ra khi billing document được release to accounting, hoặc khi nhập hóa đơn thủ công (FB70), hoặc khi ghi nhận thanh toán (F-28).",
+    "keyFields": [
+      {
+        "field": "BUKRS",
+        "description": "Company Code"
+      },
+      {
+        "field": "BELNR",
+        "description": "Số chứng từ kế toán (Document Number)"
+      },
+      {
+        "field": "GJAHR",
+        "description": "Năm tài chính"
+      },
+      {
+        "field": "BLART",
+        "description": "Loại chứng từ (Document Type, vd: DR - Customer Invoice)"
+      }
+    ],
+    "relatedTables": [
+      "bseg"
+    ],
+    "module": "fi-ar"
+  },
+  {
+    "id": "bseg",
+    "name": "BSEG - Accounting Document Segment (Line Item)",
+    "purpose": "Lưu chi tiết từng dòng bút toán kế toán: tài khoản GL/khách hàng, số tiền, ngày đến hạn thanh toán, trạng thái đã/chưa thu.",
+    "whereUsed": "Chi tiết dòng của mọi chứng từ FI; dòng với KOART = D (Customer) thể hiện công nợ phải thu, liên kết BSID/BSAD để truy vấn nhanh.",
+    "keyFields": [
+      {
+        "field": "BUKRS",
+        "description": "Company Code"
+      },
+      {
+        "field": "BELNR",
+        "description": "Số chứng từ (liên kết BKPF)"
+      },
+      {
+        "field": "BUZEI",
+        "description": "Số dòng bút toán (Line Item Number)"
+      },
+      {
+        "field": "KOART",
+        "description": "Loại tài khoản (Account Type: D = Customer, S = GL)"
+      },
+      {
+        "field": "KUNNR",
+        "description": "Mã số khách hàng (khi KOART = D)"
+      },
+      {
+        "field": "DMBTR",
+        "description": "Số tiền theo đồng tiền nội bộ (Local Currency)"
+      }
+    ],
+    "relatedTables": [
+      "bkpf",
+      "kna1",
+      "bsid"
+    ],
+    "module": "fi-ar"
+  },
+  {
+    "id": "bsid",
+    "name": "BSID - Customer Open Items Index",
+    "purpose": "Bảng chỉ mục (index table) giúp truy vấn nhanh các khoản công nợ phải thu CHƯA thu theo khách hàng, không cần quét toàn bộ BSEG.",
+    "whereUsed": "Dùng trong các báo cáo công nợ (FBL5N), quy trình Dunning Run (F150) để xác định khoản nào quá hạn cần nhắc nợ.",
+    "keyFields": [
+      {
+        "field": "BUKRS",
+        "description": "Company Code"
+      },
+      {
+        "field": "KUNNR",
+        "description": "Mã số khách hàng"
+      },
+      {
+        "field": "BELNR",
+        "description": "Số chứng từ"
+      },
+      {
+        "field": "NETDT",
+        "description": "Ngày đến hạn thanh toán (Net Due Date)"
+      }
+    ],
+    "relatedTables": [
+      "bseg",
+      "kna1",
+      "bsad"
+    ],
+    "module": "fi-ar"
+  },
+  {
+    "id": "bsad",
+    "name": "BSAD - Customer Cleared Items Index",
+    "purpose": "Bảng chỉ mục các khoản công nợ phải thu ĐÃ được thanh toán (cleared items) theo khách hàng.",
+    "whereUsed": "Dùng để tra cứu lịch sử thanh toán của khách hàng sau khi khoản công nợ đã được clear.",
+    "keyFields": [
+      {
+        "field": "BUKRS",
+        "description": "Company Code"
+      },
+      {
+        "field": "KUNNR",
+        "description": "Mã số khách hàng"
+      },
+      {
+        "field": "BELNR",
+        "description": "Số chứng từ"
+      },
+      {
+        "field": "AUGDT",
+        "description": "Ngày clear (Clearing Date)"
+      }
+    ],
+    "relatedTables": [
+      "bseg",
+      "bsid"
+    ],
+    "module": "fi-ar"
+  },
+  {
+    "id": "knkk",
+    "name": "KNKK - Customer Credit Management Data",
+    "purpose": "Lưu thông tin quản lý tín dụng của khách hàng, bao gồm hạn mức tín dụng được cấp theo từng Credit Control Area.",
+    "whereUsed": "Được kiểm tra tự động khi tạo Sales Order/Delivery bên SD để quyết định có block đơn hàng do vượt hạn mức tín dụng hay không.",
+    "keyFields": [
+      {
+        "field": "KUNNR",
+        "description": "Mã số khách hàng"
+      },
+      {
+        "field": "KKBER",
+        "description": "Credit Control Area"
+      },
+      {
+        "field": "KLIMK",
+        "description": "Hạn mức tín dụng (Credit Limit)"
+      }
+    ],
+    "relatedTables": [
+      "kna1"
+    ],
+    "module": "fi-ar"
+  }
+]

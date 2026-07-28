@@ -1,0 +1,10 @@
+{
+  "id": "fi-ar",
+  "order": 8,
+  "name": "Financial Accounting - Accounts Receivable (FI-AR)",
+  "shortName": "FI-AR",
+  "icon": "🧾",
+  "color": "#d63031",
+  "description": "FI-AR là phân hệ kế toán công nợ phải thu trong SAP FI, quản lý toàn bộ quan hệ công nợ với khách hàng: từ customer master, phát sinh công nợ từ billing document SD, quản lý tín dụng cho đến nhắc nợ và theo dõi thu tiền.",
+  "businessPurpose": "FI-AR (Accounts Receivable) quản lý customer master data ở hai cấp: cấp General/Client (bảng KNA1 - tên, địa chỉ, mã số thuế) và cấp Company Code (bảng KNB1 - tài khoản GL đối ứng công nợ phải thu - reconciliation account, điều khoản thanh toán). Công nợ phải thu phát sinh chủ yếu từ quy trình Order-to-Cash của SD: khi Billing Document (VBRK/VBRP) được release to accounting, hệ thống tự động sinh chứng từ kế toán FI (BKPF/BSEG) ghi nhận doanh thu và công nợ phải thu (KOART = D). Các khoản công nợ phải thu chưa thanh toán được theo dõi qua bảng index BSID (open items), và chuyển sang BSAD (cleared items) khi khách hàng thanh toán xong. Để kiểm soát rủi ro tín dụng, FI-AR tích hợp Credit Management (bảng KNKK lưu credit limit) với SD để tự động block Sales Order/Delivery nếu khách hàng vượt hạn mức tín dụng được cấp. Khi khoản phải thu quá hạn, quy trình Dunning Run (giao dịch F150) quét các open items trong BSID để tạo thư nhắc nợ (dunning notice) theo từng dunning level tăng dần. Nhờ vậy, FI-AR liên kết chặt chẽ với SD (nguồn phát sinh công nợ) và FI-GL (reconciliation account tự động cập nhật sổ cái tổng hợp), giúp doanh nghiệp kiểm soát dòng tiền vào và rủi ro công nợ khách hàng một cách chặt chẽ, minh bạch."
+}

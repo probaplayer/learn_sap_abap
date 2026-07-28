@@ -1,0 +1,363 @@
+{
+  "moduleId": "fi-ar",
+  "lessons": [
+    {
+      "id": "basic",
+      "difficulty": "basic",
+      "title": "FI-AR Cơ bản: Customer Master và khái niệm nền tảng",
+      "questions": [
+        {
+          "answerIndex": 1,
+          "difficulty": "basic",
+          "explanation": "KNA1 lưu dữ liệu chung (Client-level) của khách hàng như tên, địa chỉ; KNB1 lưu dữ liệu riêng theo từng Company Code như tài khoản đối ứng và điều khoản thanh toán.",
+          "id": "fi-ar-basic-01",
+          "options": [
+            "1 cấp: chỉ General Data",
+            "2 cấp: General Data (KNA1) và Company Code Data (KNB1)",
+            "3 cấp: General, Company Code, và Sales Area Data",
+            "Customer master không phân cấp"
+          ],
+          "question": "Customer master data trong FI-AR được chia thành mấy cấp lưu trữ chính?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 1,
+          "difficulty": "basic",
+          "explanation": "AKONT trong KNB1 xác định tài khoản GL đối ứng sẽ tự động được cập nhật khi có bút toán công nợ phải thu phát sinh với khách hàng đó.",
+          "id": "fi-ar-basic-02",
+          "options": [
+            "Lưu số điện thoại khách hàng",
+            "Xác định tài khoản GL đối ứng (reconciliation account) cho công nợ phải thu",
+            "Lưu mã số thuế",
+            "Xác định sales area mặc định"
+          ],
+          "question": "Trường AKONT trong bảng KNB1 dùng để làm gì?",
+          "type": "multiple-choice"
+        },
+        {
+          "answer": true,
+          "difficulty": "basic",
+          "explanation": "Đúng, đây là nguyên tắc phân cấp General Data (KNA1) và Company Code Data (KNB1) của customer master.",
+          "id": "fi-ar-basic-03",
+          "statement": "Bảng KNA1 lưu dữ liệu khách hàng dùng chung cho mọi Company Code, còn KNB1 lưu dữ liệu riêng theo từng Company Code.",
+          "type": "true-false"
+        },
+        {
+          "answer": false,
+          "difficulty": "basic",
+          "explanation": "Sai, billing document (VBRK/VBRP) do SD tạo mới là nguồn sinh ra công nợ phải thu; khi billing document được release to accounting, hệ thống tự động tạo chứng từ kế toán FI (BKPF/BSEG) ghi nhận doanh thu và công nợ phải thu.",
+          "id": "fi-ar-basic-04",
+          "statement": "Công nợ phải thu (Accounts Receivable) chỉ có thể tạo thủ công qua FI, không thể sinh ra tự động từ billing document của SD.",
+          "type": "true-false"
+        },
+        {
+          "acceptableAnswers": [
+            "KNA1"
+          ],
+          "difficulty": "basic",
+          "explanation": "KNA1 là bảng lưu General Data của khách hàng ở cấp Client, gồm tên, địa chỉ, mã số thuế.",
+          "id": "fi-ar-basic-05",
+          "prompt": "Bảng ___ lưu dữ liệu chung (General Data) của khách hàng, dùng chung cho mọi Company Code.",
+          "type": "fill-blank"
+        },
+        {
+          "acceptableAnswers": [
+            "XD01"
+          ],
+          "difficulty": "basic",
+          "explanation": "XD01 là giao dịch tích hợp tạo customer với cả 3 view: General, Company Code (FI), và Sales Area (SD).",
+          "id": "fi-ar-basic-06",
+          "prompt": "Giao dịch ___ dùng để tạo mới customer master với đầy đủ view General, Company Code và Sales Area.",
+          "type": "fill-blank"
+        },
+        {
+          "difficulty": "basic",
+          "explanation": "Customer master được tổ chức theo nhiều view khác nhau, phục vụ cả SD và FI.",
+          "id": "fi-ar-basic-07",
+          "pairs": [
+            {
+              "left": "KNA1",
+              "right": "Dữ liệu chung của khách hàng (tên, địa chỉ, mã số thuế) ở cấp Client"
+            },
+            {
+              "left": "KNB1",
+              "right": "Dữ liệu khách hàng riêng theo Company Code (tài khoản đối ứng, điều khoản thanh toán)"
+            },
+            {
+              "left": "AKONT",
+              "right": "Field trong KNB1 xác định tài khoản GL đối ứng công nợ phải thu"
+            },
+            {
+              "left": "ZTERM",
+              "right": "Field trong KNB1 quy định điều khoản thanh toán của khách hàng"
+            }
+          ],
+          "type": "matching"
+        },
+        {
+          "difficulty": "basic",
+          "explanation": "Đây là các khái niệm nền tảng của FI-AR liên quan đến công nợ phải thu.",
+          "id": "fi-ar-basic-08",
+          "pairs": [
+            {
+              "left": "Customer Master",
+              "right": "Dữ liệu tổng thể về khách hàng, dùng chung giữa FI và SD"
+            },
+            {
+              "left": "Reconciliation Account",
+              "right": "Tài khoản GL tự động cập nhật khi có bút toán công nợ với khách hàng"
+            },
+            {
+              "left": "Billing Document (VBRK)",
+              "right": "Chứng từ SD làm phát sinh công nợ phải thu khi release to accounting"
+            },
+            {
+              "left": "Accounts Receivable",
+              "right": "Công nợ phải thu từ khách hàng, theo dõi trong sub-ledger khách hàng"
+            }
+          ],
+          "type": "matching"
+        }
+      ]
+    },
+    {
+      "id": "intermediate",
+      "difficulty": "intermediate",
+      "title": "FI-AR Trung cấp: Open Items, Credit Management và Kế toán Khách hàng",
+      "questions": [
+        {
+          "answerIndex": 1,
+          "difficulty": "intermediate",
+          "explanation": "BSID là bảng index open items của khách hàng (customer), tương tự BSIK bên vendor, giúp truy vấn nhanh các khoản công nợ phải thu chưa thu.",
+          "id": "fi-ar-intermediate-01",
+          "options": [
+            "BSIK",
+            "BSID",
+            "BSAK",
+            "BSEG"
+          ],
+          "question": "Bảng nào là index các khoản công nợ phải thu (customer open items) CHƯA được thu?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 1,
+          "difficulty": "intermediate",
+          "explanation": "Khi thanh toán của khách hàng được ghi nhận và clear, dòng dữ liệu chuyển từ BSID (open) sang BSAD (cleared).",
+          "id": "fi-ar-intermediate-02",
+          "options": [
+            "Từ KNA1 sang KNB1",
+            "Từ BSID (open) sang BSAD (cleared)",
+            "Từ VBRK sang VBRP",
+            "Không có sự chuyển đổi nào"
+          ],
+          "question": "Khi khoản phải thu được thanh toán, dữ liệu sẽ chuyển từ đâu sang đâu?",
+          "type": "multiple-choice"
+        },
+        {
+          "answer": true,
+          "difficulty": "intermediate",
+          "explanation": "Đúng, KOART = 'D' trong BSEG đại diện cho loại tài khoản Customer (Debtor), khác với K (Vendor) và S (GL Account).",
+          "id": "fi-ar-intermediate-03",
+          "statement": "Trong BSEG, giá trị KOART = 'D' đại diện cho loại tài khoản Customer (Debtor).",
+          "type": "true-false"
+        },
+        {
+          "answer": false,
+          "difficulty": "intermediate",
+          "explanation": "Sai, Credit Management (ví dụ bảng KNKK) kiểm tra hạn mức tín dụng của khách hàng trước khi cho phép tạo sales order hoặc delivery mới, nhằm kiểm soát rủi ro công nợ.",
+          "id": "fi-ar-intermediate-04",
+          "statement": "Credit Management trong FI-AR không hề liên quan đến quy trình tạo Sales Order bên SD.",
+          "type": "true-false"
+        },
+        {
+          "acceptableAnswers": [
+            "BSAD"
+          ],
+          "difficulty": "intermediate",
+          "explanation": "BSAD là bảng index các khoản công nợ phải thu đã được thu (cleared items) của khách hàng.",
+          "id": "fi-ar-intermediate-05",
+          "prompt": "Bảng ___ là index các khoản công nợ phải thu đã được thanh toán (cleared items) của khách hàng.",
+          "type": "fill-blank"
+        },
+        {
+          "acceptableAnswers": [
+            "KNKK"
+          ],
+          "difficulty": "intermediate",
+          "explanation": "KNKK lưu dữ liệu quản lý tín dụng (Credit Management) của khách hàng, bao gồm hạn mức tín dụng được cấp.",
+          "id": "fi-ar-intermediate-06",
+          "prompt": "Bảng ___ lưu thông tin quản lý tín dụng (Credit Management) của khách hàng, bao gồm hạn mức tín dụng.",
+          "type": "fill-blank"
+        },
+        {
+          "difficulty": "intermediate",
+          "explanation": "Đây là các bảng và khái niệm kiểm soát công nợ phải thu.",
+          "id": "fi-ar-intermediate-07",
+          "pairs": [
+            {
+              "left": "BSID",
+              "right": "Index các khoản công nợ phải thu chưa thanh toán"
+            },
+            {
+              "left": "BSAD",
+              "right": "Index các khoản công nợ phải thu đã thanh toán"
+            },
+            {
+              "left": "KOART = D",
+              "right": "Giá trị xác định dòng bút toán là của khách hàng (Customer/Debtor)"
+            },
+            {
+              "left": "KNKK",
+              "right": "Dữ liệu quản lý tín dụng của khách hàng"
+            }
+          ],
+          "type": "matching"
+        },
+        {
+          "difficulty": "intermediate",
+          "explanation": "Đây là các khái niệm về quy trình hình thành và kiểm soát công nợ phải thu.",
+          "id": "fi-ar-intermediate-08",
+          "pairs": [
+            {
+              "left": "Billing Document",
+              "right": "Chứng từ SD sinh ra khi xuất hóa đơn bán hàng cho khách hàng"
+            },
+            {
+              "left": "Release to Accounting",
+              "right": "Bước tự động tạo chứng từ kế toán FI từ billing document"
+            },
+            {
+              "left": "Credit Limit",
+              "right": "Hạn mức tín dụng được cấp cho khách hàng, lưu trong KNKK"
+            },
+            {
+              "left": "Dunning",
+              "right": "Quy trình nhắc nợ tự động khi khách hàng chậm thanh toán"
+            }
+          ],
+          "type": "matching"
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "difficulty": "advanced",
+      "title": "FI-AR Nâng cao: Dunning (F150) và Credit Management",
+      "questions": [
+        {
+          "answerIndex": 1,
+          "difficulty": "advanced",
+          "explanation": "F150 là giao dịch chạy Dunning Run, quét các open items quá hạn trong BSID và tạo thư nhắc nợ (dunning notice) gửi cho khách hàng theo dunning level tương ứng.",
+          "id": "fi-ar-advanced-01",
+          "options": [
+            "Tạo customer master mới",
+            "Chạy Dunning Run để tạo thư nhắc nợ cho các khoản công nợ quá hạn",
+            "Tạo Sales Order mới",
+            "Chạy costing run cho sản phẩm"
+          ],
+          "question": "Giao dịch F150 trong SAP dùng để làm gì?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 1,
+          "difficulty": "advanced",
+          "explanation": "Khi khách hàng vượt hạn mức tín dụng (Credit Limit trong KNKK), hệ thống có thể block Sales Order hoặc Delivery mới cho đến khi công nợ được giảm bớt hoặc được phê duyệt thủ công.",
+          "id": "fi-ar-advanced-02",
+          "options": [
+            "Không ảnh hưởng gì đến quy trình bán hàng",
+            "Có thể gây block Sales Order/Delivery mới cho đến khi được xử lý",
+            "Tự động xóa khách hàng khỏi hệ thống",
+            "Tự động tăng hạn mức tín dụng"
+          ],
+          "question": "Nếu khách hàng vượt hạn mức tín dụng (Credit Limit), điều gì có thể xảy ra với đơn hàng mới?",
+          "type": "multiple-choice"
+        },
+        {
+          "answer": true,
+          "difficulty": "advanced",
+          "explanation": "Đúng, mỗi khoản công nợ quá hạn được gán dunning level (mức nhắc nợ) tăng dần theo số lần bị nhắc, từ thư nhắc nhẹ đến thông báo nghiêm khắc hơn.",
+          "id": "fi-ar-advanced-03",
+          "statement": "Mỗi khoản công nợ quá hạn được gán một dunning level tăng dần theo mức độ trễ hạn, phục vụ việc nhắc nợ có cấp độ.",
+          "type": "true-false"
+        },
+        {
+          "answer": false,
+          "difficulty": "advanced",
+          "explanation": "Sai, Reconciliation Account của khách hàng (AKONT trong KNB1) cũng không cho phép hạch toán trực tiếp, giống như bên vendor - chỉ được cập nhật tự động qua bút toán sub-ledger khách hàng.",
+          "id": "fi-ar-advanced-04",
+          "statement": "Có thể hạch toán trực tiếp vào Reconciliation Account của khách hàng giống như một tài khoản GL thông thường.",
+          "type": "true-false"
+        },
+        {
+          "acceptableAnswers": [
+            "F150"
+          ],
+          "difficulty": "advanced",
+          "explanation": "F150 là giao dịch thực hiện Dunning Run, tạo thư nhắc nợ hàng loạt cho các khoản quá hạn.",
+          "id": "fi-ar-advanced-05",
+          "prompt": "Giao dịch ___ dùng để chạy Dunning Run hàng loạt cho các khoản công nợ phải thu quá hạn.",
+          "type": "fill-blank"
+        },
+        {
+          "acceptableAnswers": [
+            "Credit Limit",
+            "hạn mức tín dụng"
+          ],
+          "difficulty": "advanced",
+          "explanation": "Credit Limit lưu trong KNKK, giới hạn tổng công nợ tối đa một khách hàng được phép nợ, giúp kiểm soát rủi ro tín dụng.",
+          "id": "fi-ar-advanced-06",
+          "prompt": "___ là giới hạn tổng công nợ tối đa một khách hàng được phép nợ, lưu trong bảng KNKK và dùng để kiểm soát rủi ro.",
+          "type": "fill-blank"
+        },
+        {
+          "difficulty": "advanced",
+          "explanation": "Các khái niệm này liên quan đến kiểm soát rủi ro công nợ và quy trình thu hồi công nợ.",
+          "id": "fi-ar-advanced-07",
+          "pairs": [
+            {
+              "left": "F150",
+              "right": "Giao dịch chạy Dunning Run tạo thư nhắc nợ hàng loạt"
+            },
+            {
+              "left": "Dunning Level",
+              "right": "Mức độ nhắc nợ tăng dần theo thời gian quá hạn của khoản nợ"
+            },
+            {
+              "left": "Credit Limit",
+              "right": "Hạn mức tín dụng giới hạn tổng công nợ khách hàng được phép nợ"
+            },
+            {
+              "left": "Credit Block",
+              "right": "Chặn Sales Order/Delivery khi khách hàng vượt hạn mức tín dụng"
+            }
+          ],
+          "type": "matching"
+        },
+        {
+          "difficulty": "advanced",
+          "explanation": "Đây là các bảng và cơ chế kiểm soát trong quy trình kế toán khách hàng nâng cao.",
+          "id": "fi-ar-advanced-08",
+          "pairs": [
+            {
+              "left": "KNKK",
+              "right": "Lưu dữ liệu quản lý tín dụng, bao gồm credit limit của khách hàng"
+            },
+            {
+              "left": "BSID → BSAD",
+              "right": "Chuyển đổi trạng thái open item sang cleared item sau khi thu tiền"
+            },
+            {
+              "left": "Reconciliation Account (KNB1)",
+              "right": "Tài khoản GL không hạch toán trực tiếp, chỉ cập nhật qua sub-ledger khách hàng"
+            },
+            {
+              "left": "Dunning Notice",
+              "right": "Thư nhắc nợ gửi cho khách hàng khi khoản phải thu quá hạn"
+            }
+          ],
+          "type": "matching"
+        }
+      ]
+    }
+  ]
+}

@@ -1,13 +1,22 @@
+import { existsSync, readdirSync } from 'node:fs'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 import { MODULE_ORDER, MODULES, QUIZ_LESSONS, TABLES } from './index'
 import { validateQuestion, validateTableEntry } from './validateQuestion'
 
+const CONTENT_DIR = dirname(fileURLToPath(import.meta.url))
+
 describe('content schema validation', () => {
-  it('discovers all 7 known modules via the content directory scan', () => {
-    expect(MODULE_ORDER.length).toBe(7)
-    expect(new Set(MODULE_ORDER)).toEqual(
-      new Set(['mm', 'co', 'fi-gl', 'enterprise-structure', 'sd', 'fi-ap', 'pp']),
-    )
+  it('discovers every module directory via the content directory scan', () => {
+    // Independently walk the filesystem (instead of hard-coding module ids) so this test
+    // catches a broken import.meta.glob pattern in index.ts without needing an update every
+    // time a module directory is added.
+    const moduleDirs = readdirSync(CONTENT_DIR, { withFileTypes: true })
+      .filter((entry) => entry.isDirectory() && existsSync(join(CONTENT_DIR, entry.name, 'module.json')))
+      .map((entry) => entry.name)
+
+    expect(new Set(MODULE_ORDER)).toEqual(new Set(moduleDirs))
   })
 
   it('every module has a module.json with matching id and a unique order', () => {

@@ -52,12 +52,12 @@ Khởi động lại Claude Desktop sau khi lưu file.
 | `read_progress_export(path?)` | Tiến trình học đã xuất, kèm câu hỏi trong reviewPool |
 | `write_practice_set(id, title, moduleId, note, questions)` | Ghi bộ câu hỏi nháp (ôn tập tạm) |
 | `publish_practice_set(id)` | Validate + test hẹp + commit + push bộ câu hỏi ôn tập tạm |
-| `write_module_draft(id, order, module, tables, lessons)` | Tạo 1 module SAP mới (module.json + tables.json + quiz.json), chưa commit |
-| `write_lesson_draft(moduleId, lesson)` | Thêm 1 lesson (đúng 8 câu) vào module đang có |
+| `write_module_draft(id, order, module, tables, lessons)` | Tạo 1 module SAP mới (module.json + tables.json + quiz.json), chưa commit. Mỗi lesson tối thiểu 8 câu, chỉ multiple-choice |
+| `write_lesson_draft(moduleId, lesson)` | Thêm 1 lesson (tối thiểu 8 câu, chỉ multiple-choice) vào module đang có |
 | `write_table_entry(moduleId, table)` | Thêm/sửa 1 entry bảng wiki |
 | `write_lab_exercise_draft(id, exercise, sourceFiles)` | Tạo 1 bài tập Code Lab mới |
 | `update_module_info(id, module)` | Sửa metadata module đã có (không đổi id) |
-| `update_lesson_draft(moduleId, lesson)` | Thay toàn bộ 1 lesson đã có (đúng 8 câu), theo lesson.id |
+| `update_lesson_draft(moduleId, lesson)` | Thay toàn bộ 1 lesson đã có (tối thiểu 8 câu, chỉ multiple-choice), theo lesson.id |
 | `update_lab_exercise_draft(id, exercise, sourceFiles)` | Thay toàn bộ 1 bài tập Code Lab đã có |
 | `delete_module(id)` | Xóa hẳn 1 module đã có, chặn nếu có table/bộ luyện tập khác đang tham chiếu module này |
 | `delete_lesson(moduleId, lessonId)` | Xóa 1 lesson khỏi module, chặn nếu module sẽ còn dưới 3 lesson |

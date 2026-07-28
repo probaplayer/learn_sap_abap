@@ -162,7 +162,8 @@ server.registerTool(
   'write_module_draft',
   {
     title: 'Write new module draft',
-    description: 'Tạo 1 module SAP mới (module.json + tables.json + quiz.json) trong src/content/<id>/, chưa commit',
+    description:
+      'Tạo 1 module SAP mới (module.json + tables.json + quiz.json) trong src/content/<id>/, chưa commit. Mỗi lesson cần tối thiểu 8 câu, chỉ chấp nhận câu hỏi type multiple-choice.',
     inputSchema: {
       id: z.string(),
       order: z.number(),
@@ -207,7 +208,7 @@ server.registerTool(
   'write_lesson_draft',
   {
     title: 'Write lesson draft',
-    description: 'Thêm 1 lesson mới (đúng 8 câu) vào quiz.json của module đang có',
+    description: 'Thêm 1 lesson mới (tối thiểu 8 câu, chỉ multiple-choice) vào quiz.json của module đang có',
     inputSchema: { moduleId: moduleIdEnum, lesson: lessonSchema },
   },
   async ({ moduleId, lesson }) => {
@@ -220,7 +221,8 @@ server.registerTool(
   'update_lesson_draft',
   {
     title: 'Update lesson draft',
-    description: 'Thay toàn bộ nội dung 1 lesson đã có (đúng 8 câu) trong quiz.json của module, theo lesson.id',
+    description:
+      'Thay toàn bộ nội dung 1 lesson đã có (tối thiểu 8 câu, chỉ multiple-choice) trong quiz.json của module, theo lesson.id',
     inputSchema: { moduleId: moduleIdEnum, lesson: lessonSchema },
   },
   async ({ moduleId, lesson }) => {

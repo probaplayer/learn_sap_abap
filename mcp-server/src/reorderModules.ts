@@ -32,10 +32,13 @@ export function reorderModules(orderedIds: string[]): ReorderModulesResult {
   }
 
   const newOrder = orderedIds.map((id, index) => ({ id, order: index + 1 }))
-  for (const { id, order } of newOrder) {
+  const patches = newOrder.map(({ id, order }) => {
     const filePath = path.join(CONTENT_DIR, id, 'module.json')
     const moduleJson = JSON.parse(fs.readFileSync(filePath, 'utf-8')) as Record<string, unknown>
     moduleJson.order = order
+    return { filePath, moduleJson }
+  })
+  for (const { filePath, moduleJson } of patches) {
     fs.writeFileSync(filePath, JSON.stringify(moduleJson, null, 2) + '\n', 'utf-8')
   }
 

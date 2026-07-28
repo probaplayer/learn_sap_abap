@@ -58,7 +58,7 @@ export function updateQuestion(
 
   const oldQuestion = lesson.questions[idx] as unknown as Record<string, unknown>
   const newQuestion = question as unknown as Record<string, unknown>
-  const updatedFields = Object.keys(newQuestion).filter(
+  const updatedFields = [...new Set([...Object.keys(newQuestion), ...Object.keys(oldQuestion)])].filter(
     (key) => JSON.stringify(newQuestion[key]) !== JSON.stringify(oldQuestion[key]),
   )
 

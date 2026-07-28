@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { CONTENT_DIR, GENERATED_DIR } from './paths.js'
+import { MODULE_ORDER } from './contentReaders.js'
 import type { TableEntry } from '../../src/content/types.js'
 
 export interface DeleteModuleResult {
@@ -69,6 +70,9 @@ export function deleteModule(id: string): DeleteModuleResult {
   }
 
   fs.rmSync(path.join(CONTENT_DIR, id), { recursive: true, force: true })
+
+  const idx = MODULE_ORDER.indexOf(id)
+  if (idx !== -1) MODULE_ORDER.splice(idx, 1)
 
   const remainingModules = allIds
     .filter((mid) => mid !== id)

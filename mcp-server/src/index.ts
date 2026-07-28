@@ -18,6 +18,7 @@ import { writeLabExerciseDraft } from './writeLabExerciseDraft.js'
 import { updateLabExerciseDraft } from './updateLabExerciseDraft.js'
 import { deleteModule } from './deleteModule.js'
 import { deleteLesson } from './deleteLesson.js'
+import { addQuestion } from './addQuestion.js'
 import { EXERCISE_CATEGORIES } from '../../src/content/lab/types.js'
 import type { QuizQuestion } from '../../src/content/types.js'
 import type { ExerciseMeta } from '../../src/content/lab/types.js'
@@ -298,6 +299,21 @@ server.registerTool(
   },
   async ({ moduleId, lessonId }) => {
     const result = deleteLesson(moduleId, lessonId)
+    return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] }
+  },
+)
+
+server.registerTool(
+  'add_question',
+  {
+    title: 'Add question to lesson',
+    description:
+      'Thêm 1 câu hỏi multiple-choice vào cuối 1 lesson đang có, chưa commit. Chặn nếu type khác ' +
+      "'multiple-choice', hoặc id câu hỏi đã tồn tại ở bất kỳ module/lesson nào khác.",
+    inputSchema: { moduleId: moduleIdEnum, lessonId: z.string(), question: looseQuestionSchema },
+  },
+  async ({ moduleId, lessonId, question }) => {
+    const result = addQuestion(moduleId, lessonId, question as unknown as QuizQuestion)
     return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] }
   },
 )

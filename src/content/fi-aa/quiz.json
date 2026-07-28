@@ -1,0 +1,363 @@
+{
+  "moduleId": "fi-aa",
+  "lessons": [
+    {
+      "id": "basic",
+      "difficulty": "basic",
+      "title": "FI-AA Cơ bản: Asset Master và khái niệm nền tảng",
+      "questions": [
+        {
+          "answerIndex": 1,
+          "difficulty": "basic",
+          "explanation": "ANLA lưu dữ liệu chính của tài sản cố định: số tài sản, lớp tài sản (Asset Class), ngày vốn hóa (Capitalization Date).",
+          "id": "fi-aa-basic-01",
+          "options": [
+            "Lưu thông tin khách hàng",
+            "Lưu dữ liệu chính (Master Data) của tài sản cố định: số tài sản, lớp tài sản, ngày vốn hóa",
+            "Lưu thông tin nhà cung cấp",
+            "Lưu thông tin vật tư nguyên liệu"
+          ],
+          "question": "Bảng ANLA trong FI-AA dùng để lưu trữ thông tin gì?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 1,
+          "difficulty": "basic",
+          "explanation": "Asset Class (ANLKL) xác định nhóm tài khoản GL (Account Determination) và các tham số khấu hao mặc định cho tài sản thuộc lớp đó.",
+          "id": "fi-aa-basic-02",
+          "options": [
+            "Chỉ dùng để phân loại báo cáo thống kê",
+            "Xác định nhóm tài khoản GL (account determination) và tham số khấu hao mặc định",
+            "Lưu số điện thoại bộ phận quản lý tài sản",
+            "Xác định vendor cung cấp tài sản"
+          ],
+          "question": "Asset Class (lớp tài sản) có vai trò gì quan trọng trong FI-AA?",
+          "type": "multiple-choice"
+        },
+        {
+          "answer": true,
+          "difficulty": "basic",
+          "explanation": "Đúng, ANLZ lưu dữ liệu có thể thay đổi theo thời gian như cost center (KOSTL) và plant (WERKS) mà tài sản đang được sử dụng/quản lý.",
+          "id": "fi-aa-basic-03",
+          "statement": "ANLZ lưu dữ liệu time-dependent của tài sản như cost center và plant, có thể thay đổi theo thời gian.",
+          "type": "true-false"
+        },
+        {
+          "answer": false,
+          "difficulty": "basic",
+          "explanation": "Sai, ANLB lưu điều kiện khấu hao (Depreciation Terms) như ngày bắt đầu khấu hao và số năm sử dụng hữu ích, không phải thông tin về nhà cung cấp.",
+          "id": "fi-aa-basic-04",
+          "statement": "ANLB lưu thông tin nhà cung cấp đã bán tài sản đó cho doanh nghiệp.",
+          "type": "true-false"
+        },
+        {
+          "acceptableAnswers": [
+            "ANLA"
+          ],
+          "difficulty": "basic",
+          "explanation": "ANLA là bảng chứa dữ liệu chính (master data) của tài sản cố định.",
+          "id": "fi-aa-basic-05",
+          "prompt": "Bảng ___ lưu dữ liệu chính (Master Data) của tài sản cố định, bao gồm số tài sản và lớp tài sản.",
+          "type": "fill-blank"
+        },
+        {
+          "acceptableAnswers": [
+            "AS01"
+          ],
+          "difficulty": "basic",
+          "explanation": "AS01 là giao dịch tạo mới tài sản cố định trong FI-AA.",
+          "id": "fi-aa-basic-06",
+          "prompt": "Giao dịch ___ dùng để tạo mới Asset Master (tài sản cố định) trong SAP.",
+          "type": "fill-blank"
+        },
+        {
+          "difficulty": "basic",
+          "explanation": "Mỗi bảng đảm nhiệm một khía cạnh dữ liệu riêng của tài sản cố định.",
+          "id": "fi-aa-basic-07",
+          "pairs": [
+            {
+              "left": "ANLA",
+              "right": "Dữ liệu chính: số tài sản, lớp tài sản, ngày vốn hóa"
+            },
+            {
+              "left": "ANLZ",
+              "right": "Dữ liệu time-dependent: cost center, plant quản lý tài sản"
+            },
+            {
+              "left": "ANLB",
+              "right": "Điều kiện khấu hao: ngày bắt đầu, số năm sử dụng hữu ích"
+            },
+            {
+              "left": "Asset Class (ANLKL)",
+              "right": "Xác định nhóm tài khoản GL và tham số khấu hao mặc định"
+            }
+          ],
+          "type": "matching"
+        },
+        {
+          "difficulty": "basic",
+          "explanation": "Đây là các khái niệm nền tảng của FI-AA liên quan đến quản lý tài sản cố định.",
+          "id": "fi-aa-basic-08",
+          "pairs": [
+            {
+              "left": "Asset Master",
+              "right": "Dữ liệu tổng thể về 1 tài sản cố định cụ thể"
+            },
+            {
+              "left": "Capitalization Date",
+              "right": "Ngày tài sản được ghi nhận và bắt đầu tính khấu hao"
+            },
+            {
+              "left": "Useful Life",
+              "right": "Số năm sử dụng hữu ích của tài sản, lưu trong ANLB"
+            },
+            {
+              "left": "Cost Center",
+              "right": "Nơi chi phí khấu hao tài sản được phân bổ vào"
+            }
+          ],
+          "type": "matching"
+        }
+      ]
+    },
+    {
+      "id": "intermediate",
+      "difficulty": "intermediate",
+      "title": "FI-AA Trung cấp: Giá trị Tài sản và Khấu hao",
+      "questions": [
+        {
+          "answerIndex": 1,
+          "difficulty": "intermediate",
+          "explanation": "ANLC lưu giá trị tài sản theo từng năm tài chính: giá trị nguyên giá (KANSW) và số khấu hao trong năm (NAFAG).",
+          "id": "fi-aa-intermediate-01",
+          "options": [
+            "ANLA",
+            "ANLC",
+            "ANEP",
+            "ANEK"
+          ],
+          "question": "Bảng nào lưu giá trị tài sản theo từng năm tài chính (nguyên giá, khấu hao trong năm)?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 1,
+          "difficulty": "intermediate",
+          "explanation": "ANEP lưu từng dòng bút toán liên quan đến tài sản (mua sắm, khấu hao, thanh lý), bao gồm loại giao dịch (BWASL).",
+          "id": "fi-aa-intermediate-02",
+          "options": [
+            "Lưu thông tin BOM của tài sản",
+            "Lưu chi tiết từng dòng bút toán phát sinh trên tài sản (mua, khấu hao, thanh lý)",
+            "Lưu thông tin vendor cung cấp",
+            "Lưu thông tin work center"
+          ],
+          "question": "Bảng ANEP (Asset Line Items) dùng để làm gì?",
+          "type": "multiple-choice"
+        },
+        {
+          "answer": true,
+          "difficulty": "intermediate",
+          "explanation": "Đúng, AFAB là giao dịch chạy Depreciation Run hàng loạt, tính và ghi nhận khấu hao cho tất cả tài sản trong 1 kỳ kế toán.",
+          "id": "fi-aa-intermediate-03",
+          "statement": "Giao dịch AFAB dùng để chạy Depreciation Run, tính và ghi nhận khấu hao hàng loạt cho tất cả tài sản trong kỳ.",
+          "type": "true-false"
+        },
+        {
+          "answer": false,
+          "difficulty": "intermediate",
+          "explanation": "Sai, khi chạy Depreciation Run (AFAB), hệ thống tự động tạo chứng từ kế toán FI (BKPF/BSEG) ghi Debit chi phí khấu hao và Credit tài khoản khấu hao lũy kế, dựa trên account determination của Asset Class.",
+          "id": "fi-aa-intermediate-04",
+          "statement": "Khi chạy Depreciation Run (AFAB), hệ thống không tạo bất kỳ chứng từ kế toán nào, chỉ cập nhật số liệu thống kê nội bộ.",
+          "type": "true-false"
+        },
+        {
+          "acceptableAnswers": [
+            "AFAB"
+          ],
+          "difficulty": "intermediate",
+          "explanation": "AFAB là giao dịch thực hiện Depreciation Run hàng loạt cho tất cả tài sản trong 1 Company Code.",
+          "id": "fi-aa-intermediate-05",
+          "prompt": "Giao dịch ___ dùng để chạy Depreciation Run hàng loạt cho toàn bộ tài sản trong Company Code.",
+          "type": "fill-blank"
+        },
+        {
+          "acceptableAnswers": [
+            "BWASL"
+          ],
+          "difficulty": "intermediate",
+          "explanation": "BWASL (Transaction Type) trong ANEP xác định loại giao dịch phát sinh trên tài sản: mua sắm, khấu hao, thanh lý, chuyển nhượng.",
+          "id": "fi-aa-intermediate-06",
+          "prompt": "Trường ___ trong bảng ANEP xác định loại giao dịch (Transaction Type) phát sinh trên tài sản.",
+          "type": "fill-blank"
+        },
+        {
+          "difficulty": "intermediate",
+          "explanation": "Các bảng này liên quan đến theo dõi giá trị và giao dịch phát sinh trên tài sản cố định.",
+          "id": "fi-aa-intermediate-07",
+          "pairs": [
+            {
+              "left": "ANLC",
+              "right": "Giá trị tài sản theo năm tài chính (nguyên giá, khấu hao trong năm)"
+            },
+            {
+              "left": "ANEP",
+              "right": "Chi tiết từng dòng giao dịch phát sinh trên tài sản"
+            },
+            {
+              "left": "ANEK",
+              "right": "Header chứng từ giao dịch tài sản, liên kết với chứng từ FI"
+            },
+            {
+              "left": "AFAB",
+              "right": "Giao dịch chạy Depreciation Run hàng loạt"
+            }
+          ],
+          "type": "matching"
+        },
+        {
+          "difficulty": "intermediate",
+          "explanation": "Đây là các khái niệm về quy trình vận hành và ghi nhận giá trị tài sản.",
+          "id": "fi-aa-intermediate-08",
+          "pairs": [
+            {
+              "left": "Depreciation Run",
+              "right": "Quy trình hàng loạt tính và ghi nhận khấu hao cho tất cả tài sản"
+            },
+            {
+              "left": "Acquisition Value (KANSW)",
+              "right": "Nguyên giá tài sản lưu trong ANLC"
+            },
+            {
+              "left": "Transaction Type",
+              "right": "Loại giao dịch phát sinh trên tài sản (mua, khấu hao, thanh lý)"
+            },
+            {
+              "left": "Account Determination",
+              "right": "Cơ chế xác định tài khoản GL tự động dựa trên Asset Class"
+            }
+          ],
+          "type": "matching"
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "difficulty": "advanced",
+      "title": "FI-AA Nâng cao: Thanh lý Tài sản và Tích hợp MM",
+      "questions": [
+        {
+          "answerIndex": 1,
+          "difficulty": "advanced",
+          "explanation": "ABAVN/ABAVN là giao dịch ghi nhận thanh lý tài sản (Asset Retirement without revenue), trong khi ABAON dùng khi thanh lý có doanh thu (bán tài sản).",
+          "id": "fi-aa-advanced-01",
+          "options": [
+            "AS01 - tạo tài sản mới",
+            "ABAVN - thanh lý tài sản không có doanh thu (scrapping)",
+            "AFAB - chạy khấu hao",
+            "MIRO - xác minh hóa đơn"
+          ],
+          "question": "Giao dịch nào dùng để ghi nhận thanh lý tài sản không có doanh thu (scrapping)?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 1,
+          "difficulty": "advanced",
+          "explanation": "Khi tài sản được thanh lý/bán, hệ thống tính giá trị còn lại (net book value) và ghi nhận lãi/lỗ thanh lý bằng chênh lệch giữa giá bán (nếu có) và giá trị còn lại đó.",
+          "id": "fi-aa-advanced-02",
+          "options": [
+            "Không cần tính toán gì, tài sản được xóa trực tiếp",
+            "Tính giá trị còn lại (net book value) và ghi nhận lãi/lỗ thanh lý dựa trên chênh lệch với giá bán",
+            "Tự động hoàn trả toàn bộ giá trị nguyên giá",
+            "Chuyển tài sản sang Asset Class khác"
+          ],
+          "question": "Khi thanh lý tài sản, hệ thống xử lý giá trị như thế nào?",
+          "type": "multiple-choice"
+        },
+        {
+          "answer": true,
+          "difficulty": "advanced",
+          "explanation": "Đúng, ANLC lưu giá trị theo từng năm tài chính (GJAHR là key field), nên mỗi năm tài chính sẽ có 1 dòng dữ liệu riêng cho cùng 1 tài sản.",
+          "id": "fi-aa-advanced-03",
+          "statement": "Bảng ANLC lưu dữ liệu theo từng năm tài chính (GJAHR), nên mỗi tài sản có nhiều dòng trong ANLC tương ứng với từng năm.",
+          "type": "true-false"
+        },
+        {
+          "answer": false,
+          "difficulty": "advanced",
+          "explanation": "Sai, khi tài sản được mua qua Purchase Order (MM) và Goods Receipt liên kết với Asset Master, hệ thống tự động cập nhật giá trị nguyên giá (ANLC) và sinh dòng giao dịch trong ANEP, không cần nhập thủ công.",
+          "id": "fi-aa-advanced-04",
+          "statement": "Khi mua tài sản qua Purchase Order (MM) có liên kết Asset Master, kế toán viên luôn phải nhập thủ công giá trị nguyên giá vào ANLC.",
+          "type": "true-false"
+        },
+        {
+          "acceptableAnswers": [
+            "Net book value",
+            "giá trị còn lại"
+          ],
+          "difficulty": "advanced",
+          "explanation": "Net book value là giá trị còn lại của tài sản = nguyên giá - khấu hao lũy kế, dùng để tính lãi/lỗ khi thanh lý.",
+          "id": "fi-aa-advanced-05",
+          "prompt": "___ là giá trị còn lại của tài sản (nguyên giá trừ khấu hao lũy kế), dùng để tính lãi/lỗ khi thanh lý.",
+          "type": "fill-blank"
+        },
+        {
+          "acceptableAnswers": [
+            "ABAVN"
+          ],
+          "difficulty": "advanced",
+          "explanation": "ABAVN là giao dịch scrapping - thanh lý tài sản không thu tiền.",
+          "id": "fi-aa-advanced-06",
+          "prompt": "Giao dịch ___ dùng để ghi nhận scrapping (thanh lý không thu tiền) cho tài sản cố định.",
+          "type": "fill-blank"
+        },
+        {
+          "difficulty": "advanced",
+          "explanation": "Đây là các khái niệm cốt lõi liên quan đến vòng đời tài sản (thanh lý, tích hợp MM).",
+          "id": "fi-aa-advanced-07",
+          "pairs": [
+            {
+              "left": "ABAVN",
+              "right": "Giao dịch scrapping - thanh lý tài sản không thu tiền"
+            },
+            {
+              "left": "ABAON",
+              "right": "Giao dịch thanh lý tài sản có doanh thu (bán tài sản)"
+            },
+            {
+              "left": "Net Book Value",
+              "right": "Giá trị còn lại = nguyên giá - khấu hao lũy kế"
+            },
+            {
+              "left": "MM Integration",
+              "right": "Tự động cập nhật nguyên giá tài sản khi mua qua Purchase Order liên kết Asset Master"
+            }
+          ],
+          "type": "matching"
+        },
+        {
+          "difficulty": "advanced",
+          "explanation": "Các khái niệm này liên quan đến cơ chế tích hợp và tính toán giá trị nâng cao trong FI-AA.",
+          "id": "fi-aa-advanced-08",
+          "pairs": [
+            {
+              "left": "GJAHR trong ANLC",
+              "right": "Xác định năm tài chính của dòng giá trị tài sản"
+            },
+            {
+              "left": "Depreciation Area",
+              "right": "Phương pháp/mục đích tính khấu hao khác nhau (ví dụ sổ sách, thuế)"
+            },
+            {
+              "left": "Retirement",
+              "right": "Khái niệm chung cho việc loại bỏ tài sản khỏi sổ sách (bán hoặc scrapping)"
+            },
+            {
+              "left": "Account Determination",
+              "right": "Cơ chế từ Asset Class xác định tài khoản GL tự động khi hạch toán tài sản"
+            }
+          ],
+          "type": "matching"
+        }
+      ]
+    }
+  ]
+}

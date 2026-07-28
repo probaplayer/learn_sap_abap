@@ -1,0 +1,199 @@
+[
+  {
+    "id": "anla",
+    "name": "ANLA - Asset Master (General Data)",
+    "purpose": "Lưu dữ liệu chính của tài sản cố định: số tài sản, lớp tài sản, ngày vốn hóa.",
+    "whereUsed": "Tạo/hiển thị tài sản qua AS01/AS03; là bảng gốc tham chiếu bởi mọi giao dịch liên quan đến tài sản đó.",
+    "keyFields": [
+      {
+        "field": "ANLN1",
+        "description": "Số tài sản (Main Asset Number)"
+      },
+      {
+        "field": "ANLN2",
+        "description": "Số tài sản con (Asset Sub-number)"
+      },
+      {
+        "field": "ANLKL",
+        "description": "Lớp tài sản (Asset Class)"
+      },
+      {
+        "field": "AKTIV",
+        "description": "Ngày vốn hóa (Capitalization Date)"
+      }
+    ],
+    "relatedTables": [
+      "anlz",
+      "anlb",
+      "anlc"
+    ],
+    "module": "fi-aa"
+  },
+  {
+    "id": "anlz",
+    "name": "ANLZ - Asset Master (Time-dependent Data)",
+    "purpose": "Lưu dữ liệu có thể thay đổi theo thời gian của tài sản: cost center, plant quản lý tài sản.",
+    "whereUsed": "Dùng để xác định cost center nhận chi phí khấu hao khi chạy AFAB.",
+    "keyFields": [
+      {
+        "field": "ANLN1",
+        "description": "Số tài sản"
+      },
+      {
+        "field": "ANLN2",
+        "description": "Số tài sản con"
+      },
+      {
+        "field": "KOSTL",
+        "description": "Cost Center"
+      },
+      {
+        "field": "WERKS",
+        "description": "Plant"
+      }
+    ],
+    "relatedTables": [
+      "anla"
+    ],
+    "module": "fi-aa"
+  },
+  {
+    "id": "anlb",
+    "name": "ANLB - Asset Depreciation Terms",
+    "purpose": "Lưu điều kiện khấu hao của tài sản: ngày bắt đầu và số năm sử dụng hữu ích.",
+    "whereUsed": "Được dùng khi chạy Depreciation Run (AFAB) để tính số khấu hao phát sinh trong kỳ.",
+    "keyFields": [
+      {
+        "field": "ANLN1",
+        "description": "Số tài sản"
+      },
+      {
+        "field": "ANLN2",
+        "description": "Số tài sản con"
+      },
+      {
+        "field": "AFABG",
+        "description": "Ngày bắt đầu khấu hao (Depreciation Start Date)"
+      },
+      {
+        "field": "NDJAR",
+        "description": "Số năm sử dụng hữu ích (Useful Life)"
+      }
+    ],
+    "relatedTables": [
+      "anla"
+    ],
+    "module": "fi-aa"
+  },
+  {
+    "id": "anlc",
+    "name": "ANLC - Asset Value Fields (Year-dependent)",
+    "purpose": "Lưu giá trị tài sản theo từng năm tài chính: nguyên giá và khấu hao phát sinh trong năm đó.",
+    "whereUsed": "Được cập nhật mỗi khi có giao dịch mua sắm hoặc chạy AFAB; dùng để tính net book value khi thanh lý.",
+    "keyFields": [
+      {
+        "field": "ANLN1",
+        "description": "Số tài sản"
+      },
+      {
+        "field": "GJAHR",
+        "description": "Năm tài chính"
+      },
+      {
+        "field": "KANSW",
+        "description": "Nguyên giá (Acquisition Value)"
+      },
+      {
+        "field": "NAFAG",
+        "description": "Khấu hao trong năm (Depreciation for Year)"
+      }
+    ],
+    "relatedTables": [
+      "anla",
+      "anep"
+    ],
+    "module": "fi-aa"
+  },
+  {
+    "id": "anep",
+    "name": "ANEP - Asset Line Items",
+    "purpose": "Lưu chi tiết từng dòng giao dịch phát sinh trên tài sản: mua sắm, khấu hao, thanh lý.",
+    "whereUsed": "Sinh ra mỗi khi có giao dịch tài sản (mua, AFAB, ABAVN/ABAON); dùng để xem lịch sử biến động giá trị tài sản.",
+    "keyFields": [
+      {
+        "field": "ANLN1",
+        "description": "Số tài sản (liên kết ANLA)"
+      },
+      {
+        "field": "GJAHR",
+        "description": "Năm tài chính"
+      },
+      {
+        "field": "LNRAN",
+        "description": "Số dòng giao dịch (Line Item Number)"
+      },
+      {
+        "field": "BWASL",
+        "description": "Loại giao dịch (Transaction Type)"
+      }
+    ],
+    "relatedTables": [
+      "anla",
+      "anek",
+      "anlc"
+    ],
+    "module": "fi-aa"
+  },
+  {
+    "id": "anek",
+    "name": "ANEK - Document Header: Asset Posting",
+    "purpose": "Lưu header của chứng từ giao dịch tài sản, liên kết với chứng từ kế toán FI tương ứng.",
+    "whereUsed": "Sinh ra cùng ANEP mỗi khi có giao dịch tài sản được hạch toán vào FI.",
+    "keyFields": [
+      {
+        "field": "BUKRS",
+        "description": "Company Code"
+      },
+      {
+        "field": "ANLN1",
+        "description": "Số tài sản"
+      },
+      {
+        "field": "GJAHR",
+        "description": "Năm tài chính"
+      },
+      {
+        "field": "BELNR",
+        "description": "Số chứng từ kế toán FI tương ứng"
+      }
+    ],
+    "relatedTables": [
+      "anep"
+    ],
+    "module": "fi-aa"
+  },
+  {
+    "id": "anka",
+    "name": "ANKA - Asset Class",
+    "purpose": "Lưu dữ liệu lớp tài sản (Asset Class), xác định nhóm tài khoản GL (account determination) và tham số khấu hao mặc định cho tất cả tài sản thuộc lớp đó.",
+    "whereUsed": "Được chọn khi tạo Asset Master (AS01) để xác định tài khoản GL và quy tắc khấu hao áp dụng.",
+    "keyFields": [
+      {
+        "field": "ANLKL",
+        "description": "Lớp tài sản (Asset Class)"
+      },
+      {
+        "field": "KTOGR",
+        "description": "Nhóm tài khoản (Account Determination Group)"
+      },
+      {
+        "field": "ANLKLTXT",
+        "description": "Mô tả lớp tài sản"
+      }
+    ],
+    "relatedTables": [
+      "anla"
+    ],
+    "module": "fi-aa"
+  }
+]

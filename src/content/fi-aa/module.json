@@ -1,0 +1,10 @@
+{
+  "id": "fi-aa",
+  "order": 9,
+  "name": "Financial Accounting - Asset Accounting (FI-AA)",
+  "shortName": "FI-AA",
+  "icon": "🏢",
+  "color": "#2d3436",
+  "description": "FI-AA là phân hệ kế toán tài sản cố định trong SAP FI, quản lý toàn bộ vòng đời tài sản: từ vốn hóa, tính khấu hao định kỳ, đến thanh lý, tích hợp chặt với MM (mua sắm) và CO (phân bổ chi phí khấu hao).",
+  "businessPurpose": "FI-AA (Asset Accounting) quản lý toàn bộ vòng đời tài sản cố định: từ khi mua sắm/vốn hóa, tính khấu hao định kỳ, đến khi thanh lý. Dữ liệu chính của tài sản được lưu ở ANLA (số tài sản, lớp tài sản - Asset Class, ngày vốn hóa), ANLZ (dữ liệu time-dependent như cost center, plant), và ANLB (điều kiện khấu hao như ngày bắt đầu và số năm sử dụng hữu ích). Asset Class quyết định Account Determination - cơ chế tự động xác định tài khoản GL liên quan (tài khoản nguyên giá, khấu hao lũy kế, chi phí khấu hao) mà không cần chỉ định thủ công mỗi lần hạch toán. Giá trị tài sản theo từng năm tài chính (nguyên giá, khấu hao trong năm) được lưu ở ANLC, trong khi ANEP/ANEK lưu chi tiết từng giao dịch phát sinh trên tài sản (mua sắm, khấu hao, thanh lý). Quy trình khấu hao định kỳ (Depreciation Run, giao dịch AFAB) tự động tính và hạch toán khấu hao hàng loạt cho mọi tài sản. FI-AA tích hợp chặt với MM (khi mua tài sản qua Purchase Order liên kết Asset Master, giá trị nguyên giá được tự động cập nhật) và CO (chi phí khấu hao được phân bổ vào cost center qua ANLZ). Khi tài sản bị thanh lý (bán hoặc scrapping), hệ thống tính giá trị còn lại (net book value) và ghi nhận lãi/lỗ thanh lý tương ứng, giúp doanh nghiệp theo dõi chính xác giá trị và tình trạng của toàn bộ tài sản cố định trong doanh nghiệp."
+}

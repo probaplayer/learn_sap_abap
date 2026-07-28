@@ -17,6 +17,7 @@ import { writeTableEntry } from './writeTableEntry.js'
 import { writeLabExerciseDraft } from './writeLabExerciseDraft.js'
 import { updateLabExerciseDraft } from './updateLabExerciseDraft.js'
 import { deleteModule } from './deleteModule.js'
+import { deleteLesson } from './deleteLesson.js'
 import { EXERCISE_CATEGORIES } from '../../src/content/lab/types.js'
 import type { QuizQuestion } from '../../src/content/types.js'
 import type { ExerciseMeta } from '../../src/content/lab/types.js'
@@ -283,6 +284,20 @@ server.registerTool(
   },
   async ({ id }) => {
     const result = deleteModule(id)
+    return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] }
+  },
+)
+
+server.registerTool(
+  'delete_lesson',
+  {
+    title: 'Delete lesson',
+    description:
+      'Xóa 1 lesson khỏi quiz.json của module đang có, chưa commit. Chặn nếu module sẽ còn dưới 3 lesson sau khi xóa.',
+    inputSchema: { moduleId: moduleIdEnum, lessonId: z.string() },
+  },
+  async ({ moduleId, lessonId }) => {
+    const result = deleteLesson(moduleId, lessonId)
     return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] }
   },
 )

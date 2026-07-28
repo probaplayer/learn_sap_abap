@@ -60,6 +60,7 @@ Khởi động lại Claude Desktop sau khi lưu file.
 | `update_lesson_draft(moduleId, lesson)` | Thay toàn bộ 1 lesson đã có (đúng 8 câu), theo lesson.id |
 | `update_lab_exercise_draft(id, exercise, sourceFiles)` | Thay toàn bộ 1 bài tập Code Lab đã có |
 | `delete_module(id)` | Xóa hẳn 1 module đã có, chặn nếu có table/bộ luyện tập khác đang tham chiếu module này |
+| `delete_lesson(moduleId, lessonId)` | Xóa 1 lesson khỏi module, chặn nếu module sẽ còn dưới 3 lesson |
 | `publish_content(commitMessage)` | Commit + push nội dung module/lesson/wiki/exercise lên `main` (không tự chạy test — chạy `npx vitest run` thủ công trước khi gọi tool này) |
 
 ## Lưu ý về `tsc --noEmit`

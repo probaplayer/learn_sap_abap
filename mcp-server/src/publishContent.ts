@@ -1,12 +1,12 @@
 import { execFileSync } from 'node:child_process'
 import { REPO_ROOT } from './paths.js'
 
+// This used to run the full vitest suite here before committing/pushing. Spawning vitest as a
+// nested child of this already-running MCP server process fails deterministically on at least
+// one real machine ("Vitest failed to find the runner", every file 0 tests) regardless of Node
+// version, vitest pool mode, or how the child is spawned — root cause not isolated. Run
+// `npx vitest run` yourself before asking for a publish; this only commits + pushes src/content.
 export function publishContent(commitMessage: string): { commitHash: string } {
-  const testResult = runFullTestSuite()
-  if (!testResult.success) {
-    throw new Error(`Test thất bại, không publish:\n${testResult.output}`)
-  }
-
   try {
     execFileSync('git', ['add', 'src/content'], { cwd: REPO_ROOT })
     execFileSync('git', ['commit', '-m', commitMessage], { cwd: REPO_ROOT })
@@ -17,44 +17,4 @@ export function publishContent(commitMessage: string): { commitHash: string } {
 
   const commitHash = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: REPO_ROOT, encoding: 'utf-8' }).trim()
   return { commitHash }
-}
-
-function runFullTestSuite(): { success: boolean; output: string } {
-  const first = runVitestOnce()
-  if (first.success || !looksLikeSuiteLoadFailure(first.output)) {
-    return first
-  }
-
-  // Vitest occasionally fails to collect any test at all (every file reports "(0 test)",
-  // "Tests  no tests") right after content files were just written — a transient
-  // environment/tooling hiccup, not a real content or test failure (a real failure always
-  // reproduces with specific per-test errors, not a suite-wide zero-test collection). Retry
-  // once before concluding the test run genuinely failed.
-  const retry = runVitestOnce()
-  if (retry.success) {
-    return retry
-  }
-  if (looksLikeSuiteLoadFailure(retry.output)) {
-    return {
-      success: false,
-      output: `Vitest không load được bất kỳ test file nào, kể cả sau khi chạy lại — đây là lỗi môi trường/tooling thoáng qua, không phải lỗi nội dung. Hãy thử publish lại.\n\n${retry.output}`,
-    }
-  }
-  return retry
-}
-
-function runVitestOnce(): { success: boolean; output: string } {
-  try {
-    // shell: true is required so Windows can resolve the `npx.cmd` shim (execFileSync cannot
-    // invoke it directly). Safe here: args are fixed literals, no free-form/user-controlled text.
-    const output = execFileSync('npx', ['vitest', 'run'], { cwd: REPO_ROOT, encoding: 'utf-8', shell: true })
-    return { success: true, output }
-  } catch (err) {
-    const execErr = err as { stdout?: string; message: string }
-    return { success: false, output: execErr.stdout ?? execErr.message }
-  }
-}
-
-function looksLikeSuiteLoadFailure(output: string): boolean {
-  return /Tests\s+no tests/.test(output)
 }

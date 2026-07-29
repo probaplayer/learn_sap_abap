@@ -96,6 +96,27 @@ terminators — by blanking out comments/string contents per line first. It is n
 execute ABAP. Don't extend it to try to be a real compiler; keep it a lightweight sanity check as advertised
 in the UI ("Kiểm tra cú pháp" / basic checks only).
 
+## MCP server (`mcp-server/`)
+
+A standalone Node/TS project (own `package.json`, run via `tsx`, not part of the Vite app or its build) that
+exposes `src/content/**` and the progress-export JSON to an MCP client (Claude Desktop or Claude Code) as
+tools: read the 5 modules/lessons/wiki tables/Code Lab exercises, read a user's exported progress, and
+author content — write/update/delete modules, lessons, questions, wiki entries, and Code Lab exercises as
+drafts, then `publish_content`/`publish_practice_set` to validate + run tests + commit + push to `main`.
+Full tool list and the Vietnamese end-user workflow are in `mcp-server/README.md` — don't duplicate that
+table here; update it when tools change.
+
+**This repo ships a project-scoped `.mcp.json`** at the root so Claude Code picks up the `sap-quest` server
+automatically. Because it's a new project MCP config, Claude Code will prompt to approve it the first time
+someone opens this repo (`claude mcp list` to check status) — this is expected, not a misconfiguration.
+Claude Desktop instead needs a manual entry in `claude_desktop_config.json` with an absolute path; see the
+"Cấu hình Claude Desktop" section of `mcp-server/README.md`.
+
+The publish tools push straight to `main` (no PR, no review step) — treat them as equivalent to a direct
+`git push`, not a harmless read. `mcp-server/src/paths.ts` resolves `REPO_ROOT` from the server file's own
+location (`import.meta.url`), not from `cwd`, so it works regardless of what directory the MCP client
+launches the process from.
+
 ## Styling
 
 Tailwind v4 via `@tailwindcss/vite` (no `tailwind.config.js` — v4 config lives in CSS). Global tokens and

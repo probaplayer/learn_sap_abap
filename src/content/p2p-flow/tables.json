@@ -1,0 +1,202 @@
+[
+  {
+    "id": "eban",
+    "name": "EBAN - Purchase Requisition",
+    "purpose": "Lưu đề nghị mua hàng nội bộ (Purchase Requisition), bước đầu tiên trước khi tạo Purchase Order chính thức.",
+    "whereUsed": "Tạo qua ME51N; có thể được chuyển thành Purchase Order qua ME21N khi được phê duyệt.",
+    "keyFields": [
+      {
+        "field": "BANFN",
+        "description": "Số đề nghị mua hàng (Purchase Requisition Number)"
+      },
+      {
+        "field": "BNFPO",
+        "description": "Số dòng item"
+      },
+      {
+        "field": "MATNR",
+        "description": "Mã vật tư cần mua"
+      },
+      {
+        "field": "MENGE",
+        "description": "Số lượng cần mua"
+      }
+    ],
+    "relatedTables": [
+      "ekpo"
+    ],
+    "module": "p2p-flow"
+  },
+  {
+    "id": "ekko",
+    "name": "EKKO - Purchase Order Header",
+    "purpose": "Lưu header của Purchase Order: số PO, Company Code, nhà cung cấp, ngày tạo.",
+    "whereUsed": "Tạo qua ME21N từ Purchase Requisition hoặc trực tiếp; là chứng từ gốc cho Goods Receipt và Invoice Verification.",
+    "keyFields": [
+      {
+        "field": "EBELN",
+        "description": "Số Purchase Order (Purchase Document Number)"
+      },
+      {
+        "field": "BUKRS",
+        "description": "Company Code"
+      },
+      {
+        "field": "LIFNR",
+        "description": "Mã số nhà cung cấp"
+      },
+      {
+        "field": "BEDAT",
+        "description": "Ngày tạo Purchase Order"
+      }
+    ],
+    "relatedTables": [
+      "ekpo",
+      "ekbe"
+    ],
+    "module": "p2p-flow"
+  },
+  {
+    "id": "ekpo",
+    "name": "EKPO - Purchase Order Item",
+    "purpose": "Lưu chi tiết item của Purchase Order: vật tư, số lượng, đơn giá.",
+    "whereUsed": "Dùng để tham chiếu khi thực hiện Goods Receipt và Invoice Verification cho từng dòng hàng.",
+    "keyFields": [
+      {
+        "field": "EBELN",
+        "description": "Số Purchase Order (liên kết EKKO)"
+      },
+      {
+        "field": "EBELP",
+        "description": "Số dòng item"
+      },
+      {
+        "field": "MATNR",
+        "description": "Mã vật tư đặt mua"
+      },
+      {
+        "field": "NETPR",
+        "description": "Đơn giá trên hợp đồng (Net Price)"
+      }
+    ],
+    "relatedTables": [
+      "ekko"
+    ],
+    "module": "p2p-flow"
+  },
+  {
+    "id": "mseg",
+    "name": "MSEG - Material Document Segment",
+    "purpose": "Lưu chi tiết từng dòng goods movement, bao gồm nhập kho từ Purchase Order (movement 101).",
+    "whereUsed": "Sinh ra khi thực hiện Goods Receipt qua MIGO dựa trên Purchase Order; làm tăng tồn kho và hạch toán GR/IR clearing.",
+    "keyFields": [
+      {
+        "field": "MBLNR",
+        "description": "Số material document"
+      },
+      {
+        "field": "MJAHR",
+        "description": "Năm tài chính"
+      },
+      {
+        "field": "BWART",
+        "description": "Loại chuyển động hàng hóa (Movement Type)"
+      },
+      {
+        "field": "MENGE",
+        "description": "Số lượng chuyển động"
+      }
+    ],
+    "relatedTables": [
+      "ekbe"
+    ],
+    "module": "p2p-flow"
+  },
+  {
+    "id": "rbkp",
+    "name": "RBKP - Invoice Receipt Header",
+    "purpose": "Lưu header của hóa đơn mua hàng được xử lý qua Invoice Verification (MIRO).",
+    "whereUsed": "Sinh ra khi thực hiện MIRO dựa trên Purchase Order và Goods Receipt để xác minh hóa đơn.",
+    "keyFields": [
+      {
+        "field": "BELNR",
+        "description": "Số chứng từ Invoice Document"
+      },
+      {
+        "field": "GJAHR",
+        "description": "Năm tài chính"
+      },
+      {
+        "field": "LIFNR",
+        "description": "Mã số nhà cung cấp trên hóa đơn"
+      },
+      {
+        "field": "RBSTAT",
+        "description": "Trạng thái chứng từ"
+      }
+    ],
+    "relatedTables": [
+      "rseg",
+      "ekbe"
+    ],
+    "module": "p2p-flow"
+  },
+  {
+    "id": "rseg",
+    "name": "RSEG - Invoice Receipt Item",
+    "purpose": "Lưu chi tiết dòng hóa đơn, tham chiếu Purchase Order item để đối chiếu 3-way match.",
+    "whereUsed": "Tự động tạo khi lưu MIRO; dùng để kiểm tra khớp số lượng/giá trị với PO và GR.",
+    "keyFields": [
+      {
+        "field": "BELNR",
+        "description": "Số chứng từ Invoice Document (liên kết RBKP)"
+      },
+      {
+        "field": "EBELN",
+        "description": "Số Purchase Order tham chiếu"
+      },
+      {
+        "field": "EBELP",
+        "description": "Số dòng Purchase Order Item"
+      },
+      {
+        "field": "WRBTR",
+        "description": "Giá trị hóa đơn"
+      }
+    ],
+    "relatedTables": [
+      "rbkp"
+    ],
+    "module": "p2p-flow"
+  },
+  {
+    "id": "ekbe",
+    "name": "EKBE - Purchase Order History",
+    "purpose": "Lưu toàn bộ lịch sử sự kiện (Goods Receipt, Invoice Receipt) xảy ra trên từng Purchase Order item, tương tự vai trò của VBFA bên SD.",
+    "whereUsed": "Dùng để truy vết toàn bộ lịch sử từ Purchase Order đến tất cả Goods Receipt và Invoice Receipt liên quan.",
+    "keyFields": [
+      {
+        "field": "EBELN",
+        "description": "Số Purchase Order"
+      },
+      {
+        "field": "EBELP",
+        "description": "Số dòng Purchase Order Item"
+      },
+      {
+        "field": "VGABE",
+        "description": "Loại sự kiện (Transaction/Event Type: GR hay IR)"
+      },
+      {
+        "field": "BELNR",
+        "description": "Số chứng từ tham chiếu (Material Document hoặc Invoice Document)"
+      }
+    ],
+    "relatedTables": [
+      "ekko",
+      "mseg",
+      "rbkp"
+    ],
+    "module": "p2p-flow"
+  }
+]

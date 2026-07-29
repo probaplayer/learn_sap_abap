@@ -1,0 +1,10 @@
+{
+  "id": "p2p-flow",
+  "order": 11,
+  "name": "End-to-End Procurement Process Flow (Procure-to-Pay)",
+  "shortName": "P2P Flow",
+  "icon": "📦",
+  "color": "#e17055",
+  "description": "Module tích hợp hướng dẫn xây dựng toàn bộ quy trình mua hàng Procure-to-Pay (P2P): từ Purchase Requisition, Purchase Order, Goods Receipt, Invoice Verification, đến thanh toán, kết nối kiến thức MM - FI-AP thành 1 chuỗi xuyên suốt thực tế.",
+  "businessPurpose": "Module này hướng dẫn xây dựng quy trình mua hàng end-to-end (Procure-to-Pay - P2P) cho một doanh nghiệp, kết nối kiến thức từ MM và FI-AP đã học thành 1 chuỗi xuyên suốt, làm cặp đôi với module O2C Flow. Quy trình bắt đầu từ Purchase Requisition (EBAN) - đề nghị mua hàng nội bộ, sau đó chuyển thành Purchase Order (EKKO/EKPO, tạo qua ME21N) gửi chính thức cho nhà cung cấp. Khi hàng được giao, Goods Receipt (movement type 101) sinh material document trong MSEG, làm tăng tồn kho và tạm thời hạch toán vào tài khoản GR/IR clearing. Bước tiếp theo, Invoice Verification (RBKP/RSEG, tạo qua MIRO) xác minh hóa đơn của nhà cung cấp, thực hiện 3-way match đối chiếu giữa Purchase Order, Goods Receipt và Invoice để phát hiện chênh lệch về số lượng hoặc giá trị; nếu có sai lệch, hệ thống đặt Payment Block để ngăn thanh toán cho đến khi được xác minh. Xuyên suốt toàn bộ chuỗi này, bảng EKBE (Purchase Order History) ghi nhận toàn bộ lịch sử sự kiện (Goods Receipt, Invoice Receipt) của từng PO item, đóng vai trò tương tự VBFA bên SD, cho phép truy vết toàn bộ chuỗi từ PO đến khi thanh toán xong qua F110. Module này giúp người học hiểu cách MM và FI-AP phối hợp với nhau trong một quy trình mua hàng thực tế, hoàn thiện cặp đôi với quy trình bán hàng O2C."
+}

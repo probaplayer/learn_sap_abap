@@ -1,0 +1,362 @@
+{
+  "moduleId": "p2p-flow",
+  "lessons": [
+    {
+      "id": "basic",
+      "difficulty": "basic",
+      "title": "P2P Cơ bản: Tổng quan Quy trình Mua hàng",
+      "questions": [
+        {
+          "answerIndex": 1,
+          "difficulty": "basic",
+          "explanation": "Quy trình Procure-to-Pay (P2P) gồm: Purchase Requisition → Purchase Order → Goods Receipt → Invoice Verification → Thanh toán, là chuỗi chuẩn của quy trình mua hàng trong SAP.",
+          "id": "p2p-basic-01",
+          "options": [
+            "Sales Order → Delivery → Billing → Thu tiền",
+            "Purchase Requisition → Purchase Order → Goods Receipt → Invoice Verification → Thanh toán",
+            "BOM → Routing → Production Order",
+            "Asset Acquisition → Depreciation → Retirement"
+          ],
+          "question": "Quy trình Procure-to-Pay (P2P) chuẩn của một doanh nghiệp mua hàng gồm những bước nào theo thứ tự?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 1,
+          "difficulty": "basic",
+          "explanation": "EBAN lưu Purchase Requisition (phiếu đề nghị mua hàng) - bước nội bộ trước khi tạo Purchase Order chính thức với nhà cung cấp.",
+          "id": "p2p-basic-02",
+          "options": [
+            "Lưu header Purchase Order đã gửi cho vendor",
+            "Lưu Purchase Requisition (đề nghị mua hàng nội bộ) trước khi tạo Purchase Order",
+            "Lưu hóa đơn của nhà cung cấp",
+            "Lưu thông tin thanh toán"
+          ],
+          "question": "Bảng EBAN trong quy trình mua hàng dùng để lưu trữ thông tin gì?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 1,
+          "difficulty": "basic",
+          "explanation": "ME21N là giao dịch tạo Purchase Order, có thể tham chiếu từ Purchase Requisition đã có hoặc tạo mới trực tiếp.",
+          "id": "p2p-basic-03",
+          "options": [
+            "ME51N",
+            "ME21N",
+            "MIRO",
+            "MIGO"
+          ],
+          "question": "Giao dịch nào dùng để tạo mới Purchase Order?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 1,
+          "difficulty": "basic",
+          "explanation": "Một Purchase Requisition không bắt buộc phải chuyển thành Purchase Order; có thể bị từ chối, hủy, hoặc dùng để tạo RFQ trước.",
+          "id": "p2p-basic-04",
+          "options": [
+            "Đúng, mọi Purchase Requisition bắt buộc phải chuyển thành Purchase Order",
+            "Sai, Purchase Requisition có thể bị từ chối, hủy, hoặc dùng để tạo RFQ trước khi thành Purchase Order",
+            "Purchase Requisition luôn tự động chuyển thành Goods Receipt",
+            "Purchase Requisition chỉ dùng cho báo cáo thống kê"
+          ],
+          "question": "Purchase Requisition sau khi tạo có bắt buộc phải được chuyển thành Purchase Order không?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 1,
+          "difficulty": "basic",
+          "explanation": "EKKO là bảng lưu header của Purchase Order: số PO, Company Code, vendor.",
+          "id": "p2p-basic-05",
+          "options": [
+            "EBAN",
+            "EKKO",
+            "MSEG",
+            "RBKP"
+          ],
+          "question": "Bảng nào lưu header của Purchase Order, bao gồm số PO và mã nhà cung cấp?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 1,
+          "difficulty": "basic",
+          "explanation": "ME21N là giao dịch tạo mới Purchase Order trong SAP MM.",
+          "id": "p2p-basic-06",
+          "options": [
+            "ME51N - tạo Purchase Requisition",
+            "ME21N - tạo Purchase Order",
+            "MIGO - Goods Movement",
+            "MIRO - Invoice Verification"
+          ],
+          "question": "Giao dịch nào dùng để tạo mới Purchase Order?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 2,
+          "difficulty": "basic",
+          "explanation": "MSEG lưu chi tiết goods movement khi nhận hàng từ Purchase Order, khác với EBAN (Purchase Requisition) và EKKO/EKPO (Purchase Order).",
+          "id": "p2p-basic-07",
+          "options": [
+            "EBAN - lưu Purchase Requisition",
+            "EKKO/EKPO - lưu header/item Purchase Order",
+            "MSEG - lưu chi tiết goods movement khi nhận hàng",
+            "RBKP - lưu header hóa đơn"
+          ],
+          "question": "Bảng nào dưới đây lưu chi tiết goods movement khi Goods Receipt?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 2,
+          "difficulty": "basic",
+          "explanation": "Invoice Verification là bước xác minh hóa đơn của nhà cung cấp trước khi ghi nhận công nợ và thanh toán, diễn ra sau Goods Receipt.",
+          "id": "p2p-basic-08",
+          "options": [
+            "Purchase Requisition - đề nghị mua hàng nội bộ",
+            "Goods Receipt - bước nhận hàng thực tế",
+            "Invoice Verification - xác minh hóa đơn trước khi thanh toán",
+            "Purchase Order - đơn đặt hàng chính thức"
+          ],
+          "question": "Bước nào trong quy trình P2P thực hiện việc đối chiếu hóa đơn nhà cung cấp trước khi thanh toán?",
+          "type": "multiple-choice"
+        }
+      ]
+    },
+    {
+      "id": "intermediate",
+      "difficulty": "intermediate",
+      "title": "P2P Trung cấp: Goods Receipt và Invoice Verification",
+      "questions": [
+        {
+          "answerIndex": 1,
+          "difficulty": "intermediate",
+          "explanation": "MSEG lưu chi tiết từng dòng goods movement, bao gồm movement type (BWART) và số lượng nhập kho khi Goods Receipt cho Purchase Order.",
+          "id": "p2p-intermediate-01",
+          "options": [
+            "EBAN",
+            "MSEG",
+            "EKKO",
+            "RBKP"
+          ],
+          "question": "Bảng nào lưu chi tiết goods movement khi thực hiện Goods Receipt cho Purchase Order?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 1,
+          "difficulty": "intermediate",
+          "explanation": "Movement type 101 là goods receipt cho Purchase Order, làm tăng tồn kho và sinh material document tương ứng trong MSEG.",
+          "id": "p2p-intermediate-02",
+          "options": [
+            "261 - xuất kho cho Production Order",
+            "101 - nhập kho từ Purchase Order",
+            "601 - xuất kho cho Sales Order",
+            "311 - chuyển kho nội bộ"
+          ],
+          "question": "Movement type nào thường dùng khi nhận hàng từ Purchase Order (Goods Receipt)?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 0,
+          "difficulty": "intermediate",
+          "explanation": "Sau khi Goods Receipt hoàn tất, kế toán có thể thực hiện MIRO để xác minh hóa đơn của nhà cung cấp, đối chiếu với PO và GR (3-way match) trước khi ghi nhận công nợ.",
+          "id": "p2p-intermediate-03",
+          "options": [
+            "Đúng, kế toán có thể thực hiện MIRO để xác minh hóa đơn và đối chiếu 3-way match",
+            "Sai, MIRO chỉ thực hiện được trước khi có Goods Receipt",
+            "MIRO không liên quan gì đến Goods Receipt",
+            "MIRO thay thế hoàn toàn cho Goods Receipt"
+          ],
+          "question": "Sau khi Goods Receipt hoàn tất, kế toán có thể làm gì tiếp theo liên quan đến hóa đơn?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 1,
+          "difficulty": "intermediate",
+          "explanation": "Khi Goods Receipt, hệ thống tự động sinh material document (MSEG) và có thể tự động hạch toán bút toán kế toán tạm thời (GR/IR clearing account) trong FI.",
+          "id": "p2p-intermediate-04",
+          "options": [
+            "Goods Receipt chỉ cập nhật trạng thái, không sinh material document hay bút toán nào",
+            "Goods Receipt sinh material document (MSEG) và có thể hạch toán vào tài khoản GR/IR clearing",
+            "Goods Receipt chỉ sinh Purchase Order mới",
+            "Goods Receipt luôn cần nhập thủ công, không tự động"
+          ],
+          "question": "Khi Goods Receipt được thực hiện, hệ thống xử lý như thế nào?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 1,
+          "difficulty": "intermediate",
+          "explanation": "MIRO là giao dịch xác minh hóa đơn (Invoice Verification), sinh ra RBKP/RSEG và chứng từ kế toán FI.",
+          "id": "p2p-intermediate-05",
+          "options": [
+            "ME21N",
+            "MIRO",
+            "VF01",
+            "AFAB"
+          ],
+          "question": "Giao dịch nào dùng để xác minh hóa đơn nhà cung cấp, đối chiếu với PO và GR?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 1,
+          "difficulty": "intermediate",
+          "explanation": "Tài khoản GR/IR (Goods Receipt/Invoice Receipt clearing) tạm thời ghi nhận giá trị hàng đã nhận nhưng chưa có hóa đơn, sẽ được clear khi MIRO hoàn tất.",
+          "id": "p2p-intermediate-06",
+          "options": [
+            "Reconciliation Account",
+            "GR/IR Clearing Account",
+            "Cost Center",
+            "Sales Revenue Account"
+          ],
+          "question": "Tài khoản nào tạm thời ghi nhận giá trị hàng đã nhận nhưng chưa có hóa đơn tương ứng?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 2,
+          "difficulty": "intermediate",
+          "explanation": "GR/IR là tài khoản trung gian, được clear (tất toán) khi cả Goods Receipt và Invoice Receipt đều đã xử lý xong và khớp với nhau.",
+          "id": "p2p-intermediate-07",
+          "options": [
+            "Ngay khi tạo Purchase Order",
+            "Ngay khi tạo Purchase Requisition",
+            "Khi cả Goods Receipt và Invoice Receipt đã xử lý và khớp nhau",
+            "Tài khoản GR/IR không bao giờ được clear"
+          ],
+          "question": "Tài khoản GR/IR được clear (tất toán) khi nào?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 3,
+          "difficulty": "intermediate",
+          "explanation": "Công nợ phải trả (Accounts Payable) sinh ra sau khi MIRO hoàn tất và chuyển giá trị sang tài khoản vendor (BSEG với KOART = K).",
+          "id": "p2p-intermediate-08",
+          "options": [
+            "Ngay khi tạo Purchase Requisition",
+            "Ngay khi tạo Purchase Order",
+            "Ngay khi thực hiện Goods Receipt",
+            "Sau khi MIRO (Invoice Verification) hoàn tất"
+          ],
+          "question": "Công nợ phải trả (Accounts Payable) với vendor thường được ghi nhận chính thức vào thời điểm nào?",
+          "type": "multiple-choice"
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "difficulty": "advanced",
+      "title": "P2P Nâng cao: Purchase Order History (EKBE) và Tích hợp Toàn trình",
+      "questions": [
+        {
+          "answerIndex": 1,
+          "difficulty": "advanced",
+          "explanation": "EKBE là bảng Purchase Order History, lưu toàn bộ lịch sử sự kiện xảy ra trên 1 PO item: Goods Receipt, Invoice Receipt, giúp truy vết toàn bộ chuỗi P2P tương tự VBFA bên SD.",
+          "id": "p2p-advanced-01",
+          "options": [
+            "Lưu thông tin giá vật tư theo thời gian",
+            "Lưu lịch sử sự kiện (Goods Receipt, Invoice Receipt) của từng Purchase Order item",
+            "Lưu thông tin BOM liên quan",
+            "Lưu thông tin khấu hao tài sản"
+          ],
+          "question": "Bảng EKBE (Purchase Order History) có vai trò gì quan trọng?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 1,
+          "difficulty": "advanced",
+          "explanation": "Nếu số lượng hoặc giá trị hóa đơn không khớp với PO/GR, hệ thống thường đặt Payment Block để ngăn thanh toán cho đến khi chênh lệch được xác minh/phê duyệt.",
+          "id": "p2p-advanced-02",
+          "options": [
+            "Hệ thống tự động thanh toán bình thường",
+            "Hệ thống đặt Payment Block, ngăn thanh toán cho đến khi được xác minh",
+            "Hệ thống tự động hủy Purchase Order",
+            "Hệ thống tự động tạo vendor mới"
+          ],
+          "question": "Nếu phát hiện chênh lệch (variance) khi MIRO, điều gì sẽ xảy ra với quy trình thanh toán?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 0,
+          "difficulty": "advanced",
+          "explanation": "EKBE lưu trường VGABE (Transaction/Event Type) để phân biệt Goods Receipt và Invoice Receipt, giúp xác định chính xác 1 PO item đã nhận hàng/hóa đơn đến đâu.",
+          "id": "p2p-advanced-03",
+          "options": [
+            "VGABE - phân biệt loại sự kiện (Goods Receipt hay Invoice Receipt)",
+            "MATNR - mã vật tư",
+            "BUKRS - Company Code",
+            "LIFNR - mã số nhà cung cấp"
+          ],
+          "question": "Trường nào trong EKBE giúp phân biệt Goods Receipt và Invoice Receipt?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 1,
+          "difficulty": "advanced",
+          "explanation": "1 Purchase Order item có thể có nhiều Goods Receipt (giao hàng nhiều đợt) và nhiều Invoice Receipt (hóa đơn theo từng đợt giao hàng), EKBE ghi nhận tất cả các sự kiện này.",
+          "id": "p2p-advanced-04",
+          "options": [
+            "Mỗi PO item chỉ có duy nhất 1 Goods Receipt và 1 Invoice Receipt",
+            "Một PO item có thể có nhiều Goods Receipt và nhiều Invoice Receipt khác nhau",
+            "PO item không thể có Invoice Receipt",
+            "Mỗi PO chỉ có duy nhất 1 item"
+          ],
+          "question": "Một Purchase Order item có thể có bao nhiêu Goods Receipt/Invoice Receipt liên quan?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 1,
+          "difficulty": "advanced",
+          "explanation": "EKBE là bảng Purchase Order History, tương tự VBFA bên SD, cho phép truy vết toàn bộ lịch sử Goods Receipt và Invoice Receipt của 1 PO.",
+          "id": "p2p-advanced-05",
+          "options": [
+            "VBFA",
+            "EKBE",
+            "ANEP",
+            "RESB"
+          ],
+          "question": "Bảng nào lưu lịch sử Goods Receipt và Invoice Receipt của từng Purchase Order item, tương tự vai trò của VBFA bên SD?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 2,
+          "difficulty": "advanced",
+          "explanation": "Payment Block ngăn hóa đơn có chênh lệch được đưa vào đợt thanh toán cho đến khi xác minh xong.",
+          "id": "p2p-advanced-06",
+          "options": [
+            "Credit Block",
+            "Delivery Block",
+            "Payment Block",
+            "Purchasing Block"
+          ],
+          "question": "Cơ chế nào ngăn thanh toán cho hóa đơn có chênh lệch (variance) so với PO/GR?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 2,
+          "difficulty": "advanced",
+          "explanation": "F110 là giao dịch chạy thanh toán tự động, xử lý các hóa đơn đã qua MIRO và không bị Payment Block, chuyển từ open item (BSIK) sang cleared item (BSAK).",
+          "id": "p2p-advanced-07",
+          "options": [
+            "ME21N",
+            "MIRO",
+            "F110",
+            "AFAB"
+          ],
+          "question": "Giao dịch nào thực hiện bước cuối cùng của quy trình P2P - thanh toán tự động cho nhà cung cấp?",
+          "type": "multiple-choice"
+        },
+        {
+          "answerIndex": 1,
+          "difficulty": "advanced",
+          "explanation": "3-way match là cơ chế kiểm soát xuyên suốt cả Purchase Order, Goods Receipt và Invoice, là trụ cột đảm bảo tính chính xác của toàn bộ quy trình P2P trước khi thanh toán.",
+          "id": "p2p-advanced-08",
+          "options": [
+            "Availability Check",
+            "3-way match (PO - GR - Invoice)",
+            "Credit Management",
+            "Depreciation Run"
+          ],
+          "question": "Cơ chế nào đảm bảo tính chính xác xuyên suốt giữa Purchase Order, Goods Receipt và Invoice trước khi thanh toán?",
+          "type": "multiple-choice"
+        }
+      ]
+    }
+  ]
+}
